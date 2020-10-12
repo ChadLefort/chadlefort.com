@@ -49,8 +49,8 @@ export const Header: React.FC = () => {
         <Grid container item justify="center" xs={12} className={classes.avatar}>
           <Avatar alt="Chad Lefort" src={me} className={classes.large} />
         </Grid>
-        <Grid container item xs={6}>
-          <Grid item xs={4}>
+        <Grid container item xs={12} md={6}>
+          <Grid item xs={12} md={4}>
             <Card className={classes.card}>
               <CardContent>
                 <Box display="flex" justifyContent="center">
@@ -65,7 +65,7 @@ export const Header: React.FC = () => {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} md={4}>
             <Card className={classes.card}>
               <CardContent>
                 <Box display="flex" justifyContent="center">
@@ -80,7 +80,7 @@ export const Header: React.FC = () => {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} md={4}>
             <Card className={classes.card}>
               <CardContent>
                 <Box display="flex" justifyContent="center">
