@@ -29,7 +29,7 @@ export const Education: React.FC = () => {
   const classes = useStyles();
 
   return (
-    <Grid item xs={12} className={classes.root}>
+    <Grid item xs={12} className={classes.root} id="education">
       <Grid container justify="center">
         <Grid item xs={12} md={6}>
           <Typography variant="h4" align="center" gutterBottom>
@@ -37,10 +37,10 @@ export const Education: React.FC = () => {
           </Typography>
           <Grid container justify="space-between">
             <Grid item>
-              <Typography variant="h5" gutterBottom>
+              <Typography variant="h5" component="h1" gutterBottom>
                 Nicholls State University
               </Typography>
-              <Typography variant="subtitle2" color="textSecondary">
+              <Typography variant="subtitle2" component="h2" color="textSecondary">
                 Bachelor of Science (B.S.)
               </Typography>
               <Typography variant="body2" color="textSecondary" gutterBottom>
@@ -97,13 +97,17 @@ export const Education: React.FC = () => {
               <ListItemText primary="GPA: 3.6" />
             </ListItem>
           </List>
-          <Typography variant="h6">Awards</Typography>
+          <Typography variant="h6" component="h3">
+            Awards
+          </Typography>
           <List dense>
             <ListItem>
               <ListItemText primary="Consistently been awarded the President’s List award since the Fall 2010 semester. The President’s List award requires a student to maintain a scholastic GPA of 3.5 or higher." />
             </ListItem>
           </List>
-          <Typography variant="h6">Organizations</Typography>
+          <Typography variant="h6" component="h3">
+            Organizations
+          </Typography>
           <List dense>
             <ListItem>
               <ListItemText primary="Member of Beta Gamma Sigma. It is the highest recognition a business student anywhere in the world can receive in a business program accredited by AACSB International." />

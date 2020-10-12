@@ -22,11 +22,11 @@ export const Contact: React.FC = () => {
   const classes = useStyles();
 
   return (
-    <Grid item xs={12} className={classes.root}>
+    <Grid item xs={12} className={classes.root} id="contact">
       <Grid container justify="center">
         <Grid item xs={12} md={6}>
           <Typography variant="h4" align="center" gutterBottom>
-            Contact Me
+            Contact
           </Typography>
           <Typography paragraph align="center" gutterBottom>
             Have questions, a job opportunity, or want to hire me to develop a website? Let's get in touch.
@@ -41,6 +41,7 @@ export const Contact: React.FC = () => {
               component="a"
               href="mailto:chadlefort@gmail.com"
               target="_blank"
+              rel="noopener"
             >
               Email
             </Button>
@@ -53,6 +54,7 @@ export const Contact: React.FC = () => {
               component="a"
               href="https://github.com/ChadLefort"
               target="_blank"
+              rel="noopener"
             >
               Github
             </Button>
@@ -65,6 +67,7 @@ export const Contact: React.FC = () => {
               component="a"
               href="http://www.linkedin.com/in/chadlefort"
               target="_blank"
+              rel="noopener"
             >
               Linkedin
             </Button>
@@ -77,6 +80,7 @@ export const Contact: React.FC = () => {
               component="a"
               href="http://twitter.com/ChadLefort"
               target="_blank"
+              rel="noopener"
             >
               Twitter
             </Button>

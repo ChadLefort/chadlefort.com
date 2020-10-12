@@ -1,14 +1,11 @@
 import ChevronRightIcon from 'mdi-material-ui/ChevronRight';
 import Grid from '@material-ui/core/Grid';
-import HotelIcon from 'mdi-material-ui/OfficeBuilding';
-import LaptopMacIcon from 'mdi-material-ui/LaptopMac';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 import React from 'react';
-import RepeatIcon from 'mdi-material-ui/Repeat';
 import Timeline from '@material-ui/lab/Timeline';
 import TimelineConnector from '@material-ui/lab/TimelineConnector';
 import TimelineContent from '@material-ui/lab/TimelineContent';
@@ -27,9 +24,6 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     backgroundColor: theme.palette.grey[200]
-  },
-  timelineDate: {
-    lineHeight: 2.5
   }
 }));
 
@@ -37,7 +31,7 @@ export const SiteTimeline: React.FC = () => {
   const classes = useStyles();
 
   return (
-    <Grid item xs={12} className={classes.root}>
+    <Grid item xs={12} className={classes.root} id="job-experience">
       <Grid container justify="center">
         <Grid item xs={12} md={6}>
           <Typography variant="h4" align="center" gutterBottom>
@@ -46,14 +40,12 @@ export const SiteTimeline: React.FC = () => {
           <Timeline align="alternate">
             <TimelineItem>
               <TimelineOppositeContent>
-                <Typography variant="body2" color="textSecondary" className={classes.timelineDate}>
+                <Typography variant="body2" color="textSecondary">
                   July 2017 - Present
                 </Typography>
               </TimelineOppositeContent>
               <TimelineSeparator>
-                <TimelineDot color="primary">
-                  <LaptopMacIcon />
-                </TimelineDot>
+                <TimelineDot color="primary" />
                 <TimelineConnector />
               </TimelineSeparator>
               <TimelineContent>
@@ -95,14 +87,12 @@ export const SiteTimeline: React.FC = () => {
             </TimelineItem>
             <TimelineItem>
               <TimelineOppositeContent>
-                <Typography variant="body2" color="textSecondary" className={classes.timelineDate}>
+                <Typography variant="body2" color="textSecondary">
                   November 2014 – July 2017
                 </Typography>
               </TimelineOppositeContent>
               <TimelineSeparator>
-                <TimelineDot color="primary" variant="outlined">
-                  <HotelIcon />
-                </TimelineDot>
+                <TimelineDot color="primary" variant="outlined" />
                 <TimelineConnector />
               </TimelineSeparator>
               <TimelineContent>
@@ -138,14 +128,12 @@ export const SiteTimeline: React.FC = () => {
             </TimelineItem>
             <TimelineItem>
               <TimelineOppositeContent>
-                <Typography variant="body2" color="textSecondary" className={classes.timelineDate}>
+                <Typography variant="body2" color="textSecondary">
                   December 2013 – November 2014
                 </Typography>
               </TimelineOppositeContent>
               <TimelineSeparator>
-                <TimelineDot>
-                  <RepeatIcon />
-                </TimelineDot>
+                <TimelineDot />
               </TimelineSeparator>
               <TimelineContent>
                 <Paper elevation={3} className={classes.paper}>

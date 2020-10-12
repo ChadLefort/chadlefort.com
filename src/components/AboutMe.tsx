@@ -14,7 +14,7 @@ export const AboutMe: React.FC = () => {
   const classes = useStyles();
 
   return (
-    <Grid item xs={12} className={classes.root}>
+    <Grid item xs={12} className={classes.root} id="about-me">
       <Grid container justify="center">
         <Grid item xs={12} md={6}>
           <Typography variant="h4" align="center" gutterBottom>

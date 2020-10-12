@@ -1,7 +1,7 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
 import React from 'react';
 import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
-import { grey, red } from '@material-ui/core/colors';
+import { grey } from '@material-ui/core/colors';
 
 export const SiteTheme: React.FC = ({ children }) => {
   const muiTheme = responsiveFontSizes(
@@ -11,11 +11,14 @@ export const SiteTheme: React.FC = ({ children }) => {
           main: grey[800]
         },
         secondary: {
-          main: red[500]
+          main: grey[500]
         },
         background: {
           default: grey[300],
           paper: grey[100]
+        },
+        text: {
+          secondary: 'rgba(0, 0, 0, 0.6)'
         }
       },
       typography: {
