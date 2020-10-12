@@ -1,18 +1,25 @@
-import AppBar from '@material-ui/core/AppBar';
 import ArrowUpCircleIcon from 'mdi-material-ui/ArrowUpCircle';
-import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import React, { useEffect, useState } from 'react';
-import Toolbar from '@material-ui/core/Toolbar';
-import { animateScroll, Link } from 'react-scroll';
+import { animateScroll } from 'react-scroll';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { Nav } from './Nav';
 import { SiteTheme } from './SiteTheme';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     offset: theme.mixins.toolbar,
     toolbar: {
-      justifyContent: 'center'
+      justifyContent: 'center',
+      [theme.breakpoints.down('sm')]: {
+        justifyContent: 'space-between'
+      }
+    },
+    logo: {
+      fontFamily: `'Economica', sans-serif`
+    },
+    list: {
+      width: 250
     },
     link: {
       cursor: 'pointer',
@@ -28,14 +35,17 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'fixed',
       bottom: 30,
       right: 30,
-      cursor: 'pointer'
+      cursor: 'pointer',
+      [theme.breakpoints.down('sm')]: {
+        bottom: 10,
+        right: 10
+      }
     }
   })
 );
 
 export const Layout: React.FC = ({ children }) => {
   const classes = useStyles();
-  const offset = -65;
   const duration = 500;
   const [atTopOfPage, setAtTopOfPage] = useState(true);
 
@@ -51,33 +61,15 @@ export const Layout: React.FC = ({ children }) => {
         setAtTopOfPage(true);
       }
     };
+
     window.addEventListener('scroll', handleScroll);
 
     return () => window.removeEventListener('scroll', handleScroll);
-  });
+  }, []);
 
   return (
     <SiteTheme>
-      <AppBar position="fixed">
-        <Toolbar className={classes.toolbar}>
-          <Link to="job-experience" spy smooth duration={duration} offset={offset} className={classes.link} activeClass={classes.activeLink}>
-            Job Experience
-          </Link>
-          <Link to="skills" spy smooth duration={duration} offset={offset} className={classes.link} activeClass={classes.activeLink}>
-            Skills
-          </Link>
-          <Link to="education" spy smooth duration={duration} offset={offset} className={classes.link} activeClass={classes.activeLink}>
-            Education
-          </Link>
-          <Link to="about-me" spy smooth duration={duration} offset={offset} className={classes.link} activeClass={classes.activeLink}>
-            About Me
-          </Link>
-          <Link to="contact" spy smooth duration={duration} offset={offset} className={classes.link} activeClass={classes.activeLink}>
-            Contact
-          </Link>
-        </Toolbar>
-      </AppBar>
-      <Box className={classes.offset} />
+      <Nav />
       <Grid container justify="center" alignContent="center">
         {children}
       </Grid>

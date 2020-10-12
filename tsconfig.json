@@ -13,7 +13,6 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "strict": true,
-    "baseUrl": "src",
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "esModuleInterop": true,

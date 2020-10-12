@@ -5,8 +5,11 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    padding: theme.spacing(8, 0),
-    backgroundColor: theme.palette.grey[400]
+    padding: theme.spacing(8, 2),
+    backgroundColor: theme.palette.grey[400],
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(4, 2)
+    }
   }
 }));
 
@@ -16,7 +19,7 @@ export const AboutMe: React.FC = () => {
   return (
     <Grid item xs={12} className={classes.root} id="about-me">
       <Grid container justify="center">
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={10} lg={8} xl={6}>
           <Typography variant="h4" align="center" gutterBottom>
             About Me
           </Typography>

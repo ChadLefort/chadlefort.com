@@ -1,8 +1,7 @@
-import ChevronRightIcon from 'mdi-material-ui/ChevronRight';
 import Grid from '@material-ui/core/Grid';
+import Hidden from '@material-ui/core/Hidden';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 import React from 'react';
@@ -15,33 +14,53 @@ import TimelineOppositeContent from '@material-ui/lab/TimelineOppositeContent';
 import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import { useScreenSize } from '../hooks/useScreenSize';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    padding: theme.spacing(8, 0),
-    backgroundColor: theme.palette.grey[300]
+    padding: theme.spacing(8, 2),
+    backgroundColor: theme.palette.grey[300],
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(4, 2)
+    }
   },
   paper: {
     padding: theme.spacing(2),
     backgroundColor: theme.palette.grey[200]
+  },
+  timeline: {
+    padding: '6px 16px',
+    [theme.breakpoints.down('sm')]: {
+      padding: '6px 0'
+    }
+  },
+  timelineOpposite: {
+    display: 'block',
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
+    }
   }
 }));
 
 export const SiteTimeline: React.FC = () => {
   const classes = useStyles();
+  const { isSmallDown } = useScreenSize();
+  const veriforceDate = 'July 2017 - Present';
+  const netchexDate = 'November 2014 – July 2017';
+  const chouestDate = 'December 2013 – November 2014';
 
   return (
     <Grid item xs={12} className={classes.root} id="job-experience">
       <Grid container justify="center">
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={10} lg={8} xl={6}>
           <Typography variant="h4" align="center" gutterBottom>
             Job Experience
           </Typography>
-          <Timeline align="alternate">
+          <Timeline align={isSmallDown ? 'left' : 'alternate'} className={classes.timeline}>
             <TimelineItem>
-              <TimelineOppositeContent>
+              <TimelineOppositeContent className={classes.timelineOpposite}>
                 <Typography variant="body2" color="textSecondary">
-                  July 2017 - Present
+                  {veriforceDate}
                 </Typography>
               </TimelineOppositeContent>
               <TimelineSeparator>
@@ -56,29 +75,22 @@ export const SiteTimeline: React.FC = () => {
                   <Typography variant="subtitle2" component="h2" color="textSecondary" gutterBottom>
                     Senior Frontend Developer
                   </Typography>
+                  <Hidden mdUp>
+                    <Typography variant="body2" color="textSecondary">
+                      {veriforceDate}
+                    </Typography>
+                  </Hidden>
                   <List>
                     <ListItem>
-                      <ListItemIcon>
-                        <ChevronRightIcon />
-                      </ListItemIcon>
                       <ListItemText primary="Pivotal role in the process of architecting newly developed applications in React, Redux, Typescript, and Material-UI." />
                     </ListItem>
                     <ListItem>
-                      <ListItemIcon>
-                        <ChevronRightIcon />
-                      </ListItemIcon>
                       <ListItemText primary="Set up a mono repo for over a dozen React applications and several private NPM packages using Lerna and Jenkins." />
                     </ListItem>
                     <ListItem>
-                      <ListItemIcon>
-                        <ChevronRightIcon />
-                      </ListItemIcon>
                       <ListItemText primary="Created the first private NPM package and build processes to share code between React/legacy applications." />
                     </ListItem>
                     <ListItem>
-                      <ListItemIcon>
-                        <ChevronRightIcon />
-                      </ListItemIcon>
                       <ListItemText primary="Implemented Typescript into existing React applications." />
                     </ListItem>
                   </List>
@@ -86,9 +98,9 @@ export const SiteTimeline: React.FC = () => {
               </TimelineContent>
             </TimelineItem>
             <TimelineItem>
-              <TimelineOppositeContent>
+              <TimelineOppositeContent className={classes.timelineOpposite}>
                 <Typography variant="body2" color="textSecondary">
-                  November 2014 – July 2017
+                  {netchexDate}
                 </Typography>
               </TimelineOppositeContent>
               <TimelineSeparator>
@@ -103,23 +115,19 @@ export const SiteTimeline: React.FC = () => {
                   <Typography variant="subtitle2" component="h2" color="textSecondary" gutterBottom>
                     Software Developer
                   </Typography>
+                  <Hidden mdUp>
+                    <Typography variant="body2" color="textSecondary">
+                      {netchexDate}
+                    </Typography>
+                  </Hidden>
                   <List>
                     <ListItem>
-                      <ListItemIcon>
-                        <ChevronRightIcon />
-                      </ListItemIcon>
                       <ListItemText primary="Worked in a agile scrum environment doing full stack development on an application that specialized in payroll, benefits, and human resources." />
                     </ListItem>
                     <ListItem>
-                      <ListItemIcon>
-                        <ChevronRightIcon />
-                      </ListItemIcon>
                       <ListItemText primary="Developed back-end code base using domain driven design with C#, Web API, and MVC5." />
                     </ListItem>
                     <ListItem>
-                      <ListItemIcon>
-                        <ChevronRightIcon />
-                      </ListItemIcon>
                       <ListItemText primary="Developed frontend single page applications using AngularJS, TypeScript, Bootstrap, and LESS." />
                     </ListItem>
                   </List>
@@ -127,9 +135,9 @@ export const SiteTimeline: React.FC = () => {
               </TimelineContent>
             </TimelineItem>
             <TimelineItem>
-              <TimelineOppositeContent>
+              <TimelineOppositeContent className={classes.timelineOpposite}>
                 <Typography variant="body2" color="textSecondary">
-                  December 2013 – November 2014
+                  {chouestDate}
                 </Typography>
               </TimelineOppositeContent>
               <TimelineSeparator>
@@ -143,11 +151,13 @@ export const SiteTimeline: React.FC = () => {
                   <Typography variant="subtitle2" component="h2" color="textSecondary" gutterBottom>
                     PLC Programmer
                   </Typography>
+                  <Hidden mdUp>
+                    <Typography variant="body2" color="textSecondary">
+                      {chouestDate}
+                    </Typography>
+                  </Hidden>
                   <List>
                     <ListItem>
-                      <ListItemIcon>
-                        <ChevronRightIcon />
-                      </ListItemIcon>
                       <ListItemText primary="Implemented automation systems on new vessels using ladder logic." />
                     </ListItem>
                   </List>
