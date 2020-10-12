@@ -3,8 +3,13 @@ import { graphql, useStaticQuery } from 'gatsby';
 type Data = {
   title: string;
   siteUrl: string;
+  siteName: string;
   description: string;
   lang: string;
+  avatar: string;
+  image: string;
+  email: string;
+  jobTitle: string;
 };
 
 export function useSiteMetadata() {
@@ -17,8 +22,13 @@ export function useSiteMetadata() {
           siteMetadata {
             title
             siteUrl
+            siteName
             description
             lang
+            avatar
+            image
+            email
+            jobTitle
           }
         }
       }

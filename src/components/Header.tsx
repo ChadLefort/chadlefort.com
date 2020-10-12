@@ -4,7 +4,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
-import me from '../images/me.png';
+import me from '../../static/me.png';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { Logo } from './Logo';
