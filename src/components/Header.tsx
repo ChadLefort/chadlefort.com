@@ -16,7 +16,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     padding: theme.spacing(8, 2),
-    backgroundColor: theme.palette.grey[400],
+    backgroundColor: theme.palette.grey[300],
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(4, 2)
     },

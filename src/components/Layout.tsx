@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(0, 2)
     },
     activeLink: {
-      color: theme.palette.grey[300],
+      color: theme.palette.grey[200],
       fontWeight: theme.typography.fontWeightBold
     },
     scrollToTop: {

@@ -11,7 +11,7 @@ import { useScreenSize } from '../hooks/useScreenSize';
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     padding: theme.spacing(8, 2),
-    backgroundColor: theme.palette.grey[300],
+    backgroundColor: theme.palette.grey[200],
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(4, 2)
     },
