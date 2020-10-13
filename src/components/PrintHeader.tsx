@@ -4,7 +4,7 @@ import DesktopClassicIcon from 'mdi-material-ui/DesktopClassic';
 import EmailIcon from 'mdi-material-ui/Email';
 import GithubIcon from 'mdi-material-ui/Github';
 import Grid from '@material-ui/core/Grid';
-import me from '../../static/me.png';
+import me from '../../static/me.webp';
 import PhoneIcon from 'mdi-material-ui/Phone';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -48,7 +48,7 @@ export const PrintHeader: React.FC = () => {
             <Typography className={classes.name} variant="h2" component="h1">
               Chad Lefort
             </Typography>
-            <Typography color="textSecondary" variant="h4">
+            <Typography color="textSecondary" variant="h5">
               Frontend Developer
             </Typography>
           </Grid>

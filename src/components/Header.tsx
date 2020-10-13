@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import FileDownloadIcon from 'mdi-material-ui/FileDownload';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
-import me from '../../static/me.png';
+import me from '../../static/me.webp';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { Logo } from './Logo';
