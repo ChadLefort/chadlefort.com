@@ -1,6 +1,7 @@
 import ArrowUpCircleIcon from 'mdi-material-ui/ArrowUpCircle';
 import Grid from '@material-ui/core/Grid';
 import React, { useEffect, useState } from 'react';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { animateScroll } from 'react-scroll';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Nav } from './Nav';
@@ -48,6 +49,7 @@ export const Layout: React.FC = ({ children }) => {
   const classes = useStyles();
   const duration = 500;
   const [atTopOfPage, setAtTopOfPage] = useState(true);
+  const isPrint = useMediaQuery('print');
 
   const scrollToTop = () => {
     animateScroll.scrollToTop({ duration });
@@ -70,10 +72,8 @@ export const Layout: React.FC = ({ children }) => {
   return (
     <SiteTheme>
       <Nav />
-      <Grid container justify="center" alignContent="center">
-        {children}
-      </Grid>
-      <ArrowUpCircleIcon onClick={scrollToTop} className={classes.scrollToTop} style={atTopOfPage ? { display: 'none' } : { display: 'block' }} />
+      <Grid container={!isPrint}>{children}</Grid>
+      <ArrowUpCircleIcon onClick={scrollToTop} className={classes.scrollToTop} style={atTopOfPage || isPrint ? { display: 'none' } : { display: 'block' }} />
     </SiteTheme>
   );
 };

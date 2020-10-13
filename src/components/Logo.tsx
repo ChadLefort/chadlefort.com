@@ -8,7 +8,7 @@ import { TypographyProps } from '@material-ui/core/Typography/Typography';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     logo: {
-      fontFamily: `'Economica', sans-serif`
+      fontFamily: `"Economica", "Helvetica", "Arial", sans-serif`
     },
     logoIcon: {
       marginRight: theme.spacing(1),

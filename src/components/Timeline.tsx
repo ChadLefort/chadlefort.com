@@ -1,7 +1,6 @@
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 import React from 'react';
@@ -13,6 +12,7 @@ import TimelineItem from '@material-ui/lab/TimelineItem';
 import TimelineOppositeContent from '@material-ui/lab/TimelineOppositeContent';
 import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
 import Typography from '@material-ui/core/Typography';
+import { ListItem } from './ListItem';
 import { makeStyles } from '@material-ui/core/styles';
 import { useScreenSize } from '../hooks/useScreenSize';
 
@@ -22,6 +22,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.grey[300],
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(4, 2)
+    },
+    '@media print': {
+      padding: theme.spacing(1.5, 0),
+      backgroundColor: theme.palette.common.white
     }
   },
   paper: {
@@ -32,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
     padding: '6px 16px',
     [theme.breakpoints.down('sm')]: {
       padding: '6px 0'
+    },
+    '@media print': {
+      padding: 0
     }
   },
   timelineOpposite: {
@@ -44,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const SiteTimeline: React.FC = () => {
   const classes = useStyles();
-  const { isSmallDown } = useScreenSize();
+  const { isSmallDown, isPrint } = useScreenSize();
   const veriforceDate = 'July 2017 - Present';
   const netchexDate = 'November 2014 – July 2017';
   const chouestDate = 'December 2013 – November 2014';
@@ -80,7 +87,7 @@ export const SiteTimeline: React.FC = () => {
                       {veriforceDate}
                     </Typography>
                   </Hidden>
-                  <List>
+                  <List dense={isPrint}>
                     <ListItem>
                       <ListItemText primary="Pivotal role in the process of architecting newly developed applications in React, Redux, Typescript, and Material-UI." />
                     </ListItem>
@@ -120,7 +127,7 @@ export const SiteTimeline: React.FC = () => {
                       {netchexDate}
                     </Typography>
                   </Hidden>
-                  <List>
+                  <List dense={isPrint}>
                     <ListItem>
                       <ListItemText primary="Worked in a agile scrum environment doing full stack development on an application that specialized in payroll, benefits, and human resources." />
                     </ListItem>
@@ -156,7 +163,7 @@ export const SiteTimeline: React.FC = () => {
                       {chouestDate}
                     </Typography>
                   </Hidden>
-                  <List>
+                  <List dense={isPrint}>
                     <ListItem>
                       <ListItemText primary="Implemented automation systems on new vessels using ladder logic." />
                     </ListItem>

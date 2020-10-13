@@ -23,6 +23,11 @@ import { useScreenSize } from '../hooks/useScreenSize';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     offset: theme.mixins.toolbar,
+    root: {
+      '@media print': {
+        display: 'none'
+      }
+    },
     toolbar: {
       justifyContent: 'center',
       [theme.breakpoints.down('sm')]: {
@@ -94,7 +99,7 @@ export const Nav: React.FC = () => {
   );
 
   return (
-    <>
+    <Box className={classes.root}>
       <AppBar position="fixed">
         <Toolbar className={classes.toolbar}>
           <Hidden smDown>
@@ -116,6 +121,6 @@ export const Nav: React.FC = () => {
         </Toolbar>
       </AppBar>
       <Box className={classes.offset} />
-    </>
+    </Box>
   );
 };

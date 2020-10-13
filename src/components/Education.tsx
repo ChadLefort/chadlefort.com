@@ -1,10 +1,10 @@
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import { ListItem } from './ListItem';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useScreenSize } from '../hooks/useScreenSize';
 
@@ -14,6 +14,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: theme.palette.grey[300],
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(4, 2)
+    },
+    '@media print': {
+      padding: theme.spacing(1.5, 0),
+      backgroundColor: theme.palette.common.white,
+      pageBreakBefore: 'always'
     }
   },
   button: {
@@ -83,7 +88,7 @@ export const NichollsLogo: React.FC = () => {
 
 export const Education: React.FC = () => {
   const classes = useStyles();
-  const { isSmallDown } = useScreenSize();
+  const { isSmallDown, isPrint } = useScreenSize();
 
   return (
     <Grid item xs={12} className={classes.root} id="education">
@@ -92,24 +97,24 @@ export const Education: React.FC = () => {
           <Typography variant="h4" align="center" gutterBottom>
             Education
           </Typography>
-          <Grid container justify="space-between" direction={isSmallDown ? 'column-reverse' : 'row'}>
-            <Grid item xs={12} md={10}>
-              <Typography variant="h5" component="h1" gutterBottom align={isSmallDown ? 'center' : 'inherit'}>
+          <Grid container justify="space-between" direction={isSmallDown && !isPrint ? 'column-reverse' : 'row'}>
+            <Grid item xs={isPrint ? 10 : 12} md={10}>
+              <Typography variant="h5" component="h1" gutterBottom align={isSmallDown && !isPrint ? 'center' : 'inherit'}>
                 Nicholls State University
               </Typography>
-              <Typography variant="subtitle2" component="h2" color="textSecondary" align={isSmallDown ? 'center' : 'inherit'}>
+              <Typography variant="subtitle2" component="h2" color="textSecondary" align={isSmallDown && !isPrint ? 'center' : 'inherit'}>
                 Bachelor of Science (B.S.)
               </Typography>
-              <Typography variant="body2" color="textSecondary" gutterBottom align={isSmallDown ? 'center' : 'inherit'}>
+              <Typography variant="body2" color="textSecondary" gutterBottom align={isSmallDown && !isPrint ? 'center' : 'inherit'}>
                 August 2009 - December 2013
               </Typography>
             </Grid>
-            <Grid item xs={12} md={2} className={classes.item}>
+            <Grid item xs={isPrint ? 2 : 12} md={2} className={classes.item}>
               <NichollsLogo />
             </Grid>
           </Grid>
           <Divider className={classes.divider} />
-          <List>
+          <List dense={isPrint}>
             <ListItem>
               <ListItemText primary="Majored in Computer Information Systems" />
             </ListItem>
@@ -128,7 +133,7 @@ export const Education: React.FC = () => {
           <Typography variant="h6" component="h3">
             Organizations
           </Typography>
-          <List>
+          <List dense={isPrint}>
             <ListItem>
               <ListItemText primary="Member of Beta Gamma Sigma. It is the highest recognition a business student anywhere in the world can receive in a business program accredited by AACSB International." />
             </ListItem>

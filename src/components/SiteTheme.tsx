@@ -23,13 +23,19 @@ export const SiteTheme: React.FC = ({ children }) => {
       },
       typography: {
         body1: {
-          fontFamily: `'Open Sans', sans-serif`
+          fontFamily: `"Open Sans", "Helvetica", "Arial", sans-serif`,
+          '@media print': {
+            fontSize: 12
+          }
         },
         body2: {
-          fontFamily: `'Open Sans', sans-serif`
+          fontFamily: `"Open Sans", "Helvetica", "Arial", sans-serif`,
+          '@media print': {
+            fontSize: 12
+          }
         },
         button: {
-          fontFamily: `'Open Sans', sans-serif`
+          fontFamily: `"Open Sans", "Helvetica", "Arial", sans-serif`
         }
       },
       props: {

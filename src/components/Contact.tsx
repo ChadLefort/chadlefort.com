@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: theme.palette.grey[300],
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(4, 2)
+    },
+    '@media print': {
+      display: 'none'
     }
   },
   button: {
