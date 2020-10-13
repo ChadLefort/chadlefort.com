@@ -40,10 +40,6 @@ const useStyles = makeStyles((theme: Theme) =>
     link: {
       cursor: 'pointer',
       margin: theme.spacing(0, 2)
-    },
-    activeLink: {
-      color: theme.palette.grey[300],
-      fontWeight: theme.typography.fontWeightBold
     }
   })
 );
@@ -54,13 +50,13 @@ export const Nav: React.FC = () => {
   const duration = 500;
   const smooth = 'easeInOutQuart';
   const [drawer, setDrawer] = React.useState(false);
-  const { smallDown } = useScreenSize();
+  const { isSmallDown } = useScreenSize();
 
   const scrollToSection = (section: string) => (_event: React.KeyboardEvent | React.MouseEvent) => {
     scroller.scrollTo(section, {
       duration,
       smooth,
-      offset: smallDown ? -55 : deskTopOffset
+      offset: isSmallDown ? -55 : deskTopOffset
     });
   };
 
@@ -104,7 +100,7 @@ export const Nav: React.FC = () => {
         <Toolbar className={classes.toolbar}>
           <Hidden smDown>
             {links.map(({ to, label }, index) => (
-              <Link key={index} to={to} spy offset={deskTopOffset} duration={duration} smooth={smooth} className={classes.link} activeClass={classes.activeLink}>
+              <Link key={index} to={to} spy offset={deskTopOffset} duration={duration} smooth={smooth} className={classes.link}>
                 {label}
               </Link>
             ))}

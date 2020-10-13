@@ -30,7 +30,11 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
-    backgroundColor: theme.palette.grey[200]
+    backgroundColor: theme.palette.grey[200],
+    '@media print': {
+      padding: theme.spacing(1.5),
+      backgroundColor: theme.palette.common.white
+    }
   },
   timeline: {
     padding: '6px 16px',
@@ -75,7 +79,7 @@ export const SiteTimeline: React.FC = () => {
                 <TimelineConnector />
               </TimelineSeparator>
               <TimelineContent>
-                <Paper elevation={3} className={classes.paper}>
+                <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
                   <Typography variant="h6" component="h1">
                     Veriforce
                   </Typography>
@@ -115,7 +119,7 @@ export const SiteTimeline: React.FC = () => {
                 <TimelineConnector />
               </TimelineSeparator>
               <TimelineContent>
-                <Paper elevation={3} className={classes.paper}>
+                <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
                   <Typography variant="h6" component="h1">
                     Netchex
                   </Typography>
@@ -151,7 +155,7 @@ export const SiteTimeline: React.FC = () => {
                 <TimelineDot />
               </TimelineSeparator>
               <TimelineContent>
-                <Paper elevation={3} className={classes.paper}>
+                <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
                   <Typography variant="h6" component="h1">
                     Edison Chouest Offshore
                   </Typography>

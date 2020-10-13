@@ -1,7 +1,9 @@
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import FileDownloadIcon from 'mdi-material-ui/FileDownload';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import me from '../../static/me.png';
@@ -43,8 +45,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(2),
     backgroundColor: theme.palette.grey[200]
   },
-  cardIcon: {
-    fontSize: theme.typography.h1.fontSize
+  button: {
+    margin: theme.spacing(2, 1)
   }
 }));
 
@@ -64,7 +66,7 @@ export const Header: React.FC = () => {
         </Grid>
         <Grid container item xs={12} md={10} lg={8} xl={6}>
           <Grid item xs={12} md={4} className={classes.item}>
-            <Card className={classes.card}>
+            <Card elevation={0} className={classes.card}>
               <CardContent>
                 <Typography align="center" gutterBottom variant="h5" component="h2">
                   Passionate
@@ -76,7 +78,7 @@ export const Header: React.FC = () => {
             </Card>
           </Grid>
           <Grid item xs={12} md={4} className={classes.item}>
-            <Card className={classes.card}>
+            <Card elevation={0} className={classes.card}>
               <CardContent>
                 <Typography align="center" gutterBottom variant="h5" component="h2">
                   Always Learning
@@ -88,7 +90,7 @@ export const Header: React.FC = () => {
             </Card>
           </Grid>
           <Grid item xs={12} md={4} className={classes.item}>
-            <Card className={classes.card}>
+            <Card elevation={0} className={classes.card}>
               <CardContent>
                 <Typography align="center" gutterBottom variant="h5" component="h2">
                   Motivated
@@ -98,6 +100,20 @@ export const Header: React.FC = () => {
                 </Typography>
               </CardContent>
             </Card>
+          </Grid>
+          <Grid item container justify="center">
+            <Button
+              color="primary"
+              variant="contained"
+              size="large"
+              startIcon={<FileDownloadIcon />}
+              className={classes.button}
+              component="a"
+              href="/Chad Lefort - Résumé.pdf"
+              download
+            >
+              Download Résumé
+            </Button>
           </Grid>
         </Grid>
       </Grid>
