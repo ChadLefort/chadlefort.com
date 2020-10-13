@@ -4,7 +4,8 @@ import DesktopClassicIcon from 'mdi-material-ui/DesktopClassic';
 import EmailIcon from 'mdi-material-ui/Email';
 import GithubIcon from 'mdi-material-ui/Github';
 import Grid from '@material-ui/core/Grid';
-import me from '../../static/me.webp';
+import mePNG from '../../static/me.png';
+import meWebP from '../../static/me.webp';
 import PhoneIcon from 'mdi-material-ui/Phone';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -36,13 +37,16 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const PrintHeader: React.FC = () => {
   const classes = useStyles();
+  const onError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    event.currentTarget.src = mePNG;
+  };
 
   return (
     <Grid item xs={12} className={classes.root}>
       <Grid container justify="space-between">
         <Grid container item xs={8} alignItems="center">
           <Grid item className={classes.avatar}>
-            <Avatar alt="Chad Lefort" src={me} className={classes.medium} />
+            <Avatar alt="Chad Lefort" src={meWebP} className={classes.medium} imgProps={{ onError }} />
           </Grid>
           <Grid item>
             <Typography className={classes.name} variant="h2" component="h1">

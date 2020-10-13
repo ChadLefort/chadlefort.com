@@ -6,7 +6,8 @@ import CardContent from '@material-ui/core/CardContent';
 import FileDownloadIcon from 'mdi-material-ui/FileDownload';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
-import me from '../../static/me.webp';
+import mePNG from '../../static/me.png';
+import meWebP from '../../static/me.webp';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { Logo } from './Logo';
@@ -52,6 +53,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const Header: React.FC = () => {
   const classes = useStyles();
+  const onError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    event.currentTarget.src = mePNG;
+  };
 
   return (
     <Grid item xs={12} className={classes.root}>
@@ -62,7 +66,7 @@ export const Header: React.FC = () => {
       </Hidden>
       <Grid container justify="center">
         <Grid container item justify="center" xs={12} className={classes.avatar}>
-          <Avatar alt="Chad Lefort" src={me} className={classes.large} />
+          <Avatar alt="Chad Lefort" src={meWebP} className={classes.large} imgProps={{ onError }} />
         </Grid>
         <Grid container item xs={12} md={10} lg={8} xl={6}>
           <Grid item xs={12} md={4} className={classes.item}>
