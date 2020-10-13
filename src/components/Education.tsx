@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(8, 2),
     backgroundColor: theme.palette.grey[200],
     [theme.breakpoints.down('sm')]: {
-      padding: theme.spacing(4, 2)
+      padding: theme.spacing(4)
     },
     '@media print': {
       padding: theme.spacing(1.5, 0),

@@ -38,8 +38,8 @@ const useStyles = makeStyles((theme: Theme) =>
       right: 30,
       cursor: 'pointer',
       [theme.breakpoints.down('sm')]: {
-        bottom: 10,
-        right: 10
+        bottom: 5,
+        right: 5
       }
     }
   })

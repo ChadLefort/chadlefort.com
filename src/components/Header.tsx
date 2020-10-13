@@ -12,13 +12,14 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { Logo } from './Logo';
 import { makeStyles, Theme } from '@material-ui/core/styles';
+import { useScreenSize } from '../hooks/useScreenSize';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     padding: theme.spacing(8, 2),
     backgroundColor: theme.palette.grey[300],
     [theme.breakpoints.down('sm')]: {
-      padding: theme.spacing(4, 2)
+      padding: theme.spacing(4)
     },
     '@media print': {
       display: 'none'
@@ -43,16 +44,20 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     height: '100%',
-    padding: theme.spacing(2),
+    padding: theme.spacing(2, 0),
     backgroundColor: theme.palette.grey[200]
   },
   button: {
-    margin: theme.spacing(2, 1)
+    margin: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      margin: theme.spacing(1, 2)
+    }
   }
 }));
 
 export const Header: React.FC = () => {
   const classes = useStyles();
+  const { isSmallDown } = useScreenSize();
   const onError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
     event.currentTarget.src = mePNG;
   };
@@ -115,6 +120,7 @@ export const Header: React.FC = () => {
               component="a"
               href="/Chad Lefort - Résumé.pdf"
               download
+              fullWidth={isSmallDown}
             >
               Download Résumé
             </Button>

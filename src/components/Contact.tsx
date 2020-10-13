@@ -7,25 +7,30 @@ import React from 'react';
 import TwitterIcon from 'mdi-material-ui/Twitter';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core/styles';
+import { useScreenSize } from '../hooks/useScreenSize';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     padding: theme.spacing(8, 2),
     backgroundColor: theme.palette.grey[200],
     [theme.breakpoints.down('sm')]: {
-      padding: theme.spacing(4, 2)
+      padding: theme.spacing(4)
     },
     '@media print': {
       display: 'none'
     }
   },
   button: {
-    margin: theme.spacing(2, 1)
+    margin: theme.spacing(2, 1),
+    [theme.breakpoints.down('sm')]: {
+      margin: theme.spacing(1)
+    }
   }
 }));
 
 export const Contact: React.FC = () => {
   const classes = useStyles();
+  const { isSmallDown } = useScreenSize();
 
   return (
     <Grid item xs={12} className={classes.root} id="contact">
@@ -44,6 +49,7 @@ export const Contact: React.FC = () => {
               size="large"
               startIcon={<EmailIcon />}
               className={classes.button}
+              fullWidth={isSmallDown}
               component="a"
               href="mailto:chadlefort@gmail.com"
               target="_blank"
@@ -57,6 +63,7 @@ export const Contact: React.FC = () => {
               size="large"
               startIcon={<GithubIcon />}
               className={classes.button}
+              fullWidth={isSmallDown}
               component="a"
               href="https://github.com/ChadLefort"
               target="_blank"
@@ -70,6 +77,7 @@ export const Contact: React.FC = () => {
               size="large"
               startIcon={<LinkedinIcon />}
               className={classes.button}
+              fullWidth={isSmallDown}
               component="a"
               href="http://www.linkedin.com/in/chadlefort"
               target="_blank"
@@ -83,6 +91,7 @@ export const Contact: React.FC = () => {
               size="large"
               startIcon={<TwitterIcon />}
               className={classes.button}
+              fullWidth={isSmallDown}
               component="a"
               href="http://twitter.com/ChadLefort"
               target="_blank"

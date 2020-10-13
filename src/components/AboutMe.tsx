@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(8, 2),
     backgroundColor: theme.palette.grey[300],
     [theme.breakpoints.down('sm')]: {
-      padding: theme.spacing(4, 2)
+      padding: theme.spacing(4)
     },
     '@media print': {
       display: 'none'
