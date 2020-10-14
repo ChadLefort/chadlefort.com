@@ -19,7 +19,6 @@ import { useScreenSize } from '../hooks/useScreenSize';
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(8, 2),
-    backgroundColor: theme.palette.grey[200],
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(4)
     },
@@ -30,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
-    backgroundColor: theme.palette.grey[300],
+    backgroundColor: theme.palette.secondary.main,
     '@media print': {
       padding: theme.spacing(1.5),
       backgroundColor: theme.palette.common.white
@@ -93,7 +92,7 @@ export const SiteTimeline: React.FC = () => {
                   </Hidden>
                   <List dense={isPrint}>
                     <ListItem>
-                      <ListItemText primary="Pivotal role in the process of architecting newly developed applications in React, Redux, Typescript, and Material-UI." />
+                      <ListItemText primary="Playing a pivotal role in the process of architecting newly developed applications in React, Redux, Typescript, and Material-UI." />
                     </ListItem>
                     <ListItem>
                       <ListItemText primary="Set up a mono repo for over a dozen React applications and several private NPM packages using Lerna and Jenkins." />

@@ -17,7 +17,7 @@ import { useScreenSize } from '../hooks/useScreenSize';
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     padding: theme.spacing(8, 2),
-    backgroundColor: theme.palette.grey[300],
+    backgroundColor: theme.palette.secondary.main,
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(4)
     },
@@ -44,8 +44,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     height: '100%',
-    padding: theme.spacing(2, 0),
-    backgroundColor: theme.palette.grey[200]
+    padding: theme.spacing(2, 0)
   },
   button: {
     margin: theme.spacing(2),

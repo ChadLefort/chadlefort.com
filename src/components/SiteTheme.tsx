@@ -1,25 +1,28 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
 import React from 'react';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
 import { grey } from '@material-ui/core/colors';
 
 export const SiteTheme: React.FC = ({ children }) => {
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const muiTheme = responsiveFontSizes(
     createMuiTheme({
       palette: {
         primary: {
-          main: grey[800]
+          main: prefersDarkMode ? grey[900] : grey[800]
         },
         secondary: {
-          main: grey[500]
+          main: prefersDarkMode ? grey[700] : grey[300]
         },
         background: {
-          default: grey[300],
-          paper: grey[100]
+          default: prefersDarkMode ? grey['A400'] : grey[200],
+          paper: prefersDarkMode ? grey[800] : grey[200]
         },
         text: {
-          secondary: 'rgba(0, 0, 0, 0.6)'
-        }
+          secondary: prefersDarkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)'
+        },
+        type: prefersDarkMode ? 'dark' : 'light'
       },
       typography: {
         body1: {
