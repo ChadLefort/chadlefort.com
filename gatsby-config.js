@@ -26,11 +26,22 @@ module.exports = {
       }
     },
     {
-      resolve: 'gatsby-plugin-web-font-loader',
+      resolve: 'gatsby-plugin-prefetch-google-fonts',
       options: {
-        google: {
-          families: ['Open+Sans:400,600', 'Roboto:500', 'Economica:700']
-        }
+        fonts: [
+          {
+            family: 'Open Sans',
+            variants: ['400', '600']
+          },
+          {
+            family: 'Roboto',
+            variants: ['500']
+          },
+          {
+            family: 'Economica',
+            variants: ['700']
+          }
+        ]
       }
     },
     {

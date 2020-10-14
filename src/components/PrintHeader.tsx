@@ -46,7 +46,7 @@ export const PrintHeader: React.FC = () => {
       <Grid container justify="space-between">
         <Grid container item xs={8} alignItems="center">
           <Grid item className={classes.avatar}>
-            <Avatar alt="Chad Lefort" src={meWebP} className={classes.medium} imgProps={{ onError }} />
+            <Avatar alt="Chad Lefort" src={meWebP} className={classes.medium} imgProps={{ onError, height: 500, width: 427 }} />
           </Grid>
           <Grid item>
             <Typography className={classes.name} variant="h2" component="h1">
