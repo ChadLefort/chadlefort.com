@@ -14,7 +14,7 @@ module.exports = {
     'gatsby-plugin-material-ui',
     'gatsby-plugin-offline',
     {
-      resolve: `gatsby-plugin-manifest`,
+      resolve: 'gatsby-plugin-manifest',
       options: {
         name: 'Chad Lefort - Frontend Developer',
         short_name: 'Chad Lefort',
@@ -22,7 +22,10 @@ module.exports = {
         background_color: '#e0e0e0',
         theme_color: '#424242',
         display: 'standalone',
-        icon: 'src/images/icon.png'
+        icon: 'src/images/icon.png',
+        icon_options: {
+          purpose: 'any maskable'
+        }
       }
     },
     {
