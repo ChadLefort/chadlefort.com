@@ -9,7 +9,6 @@
     "url": "https://github.com/ChadLefort/chadlefort.com.git"
   },
   "scripts": {
-    "preinstall": "npm run type-check && npm run test",
     "build": "gatsby build",
     "develop": "gatsby develop -p 1337",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
@@ -18,7 +17,8 @@
     "clean": "gatsby clean",
     "lint": "eslint . --ext .ts,.tsx",
     "type-check": "tsc --pretty",
-    "test": "jest"
+    "test": "jest",
+    "postinstall": "npm run type-check && npm run test"
   },
   "dependencies": {
     "@material-ui/core": "4.11.0",
