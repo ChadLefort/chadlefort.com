@@ -1,5 +1,4 @@
 import Avatar from '@material-ui/core/Avatar';
-import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import meAndMelPNG from '../../static/me-and-mel.png';
 import meAndMelWebP from '../../static/me-and-mel.webp';

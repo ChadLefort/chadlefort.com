@@ -24,7 +24,7 @@ export const Logo: React.FC<TypographyProps> = (props) => {
 
   return (
     <Box display="flex" alignItems="center">
-      <CodeTagsIcon className={classes.logoIcon} />
+      <CodeTagsIcon className={classes.logoIcon} titleAccess="Angle Brackets" />
       <Typography {...props} className={classes.logo}>
         Chad Lefort
       </Typography>

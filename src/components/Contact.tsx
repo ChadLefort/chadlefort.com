@@ -78,7 +78,7 @@ export const Contact: React.FC = () => {
               className={classes.button}
               fullWidth={isSmallDown}
               component="a"
-              href="http://www.linkedin.com/in/chadlefort"
+              href="https://www.linkedin.com/in/chadlefort"
               target="_blank"
               rel="noopener"
             >
@@ -92,7 +92,7 @@ export const Contact: React.FC = () => {
               className={classes.button}
               fullWidth={isSmallDown}
               component="a"
-              href="http://twitter.com/ChadLefort"
+              href="https://twitter.com/ChadLefort"
               target="_blank"
               rel="noopener"
             >

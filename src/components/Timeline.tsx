@@ -66,7 +66,7 @@ export const SiteTimeline: React.FC = () => {
           <Typography variant="h4" align="center" gutterBottom>
             Job Experience
           </Typography>
-          <Timeline align={isSmallDown ? 'left' : 'alternate'} className={classes.timeline}>
+          <Timeline align={isSmallDown ? 'left' : 'alternate'} className={classes.timeline} data-testid="timeline">
             <TimelineItem>
               <TimelineOppositeContent className={classes.timelineOpposite}>
                 <Typography variant="body2" color="textSecondary">
