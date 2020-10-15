@@ -9,6 +9,7 @@
     "url": "https://github.com/ChadLefort/chadlefort.com.git"
   },
   "scripts": {
+    "preinstall": "npm run type-check && npm run test",
     "build": "gatsby build",
     "develop": "gatsby develop -p 1337",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
