@@ -368,7 +368,7 @@ Array [
                         <span
                           className="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
                         >
-                          Set up a mono repo for over a dozen React applications and several private NPM packages using Lerna and Jenkins.
+                          Set up a monorepo for over a dozen React applications and several private NPM packages using Lerna and Jenkins.
                         </span>
                       </div>
                     </li>
