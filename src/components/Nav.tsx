@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const Nav: React.FC = () => {
   const classes = useStyles();
-  const deskTopOffset = -65;
+  const deskTopOffset = -64;
   const duration = 500;
   const smooth = 'easeInOutQuart';
   const [drawer, setDrawer] = React.useState(false);
@@ -56,7 +56,7 @@ export const Nav: React.FC = () => {
     scroller.scrollTo(section, {
       duration,
       smooth,
-      offset: isSmallDown ? -55 : deskTopOffset
+      offset: isSmallDown ? -56 : deskTopOffset
     });
   };
 

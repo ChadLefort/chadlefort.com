@@ -95,7 +95,7 @@ export const SiteTimeline: React.FC = () => {
                       <ListItemText primary="Playing a pivotal role in the process of architecting newly developed applications in React, Redux, Typescript, and Material-UI." />
                     </ListItem>
                     <ListItem>
-                      <ListItemText primary="Set up a mono repo for over a dozen React applications and several private NPM packages using Lerna and Jenkins." />
+                      <ListItemText primary="Set up a monorepo for over a dozen React applications and several private NPM packages using Lerna and Jenkins." />
                     </ListItem>
                     <ListItem>
                       <ListItemText primary="Created the first private NPM package and build processes to share code between React/legacy applications." />
