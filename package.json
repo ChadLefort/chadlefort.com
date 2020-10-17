@@ -17,8 +17,7 @@
     "clean": "gatsby clean",
     "lint": "eslint . --ext .ts,.tsx",
     "type-check": "tsc --pretty",
-    "test": "jest",
-    "postinstall": "npm run type-check && npm run test"
+    "test": "jest"
   },
   "dependencies": {
     "@material-ui/core": "4.11.0",
@@ -68,7 +67,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run type-check && lint-staged"
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run type-check && npm run test"
     }
   },
   "lint-staged": {
