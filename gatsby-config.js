@@ -11,6 +11,7 @@ module.exports = {
     jobTitle: 'Frontend Developer'
   },
   plugins: [
+    'gatsby-plugin-preact',
     'gatsby-plugin-material-ui',
     'gatsby-plugin-offline',
     {
