@@ -11,10 +11,19 @@ module.exports = {
     jobTitle: 'Frontend Developer'
   },
   plugins: [
-    'gatsby-plugin-scroll-reveal',
     'gatsby-plugin-preact',
+    'gatsby-transformer-sharp',
+    'gatsby-plugin-sharp',
+    'gatsby-plugin-scroll-reveal',
     'gatsby-plugin-material-ui',
     'gatsby-plugin-offline',
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'images',
+        path: `${__dirname}/src/images/`
+      }
+    },
     {
       resolve: 'gatsby-plugin-manifest',
       options: {

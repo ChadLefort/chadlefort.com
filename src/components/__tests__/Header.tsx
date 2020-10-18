@@ -3,12 +3,6 @@ import { Header } from '../Header';
 import { render, screen } from '@testing-library/react';
 
 describe('Header', () => {
-  test('Has an image of me', () => {
-    render(<Header />);
-
-    expect(screen.getByAltText('Chad Lefort')).toBeVisible();
-  });
-
   test('Shows the 3 panels', () => {
     render(<Header />);
 

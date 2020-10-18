@@ -6,12 +6,12 @@ import CardContent from '@material-ui/core/CardContent';
 import FileDownloadIcon from 'mdi-material-ui/FileDownload';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
-import mePNG from '../images/me.png';
-import meWebP from '../images/me.webp';
+import Img from 'gatsby-image';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { Logo } from './Logo';
 import { makeStyles, Theme } from '@material-ui/core/styles';
+import { useProfileImage } from '../hooks/useProfileImage';
 import { useScreenSize } from '../hooks/useScreenSize';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -57,6 +57,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 export const Header: React.FC = () => {
   const classes = useStyles();
   const { isSmallDown } = useScreenSize();
+  const fluid = useProfileImage();
 
   return (
     <Grid item xs={12} className={classes.root}>
@@ -67,9 +68,7 @@ export const Header: React.FC = () => {
       </Hidden>
       <Grid container justify="center">
         <Grid container item justify="center" xs={12} className={classes.avatar}>
-          <Avatar alt="Chad Lefort" src={meWebP} className={classes.large} imgProps={{ height: 500, width: 427 }}>
-            <img src={mePNG} alt="Chad Lefort" className={classes.large} height="500" width="427" />
-          </Avatar>
+          <Avatar alt="Chad Lefort" className={classes.large} component={Img} fluid={fluid} />
         </Grid>
         <Grid container item xs={12} md={10} lg={8} xl={6}>
           <Grid item xs={12} md={4} className={classes.item}>

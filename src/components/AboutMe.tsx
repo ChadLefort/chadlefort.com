@@ -1,9 +1,9 @@
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
-import meAndMelPNG from '../images/me-and-mel.png';
-import meAndMelWebP from '../images/me-and-mel.webp';
+import Img, { FluidObject } from 'gatsby-image';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import { graphql, useStaticQuery } from 'gatsby';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -37,6 +37,23 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const AboutMe: React.FC = () => {
   const classes = useStyles();
+  const {
+    file: {
+      childImageSharp: { fluid }
+    }
+  } = useStaticQuery<{ file: { childImageSharp: { fluid: FluidObject } } }>(
+    graphql`
+      query {
+        file(relativePath: { eq: "me-and-mel.png" }) {
+          childImageSharp {
+            fluid(maxWidth: 500) {
+              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+            }
+          }
+        }
+      }
+    `
+  );
 
   return (
     <Grid item xs={12} className={classes.root} id="about-me">
@@ -47,9 +64,7 @@ export const AboutMe: React.FC = () => {
           </Typography>
           <Grid container>
             <Grid item xs={12} md={4} lg={3} className={classes.avatar}>
-              <Avatar alt="Chad and Melanie" variant="rounded" src={meAndMelWebP} className={classes.large} imgProps={{ height: 292, width: 279 }}>
-                <img src={meAndMelPNG} alt="Chad and Melanie" className={classes.large} height="292" width="279" />
-              </Avatar>
+              <Avatar alt="Chad and Melanie" variant="rounded" className={classes.large} component={Img} fluid={fluid} />
             </Grid>
             <Grid container alignContent="center" item xs={12} md={8} lg={9}>
               <Typography paragraph>

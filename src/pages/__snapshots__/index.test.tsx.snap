@@ -32,14 +32,58 @@ Array [
             className="MuiGrid-root makeStyles-avatar-13 MuiGrid-item"
           >
             <div
-              className="MuiAvatar-root MuiAvatar-circle makeStyles-medium-12"
+              className="MuiAvatar-root MuiAvatar-circle makeStyles-medium-12 MuiAvatar-colorDefault gatsby-image-wrapper"
+              style={
+                Object {
+                  "maxHeight": null,
+                  "maxWidth": null,
+                  "overflow": "hidden",
+                  "position": "relative",
+                }
+              }
             >
-              <img
-                alt="Chad Lefort"
-                className="MuiAvatar-img"
-                height={500}
-                src="test-file-stub"
-                width={427}
+              <div
+                aria-hidden={true}
+                style={
+                  Object {
+                    "paddingBottom": "85.6%",
+                    "width": "100%",
+                  }
+                }
+              />
+              <picture>
+                <source
+                  sizes="(max-width: 500px) 100vw, 500px"
+                  srcSet="/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/62d80/me.png 125w,↵/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/e1953/me.png 250w,↵/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/46604/me.png 500w"
+                />
+                <img
+                  alt=""
+                  loading="eager"
+                  onLoad={[Function]}
+                  sizes="(max-width: 500px) 100vw, 500px"
+                  src="/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/46604/me.png"
+                  srcSet="/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/62d80/me.png 125w,↵/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/e1953/me.png 250w,↵/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/46604/me.png 500w"
+                  style={
+                    Object {
+                      "height": "100%",
+                      "left": 0,
+                      "objectFit": "cover",
+                      "objectPosition": "center",
+                      "opacity": 0,
+                      "position": "absolute",
+                      "top": 0,
+                      "transition": "opacity 500ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </picture>
+              <noscript
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "<picture><source srcset=\\"/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/62d80/me.png 125w,↵/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/e1953/me.png 250w,↵/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/46604/me.png 500w\\" sizes=\\"(max-width: 500px) 100vw, 500px\\" /><img loading=\\"eager\\" sizes=\\"(max-width: 500px) 100vw, 500px\\" srcset=\\"/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/62d80/me.png 125w,↵/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/e1953/me.png 250w,↵/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/46604/me.png 500w\\" src=\\"/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/46604/me.png\\" alt=\\"\\" style=\\"position:absolute;top:0;left:0;opacity:1;width:100%;height:100%;object-fit:cover;object-position:center\\"/></picture>",
+                  }
+                }
               />
             </div>
           </div>
@@ -154,14 +198,58 @@ Array [
           className="MuiGrid-root makeStyles-avatar-22 MuiGrid-container MuiGrid-item MuiGrid-justify-xs-center MuiGrid-grid-xs-12"
         >
           <div
-            className="MuiAvatar-root MuiAvatar-circle makeStyles-large-21"
+            className="MuiAvatar-root MuiAvatar-circle makeStyles-large-21 MuiAvatar-colorDefault gatsby-image-wrapper"
+            style={
+              Object {
+                "maxHeight": null,
+                "maxWidth": null,
+                "overflow": "hidden",
+                "position": "relative",
+              }
+            }
           >
-            <img
-              alt="Chad Lefort"
-              className="MuiAvatar-img"
-              height={500}
-              src="test-file-stub"
-              width={427}
+            <div
+              aria-hidden={true}
+              style={
+                Object {
+                  "paddingBottom": "85.6%",
+                  "width": "100%",
+                }
+              }
+            />
+            <picture>
+              <source
+                sizes="(max-width: 500px) 100vw, 500px"
+                srcSet="/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/62d80/me.png 125w,↵/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/e1953/me.png 250w,↵/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/46604/me.png 500w"
+              />
+              <img
+                alt=""
+                loading="lazy"
+                onLoad={[Function]}
+                sizes="(max-width: 500px) 100vw, 500px"
+                src="/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/46604/me.png"
+                srcSet="/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/62d80/me.png 125w,↵/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/e1953/me.png 250w,↵/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/46604/me.png 500w"
+                style={
+                  Object {
+                    "height": "100%",
+                    "left": 0,
+                    "objectFit": "cover",
+                    "objectPosition": "center",
+                    "opacity": 0,
+                    "position": "absolute",
+                    "top": 0,
+                    "transition": "opacity 500ms",
+                    "width": "100%",
+                  }
+                }
+              />
+            </picture>
+            <noscript
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<picture><source srcset=\\"/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/62d80/me.png 125w,↵/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/e1953/me.png 250w,↵/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/46604/me.png 500w\\" sizes=\\"(max-width: 500px) 100vw, 500px\\" /><img loading=\\"lazy\\" sizes=\\"(max-width: 500px) 100vw, 500px\\" srcset=\\"/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/62d80/me.png 125w,↵/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/e1953/me.png 250w,↵/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/46604/me.png 500w\\" src=\\"/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/46604/me.png\\" alt=\\"\\" style=\\"position:absolute;top:0;left:0;opacity:1;width:100%;height:100%;object-fit:cover;object-position:center\\"/></picture>",
+                }
+              }
             />
           </div>
         </div>
@@ -999,14 +1087,58 @@ Array [
               className="MuiGrid-root makeStyles-avatar-50 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-4 MuiGrid-grid-lg-3"
             >
               <div
-                className="MuiAvatar-root MuiAvatar-rounded makeStyles-large-49"
+                className="MuiAvatar-root MuiAvatar-rounded makeStyles-large-49 MuiAvatar-colorDefault gatsby-image-wrapper"
+                style={
+                  Object {
+                    "maxHeight": null,
+                    "maxWidth": null,
+                    "overflow": "hidden",
+                    "position": "relative",
+                  }
+                }
               >
-                <img
-                  alt="Chad and Melanie"
-                  className="MuiAvatar-img"
-                  height={292}
-                  src="test-file-stub"
-                  width={279}
+                <div
+                  aria-hidden={true}
+                  style={
+                    Object {
+                      "paddingBottom": "85.6%",
+                      "width": "100%",
+                    }
+                  }
+                />
+                <picture>
+                  <source
+                    sizes="(max-width: 500px) 100vw, 500px"
+                    srcSet="/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/62d80/me.png 125w,↵/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/e1953/me.png 250w,↵/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/46604/me.png 500w"
+                  />
+                  <img
+                    alt=""
+                    loading="lazy"
+                    onLoad={[Function]}
+                    sizes="(max-width: 500px) 100vw, 500px"
+                    src="/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/46604/me.png"
+                    srcSet="/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/62d80/me.png 125w,↵/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/e1953/me.png 250w,↵/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/46604/me.png 500w"
+                    style={
+                      Object {
+                        "height": "100%",
+                        "left": 0,
+                        "objectFit": "cover",
+                        "objectPosition": "center",
+                        "opacity": 0,
+                        "position": "absolute",
+                        "top": 0,
+                        "transition": "opacity 500ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </picture>
+                <noscript
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "<picture><source srcset=\\"/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/62d80/me.png 125w,↵/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/e1953/me.png 250w,↵/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/46604/me.png 500w\\" sizes=\\"(max-width: 500px) 100vw, 500px\\" /><img loading=\\"lazy\\" sizes=\\"(max-width: 500px) 100vw, 500px\\" srcset=\\"/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/62d80/me.png 125w,↵/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/e1953/me.png 250w,↵/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/46604/me.png 500w\\" src=\\"/static/a06af2cc41af2fb5e7cdf7bf38ba1e24/46604/me.png\\" alt=\\"\\" style=\\"position:absolute;top:0;left:0;opacity:1;width:100%;height:100%;object-fit:cover;object-position:center\\"/></picture>",
+                    }
+                  }
                 />
               </div>
             </div>

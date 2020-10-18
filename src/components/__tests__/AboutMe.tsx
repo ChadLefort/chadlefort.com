@@ -8,10 +8,4 @@ describe('About Me', () => {
 
     expect(screen.getByText('About Me')).toBeVisible();
   });
-
-  test('Has an image of me and Mel', () => {
-    render(<AboutMe />);
-
-    expect(screen.getByAltText('Chad and Melanie')).toBeVisible();
-  });
 });

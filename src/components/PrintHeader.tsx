@@ -4,12 +4,12 @@ import DesktopClassicIcon from 'mdi-material-ui/DesktopClassic';
 import EmailIcon from 'mdi-material-ui/Email';
 import GithubIcon from 'mdi-material-ui/Github';
 import Grid from '@material-ui/core/Grid';
-import mePNG from '../images/me.png';
-import meWebP from '../images/me.webp';
+import Img from 'gatsby-image';
 import PhoneIcon from 'mdi-material-ui/Phone';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core/styles';
+import { useProfileImage } from '../hooks/useProfileImage';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -37,15 +37,14 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const PrintHeader: React.FC = () => {
   const classes = useStyles();
+  const fluid = useProfileImage();
 
   return (
     <Grid item xs={12} className={classes.root}>
       <Grid container justify="space-between">
         <Grid container item xs={8} alignItems="center">
           <Grid item className={classes.avatar}>
-            <Avatar alt="Chad Lefort" src={meWebP} className={classes.medium} imgProps={{ height: 500, width: 427 }}>
-              <img src={mePNG} alt="Chad Lefort" className={classes.medium} height="500" width="427" />
-            </Avatar>
+            <Avatar alt="Chad Lefort" className={classes.medium} component={Img} fluid={fluid} loading="eager" />
           </Grid>
           <Grid item>
             <Typography className={classes.name} variant="h2" component="h1">
