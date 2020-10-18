@@ -1,7 +1,7 @@
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
-import meAndMelPNG from '../../static/me-and-mel.png';
-import meAndMelWebP from '../../static/me-and-mel.webp';
+import meAndMelPNG from '../images/me-and-mel.png';
+import meAndMelWebP from '../images/me-and-mel.webp';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core/styles';
