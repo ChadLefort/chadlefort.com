@@ -50,10 +50,16 @@ module.exports = {
       }
     },
     {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: 'gatsby-plugin-google-analytics',
       options: {
         trackingId: 'UA-43761615-3',
         head: false
+      }
+    },
+    {
+      resolve: 'gatsby-plugin-polyfill-io',
+      options: {
+        features: ['CustomEvent']
       }
     }
   ]
