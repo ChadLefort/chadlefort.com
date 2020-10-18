@@ -1,9 +1,8 @@
-import Box from '@material-ui/core/Box/Box';
+import Box from '@material-ui/core/Box';
 import CodeTagsIcon from 'mdi-material-ui/CodeTags';
 import React from 'react';
+import Typography, { TypographyProps } from '@material-ui/core/Typography';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
-import { TypographyProps } from '@material-ui/core/Typography/Typography';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
