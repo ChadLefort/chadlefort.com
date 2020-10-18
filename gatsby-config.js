@@ -14,9 +14,14 @@ module.exports = {
     'gatsby-plugin-preact',
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
-    'gatsby-plugin-scroll-reveal',
     'gatsby-plugin-material-ui',
     'gatsby-plugin-offline',
+    {
+      resolve: 'gatsby-plugin-scroll-reveal',
+      options: {
+        threshold: 0.6
+      }
+    },
     {
       resolve: 'gatsby-source-filesystem',
       options: {
