@@ -57,9 +57,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 export const Header: React.FC = () => {
   const classes = useStyles();
   const { isSmallDown } = useScreenSize();
-  const onError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    event.currentTarget.src = mePNG;
-  };
 
   return (
     <Grid item xs={12} className={classes.root}>
@@ -70,7 +67,9 @@ export const Header: React.FC = () => {
       </Hidden>
       <Grid container justify="center">
         <Grid container item justify="center" xs={12} className={classes.avatar}>
-          <Avatar alt="Chad Lefort" src={meWebP} className={classes.large} imgProps={{ onError, height: 500, width: 427 }} />
+          <Avatar alt="Chad Lefort" src={meWebP} className={classes.large} imgProps={{ height: 500, width: 427 }}>
+            <img src={mePNG} alt="Chad Lefort" className={classes.large} height="500" width="427" />
+          </Avatar>
         </Grid>
         <Grid container item xs={12} md={10} lg={8} xl={6}>
           <Grid item xs={12} md={4} className={classes.item}>

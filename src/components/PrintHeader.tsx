@@ -37,16 +37,15 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const PrintHeader: React.FC = () => {
   const classes = useStyles();
-  const onError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    event.currentTarget.src = mePNG;
-  };
 
   return (
     <Grid item xs={12} className={classes.root}>
       <Grid container justify="space-between">
         <Grid container item xs={8} alignItems="center">
           <Grid item className={classes.avatar}>
-            <Avatar alt="Chad Lefort" src={meWebP} className={classes.medium} imgProps={{ onError, height: 500, width: 427 }} />
+            <Avatar alt="Chad Lefort" src={meWebP} className={classes.medium} imgProps={{ height: 500, width: 427 }}>
+              <img src={mePNG} alt="Chad Lefort" className={classes.medium} height="500" width="427" />
+            </Avatar>
           </Grid>
           <Grid item>
             <Typography className={classes.name} variant="h2" component="h1">

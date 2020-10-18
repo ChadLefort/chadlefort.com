@@ -37,9 +37,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const AboutMe: React.FC = () => {
   const classes = useStyles();
-  const onError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    event.currentTarget.src = meAndMelPNG;
-  };
 
   return (
     <Grid item xs={12} className={classes.root} id="about-me">
@@ -50,7 +47,9 @@ export const AboutMe: React.FC = () => {
           </Typography>
           <Grid container>
             <Grid item xs={12} md={4} lg={3} className={classes.avatar}>
-              <Avatar alt="Chad and Melanie" variant="rounded" src={meAndMelWebP} className={classes.large} imgProps={{ onError, height: 292, width: 279 }} />
+              <Avatar alt="Chad and Melanie" variant="rounded" src={meAndMelWebP} className={classes.large} imgProps={{ height: 292, width: 279 }}>
+                <img src={meAndMelPNG} alt="Chad and Melanie" className={classes.large} height="292" width="279" />
+              </Avatar>
             </Grid>
             <Grid container alignContent="center" item xs={12} md={8} lg={9}>
               <Typography paragraph>

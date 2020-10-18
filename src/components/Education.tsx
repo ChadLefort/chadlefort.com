@@ -24,10 +24,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     margin: theme.spacing(2, 1)
   },
   item: {
-    padding: theme.spacing(2, 0),
     display: 'flex',
     justifyContent: 'flex-end',
     [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(2, 0),
       justifyContent: 'center'
     }
   },
@@ -47,7 +47,7 @@ export const NichollsLogo: React.FC = () => {
   const classes = useStyles();
 
   return (
-    <svg viewBox="0 0 533 260" className={classes.logo}>
+    <svg viewBox="0 0 533 260" height="62" className={classes.logo}>
       <g transform="translate(0, 260) scale(0.1, -0.1)" fill="#c51230">
         <path
           d="M1207 2523 c-4 -3 -7 -159 -7 -345 l0 -338 95 0 95 0 0 -205 0 -205
