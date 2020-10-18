@@ -30,6 +30,7 @@
     "gatsby-plugin-preact": "^4.0.16",
     "gatsby-plugin-prefetch-google-fonts": "^1.4.3",
     "gatsby-plugin-react-helmet": "^3.3.14",
+    "gatsby-plugin-scroll-reveal": "0.0.7",
     "mdi-material-ui": "^6.19.0",
     "preact": "^10.5.4",
     "preact-render-to-string": "^5.1.10",

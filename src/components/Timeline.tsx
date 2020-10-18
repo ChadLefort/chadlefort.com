@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
   timeline: {
     padding: '6px 16px',
+    overflow: 'hidden',
     [theme.breakpoints.down('sm')]: {
       padding: '6px 0'
     },
@@ -77,7 +78,7 @@ export const SiteTimeline: React.FC = () => {
                 <TimelineDot color="primary" />
                 <TimelineConnector />
               </TimelineSeparator>
-              <TimelineContent>
+              <TimelineContent data-sal="slide-left" data-sal-duration="500" data-sal-easing="ease-in-out-quart">
                 <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
                   <Typography variant="h6" component="h1">
                     Veriforce
@@ -117,7 +118,7 @@ export const SiteTimeline: React.FC = () => {
                 <TimelineDot color="primary" variant="outlined" />
                 <TimelineConnector />
               </TimelineSeparator>
-              <TimelineContent>
+              <TimelineContent data-sal={isSmallDown ? 'slide-left' : 'slide-right'} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
                 <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
                   <Typography variant="h6" component="h1">
                     Netchex
@@ -153,7 +154,7 @@ export const SiteTimeline: React.FC = () => {
               <TimelineSeparator>
                 <TimelineDot />
               </TimelineSeparator>
-              <TimelineContent>
+              <TimelineContent data-sal="slide-left" data-sal-duration="500" data-sal-easing="ease-in-out-quart">
                 <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
                   <Typography variant="h6" component="h1">
                     Edison Chouest Offshore
