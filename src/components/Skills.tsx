@@ -15,7 +15,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     '@media print': {
       padding: theme.spacing(1.5, 0),
-      backgroundColor: theme.palette.common.white
+      backgroundColor: theme.palette.common.white,
+      pageBreakBefore: 'always'
     }
   },
   item: {

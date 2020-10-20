@@ -59,6 +59,7 @@ export const SiteTimeline: React.FC = () => {
   const veriforceDate = 'July 2017 - Present';
   const netchexDate = 'November 2014 – July 2017';
   const chouestDate = 'December 2013 – November 2014';
+  const scpdcDate = 'February 2013 - November 2013';
 
   return (
     <Grid item xs={12} className={classes.root} id="job-experience">
@@ -152,7 +153,8 @@ export const SiteTimeline: React.FC = () => {
                 </Typography>
               </TimelineOppositeContent>
               <TimelineSeparator>
-                <TimelineDot />
+                <TimelineDot color="primary" variant="outlined" />
+                <TimelineConnector />
               </TimelineSeparator>
               <TimelineContent data-sal={!isPrint ? 'slide-left' : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
                 <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
@@ -170,6 +172,36 @@ export const SiteTimeline: React.FC = () => {
                   <List dense={isPrint}>
                     <ListItem>
                       <ListItemText primary="Implemented automation systems on new vessels using ladder logic." />
+                    </ListItem>
+                  </List>
+                </Paper>
+              </TimelineContent>
+            </TimelineItem>
+            <TimelineItem>
+              <TimelineOppositeContent className={classes.timelineOpposite}>
+                <Typography variant="body2" color="textSecondary">
+                  {scpdcDate}
+                </Typography>
+              </TimelineOppositeContent>
+              <TimelineSeparator>
+                <TimelineDot variant="outlined" />
+              </TimelineSeparator>
+              <TimelineContent data-sal={!isPrint ? (isSmallDown ? 'slide-left' : 'slide-right') : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
+                <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
+                  <Typography variant="h6" component="h1">
+                    SCPDC
+                  </Typography>
+                  <Typography variant="subtitle2" component="h2" color="textSecondary" gutterBottom>
+                    Software Developer Intern
+                  </Typography>
+                  <Hidden mdUp>
+                    <Typography variant="body2" color="textSecondary">
+                      {scpdcDate}
+                    </Typography>
+                  </Hidden>
+                  <List dense={isPrint}>
+                    <ListItem>
+                      <ListItemText primary="Developed sites using WordPress, Bootstrap, PHP, and jQuery." />
                     </ListItem>
                   </List>
                 </Paper>

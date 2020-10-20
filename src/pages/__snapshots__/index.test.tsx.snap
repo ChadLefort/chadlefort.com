@@ -599,7 +599,10 @@ Array [
                 className="MuiTimelineSeparator-root"
               >
                 <span
-                  className="MuiTimelineDot-root MuiTimelineDot-defaultGrey"
+                  className="MuiTimelineDot-root MuiTimelineDot-outlinedPrimary"
+                />
+                <span
+                  className="MuiTimelineConnector-root"
                 />
               </div>
               <div
@@ -635,6 +638,65 @@ Array [
                           className="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
                         >
                           Implemented automation systems on new vessels using ladder logic.
+                        </span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li
+              className="MuiTimelineItem-root MuiTimelineItem-alignAlternate"
+            >
+              <div
+                className="MuiTimelineOppositeContent-root MuiTimelineItem-oppositeContent makeStyles-timelineOpposite-29"
+              >
+                <p
+                  className="MuiTypography-root MuiTypography-body2 MuiTypography-colorTextSecondary"
+                >
+                  February 2013 - November 2013
+                </p>
+              </div>
+              <div
+                className="MuiTimelineSeparator-root"
+              >
+                <span
+                  className="MuiTimelineDot-root MuiTimelineDot-outlinedGrey"
+                />
+              </div>
+              <div
+                className="MuiTimelineContent-root MuiTimelineItem-content"
+                data-sal="slide-right"
+                data-sal-duration="500"
+                data-sal-easing="ease-in-out-quart"
+              >
+                <div
+                  className="MuiPaper-root makeStyles-paper-27 MuiPaper-elevation0 MuiPaper-rounded"
+                >
+                  <h1
+                    className="MuiTypography-root MuiTypography-h6"
+                  >
+                    SCPDC
+                  </h1>
+                  <h2
+                    className="MuiTypography-root MuiTypography-subtitle2 MuiTypography-colorTextSecondary MuiTypography-gutterBottom"
+                  >
+                    Software Developer Intern
+                  </h2>
+                  <ul
+                    className="MuiList-root MuiList-padding"
+                  >
+                    <li
+                      className="MuiListItem-root makeStyles-root-30 MuiListItem-gutters"
+                      disabled={false}
+                    >
+                      <div
+                        className="MuiListItemText-root"
+                      >
+                        <span
+                          className="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+                        >
+                          Developed sites using WordPress, Bootstrap, PHP, and jQuery.
                         </span>
                       </div>
                     </li>
