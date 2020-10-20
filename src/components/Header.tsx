@@ -119,7 +119,7 @@ export const Header: React.FC = () => {
               download
               fullWidth={isSmallDown}
             >
-              Download Résumé
+              Download Resume
             </Button>
           </Grid>
         </Grid>

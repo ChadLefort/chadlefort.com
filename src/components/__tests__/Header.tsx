@@ -14,7 +14,7 @@ describe('Header', () => {
   test('Shows the download button', () => {
     render(<Header />);
 
-    expect(screen.getByRole('link')).toHaveTextContent('Download Résumé');
+    expect(screen.getByRole('link')).toHaveTextContent('Download Resume');
     expect(screen.getByRole('link')).toHaveAttribute('href', '/Chad Lefort - Résumé.pdf');
   });
 });
