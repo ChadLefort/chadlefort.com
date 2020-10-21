@@ -115,7 +115,7 @@ export const Header: React.FC = () => {
               startIcon={<FileDownloadIcon />}
               className={classes.button}
               component="a"
-              href="/Chad Lefort - Résumé.pdf"
+              href="/Chad Lefort - Resume.pdf"
               download
               fullWidth={isSmallDown}
             >
