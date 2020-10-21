@@ -443,7 +443,7 @@ Array [
                         <span
                           className="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
                         >
-                          Playing a pivotal role in the process of architecting newly developed applications in React, Redux, Typescript, and Material-UI.
+                          Playing a pivotal role in the process of architecting applications in React, Redux, TypeScript, and Material-UI.
                         </span>
                       </div>
                     </li>
@@ -471,7 +471,7 @@ Array [
                         <span
                           className="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
                         >
-                          Created the first private NPM package and build processes to share code between React/legacy applications.
+                          Manage dependency upgrades and implementations of new libraries.
                         </span>
                       </div>
                     </li>
@@ -485,7 +485,21 @@ Array [
                         <span
                           className="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
                         >
-                          Implemented Typescript into existing React applications.
+                          Created the first private NPM package and build processes in the organization to share code between React/legacy applications.
+                        </span>
+                      </div>
+                    </li>
+                    <li
+                      className="MuiListItem-root makeStyles-root-30 MuiListItem-gutters"
+                      disabled={false}
+                    >
+                      <div
+                        className="MuiListItemText-root"
+                      >
+                        <span
+                          className="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+                        >
+                          Implemented TypeScript into existing React applications.
                         </span>
                       </div>
                     </li>
@@ -696,7 +710,7 @@ Array [
                         <span
                           className="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
                         >
-                          Developed sites using WordPress, Bootstrap, PHP, and jQuery.
+                          Developed client sites using WordPress, Bootstrap, PHP, and jQuery.
                         </span>
                       </div>
                     </li>

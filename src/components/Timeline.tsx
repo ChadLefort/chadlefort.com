@@ -94,16 +94,19 @@ export const SiteTimeline: React.FC = () => {
                   </Hidden>
                   <List dense={isPrint}>
                     <ListItem>
-                      <ListItemText primary="Playing a pivotal role in the process of architecting newly developed applications in React, Redux, Typescript, and Material-UI." />
+                      <ListItemText primary="Playing a pivotal role in the process of architecting applications in React, Redux, TypeScript, and Material-UI." />
                     </ListItem>
                     <ListItem>
                       <ListItemText primary="Set up a monorepo for over a dozen React applications and several private NPM packages using Lerna and Jenkins." />
                     </ListItem>
                     <ListItem>
-                      <ListItemText primary="Created the first private NPM package and build processes to share code between React/legacy applications." />
+                      <ListItemText primary="Manage dependency upgrades and implementations of new libraries." />
                     </ListItem>
                     <ListItem>
-                      <ListItemText primary="Implemented Typescript into existing React applications." />
+                      <ListItemText primary="Created the first private NPM package and build processes in the organization to share code between React/legacy applications." />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemText primary="Implemented TypeScript into existing React applications." />
                     </ListItem>
                   </List>
                 </Paper>
@@ -201,7 +204,7 @@ export const SiteTimeline: React.FC = () => {
                   </Hidden>
                   <List dense={isPrint}>
                     <ListItem>
-                      <ListItemText primary="Developed sites using WordPress, Bootstrap, PHP, and jQuery." />
+                      <ListItemText primary="Developed client sites using WordPress, Bootstrap, PHP, and jQuery." />
                     </ListItem>
                   </List>
                 </Paper>
