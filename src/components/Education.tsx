@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   divider: {
     marginTop: theme.spacing(2),
     '@media print': {
-      marginTop: theme.spacing(0.5)
+      marginTop: theme.spacing(0)
     }
   }
 }));

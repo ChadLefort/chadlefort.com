@@ -45,6 +45,7 @@ export const Contact: React.FC = () => {
             <Button
               color="primary"
               variant="contained"
+              disableElevation
               size="large"
               startIcon={<EmailIcon />}
               className={classes.button}
@@ -59,6 +60,7 @@ export const Contact: React.FC = () => {
             <Button
               color="primary"
               variant="contained"
+              disableElevation
               size="large"
               startIcon={<GithubIcon />}
               className={classes.button}
@@ -73,6 +75,7 @@ export const Contact: React.FC = () => {
             <Button
               color="primary"
               variant="contained"
+              disableElevation
               size="large"
               startIcon={<LinkedinIcon />}
               className={classes.button}
@@ -87,6 +90,7 @@ export const Contact: React.FC = () => {
             <Button
               color="primary"
               variant="contained"
+              disableElevation
               size="large"
               startIcon={<TwitterIcon />}
               className={classes.button}

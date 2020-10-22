@@ -1,32 +1,29 @@
-import ArrowUpCircleIcon from 'mdi-material-ui/ArrowUpCircle';
+import ArrowUpIcon from 'mdi-material-ui/ArrowUpBold';
+import Fab from '@material-ui/core/Fab';
 import Grid from '@material-ui/core/Grid';
 import React, { useEffect, useState } from 'react';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { animateScroll } from 'react-scroll';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import { Nav } from './Nav';
 import { SiteTheme } from './SiteTheme';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    scrollToTop: (prefersDarkMode: boolean) => ({
-      color: prefersDarkMode ? theme.palette.common.white : theme.palette.grey[800],
-      fontSize: '3.5em',
-      position: 'fixed',
-      bottom: 30,
-      right: 30,
-      cursor: 'pointer',
-      [theme.breakpoints.down('sm')]: {
-        bottom: 8,
-        right: 8
-      }
-    })
-  })
-);
+const useStyles = makeStyles((theme: Theme) => ({
+  scrollToTop: {
+    fontSize: '1.875rem',
+    boxShadow: 'none',
+    position: 'fixed',
+    bottom: 30,
+    right: 30,
+    [theme.breakpoints.down('sm')]: {
+      bottom: 12,
+      right: 12
+    }
+  }
+}));
 
 export const Layout: React.FC = ({ children }) => {
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  const classes = useStyles(prefersDarkMode);
+  const classes = useStyles();
   const duration = 500;
   const [atTopOfPage, setAtTopOfPage] = useState(true);
   const isPrint = useMediaQuery('print');
@@ -53,7 +50,15 @@ export const Layout: React.FC = ({ children }) => {
     <SiteTheme>
       <Nav />
       <Grid container={!isPrint}>{children}</Grid>
-      <ArrowUpCircleIcon onClick={scrollToTop} className={classes.scrollToTop} style={atTopOfPage || isPrint ? { display: 'none' } : { display: 'block' }} />
+      <Fab
+        color="primary"
+        aria-label="scroll-to-top"
+        onClick={scrollToTop}
+        className={classes.scrollToTop}
+        style={atTopOfPage || isPrint ? { display: 'none' } : { display: 'block' }}
+      >
+        <ArrowUpIcon />
+      </Fab>
     </SiteTheme>
   );
 };

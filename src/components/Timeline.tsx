@@ -119,7 +119,7 @@ export const SiteTimeline: React.FC = () => {
                 </Typography>
               </TimelineOppositeContent>
               <TimelineSeparator>
-                <TimelineDot color="primary" variant="outlined" />
+                <TimelineDot color="primary" />
                 <TimelineConnector />
               </TimelineSeparator>
               <TimelineContent data-sal={!isPrint ? (isSmallDown ? 'slide-left' : 'slide-right') : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
@@ -156,7 +156,7 @@ export const SiteTimeline: React.FC = () => {
                 </Typography>
               </TimelineOppositeContent>
               <TimelineSeparator>
-                <TimelineDot color="primary" variant="outlined" />
+                <TimelineDot color="primary" />
                 <TimelineConnector />
               </TimelineSeparator>
               <TimelineContent data-sal={!isPrint ? 'slide-left' : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
@@ -187,7 +187,7 @@ export const SiteTimeline: React.FC = () => {
                 </Typography>
               </TimelineOppositeContent>
               <TimelineSeparator>
-                <TimelineDot variant="outlined" />
+                <TimelineDot color="primary" />
               </TimelineSeparator>
               <TimelineContent data-sal={!isPrint ? (isSmallDown ? 'slide-left' : 'slide-right') : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
                 <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
