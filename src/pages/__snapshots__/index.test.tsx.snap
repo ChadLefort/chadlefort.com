@@ -3,18 +3,60 @@
 exports[`renders correctly 1`] = `
 Array [
   <div
-    className="MuiBox-root MuiBox-root-7 makeStyles-root-3"
+    className="MuiBox-root MuiBox-root-7 makeStyles-root-2"
   >
     <header
       className="MuiPaper-root MuiAppBar-root MuiAppBar-positionFixed MuiAppBar-colorPrimary mui-fixed MuiPaper-elevation4"
     >
       <div
-        className="MuiToolbar-root MuiToolbar-regular makeStyles-toolbar-4 MuiToolbar-gutters"
+        className="MuiToolbar-root MuiToolbar-regular makeStyles-toolbar-3 MuiToolbar-gutters"
       />
     </header>
     <div
-      className="MuiBox-root MuiBox-root-8 makeStyles-offset-2"
+      className="MuiBox-root MuiBox-root-8 makeStyles-offset-1"
     />
+    <button
+      aria-label="scroll-to-top"
+      className="MuiButtonBase-root MuiFab-root makeStyles-scrollToTop-6 MuiFab-primary"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+      tabIndex={0}
+      type="button"
+    >
+      <span
+        className="MuiFab-label"
+      >
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M15,20H9V12H4.16L12,4.16L19.84,12H15V20Z"
+          />
+        </svg>
+      </span>
+      <span
+        className="MuiTouchRipple-root"
+      />
+    </button>
   </div>,
   <div
     className="MuiGrid-root MuiGrid-container"
@@ -1432,47 +1474,5 @@ Array [
       </div>
     </div>
   </div>,
-  <button
-    aria-label="scroll-to-top"
-    className="MuiButtonBase-root MuiFab-root makeStyles-scrollToTop-1 MuiFab-primary"
-    disabled={false}
-    onBlur={[Function]}
-    onClick={[Function]}
-    onDragLeave={[Function]}
-    onFocus={[Function]}
-    onKeyDown={[Function]}
-    onKeyUp={[Function]}
-    onMouseDown={[Function]}
-    onMouseLeave={[Function]}
-    onMouseUp={[Function]}
-    onTouchEnd={[Function]}
-    onTouchMove={[Function]}
-    onTouchStart={[Function]}
-    style={
-      Object {
-        "display": "none",
-      }
-    }
-    tabIndex={0}
-    type="button"
-  >
-    <span
-      className="MuiFab-label"
-    >
-      <svg
-        aria-hidden={true}
-        className="MuiSvgIcon-root"
-        focusable="false"
-        viewBox="0 0 24 24"
-      >
-        <path
-          d="M15,20H9V12H4.16L12,4.16L19.84,12H15V20Z"
-        />
-      </svg>
-    </span>
-    <span
-      className="MuiTouchRipple-root"
-    />
-  </button>,
 ]
 `;
