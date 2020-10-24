@@ -114,6 +114,7 @@ export const Header: React.FC = () => {
             <Button
               color="primary"
               variant="contained"
+              disableElevation
               size="large"
               startIcon={<FileDownloadIcon />}
               className={classes.button}

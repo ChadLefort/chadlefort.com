@@ -369,7 +369,7 @@ Array [
           >
             <a
               aria-disabled={false}
-              className="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-24 MuiButton-containedPrimary MuiButton-containedSizeLarge MuiButton-sizeLarge"
+              className="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-24 MuiButton-containedPrimary MuiButton-containedSizeLarge MuiButton-sizeLarge MuiButton-disableElevation"
               download={true}
               href="/Chad Lefort - Resume.pdf"
               onBlur={[Function]}

@@ -48,11 +48,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     boxShadow: 'none',
     position: 'fixed',
     bottom: 30,
-    right: 30,
-    [theme.breakpoints.down('sm')]: {
-      bottom: 12,
-      right: 12
-    }
+    right: 30
   }
 }));
 
