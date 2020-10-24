@@ -45,6 +45,13 @@ const useStyles = makeStyles((theme) => ({
       padding: 0
     }
   },
+  timelineDot: {
+    boxShadow: 'none',
+    borderWidth: 4,
+    [theme.breakpoints.down('sm')]: {
+      borderWidth: 2
+    }
+  },
   timelineOpposite: {
     display: 'block',
     [theme.breakpoints.down('sm')]: {
@@ -76,7 +83,7 @@ export const SiteTimeline: React.FC = () => {
                 </Typography>
               </TimelineOppositeContent>
               <TimelineSeparator>
-                <TimelineDot color="primary" />
+                <TimelineDot color="primary" className={classes.timelineDot} />
                 <TimelineConnector />
               </TimelineSeparator>
               <TimelineContent data-sal={!isPrint ? 'slide-left' : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
@@ -119,7 +126,7 @@ export const SiteTimeline: React.FC = () => {
                 </Typography>
               </TimelineOppositeContent>
               <TimelineSeparator>
-                <TimelineDot color="primary" />
+                <TimelineDot color="primary" className={classes.timelineDot} />
                 <TimelineConnector />
               </TimelineSeparator>
               <TimelineContent data-sal={!isPrint ? (isSmallDown ? 'slide-left' : 'slide-right') : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
@@ -156,7 +163,7 @@ export const SiteTimeline: React.FC = () => {
                 </Typography>
               </TimelineOppositeContent>
               <TimelineSeparator>
-                <TimelineDot color="primary" />
+                <TimelineDot color="primary" className={classes.timelineDot} />
                 <TimelineConnector />
               </TimelineSeparator>
               <TimelineContent data-sal={!isPrint ? 'slide-left' : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
@@ -187,7 +194,7 @@ export const SiteTimeline: React.FC = () => {
                 </Typography>
               </TimelineOppositeContent>
               <TimelineSeparator>
-                <TimelineDot color="primary" />
+                <TimelineDot color="primary" className={classes.timelineDot} />
               </TimelineSeparator>
               <TimelineContent data-sal={!isPrint ? (isSmallDown ? 'slide-left' : 'slide-right') : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
                 <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
