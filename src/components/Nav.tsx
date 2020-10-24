@@ -123,7 +123,7 @@ export const Nav: React.FC = () => {
 
   return (
     <Box className={classes.root}>
-      <AppBar position="fixed">
+      <AppBar position="fixed" elevation={0}>
         <Toolbar className={classes.toolbar}>
           <Hidden smDown>
             {links.map(({ to, label }, index) => (

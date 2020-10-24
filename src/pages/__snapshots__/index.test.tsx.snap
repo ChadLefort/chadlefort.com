@@ -6,7 +6,7 @@ Array [
     className="MuiBox-root MuiBox-root-7 makeStyles-root-2"
   >
     <header
-      className="MuiPaper-root MuiAppBar-root MuiAppBar-positionFixed MuiAppBar-colorPrimary mui-fixed MuiPaper-elevation4"
+      className="MuiPaper-root MuiAppBar-root MuiAppBar-positionFixed MuiAppBar-colorPrimary mui-fixed MuiPaper-elevation0"
     >
       <div
         className="MuiToolbar-root MuiToolbar-regular makeStyles-toolbar-3 MuiToolbar-gutters"
