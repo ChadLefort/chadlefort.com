@@ -38,7 +38,8 @@ export const SiteTheme: React.FC = ({ children }) => {
           }
         },
         button: {
-          fontFamily: `"Open Sans", "Helvetica", "Arial", sans-serif`
+          fontFamily: `"Open Sans", "Helvetica", "Arial", sans-serif`,
+          fontWeight: 600
         }
       },
       props: {

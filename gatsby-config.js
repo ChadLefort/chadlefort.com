@@ -57,8 +57,7 @@ module.exports = {
             variants: ['500']
           },
           {
-            family: 'Economica',
-            variants: ['700']
+            family: 'Fjalla One'
           }
         ]
       }

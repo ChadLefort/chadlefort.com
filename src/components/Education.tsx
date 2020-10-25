@@ -25,9 +25,13 @@ const useStyles = makeStyles((theme: Theme) => ({
   item: {
     display: 'flex',
     justifyContent: 'flex-end',
+    alignItems: 'center',
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(2, 0),
       justifyContent: 'center'
+    },
+    '@media print': {
+      padding: theme.spacing(0)
     }
   },
   logo: {
@@ -35,10 +39,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: '100%'
   },
   divider: {
-    marginTop: theme.spacing(2),
-    '@media print': {
-      marginTop: theme.spacing(0)
-    }
+    marginTop: theme.spacing(2)
   }
 }));
 
@@ -101,7 +102,7 @@ export const Education: React.FC = () => {
           </Typography>
           <Grid container justify="space-between" direction={isSmallDown && !isPrint ? 'column-reverse' : 'row'}>
             <Grid item xs={isPrint ? 10 : 12} md={10}>
-              <Typography variant="h5" component="h1" gutterBottom align={isSmallDown && !isPrint ? 'center' : 'inherit'}>
+              <Typography variant="h6" component="h1" gutterBottom align={isSmallDown && !isPrint ? 'center' : 'inherit'}>
                 Nicholls State University
               </Typography>
               <Typography variant="subtitle2" component="h2" color="textSecondary" align={isSmallDown && !isPrint ? 'center' : 'inherit'}>

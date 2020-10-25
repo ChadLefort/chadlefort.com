@@ -39,9 +39,13 @@ const useStyles = makeStyles((theme: Theme) => ({
   list: {
     width: 250
   },
+  listItem: {
+    fontWeight: 600
+  },
   link: {
     cursor: 'pointer',
-    margin: theme.spacing(0, 2)
+    margin: theme.spacing(0, 2),
+    fontWeight: 600
   },
   scrollToTop: {
     fontSize: '1.875rem',
@@ -113,7 +117,7 @@ export const Nav: React.FC = () => {
               <ListItemIcon>
                 <Icon />
               </ListItemIcon>
-              <ListItemText primary={label} />
+              <ListItemText primary={label} classes={{ primary: classes.listItem }} />
             </ListItem>
           );
         })}
@@ -136,7 +140,6 @@ export const Nav: React.FC = () => {
             <Box onClick={scrollToTop}>
               <Logo variant="h4" />
             </Box>
-
             <IconButton color="inherit" aria-label="open drawer" edge="end" onClick={toggleDrawer(true)}>
               <HamburgerIcon />
             </IconButton>

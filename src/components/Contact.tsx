@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   button: {
     margin: theme.spacing(2, 1),
     [theme.breakpoints.down('sm')]: {
-      margin: theme.spacing(1)
+      margin: theme.spacing(1, 0)
     }
   }
 }));
@@ -39,7 +39,7 @@ export const Contact: React.FC = () => {
             Contact
           </Typography>
           <Typography paragraph align="center" gutterBottom>
-            Have questions, a job opportunity, or want to hire me to develop a website? Let's get in touch.
+            Have questions or a job opportunity? Let's get in touch.
           </Typography>
           <Grid container item justify="center">
             <Button

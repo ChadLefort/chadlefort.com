@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export const SiteTimeline: React.FC = () => {
+export const JobExperience: React.FC = () => {
   const classes = useStyles();
   const { isSmallDown, isPrint } = useScreenSize();
   const veriforceDate = 'July 2017 - Present';
@@ -101,7 +101,7 @@ export const SiteTimeline: React.FC = () => {
                   </Hidden>
                   <List dense={isPrint}>
                     <ListItem>
-                      <ListItemText primary="Playing a pivotal role in the process of architecting applications in React, Redux, TypeScript, and Material-UI." />
+                      <ListItemText primary="Playing a pivotal role in the process of architecting applications in React, Redux, TypeScript, and Material-UI for a contractor managemant SaaS platform." />
                     </ListItem>
                     <ListItem>
                       <ListItemText primary="Set up a monorepo for over a dozen React applications and several private NPM packages using Lerna and Jenkins." />

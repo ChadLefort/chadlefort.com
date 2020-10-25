@@ -8,6 +8,7 @@ import Img from 'gatsby-image';
 import PhoneIcon from 'mdi-material-ui/Phone';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import { Logo } from './Logo';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useProfileImage } from '../hooks/useProfileImage';
 
@@ -19,9 +20,6 @@ const useStyles = makeStyles((theme: Theme) => ({
       backgroundColor: theme.palette.common.white,
       paddingBottom: theme.spacing(1.5)
     }
-  },
-  name: {
-    fontFamily: `"Economica", "Helvetica", "Arial", sans-serif`
   },
   medium: {
     width: theme.spacing(10),
@@ -47,9 +45,7 @@ export const PrintHeader: React.FC = () => {
             <Avatar alt="Chad Lefort" className={classes.medium} component={Img} fluid={fluid} loading="eager" />
           </Grid>
           <Grid item>
-            <Typography className={classes.name} variant="h2" component="h1">
-              Chad Lefort
-            </Typography>
+            <Logo variant="h2" component="h1" />
             <Typography color="textSecondary" variant="h5">
               Frontend Developer
             </Typography>
