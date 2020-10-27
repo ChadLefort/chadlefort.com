@@ -3,7 +3,7 @@
 exports[`renders correctly 1`] = `
 Array [
   <div
-    className="MuiBox-root MuiBox-root-8 makeStyles-root-2"
+    className="MuiBox-root MuiBox-root-9 makeStyles-root-2"
   >
     <header
       className="MuiPaper-root MuiAppBar-root MuiAppBar-positionFixed MuiAppBar-colorPrimary mui-fixed MuiPaper-elevation0"
@@ -13,7 +13,7 @@ Array [
       />
     </header>
     <div
-      className="MuiBox-root MuiBox-root-9 makeStyles-offset-1"
+      className="MuiBox-root MuiBox-root-10 makeStyles-offset-1"
     />
     <button
       aria-label="scroll-to-top"
@@ -62,7 +62,7 @@ Array [
     className="MuiGrid-root MuiGrid-container"
   >
     <div
-      className="MuiGrid-root makeStyles-root-10 MuiGrid-item MuiGrid-grid-xs-12"
+      className="MuiGrid-root makeStyles-root-11 MuiGrid-item MuiGrid-grid-xs-12"
     >
       <div
         className="MuiGrid-root MuiGrid-container MuiGrid-justify-xs-space-between"
@@ -71,10 +71,10 @@ Array [
           className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-align-items-xs-center MuiGrid-grid-xs-8"
         >
           <div
-            className="MuiGrid-root makeStyles-avatar-12 MuiGrid-item"
+            className="MuiGrid-root makeStyles-avatar-13 MuiGrid-item"
           >
             <div
-              className="MuiAvatar-root MuiAvatar-circle makeStyles-medium-11 MuiAvatar-colorDefault gatsby-image-wrapper"
+              className="MuiAvatar-root MuiAvatar-circle makeStyles-medium-12 MuiAvatar-colorDefault gatsby-image-wrapper"
               style={
                 Object {
                   "maxHeight": null,
@@ -133,7 +133,7 @@ Array [
             className="MuiGrid-root MuiGrid-item"
           >
             <h1
-              className="MuiTypography-root makeStyles-logo-14 MuiTypography-h2"
+              className="MuiTypography-root makeStyles-logo-15 MuiTypography-h2"
             >
               Chad Lefort
             </h1>
@@ -148,14 +148,14 @@ Array [
           className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-align-items-xs-center MuiGrid-justify-xs-flex-end MuiGrid-grid-xs-4"
         >
           <div
-            className="MuiBox-root MuiBox-root-15"
+            className="MuiBox-root MuiBox-root-16"
           >
             <div
-              className="MuiBox-root MuiBox-root-16"
+              className="MuiBox-root MuiBox-root-17"
             >
               <svg
                 aria-hidden={true}
-                className="MuiSvgIcon-root makeStyles-icon-13 MuiSvgIcon-fontSizeSmall"
+                className="MuiSvgIcon-root makeStyles-icon-14 MuiSvgIcon-fontSizeSmall"
                 focusable="false"
                 viewBox="0 0 24 24"
               >
@@ -170,11 +170,11 @@ Array [
               </p>
             </div>
             <div
-              className="MuiBox-root MuiBox-root-17"
+              className="MuiBox-root MuiBox-root-18"
             >
               <svg
                 aria-hidden={true}
-                className="MuiSvgIcon-root makeStyles-icon-13 MuiSvgIcon-fontSizeSmall"
+                className="MuiSvgIcon-root makeStyles-icon-14 MuiSvgIcon-fontSizeSmall"
                 focusable="false"
                 viewBox="0 0 24 24"
               >
@@ -189,11 +189,11 @@ Array [
               </p>
             </div>
             <div
-              className="MuiBox-root MuiBox-root-18"
+              className="MuiBox-root MuiBox-root-19"
             >
               <svg
                 aria-hidden={true}
-                className="MuiSvgIcon-root makeStyles-icon-13 MuiSvgIcon-fontSizeSmall"
+                className="MuiSvgIcon-root makeStyles-icon-14 MuiSvgIcon-fontSizeSmall"
                 focusable="false"
                 viewBox="0 0 24 24"
               >
@@ -208,11 +208,11 @@ Array [
               </p>
             </div>
             <div
-              className="MuiBox-root MuiBox-root-19"
+              className="MuiBox-root MuiBox-root-20"
             >
               <svg
                 aria-hidden={true}
-                className="MuiSvgIcon-root makeStyles-icon-13 MuiSvgIcon-fontSizeSmall"
+                className="MuiSvgIcon-root makeStyles-icon-14 MuiSvgIcon-fontSizeSmall"
                 focusable="false"
                 viewBox="0 0 24 24"
               >
@@ -231,7 +231,7 @@ Array [
       </div>
     </div>
     <div
-      className="MuiGrid-root makeStyles-root-20 MuiGrid-item MuiGrid-grid-xs-12"
+      className="MuiGrid-root makeStyles-root-21 MuiGrid-item MuiGrid-grid-xs-12"
     >
       <div
         className="MuiGrid-root MuiGrid-container MuiGrid-justify-xs-center"
@@ -240,10 +240,10 @@ Array [
           className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-align-items-xs-center MuiGrid-justify-xs-center MuiGrid-grid-xs-12"
         >
           <div
-            className="MuiGrid-root makeStyles-avatar-22 MuiGrid-item"
+            className="MuiGrid-root makeStyles-avatar-23 MuiGrid-item"
           >
             <div
-              className="MuiAvatar-root MuiAvatar-circle makeStyles-large-21 MuiAvatar-colorDefault gatsby-image-wrapper"
+              className="MuiAvatar-root MuiAvatar-circle makeStyles-large-22 MuiAvatar-colorDefault gatsby-image-wrapper"
               style={
                 Object {
                   "maxHeight": null,
@@ -306,23 +306,23 @@ Array [
             className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
           >
             <div
-              className="MuiBox-root MuiBox-root-37 makeStyles-root-28"
+              className="MuiBox-root MuiBox-root-38 makeStyles-root-29"
             >
               <div
-                className="MuiBox-root MuiBox-root-38 makeStyles-menuBar-29"
+                className="MuiBox-root MuiBox-root-39 makeStyles-menuBar-30"
               >
                 <div
-                  className="MuiBox-root MuiBox-root-39 makeStyles-menuBarButton-30 makeStyles-menuBarMin-31"
+                  className="MuiBox-root MuiBox-root-40 makeStyles-menuBarButton-31 makeStyles-menuBarMin-32"
                 />
                 <div
-                  className="MuiBox-root MuiBox-root-40 makeStyles-menuBarButton-30 makeStyles-menuBarMax-32"
+                  className="MuiBox-root MuiBox-root-41 makeStyles-menuBarButton-31 makeStyles-menuBarMax-33"
                 />
                 <div
-                  className="MuiBox-root MuiBox-root-41 makeStyles-menuBarButton-30 makeStyles-menuBarClose-33"
+                  className="MuiBox-root MuiBox-root-42 makeStyles-menuBarButton-31 makeStyles-menuBarClose-34"
                 />
               </div>
               <div
-                className="MuiBox-root MuiBox-root-42 makeStyles-mainWindow-34"
+                className="MuiBox-root MuiBox-root-43 makeStyles-mainWindow-35"
               >
                 <p
                   className="MuiTypography-root MuiTypography-body1"
@@ -332,7 +332,7 @@ Array [
                   />
                 </p>
                 <div
-                  className="MuiBox-root MuiBox-root-43"
+                  className="MuiBox-root MuiBox-root-44"
                   style={
                     Object {
                       "display": "none",
@@ -364,7 +364,7 @@ Array [
                   >
                     $ 
                     <span
-                      className="makeStyles-cursor-35"
+                      className="makeStyles-cursor-36"
                     >
                        
                     </span>
@@ -378,7 +378,7 @@ Array [
           >
             <a
               aria-disabled={false}
-              className="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-25 MuiButton-containedPrimary MuiButton-containedSizeLarge MuiButton-sizeLarge MuiButton-disableElevation"
+              className="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-26 MuiButton-containedPrimary MuiButton-containedSizeLarge MuiButton-sizeLarge MuiButton-disableElevation"
               download={true}
               href="/Chad Lefort - Resume.pdf"
               onBlur={[Function]}
@@ -398,7 +398,7 @@ Array [
                 className="MuiButton-label"
               >
                 <span
-                  className="MuiButton-startIcon MuiButton-iconSizeLarge makeStyles-icon-26"
+                  className="MuiButton-startIcon MuiButton-iconSizeLarge makeStyles-icon-27"
                 >
                   <svg
                     aria-hidden={true}
@@ -422,7 +422,7 @@ Array [
       </div>
     </div>
     <div
-      className="MuiGrid-root makeStyles-root-44 MuiGrid-item MuiGrid-grid-xs-12"
+      className="MuiGrid-root makeStyles-root-45 MuiGrid-item MuiGrid-grid-xs-12"
       id="job-experience"
     >
       <div
@@ -437,14 +437,14 @@ Array [
             Job Experience
           </h2>
           <ul
-            className="MuiTimeline-root MuiTimeline-alignAlternate makeStyles-timeline-46"
+            className="MuiTimeline-root MuiTimeline-alignAlternate makeStyles-timeline-47"
             data-testid="timeline"
           >
             <li
               className="MuiTimelineItem-root MuiTimelineItem-alignAlternate"
             >
               <div
-                className="MuiTimelineOppositeContent-root MuiTimelineItem-oppositeContent makeStyles-timelineOpposite-48"
+                className="MuiTimelineOppositeContent-root MuiTimelineItem-oppositeContent makeStyles-timelineOpposite-49"
               >
                 <p
                   className="MuiTypography-root MuiTypography-body2 MuiTypography-colorTextSecondary"
@@ -456,7 +456,7 @@ Array [
                 className="MuiTimelineSeparator-root"
               >
                 <span
-                  className="MuiTimelineDot-root makeStyles-timelineDot-47 MuiTimelineDot-defaultPrimary"
+                  className="MuiTimelineDot-root makeStyles-timelineDot-48 MuiTimelineDot-defaultPrimary"
                 />
                 <span
                   className="MuiTimelineConnector-root"
@@ -469,7 +469,7 @@ Array [
                 data-sal-easing="ease-in-out-quart"
               >
                 <div
-                  className="MuiPaper-root makeStyles-paper-45 MuiPaper-elevation0 MuiPaper-rounded"
+                  className="MuiPaper-root makeStyles-paper-46 MuiPaper-elevation0 MuiPaper-rounded"
                 >
                   <h1
                     className="MuiTypography-root MuiTypography-h6"
@@ -485,7 +485,7 @@ Array [
                     className="MuiList-root MuiList-padding"
                   >
                     <li
-                      className="MuiListItem-root makeStyles-root-49 MuiListItem-gutters"
+                      className="MuiListItem-root makeStyles-root-50 MuiListItem-gutters"
                       disabled={false}
                     >
                       <div
@@ -499,7 +499,7 @@ Array [
                       </div>
                     </li>
                     <li
-                      className="MuiListItem-root makeStyles-root-49 MuiListItem-gutters"
+                      className="MuiListItem-root makeStyles-root-50 MuiListItem-gutters"
                       disabled={false}
                     >
                       <div
@@ -513,7 +513,7 @@ Array [
                       </div>
                     </li>
                     <li
-                      className="MuiListItem-root makeStyles-root-49 MuiListItem-gutters"
+                      className="MuiListItem-root makeStyles-root-50 MuiListItem-gutters"
                       disabled={false}
                     >
                       <div
@@ -527,7 +527,7 @@ Array [
                       </div>
                     </li>
                     <li
-                      className="MuiListItem-root makeStyles-root-49 MuiListItem-gutters"
+                      className="MuiListItem-root makeStyles-root-50 MuiListItem-gutters"
                       disabled={false}
                     >
                       <div
@@ -541,7 +541,7 @@ Array [
                       </div>
                     </li>
                     <li
-                      className="MuiListItem-root makeStyles-root-49 MuiListItem-gutters"
+                      className="MuiListItem-root makeStyles-root-50 MuiListItem-gutters"
                       disabled={false}
                     >
                       <div
@@ -562,7 +562,7 @@ Array [
               className="MuiTimelineItem-root MuiTimelineItem-alignAlternate"
             >
               <div
-                className="MuiTimelineOppositeContent-root MuiTimelineItem-oppositeContent makeStyles-timelineOpposite-48"
+                className="MuiTimelineOppositeContent-root MuiTimelineItem-oppositeContent makeStyles-timelineOpposite-49"
               >
                 <p
                   className="MuiTypography-root MuiTypography-body2 MuiTypography-colorTextSecondary"
@@ -574,7 +574,7 @@ Array [
                 className="MuiTimelineSeparator-root"
               >
                 <span
-                  className="MuiTimelineDot-root makeStyles-timelineDot-47 MuiTimelineDot-defaultPrimary"
+                  className="MuiTimelineDot-root makeStyles-timelineDot-48 MuiTimelineDot-defaultPrimary"
                 />
                 <span
                   className="MuiTimelineConnector-root"
@@ -587,7 +587,7 @@ Array [
                 data-sal-easing="ease-in-out-quart"
               >
                 <div
-                  className="MuiPaper-root makeStyles-paper-45 MuiPaper-elevation0 MuiPaper-rounded"
+                  className="MuiPaper-root makeStyles-paper-46 MuiPaper-elevation0 MuiPaper-rounded"
                 >
                   <h1
                     className="MuiTypography-root MuiTypography-h6"
@@ -603,7 +603,7 @@ Array [
                     className="MuiList-root MuiList-padding"
                   >
                     <li
-                      className="MuiListItem-root makeStyles-root-49 MuiListItem-gutters"
+                      className="MuiListItem-root makeStyles-root-50 MuiListItem-gutters"
                       disabled={false}
                     >
                       <div
@@ -617,7 +617,7 @@ Array [
                       </div>
                     </li>
                     <li
-                      className="MuiListItem-root makeStyles-root-49 MuiListItem-gutters"
+                      className="MuiListItem-root makeStyles-root-50 MuiListItem-gutters"
                       disabled={false}
                     >
                       <div
@@ -631,7 +631,7 @@ Array [
                       </div>
                     </li>
                     <li
-                      className="MuiListItem-root makeStyles-root-49 MuiListItem-gutters"
+                      className="MuiListItem-root makeStyles-root-50 MuiListItem-gutters"
                       disabled={false}
                     >
                       <div
@@ -652,7 +652,7 @@ Array [
               className="MuiTimelineItem-root MuiTimelineItem-alignAlternate"
             >
               <div
-                className="MuiTimelineOppositeContent-root MuiTimelineItem-oppositeContent makeStyles-timelineOpposite-48"
+                className="MuiTimelineOppositeContent-root MuiTimelineItem-oppositeContent makeStyles-timelineOpposite-49"
               >
                 <p
                   className="MuiTypography-root MuiTypography-body2 MuiTypography-colorTextSecondary"
@@ -664,7 +664,7 @@ Array [
                 className="MuiTimelineSeparator-root"
               >
                 <span
-                  className="MuiTimelineDot-root makeStyles-timelineDot-47 MuiTimelineDot-defaultPrimary"
+                  className="MuiTimelineDot-root makeStyles-timelineDot-48 MuiTimelineDot-defaultPrimary"
                 />
                 <span
                   className="MuiTimelineConnector-root"
@@ -677,7 +677,7 @@ Array [
                 data-sal-easing="ease-in-out-quart"
               >
                 <div
-                  className="MuiPaper-root makeStyles-paper-45 MuiPaper-elevation0 MuiPaper-rounded"
+                  className="MuiPaper-root makeStyles-paper-46 MuiPaper-elevation0 MuiPaper-rounded"
                 >
                   <h1
                     className="MuiTypography-root MuiTypography-h6"
@@ -693,7 +693,7 @@ Array [
                     className="MuiList-root MuiList-padding"
                   >
                     <li
-                      className="MuiListItem-root makeStyles-root-49 MuiListItem-gutters"
+                      className="MuiListItem-root makeStyles-root-50 MuiListItem-gutters"
                       disabled={false}
                     >
                       <div
@@ -714,7 +714,7 @@ Array [
               className="MuiTimelineItem-root MuiTimelineItem-alignAlternate"
             >
               <div
-                className="MuiTimelineOppositeContent-root MuiTimelineItem-oppositeContent makeStyles-timelineOpposite-48"
+                className="MuiTimelineOppositeContent-root MuiTimelineItem-oppositeContent makeStyles-timelineOpposite-49"
               >
                 <p
                   className="MuiTypography-root MuiTypography-body2 MuiTypography-colorTextSecondary"
@@ -726,7 +726,7 @@ Array [
                 className="MuiTimelineSeparator-root"
               >
                 <span
-                  className="MuiTimelineDot-root makeStyles-timelineDot-47 MuiTimelineDot-defaultPrimary"
+                  className="MuiTimelineDot-root makeStyles-timelineDot-48 MuiTimelineDot-defaultPrimary"
                 />
               </div>
               <div
@@ -736,7 +736,7 @@ Array [
                 data-sal-easing="ease-in-out-quart"
               >
                 <div
-                  className="MuiPaper-root makeStyles-paper-45 MuiPaper-elevation0 MuiPaper-rounded"
+                  className="MuiPaper-root makeStyles-paper-46 MuiPaper-elevation0 MuiPaper-rounded"
                 >
                   <h1
                     className="MuiTypography-root MuiTypography-h6"
@@ -752,7 +752,7 @@ Array [
                     className="MuiList-root MuiList-padding"
                   >
                     <li
-                      className="MuiListItem-root makeStyles-root-49 MuiListItem-gutters"
+                      className="MuiListItem-root makeStyles-root-50 MuiListItem-gutters"
                       disabled={false}
                     >
                       <div
@@ -774,7 +774,7 @@ Array [
       </div>
     </div>
     <div
-      className="MuiGrid-root makeStyles-root-50 MuiGrid-item MuiGrid-grid-xs-12"
+      className="MuiGrid-root makeStyles-root-51 MuiGrid-item MuiGrid-grid-xs-12"
       id="skills"
     >
       <div
@@ -792,13 +792,13 @@ Array [
             className="MuiGrid-root MuiGrid-container MuiGrid-justify-xs-center"
           >
             <div
-              className="MuiGrid-root makeStyles-item-51 MuiGrid-item"
+              className="MuiGrid-root makeStyles-item-52 MuiGrid-item"
             >
               <div
-                className="MuiPaper-root makeStyles-paper-52 MuiPaper-elevation0 MuiPaper-rounded"
+                className="MuiPaper-root makeStyles-paper-53 MuiPaper-elevation0 MuiPaper-rounded"
               >
                 <div
-                  className="MuiBox-root MuiBox-root-54 makeStyles-icon-53"
+                  className="MuiBox-root MuiBox-root-55 makeStyles-icon-54"
                 >
                   <svg
                     height={62}
@@ -821,13 +821,13 @@ Array [
               </div>
             </div>
             <div
-              className="MuiGrid-root makeStyles-item-51 MuiGrid-item"
+              className="MuiGrid-root makeStyles-item-52 MuiGrid-item"
             >
               <div
-                className="MuiPaper-root makeStyles-paper-52 MuiPaper-elevation0 MuiPaper-rounded"
+                className="MuiPaper-root makeStyles-paper-53 MuiPaper-elevation0 MuiPaper-rounded"
               >
                 <div
-                  className="MuiBox-root MuiBox-root-55 makeStyles-icon-53"
+                  className="MuiBox-root MuiBox-root-56 makeStyles-icon-54"
                 >
                   <svg
                     height={62}
@@ -854,13 +854,13 @@ Array [
               </div>
             </div>
             <div
-              className="MuiGrid-root makeStyles-item-51 MuiGrid-item"
+              className="MuiGrid-root makeStyles-item-52 MuiGrid-item"
             >
               <div
-                className="MuiPaper-root makeStyles-paper-52 MuiPaper-elevation0 MuiPaper-rounded"
+                className="MuiPaper-root makeStyles-paper-53 MuiPaper-elevation0 MuiPaper-rounded"
               >
                 <div
-                  className="MuiBox-root MuiBox-root-56 makeStyles-icon-53"
+                  className="MuiBox-root MuiBox-root-57 makeStyles-icon-54"
                 >
                   <svg
                     height={62}
@@ -883,13 +883,13 @@ Array [
               </div>
             </div>
             <div
-              className="MuiGrid-root makeStyles-item-51 MuiGrid-item"
+              className="MuiGrid-root makeStyles-item-52 MuiGrid-item"
             >
               <div
-                className="MuiPaper-root makeStyles-paper-52 MuiPaper-elevation0 MuiPaper-rounded"
+                className="MuiPaper-root makeStyles-paper-53 MuiPaper-elevation0 MuiPaper-rounded"
               >
                 <div
-                  className="MuiBox-root MuiBox-root-57 makeStyles-icon-53"
+                  className="MuiBox-root MuiBox-root-58 makeStyles-icon-54"
                 >
                   <svg
                     height={62}
@@ -912,13 +912,13 @@ Array [
               </div>
             </div>
             <div
-              className="MuiGrid-root makeStyles-item-51 MuiGrid-item"
+              className="MuiGrid-root makeStyles-item-52 MuiGrid-item"
             >
               <div
-                className="MuiPaper-root makeStyles-paper-52 MuiPaper-elevation0 MuiPaper-rounded"
+                className="MuiPaper-root makeStyles-paper-53 MuiPaper-elevation0 MuiPaper-rounded"
               >
                 <div
-                  className="MuiBox-root MuiBox-root-58 makeStyles-icon-53"
+                  className="MuiBox-root MuiBox-root-59 makeStyles-icon-54"
                 >
                   <svg
                     height={62}
@@ -941,13 +941,13 @@ Array [
               </div>
             </div>
             <div
-              className="MuiGrid-root makeStyles-item-51 MuiGrid-item"
+              className="MuiGrid-root makeStyles-item-52 MuiGrid-item"
             >
               <div
-                className="MuiPaper-root makeStyles-paper-52 MuiPaper-elevation0 MuiPaper-rounded"
+                className="MuiPaper-root makeStyles-paper-53 MuiPaper-elevation0 MuiPaper-rounded"
               >
                 <div
-                  className="MuiBox-root MuiBox-root-59 makeStyles-icon-53"
+                  className="MuiBox-root MuiBox-root-60 makeStyles-icon-54"
                 >
                   <svg
                     height={62}
@@ -974,13 +974,13 @@ Array [
               </div>
             </div>
             <div
-              className="MuiGrid-root makeStyles-item-51 MuiGrid-item"
+              className="MuiGrid-root makeStyles-item-52 MuiGrid-item"
             >
               <div
-                className="MuiPaper-root makeStyles-paper-52 MuiPaper-elevation0 MuiPaper-rounded"
+                className="MuiPaper-root makeStyles-paper-53 MuiPaper-elevation0 MuiPaper-rounded"
               >
                 <div
-                  className="MuiBox-root MuiBox-root-60 makeStyles-icon-53"
+                  className="MuiBox-root MuiBox-root-61 makeStyles-icon-54"
                 >
                   <svg
                     height={62}
@@ -1003,13 +1003,13 @@ Array [
               </div>
             </div>
             <div
-              className="MuiGrid-root makeStyles-item-51 MuiGrid-item"
+              className="MuiGrid-root makeStyles-item-52 MuiGrid-item"
             >
               <div
-                className="MuiPaper-root makeStyles-paper-52 MuiPaper-elevation0 MuiPaper-rounded"
+                className="MuiPaper-root makeStyles-paper-53 MuiPaper-elevation0 MuiPaper-rounded"
               >
                 <div
-                  className="MuiBox-root MuiBox-root-61 makeStyles-icon-53"
+                  className="MuiBox-root MuiBox-root-62 makeStyles-icon-54"
                 >
                   <svg
                     height={62}
@@ -1036,7 +1036,7 @@ Array [
       </div>
     </div>
     <div
-      className="MuiGrid-root makeStyles-root-62 MuiGrid-item MuiGrid-grid-xs-12"
+      className="MuiGrid-root makeStyles-root-63 MuiGrid-item MuiGrid-grid-xs-12"
       id="education"
     >
       <div
@@ -1073,10 +1073,10 @@ Array [
               </p>
             </div>
             <div
-              className="MuiGrid-root makeStyles-item-64 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-2"
+              className="MuiGrid-root makeStyles-item-65 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-2"
             >
               <svg
-                className="makeStyles-logo-65"
+                className="makeStyles-logo-66"
                 height="62"
                 viewBox="0 0 533 260"
               >
@@ -1095,13 +1095,13 @@ Array [
             </div>
           </div>
           <hr
-            className="MuiDivider-root makeStyles-divider-66"
+            className="MuiDivider-root makeStyles-divider-67"
           />
           <ul
             className="MuiList-root MuiList-padding"
           >
             <li
-              className="MuiListItem-root makeStyles-root-49 MuiListItem-gutters"
+              className="MuiListItem-root makeStyles-root-50 MuiListItem-gutters"
               disabled={false}
             >
               <div
@@ -1115,7 +1115,7 @@ Array [
               </div>
             </li>
             <li
-              className="MuiListItem-root makeStyles-root-49 MuiListItem-gutters"
+              className="MuiListItem-root makeStyles-root-50 MuiListItem-gutters"
               disabled={false}
             >
               <div
@@ -1138,7 +1138,7 @@ Array [
             className="MuiList-root MuiList-padding"
           >
             <li
-              className="MuiListItem-root makeStyles-root-49 MuiListItem-gutters"
+              className="MuiListItem-root makeStyles-root-50 MuiListItem-gutters"
               disabled={false}
             >
               <div
@@ -1161,7 +1161,7 @@ Array [
             className="MuiList-root MuiList-padding"
           >
             <li
-              className="MuiListItem-root makeStyles-root-49 MuiListItem-gutters"
+              className="MuiListItem-root makeStyles-root-50 MuiListItem-gutters"
               disabled={false}
             >
               <div
@@ -1175,7 +1175,7 @@ Array [
               </div>
             </li>
             <li
-              className="MuiListItem-root makeStyles-root-49 MuiListItem-gutters"
+              className="MuiListItem-root makeStyles-root-50 MuiListItem-gutters"
               disabled={false}
             >
               <div
@@ -1193,7 +1193,7 @@ Array [
       </div>
     </div>
     <div
-      className="MuiGrid-root makeStyles-root-67 MuiGrid-item MuiGrid-grid-xs-12"
+      className="MuiGrid-root makeStyles-root-68 MuiGrid-item MuiGrid-grid-xs-12"
       id="about-me"
     >
       <div
@@ -1211,10 +1211,10 @@ Array [
             className="MuiGrid-root MuiGrid-container"
           >
             <div
-              className="MuiGrid-root makeStyles-avatar-69 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-4 MuiGrid-grid-lg-3"
+              className="MuiGrid-root makeStyles-avatar-70 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-4 MuiGrid-grid-lg-3"
             >
               <div
-                className="MuiAvatar-root MuiAvatar-rounded makeStyles-large-68 MuiAvatar-colorDefault gatsby-image-wrapper"
+                className="MuiAvatar-root MuiAvatar-rounded makeStyles-large-69 MuiAvatar-colorDefault gatsby-image-wrapper"
                 style={
                   Object {
                     "maxHeight": null,
@@ -1288,7 +1288,7 @@ Array [
       </div>
     </div>
     <div
-      className="MuiGrid-root makeStyles-root-70 MuiGrid-item MuiGrid-grid-xs-12"
+      className="MuiGrid-root makeStyles-root-71 MuiGrid-item MuiGrid-grid-xs-12"
       id="contact"
     >
       <div
@@ -1313,7 +1313,7 @@ Array [
             <a
               aria-disabled={false}
               aria-label="email"
-              className="MuiButtonBase-root MuiIconButton-root makeStyles-button-71"
+              className="MuiButtonBase-root MuiIconButton-root makeStyles-button-72"
               href="mailto:chadlefort@gmail.com"
               onBlur={[Function]}
               onDragLeave={[Function]}
@@ -1335,7 +1335,7 @@ Array [
               >
                 <svg
                   aria-hidden={true}
-                  className="MuiSvgIcon-root makeStyles-icon-72"
+                  className="MuiSvgIcon-root makeStyles-icon-73"
                   focusable="false"
                   viewBox="0 0 24 24"
                 >
@@ -1351,7 +1351,7 @@ Array [
             <a
               aria-disabled={false}
               aria-label="github"
-              className="MuiButtonBase-root MuiIconButton-root makeStyles-button-71"
+              className="MuiButtonBase-root MuiIconButton-root makeStyles-button-72"
               href="https://github.com/ChadLefort"
               onBlur={[Function]}
               onDragLeave={[Function]}
@@ -1373,7 +1373,7 @@ Array [
               >
                 <svg
                   aria-hidden={true}
-                  className="MuiSvgIcon-root makeStyles-icon-72"
+                  className="MuiSvgIcon-root makeStyles-icon-73"
                   focusable="false"
                   viewBox="0 0 24 24"
                 >
@@ -1389,7 +1389,7 @@ Array [
             <a
               aria-disabled={false}
               aria-label="linkedin"
-              className="MuiButtonBase-root MuiIconButton-root makeStyles-button-71"
+              className="MuiButtonBase-root MuiIconButton-root makeStyles-button-72"
               href="https://www.linkedin.com/in/chadlefort"
               onBlur={[Function]}
               onDragLeave={[Function]}
@@ -1411,7 +1411,7 @@ Array [
               >
                 <svg
                   aria-hidden={true}
-                  className="MuiSvgIcon-root makeStyles-icon-72"
+                  className="MuiSvgIcon-root makeStyles-icon-73"
                   focusable="false"
                   viewBox="0 0 24 24"
                 >
@@ -1427,7 +1427,7 @@ Array [
             <a
               aria-disabled={false}
               aria-label="twitter"
-              className="MuiButtonBase-root MuiIconButton-root makeStyles-button-71"
+              className="MuiButtonBase-root MuiIconButton-root makeStyles-button-72"
               href="https://twitter.com/ChadLefort"
               onBlur={[Function]}
               onDragLeave={[Function]}
@@ -1449,7 +1449,7 @@ Array [
               >
                 <svg
                   aria-hidden={true}
-                  className="MuiSvgIcon-root makeStyles-icon-72"
+                  className="MuiSvgIcon-root makeStyles-icon-73"
                   focusable="false"
                   viewBox="0 0 24 24"
                 >

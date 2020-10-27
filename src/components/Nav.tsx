@@ -54,6 +54,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     position: 'fixed',
     bottom: 30,
     right: 30
+  },
+  icon: {
+    fontSize: '1.7rem'
   }
 }));
 
@@ -116,7 +119,7 @@ export const Nav: React.FC = () => {
           return (
             <ListItem button key={index} onClick={scrollToSection(to)}>
               <ListItemIcon>
-                <Icon />
+                <Icon className={classes.icon} />
               </ListItemIcon>
               <ListItemText primary={label} classes={{ primary: classes.listItem }} />
             </ListItem>
@@ -142,7 +145,7 @@ export const Nav: React.FC = () => {
               <Logo variant="h4" />
             </Box>
             <IconButton color="inherit" aria-label="open drawer" edge="end" onClick={toggleDrawer(true)}>
-              <HamburgerIcon />
+              <HamburgerIcon className={classes.icon} />
             </IconButton>
             <Drawer anchor="right" open={drawer} onClose={toggleDrawer(false)}>
               {list()}
