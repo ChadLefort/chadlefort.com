@@ -1,4 +1,5 @@
 import AccountIcon from 'mdi-material-ui/Account';
+import animateScroll from 'react-scroll/modules/mixins/animate-scroll';
 import AppBar from '@material-ui/core/AppBar';
 import ArrowUpIcon from 'mdi-material-ui/ArrowUpBold';
 import Box from '@material-ui/core/Box';
@@ -9,6 +10,7 @@ import Fab from '@material-ui/core/Fab';
 import HamburgerIcon from 'mdi-material-ui/Hamburger';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
+import Link from '@material-ui/core/Link';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -16,9 +18,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import NoteIcon from 'mdi-material-ui/Note';
 import React, { useEffect, useState } from 'react';
 import SchoolIcon from 'mdi-material-ui/School';
+import scroller from 'react-scroll/modules/mixins/scroller';
 import Toolbar from '@material-ui/core/Toolbar';
-import { animateScroll } from 'react-scroll';
-import { Link, scroller } from 'react-scroll';
 import { Logo } from './Logo';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useScreenSize } from '../hooks/useScreenSize';
@@ -131,7 +132,7 @@ export const Nav: React.FC = () => {
         <Toolbar className={classes.toolbar}>
           <Hidden smDown>
             {links.map(({ to, label }, index) => (
-              <Link key={index} to={to} spy offset={deskTopOffset} duration={duration} smooth={smooth} className={classes.link}>
+              <Link key={index} onClick={scrollToSection(to)} className={classes.link} color="inherit" underline="none">
                 {label}
               </Link>
             ))}

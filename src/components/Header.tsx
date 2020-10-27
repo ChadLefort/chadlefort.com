@@ -49,8 +49,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   button: {
     margin: theme.spacing(2, 1),
+    padding: theme.spacing(2, 4),
+    textTransform: 'none',
     [theme.breakpoints.down('sm')]: {
       margin: theme.spacing(1, 0)
+    }
+  },
+  icon: {
+    '& svg': {
+      fontSize: '1.7rem !important'
     }
   },
   title: {
@@ -95,6 +102,7 @@ export const Header: React.FC = () => {
               href="/Chad Lefort - Resume.pdf"
               download
               fullWidth={isSmallDown}
+              classes={{ iconSizeLarge: classes.icon }}
             >
               Download Resume
             </Button>

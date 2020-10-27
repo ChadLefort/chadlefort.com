@@ -94,7 +94,7 @@ export const Terminal: React.FC = () => {
       </Box>
       <Box className={classes.mainWindow}>
         <Typography>
-          <Typing cursor={<Cursor />} speed={150} onFinishedTyping={handleFinishedTyping}>
+          <Typing cursor={<Cursor />} speed={75} onFinishedTyping={handleFinishedTyping}>
             $ ./chad-lefort.sh
           </Typing>
         </Typography>
