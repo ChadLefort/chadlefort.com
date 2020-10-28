@@ -10,8 +10,9 @@ type ThemeContext = { theme: Theme; toggleTheme: () => void };
 export const ThemeContext = React.createContext<ThemeContext>({} as ThemeContext);
 
 export const SiteTheme: React.FC = ({ children }) => {
-  const [theme, setTheme] = useState<Theme>('dark');
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)') && theme === 'dark';
+  const defaultPreference = useMediaQuery('(prefers-color-scheme: light)') ? 'light' : 'dark';
+  const [theme, setTheme] = useState<Theme>(defaultPreference);
+  const prefersDarkMode = theme === 'dark';
 
   const toggleTheme = () => {
     const oppositeTheme = theme === 'light' ? 'dark' : 'light';
@@ -21,8 +22,8 @@ export const SiteTheme: React.FC = ({ children }) => {
 
   useEffect(() => {
     const theme = localStorage.getItem('theme') as Theme | null;
-    theme && setTheme(theme);
-  }, []);
+    setTheme(theme || defaultPreference);
+  }, [defaultPreference]);
 
   const muiTheme = responsiveFontSizes(
     createMuiTheme({
