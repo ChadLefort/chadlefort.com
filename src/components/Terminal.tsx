@@ -1,6 +1,6 @@
 import Box from '@material-ui/core/Box';
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Typing from 'react-typing-animation';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -72,6 +72,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     '100%': {
       opacity: 0
     }
+  },
+  typingContainer: {
+    display: 'flex'
+  },
+  typing: {
+    marginLeft: 9
   }
 }));
 
@@ -83,7 +89,12 @@ export const Cursor: React.FC = () => {
 export const Terminal: React.FC = () => {
   const classes = useStyles();
   const [finishedTyping, setFinishedTyping] = useState(false);
+  const [show, setShow] = useState(false);
   const handleFinishedTyping = () => setFinishedTyping(true);
+
+  useEffect(() => {
+    setShow(true);
+  }, []);
 
   return (
     <Box className={classes.root}>
@@ -93,20 +104,23 @@ export const Terminal: React.FC = () => {
         <Box className={clsx(classes.menuBarButton, classes.menuBarClose)} />
       </Box>
       <Box className={classes.mainWindow}>
-        <Typography>
-          <Typing cursor={<Cursor />} speed={75} onFinishedTyping={handleFinishedTyping}>
-            $ ./chad-lefort.sh
+        <Typography className={classes.typingContainer}>
+          $
+          <Typing cursor={<Cursor />} startDelay={500} speed={100} onFinishedTyping={handleFinishedTyping} className={classes.typing}>
+            ./chad-lefort.sh
           </Typing>
         </Typography>
-        <Box style={finishedTyping ? { display: 'block' } : { display: 'none' }}>
-          <Typography>&gt; Hello, I'm Chad a frontend developer from Covington, Louisiana.</Typography>
-          <Typography>&gt; I’ve always had a strong passion for the web. Shortly after I was gifted my first computer, I grew interested in web development.</Typography>
-          <Typography>&gt; I'm constantly furthering my skills to keep up with the ever changing demand the web has.</Typography>
-          <Typography>&gt; I've always enjoyed the feeling of accomplishment when programming, and I take pride in writing clean, maintainable, and efficient code.</Typography>
-          <Typography>
-            $ <Cursor />
-          </Typography>
-        </Box>
+        {show && (
+          <Box style={finishedTyping ? { display: 'block' } : { display: 'none' }}>
+            <Typography>&gt; Hello, I'm Chad a frontend developer from Covington, Louisiana.</Typography>
+            <Typography>&gt; I’ve always had a strong passion for the web. Shortly after I was gifted my first computer, I grew interested in web development.</Typography>
+            <Typography>&gt; I'm constantly furthering my skills to keep up with the ever changing demand the web has.</Typography>
+            <Typography>&gt; I've always enjoyed the feeling of accomplishment when programming, and I take pride in writing clean, maintainable, and efficient code.</Typography>
+            <Typography>
+              $ <Cursor />
+            </Typography>
+          </Box>
+        )}
       </Box>
     </Box>
   );
