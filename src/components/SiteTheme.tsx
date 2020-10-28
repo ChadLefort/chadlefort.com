@@ -1,11 +1,29 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
 import { grey } from '@material-ui/core/colors';
 
+type Theme = 'light' | 'dark';
+type ThemeContext = { theme: Theme; toggleTheme: () => void };
+
+export const ThemeContext = React.createContext<ThemeContext>({} as ThemeContext);
+
 export const SiteTheme: React.FC = ({ children }) => {
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  const [theme, setTheme] = useState<Theme>('dark');
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)') && theme === 'dark';
+
+  const toggleTheme = () => {
+    const oppositeTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(oppositeTheme);
+    localStorage.setItem('theme', oppositeTheme);
+  };
+
+  useEffect(() => {
+    const theme = localStorage.getItem('theme') as Theme | null;
+    theme && setTheme(theme);
+  }, []);
+
   const muiTheme = responsiveFontSizes(
     createMuiTheme({
       palette: {
@@ -56,9 +74,11 @@ export const SiteTheme: React.FC = ({ children }) => {
   );
 
   return (
-    <ThemeProvider theme={muiTheme}>
-      <CssBaseline />
-      {children}
-    </ThemeProvider>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <ThemeProvider theme={muiTheme}>
+        <CssBaseline />
+        {children}
+      </ThemeProvider>
+    </ThemeContext.Provider>
   );
 };

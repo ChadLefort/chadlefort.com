@@ -7,21 +7,25 @@ import CodeJsonIcon from 'mdi-material-ui/CodeJson';
 import Drawer from '@material-ui/core/Drawer';
 import EmailIcon from 'mdi-material-ui/Email';
 import Fab from '@material-ui/core/Fab';
+import Grid from '@material-ui/core/Grid';
 import HamburgerIcon from 'mdi-material-ui/Hamburger';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
+import LightbulbOffIcon from 'mdi-material-ui/LightbulbOff';
+import LightbulbOnIcon from 'mdi-material-ui/LightbulbOn';
 import Link from '@material-ui/core/Link';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import NoteIcon from 'mdi-material-ui/Note';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import SchoolIcon from 'mdi-material-ui/School';
 import scroller from 'react-scroll/modules/mixins/scroller';
 import Toolbar from '@material-ui/core/Toolbar';
 import { Logo } from './Logo';
 import { makeStyles, Theme } from '@material-ui/core/styles';
+import { ThemeContext } from './SiteTheme';
 import { useScreenSize } from '../hooks/useScreenSize';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -32,7 +36,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
   },
   toolbar: {
-    justifyContent: 'center',
     [theme.breakpoints.down('sm')]: {
       justifyContent: 'space-between'
     }
@@ -48,6 +51,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     margin: theme.spacing(0, 2),
     fontWeight: 600
   },
+  linksOffset: {
+    marginLeft: 51.19
+  },
   scrollToTop: {
     fontSize: '1.875rem',
     boxShadow: 'none',
@@ -57,8 +63,27 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   icon: {
     fontSize: '1.7rem'
+  },
+  themeIconButton: {
+    position: 'fixed',
+    bottom: 0,
+    right: 0,
+    padding: theme.spacing(1)
   }
 }));
+
+const ToggleThemeButton: React.FC = () => {
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  const classes = useStyles();
+  const { isSmallDown } = useScreenSize();
+  const oppositeTheme = theme === 'light' ? 'dark' : 'light';
+
+  return (
+    <IconButton color={theme === 'dark' || isSmallDown ? 'default' : 'inherit'} aria-label={`turn on ${oppositeTheme} mode`} onClick={toggleTheme}>
+      {theme === 'dark' ? <LightbulbOnIcon className={classes.icon} /> : <LightbulbOffIcon className={classes.icon} />}
+    </IconButton>
+  );
+};
 
 export const Nav: React.FC = () => {
   const classes = useStyles();
@@ -134,11 +159,16 @@ export const Nav: React.FC = () => {
       <AppBar position="fixed" elevation={0}>
         <Toolbar className={classes.toolbar}>
           <Hidden smDown>
-            {links.map(({ to, label }, index) => (
-              <Link key={index} onClick={scrollToSection(to)} className={classes.link} color="inherit" underline="none">
-                {label}
-              </Link>
-            ))}
+            <Grid container justify="center">
+              <Grid item className={classes.linksOffset}>
+                {links.map(({ to, label }, index) => (
+                  <Link key={index} onClick={scrollToSection(to)} className={classes.link} color="inherit" underline="none">
+                    {label}
+                  </Link>
+                ))}
+              </Grid>
+            </Grid>
+            <ToggleThemeButton />
           </Hidden>
           <Hidden mdUp>
             <Box onClick={scrollToTop}>
@@ -149,6 +179,9 @@ export const Nav: React.FC = () => {
             </IconButton>
             <Drawer anchor="right" open={drawer} onClose={toggleDrawer(false)}>
               {list()}
+              <Box className={classes.themeIconButton}>
+                <ToggleThemeButton />
+              </Box>
             </Drawer>
           </Hidden>
         </Toolbar>
