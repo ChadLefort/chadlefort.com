@@ -1,14 +1,14 @@
 module.exports = {
   siteMetadata: {
-    title: 'Chad Lefort - Frontend Developer',
+    title: 'Chad Lefort - Frontend Engineer',
     siteUrl: 'https://chadlefort.com',
     siteName: 'Chad Lefort',
-    description: `I'm Chad Lefort, a frontend developer from Covington, Louisiana. I'm passionate and motivated about the web and always pushing myself and the web forward.`,
+    description: `I'm Chad Lefort, a frontend engineer from Covington, Louisiana. I'm passionate and motivated about the web and always pushing myself and the web forward.`,
     lang: 'en-US',
     avatar: '/me.png',
     image: '/logo.png',
     email: 'chadlefort@gmail.com',
-    jobTitle: 'Frontend Developer'
+    jobTitle: 'Frontend Engineer'
   },
   plugins: [
     'gatsby-plugin-preact',
@@ -32,7 +32,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        name: 'Chad Lefort - Frontend Developer',
+        name: 'Chad Lefort - Frontend Engineer',
         short_name: 'Chad Lefort',
         start_url: '/',
         background_color: '#e0e0e0',
