@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const JobExperience: React.FC = () => {
   const classes = useStyles();
-  const { isSmallDown, isPrint } = useScreenSize();
+  const { isSmallDown, isExtraSmallDown, isPrint } = useScreenSize();
   const veriforceDate = 'July 2017 - Present';
   const netchexDate = 'November 2014 – July 2017';
   const chouestDate = 'December 2013 – November 2014';
@@ -87,7 +87,7 @@ export const JobExperience: React.FC = () => {
                 <TimelineDot color="primary" className={classes.timelineDot} />
                 <TimelineConnector />
               </TimelineSeparator>
-              <TimelineContent data-sal={!isPrint ? 'slide-left' : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
+              <TimelineContent data-sal={!isPrint && !isExtraSmallDown ? 'slide-left' : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
                 <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
                   <Typography variant="h6" component="h1">
                     Veriforce
@@ -105,7 +105,7 @@ export const JobExperience: React.FC = () => {
                       <ListItemText primary="Architecting applications in React, Redux, TypeScript, and Material-UI and writing unit tests with Jest and React Testing Library for a contractor management platform." />
                     </ListItem>
                     <ListItem>
-                      <ListItemText primary="Lead a team of two developers that met client deadlines for major revenue growing projects." />
+                      <ListItemText primary="Led a team of two developers that met client deadlines for major revenue growing projects." />
                     </ListItem>
                     <ListItem>
                       <ListItemText primary="Mentor teammates by having pair programming sessions and providing feedback on code reviews daily." />
@@ -136,7 +136,11 @@ export const JobExperience: React.FC = () => {
                 <TimelineDot color="primary" className={classes.timelineDot} />
                 <TimelineConnector />
               </TimelineSeparator>
-              <TimelineContent data-sal={!isPrint ? (isSmallDown ? 'slide-left' : 'slide-right') : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
+              <TimelineContent
+                data-sal={!isPrint && !isExtraSmallDown ? (isSmallDown ? 'slide-left' : 'slide-right') : null}
+                data-sal-duration="500"
+                data-sal-easing="ease-in-out-quart"
+              >
                 <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
                   <Typography variant="h6" component="h1">
                     Netchex
@@ -173,7 +177,7 @@ export const JobExperience: React.FC = () => {
                 <TimelineDot color="primary" className={classes.timelineDot} />
                 <TimelineConnector />
               </TimelineSeparator>
-              <TimelineContent data-sal={!isPrint ? 'slide-left' : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
+              <TimelineContent data-sal={!isPrint && !isExtraSmallDown ? 'slide-left' : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
                 <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
                   <Typography variant="h6" component="h1">
                     Edison Chouest Offshore
@@ -206,7 +210,11 @@ export const JobExperience: React.FC = () => {
               <TimelineSeparator>
                 <TimelineDot color="primary" className={classes.timelineDot} />
               </TimelineSeparator>
-              <TimelineContent data-sal={!isPrint ? (isSmallDown ? 'slide-left' : 'slide-right') : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
+              <TimelineContent
+                data-sal={!isPrint && !isExtraSmallDown ? (isSmallDown ? 'slide-left' : 'slide-right') : null}
+                data-sal-duration="500"
+                data-sal-easing="ease-in-out-quart"
+              >
                 <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
                   <Typography variant="h6" component="h1">
                     SCPDC
