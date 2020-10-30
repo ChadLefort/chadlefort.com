@@ -112,8 +112,8 @@ export const Terminal: React.FC = () => {
         </Typography>
         {show && (
           <Box style={finishedTyping ? { display: 'block' } : { display: 'none' }}>
-            <Typography>&gt; Hello, I'm Chad a frontend developer from Covington, Louisiana.</Typography>
-            <Typography>&gt; I’ve always had a strong passion for the web. Shortly after I was gifted my first computer, I grew interested in web development.</Typography>
+            <Typography>&gt; Hello, I'm Chad, a frontend engineer from Covington, Louisiana.</Typography>
+            <Typography>&gt; I’ve always had a strong passion for the web. Shortly after I was given my first computer, I grew interested in web development.</Typography>
             <Typography>&gt; I'm constantly furthering my skills to keep up with the ever changing demand the web has.</Typography>
             <Typography>&gt; I've always enjoyed the feeling of accomplishment when programming, and I take pride in writing clean, maintainable, and efficient code.</Typography>
             <Typography>

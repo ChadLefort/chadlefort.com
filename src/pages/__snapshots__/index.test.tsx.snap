@@ -133,14 +133,14 @@ Array [
             className="MuiGrid-root MuiGrid-item"
           >
             <h1
-              className="MuiTypography-root makeStyles-logo-17 MuiTypography-h2"
+              className="MuiTypography-root makeStyles-logo-18 MuiTypography-h2"
             >
               Chad Lefort
             </h1>
             <h3
               className="MuiTypography-root MuiTypography-h5 MuiTypography-colorTextSecondary"
             >
-              Frontend Developer
+              Frontend Engineer
             </h3>
           </div>
         </div>
@@ -148,10 +148,10 @@ Array [
           className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-align-items-xs-center MuiGrid-justify-xs-flex-end MuiGrid-grid-xs-4"
         >
           <div
-            className="MuiBox-root MuiBox-root-18"
+            className="MuiBox-root MuiBox-root-19"
           >
             <div
-              className="MuiBox-root MuiBox-root-19"
+              className="MuiBox-root MuiBox-root-20"
             >
               <svg
                 aria-hidden={true}
@@ -170,7 +170,7 @@ Array [
               </p>
             </div>
             <div
-              className="MuiBox-root MuiBox-root-20"
+              className="MuiBox-root MuiBox-root-21"
             >
               <svg
                 aria-hidden={true}
@@ -189,7 +189,7 @@ Array [
               </p>
             </div>
             <div
-              className="MuiBox-root MuiBox-root-21"
+              className="MuiBox-root MuiBox-root-22"
             >
               <svg
                 aria-hidden={true}
@@ -204,11 +204,11 @@ Array [
               <p
                 className="MuiTypography-root MuiTypography-body1"
               >
-                ChadLefort
+                github.com/ChadLefort
               </p>
             </div>
             <div
-              className="MuiBox-root MuiBox-root-22"
+              className="MuiBox-root MuiBox-root-23"
             >
               <svg
                 aria-hidden={true}
@@ -229,9 +229,18 @@ Array [
           </div>
         </div>
       </div>
+      <div
+        className="MuiGrid-root makeStyles-item-17 MuiGrid-container MuiGrid-item"
+      >
+        <p
+          className="MuiTypography-root MuiTypography-body1"
+        >
+          I’ve always had a strong passion for the web. Shortly after I was given my first computer, I grew interested in web development. I take pride in writing clean, maintainable, and efficient code and have always enjoyed the feeling of accomplishment when programming. I not only take pride in my own work, but genuinely care that the team I'm a part of succeeds in delivering great products that offer an excellent user experience. I'm also constantly furthering my skills by learning new patterns, libraries, and frameworks to keep up with the ever changing demand the web has.
+        </p>
+      </div>
     </div>
     <div
-      className="MuiGrid-root makeStyles-root-23 MuiGrid-item MuiGrid-grid-xs-12"
+      className="MuiGrid-root makeStyles-root-24 MuiGrid-item MuiGrid-grid-xs-12"
     >
       <div
         className="MuiGrid-root MuiGrid-container MuiGrid-justify-xs-center"
@@ -240,10 +249,10 @@ Array [
           className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-align-items-xs-center MuiGrid-justify-xs-center MuiGrid-grid-xs-12"
         >
           <div
-            className="MuiGrid-root makeStyles-avatar-25 MuiGrid-item"
+            className="MuiGrid-root makeStyles-avatar-26 MuiGrid-item"
           >
             <div
-              className="MuiAvatar-root MuiAvatar-circle makeStyles-large-24 MuiAvatar-colorDefault gatsby-image-wrapper"
+              className="MuiAvatar-root MuiAvatar-circle makeStyles-large-25 MuiAvatar-colorDefault gatsby-image-wrapper"
               style={
                 Object {
                   "maxHeight": null,
@@ -306,34 +315,34 @@ Array [
             className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
           >
             <div
-              className="MuiBox-root MuiBox-root-42 makeStyles-root-31"
+              className="MuiBox-root MuiBox-root-43 makeStyles-root-32"
             >
               <div
-                className="MuiBox-root MuiBox-root-43 makeStyles-menuBar-32"
+                className="MuiBox-root MuiBox-root-44 makeStyles-menuBar-33"
               >
                 <div
-                  className="MuiBox-root MuiBox-root-44 makeStyles-menuBarButton-33 makeStyles-menuBarMin-34"
+                  className="MuiBox-root MuiBox-root-45 makeStyles-menuBarButton-34 makeStyles-menuBarMin-35"
                 />
                 <div
-                  className="MuiBox-root MuiBox-root-45 makeStyles-menuBarButton-33 makeStyles-menuBarMax-35"
+                  className="MuiBox-root MuiBox-root-46 makeStyles-menuBarButton-34 makeStyles-menuBarMax-36"
                 />
                 <div
-                  className="MuiBox-root MuiBox-root-46 makeStyles-menuBarButton-33 makeStyles-menuBarClose-36"
+                  className="MuiBox-root MuiBox-root-47 makeStyles-menuBarButton-34 makeStyles-menuBarClose-37"
                 />
               </div>
               <div
-                className="MuiBox-root MuiBox-root-47 makeStyles-mainWindow-37"
+                className="MuiBox-root MuiBox-root-48 makeStyles-mainWindow-38"
               >
                 <p
-                  className="MuiTypography-root makeStyles-typingContainer-40 MuiTypography-body1"
+                  className="MuiTypography-root makeStyles-typingContainer-41 MuiTypography-body1"
                 >
                   $
                   <div
-                    className="makeStyles-typing-41"
+                    className="makeStyles-typing-42"
                   />
                 </p>
                 <div
-                  className="MuiBox-root MuiBox-root-77"
+                  className="MuiBox-root MuiBox-root-79"
                   style={
                     Object {
                       "display": "none",
@@ -343,12 +352,12 @@ Array [
                   <p
                     className="MuiTypography-root MuiTypography-body1"
                   >
-                    &gt; Hello, I'm Chad a frontend developer from Covington, Louisiana.
+                    &gt; Hello, I'm Chad, a frontend engineer from Covington, Louisiana.
                   </p>
                   <p
                     className="MuiTypography-root MuiTypography-body1"
                   >
-                    &gt; I’ve always had a strong passion for the web. Shortly after I was gifted my first computer, I grew interested in web development.
+                    &gt; I’ve always had a strong passion for the web. Shortly after I was given my first computer, I grew interested in web development.
                   </p>
                   <p
                     className="MuiTypography-root MuiTypography-body1"
@@ -365,7 +374,7 @@ Array [
                   >
                     $ 
                     <span
-                      className="makeStyles-cursor-38"
+                      className="makeStyles-cursor-39"
                     >
                        
                     </span>
@@ -379,7 +388,7 @@ Array [
           >
             <a
               aria-disabled={false}
-              className="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-28 MuiButton-containedPrimary MuiButton-containedSizeLarge MuiButton-sizeLarge MuiButton-disableElevation"
+              className="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-29 MuiButton-containedPrimary MuiButton-containedSizeLarge MuiButton-sizeLarge MuiButton-disableElevation"
               download={true}
               href="/Chad Lefort - Resume.pdf"
               onBlur={[Function]}
@@ -399,7 +408,7 @@ Array [
                 className="MuiButton-label"
               >
                 <span
-                  className="MuiButton-startIcon MuiButton-iconSizeLarge makeStyles-icon-29"
+                  className="MuiButton-startIcon MuiButton-iconSizeLarge makeStyles-icon-30"
                 >
                   <svg
                     aria-hidden={true}
@@ -423,7 +432,7 @@ Array [
       </div>
     </div>
     <div
-      className="MuiGrid-root makeStyles-root-48 MuiGrid-item MuiGrid-grid-xs-12"
+      className="MuiGrid-root makeStyles-root-49 MuiGrid-item MuiGrid-grid-xs-12"
       id="job-experience"
     >
       <div
@@ -438,14 +447,14 @@ Array [
             Job Experience
           </h2>
           <ul
-            className="MuiTimeline-root MuiTimeline-alignAlternate makeStyles-timeline-50"
+            className="MuiTimeline-root MuiTimeline-alignAlternate makeStyles-timeline-51"
             data-testid="timeline"
           >
             <li
               className="MuiTimelineItem-root MuiTimelineItem-alignAlternate"
             >
               <div
-                className="MuiTimelineOppositeContent-root MuiTimelineItem-oppositeContent makeStyles-timelineOpposite-52"
+                className="MuiTimelineOppositeContent-root MuiTimelineItem-oppositeContent makeStyles-timelineOpposite-54"
               >
                 <p
                   className="MuiTypography-root MuiTypography-body2 MuiTypography-colorTextSecondary"
@@ -457,20 +466,20 @@ Array [
                 className="MuiTimelineSeparator-root"
               >
                 <span
-                  className="MuiTimelineDot-root makeStyles-timelineDot-51 MuiTimelineDot-defaultPrimary"
+                  className="MuiTimelineDot-root makeStyles-timelineDot-53 MuiTimelineDot-defaultPrimary"
                 />
                 <span
                   className="MuiTimelineConnector-root"
                 />
               </div>
               <div
-                className="MuiTimelineContent-root MuiTimelineItem-content"
+                className="MuiTimelineContent-root MuiTimelineItem-content makeStyles-timelineContent-52"
                 data-sal="slide-left"
                 data-sal-duration="500"
                 data-sal-easing="ease-in-out-quart"
               >
                 <div
-                  className="MuiPaper-root makeStyles-paper-49 MuiPaper-elevation0 MuiPaper-rounded"
+                  className="MuiPaper-root makeStyles-paper-50 MuiPaper-elevation0 MuiPaper-rounded"
                 >
                   <h1
                     className="MuiTypography-root MuiTypography-h6"
@@ -480,13 +489,13 @@ Array [
                   <h2
                     className="MuiTypography-root MuiTypography-subtitle2 MuiTypography-colorTextSecondary MuiTypography-gutterBottom"
                   >
-                    Senior Frontend Developer
+                    Senior Frontend Engineer
                   </h2>
                   <ul
                     className="MuiList-root MuiList-padding"
                   >
                     <li
-                      className="MuiListItem-root makeStyles-root-53 MuiListItem-gutters"
+                      className="MuiListItem-root makeStyles-root-55 MuiListItem-gutters"
                       disabled={false}
                     >
                       <div
@@ -495,12 +504,12 @@ Array [
                         <span
                           className="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
                         >
-                          Playing a pivotal role in the process of architecting applications in React, Redux, TypeScript, and Material-UI for a contractor managemant SaaS platform.
+                          Architecting applications in React, Redux, TypeScript, and Material-UI and writing unit tests with Jest and React Testing Library for a contractor management platform.
                         </span>
                       </div>
                     </li>
                     <li
-                      className="MuiListItem-root makeStyles-root-53 MuiListItem-gutters"
+                      className="MuiListItem-root makeStyles-root-55 MuiListItem-gutters"
                       disabled={false}
                     >
                       <div
@@ -509,12 +518,12 @@ Array [
                         <span
                           className="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
                         >
-                          Set up a monorepo for over a dozen React applications and several private NPM packages using Lerna and Jenkins.
+                          Lead a team of two developers that met client deadlines for major revenue growing projects.
                         </span>
                       </div>
                     </li>
                     <li
-                      className="MuiListItem-root makeStyles-root-53 MuiListItem-gutters"
+                      className="MuiListItem-root makeStyles-root-55 MuiListItem-gutters"
                       disabled={false}
                     >
                       <div
@@ -523,12 +532,12 @@ Array [
                         <span
                           className="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
                         >
-                          Manage dependency upgrades and implementations of new libraries.
+                          Mentor teammates by having pair programming sessions and providing feedback on code reviews daily.
                         </span>
                       </div>
                     </li>
                     <li
-                      className="MuiListItem-root makeStyles-root-53 MuiListItem-gutters"
+                      className="MuiListItem-root makeStyles-root-55 MuiListItem-gutters"
                       disabled={false}
                     >
                       <div
@@ -537,12 +546,12 @@ Array [
                         <span
                           className="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
                         >
-                          Created the first private NPM package and build processes in the organization to share code between React/legacy applications.
+                          Advocate for UI and code consistency throughout the application by creating patterns for other teammates to follow.
                         </span>
                       </div>
                     </li>
                     <li
-                      className="MuiListItem-root makeStyles-root-53 MuiListItem-gutters"
+                      className="MuiListItem-root makeStyles-root-55 MuiListItem-gutters"
                       disabled={false}
                     >
                       <div
@@ -551,7 +560,35 @@ Array [
                         <span
                           className="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
                         >
-                          Implemented TypeScript into existing React applications.
+                          Set up a monorepo using Lerna for over a dozen React applications and NPM packages saving hours from weekly manual deployments.
+                        </span>
+                      </div>
+                    </li>
+                    <li
+                      className="MuiListItem-root makeStyles-root-55 MuiListItem-gutters"
+                      disabled={false}
+                    >
+                      <div
+                        className="MuiListItemText-root"
+                      >
+                        <span
+                          className="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+                        >
+                          Quarterly manage dependency upgrades that may fix underlying bugs and allow developers to use new features.
+                        </span>
+                      </div>
+                    </li>
+                    <li
+                      className="MuiListItem-root makeStyles-root-55 MuiListItem-gutters"
+                      disabled={false}
+                    >
+                      <div
+                        className="MuiListItemText-root"
+                      >
+                        <span
+                          className="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+                        >
+                          Proposed TypeScript and migrated existing React applications to it to reduce bugs and provide a better developer experience.
                         </span>
                       </div>
                     </li>
@@ -563,7 +600,7 @@ Array [
               className="MuiTimelineItem-root MuiTimelineItem-alignAlternate"
             >
               <div
-                className="MuiTimelineOppositeContent-root MuiTimelineItem-oppositeContent makeStyles-timelineOpposite-52"
+                className="MuiTimelineOppositeContent-root MuiTimelineItem-oppositeContent makeStyles-timelineOpposite-54"
               >
                 <p
                   className="MuiTypography-root MuiTypography-body2 MuiTypography-colorTextSecondary"
@@ -575,20 +612,20 @@ Array [
                 className="MuiTimelineSeparator-root"
               >
                 <span
-                  className="MuiTimelineDot-root makeStyles-timelineDot-51 MuiTimelineDot-defaultPrimary"
+                  className="MuiTimelineDot-root makeStyles-timelineDot-53 MuiTimelineDot-defaultPrimary"
                 />
                 <span
                   className="MuiTimelineConnector-root"
                 />
               </div>
               <div
-                className="MuiTimelineContent-root MuiTimelineItem-content"
+                className="MuiTimelineContent-root MuiTimelineItem-content makeStyles-timelineContent-52"
                 data-sal="slide-right"
                 data-sal-duration="500"
                 data-sal-easing="ease-in-out-quart"
               >
                 <div
-                  className="MuiPaper-root makeStyles-paper-49 MuiPaper-elevation0 MuiPaper-rounded"
+                  className="MuiPaper-root makeStyles-paper-50 MuiPaper-elevation0 MuiPaper-rounded"
                 >
                   <h1
                     className="MuiTypography-root MuiTypography-h6"
@@ -598,13 +635,13 @@ Array [
                   <h2
                     className="MuiTypography-root MuiTypography-subtitle2 MuiTypography-colorTextSecondary MuiTypography-gutterBottom"
                   >
-                    Software Developer
+                    Full Stack Software Developer
                   </h2>
                   <ul
                     className="MuiList-root MuiList-padding"
                   >
                     <li
-                      className="MuiListItem-root makeStyles-root-53 MuiListItem-gutters"
+                      className="MuiListItem-root makeStyles-root-55 MuiListItem-gutters"
                       disabled={false}
                     >
                       <div
@@ -613,12 +650,12 @@ Array [
                         <span
                           className="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
                         >
-                          Worked in a agile scrum environment doing full stack development on an application that specialized in payroll, benefits, and human resources.
+                          Worked in an agile environment on an application that specialized in payroll, benefits, and human resources.
                         </span>
                       </div>
                     </li>
                     <li
-                      className="MuiListItem-root makeStyles-root-53 MuiListItem-gutters"
+                      className="MuiListItem-root makeStyles-root-55 MuiListItem-gutters"
                       disabled={false}
                     >
                       <div
@@ -627,12 +664,12 @@ Array [
                         <span
                           className="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
                         >
-                          Developed back-end code base using domain driven design with C#, Web API, and MVC5.
+                          Led a team of three developers on a rewrite of the benefits module.
                         </span>
                       </div>
                     </li>
                     <li
-                      className="MuiListItem-root makeStyles-root-53 MuiListItem-gutters"
+                      className="MuiListItem-root makeStyles-root-55 MuiListItem-gutters"
                       disabled={false}
                     >
                       <div
@@ -641,7 +678,7 @@ Array [
                         <span
                           className="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
                         >
-                          Developed frontend single page applications using AngularJS, TypeScript, Bootstrap, and LESS.
+                          Developed applications using domain driven design with C# for REST APIs and created single page applications using AngularJS, TypeScript, and Bootstrap.
                         </span>
                       </div>
                     </li>
@@ -653,7 +690,7 @@ Array [
               className="MuiTimelineItem-root MuiTimelineItem-alignAlternate"
             >
               <div
-                className="MuiTimelineOppositeContent-root MuiTimelineItem-oppositeContent makeStyles-timelineOpposite-52"
+                className="MuiTimelineOppositeContent-root MuiTimelineItem-oppositeContent makeStyles-timelineOpposite-54"
               >
                 <p
                   className="MuiTypography-root MuiTypography-body2 MuiTypography-colorTextSecondary"
@@ -665,20 +702,20 @@ Array [
                 className="MuiTimelineSeparator-root"
               >
                 <span
-                  className="MuiTimelineDot-root makeStyles-timelineDot-51 MuiTimelineDot-defaultPrimary"
+                  className="MuiTimelineDot-root makeStyles-timelineDot-53 MuiTimelineDot-defaultPrimary"
                 />
                 <span
                   className="MuiTimelineConnector-root"
                 />
               </div>
               <div
-                className="MuiTimelineContent-root MuiTimelineItem-content"
+                className="MuiTimelineContent-root MuiTimelineItem-content makeStyles-timelineContent-52"
                 data-sal="slide-left"
                 data-sal-duration="500"
                 data-sal-easing="ease-in-out-quart"
               >
                 <div
-                  className="MuiPaper-root makeStyles-paper-49 MuiPaper-elevation0 MuiPaper-rounded"
+                  className="MuiPaper-root makeStyles-paper-50 MuiPaper-elevation0 MuiPaper-rounded"
                 >
                   <h1
                     className="MuiTypography-root MuiTypography-h6"
@@ -694,7 +731,7 @@ Array [
                     className="MuiList-root MuiList-padding"
                   >
                     <li
-                      className="MuiListItem-root makeStyles-root-53 MuiListItem-gutters"
+                      className="MuiListItem-root makeStyles-root-55 MuiListItem-gutters"
                       disabled={false}
                     >
                       <div
@@ -703,7 +740,21 @@ Array [
                         <span
                           className="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
                         >
-                          Implemented automation systems on new vessels using ladder logic.
+                          Implemented automation systems on several vessels using ladder logic and GE PLCs.
+                        </span>
+                      </div>
+                    </li>
+                    <li
+                      className="MuiListItem-root makeStyles-root-55 MuiListItem-gutters"
+                      disabled={false}
+                    >
+                      <div
+                        className="MuiListItemText-root"
+                      >
+                        <span
+                          className="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+                        >
+                          Modified logic using GE Proficy and created custom interfaces for vessels using GE Cimplicity.
                         </span>
                       </div>
                     </li>
@@ -715,7 +766,7 @@ Array [
               className="MuiTimelineItem-root MuiTimelineItem-alignAlternate"
             >
               <div
-                className="MuiTimelineOppositeContent-root MuiTimelineItem-oppositeContent makeStyles-timelineOpposite-52"
+                className="MuiTimelineOppositeContent-root MuiTimelineItem-oppositeContent makeStyles-timelineOpposite-54"
               >
                 <p
                   className="MuiTypography-root MuiTypography-body2 MuiTypography-colorTextSecondary"
@@ -727,17 +778,17 @@ Array [
                 className="MuiTimelineSeparator-root"
               >
                 <span
-                  className="MuiTimelineDot-root makeStyles-timelineDot-51 MuiTimelineDot-defaultPrimary"
+                  className="MuiTimelineDot-root makeStyles-timelineDot-53 MuiTimelineDot-defaultPrimary"
                 />
               </div>
               <div
-                className="MuiTimelineContent-root MuiTimelineItem-content"
+                className="MuiTimelineContent-root MuiTimelineItem-content makeStyles-timelineContent-52"
                 data-sal="slide-right"
                 data-sal-duration="500"
                 data-sal-easing="ease-in-out-quart"
               >
                 <div
-                  className="MuiPaper-root makeStyles-paper-49 MuiPaper-elevation0 MuiPaper-rounded"
+                  className="MuiPaper-root makeStyles-paper-50 MuiPaper-elevation0 MuiPaper-rounded"
                 >
                   <h1
                     className="MuiTypography-root MuiTypography-h6"
@@ -753,7 +804,7 @@ Array [
                     className="MuiList-root MuiList-padding"
                   >
                     <li
-                      className="MuiListItem-root makeStyles-root-53 MuiListItem-gutters"
+                      className="MuiListItem-root makeStyles-root-55 MuiListItem-gutters"
                       disabled={false}
                     >
                       <div
@@ -762,7 +813,7 @@ Array [
                         <span
                           className="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
                         >
-                          Developed client sites using WordPress, Bootstrap, PHP, and jQuery.
+                          Developed client sites using WordPress, Bootstrap, PHP, and jQuery and modified custom reports using MS SQL Server.
                         </span>
                       </div>
                     </li>
@@ -775,7 +826,7 @@ Array [
       </div>
     </div>
     <div
-      className="MuiGrid-root makeStyles-root-54 MuiGrid-item MuiGrid-grid-xs-12"
+      className="MuiGrid-root makeStyles-root-56 MuiGrid-item MuiGrid-grid-xs-12"
       id="skills"
     >
       <div
@@ -793,13 +844,13 @@ Array [
             className="MuiGrid-root MuiGrid-container MuiGrid-justify-xs-center"
           >
             <div
-              className="MuiGrid-root makeStyles-item-55 MuiGrid-item"
+              className="MuiGrid-root makeStyles-item-57 MuiGrid-item"
             >
               <div
-                className="MuiPaper-root makeStyles-paper-56 MuiPaper-elevation0 MuiPaper-rounded"
+                className="MuiPaper-root makeStyles-paper-58 MuiPaper-elevation0 MuiPaper-rounded"
               >
                 <div
-                  className="MuiBox-root MuiBox-root-58 makeStyles-icon-57"
+                  className="MuiBox-root MuiBox-root-60 makeStyles-icon-59"
                 >
                   <svg
                     height={62}
@@ -822,13 +873,13 @@ Array [
               </div>
             </div>
             <div
-              className="MuiGrid-root makeStyles-item-55 MuiGrid-item"
+              className="MuiGrid-root makeStyles-item-57 MuiGrid-item"
             >
               <div
-                className="MuiPaper-root makeStyles-paper-56 MuiPaper-elevation0 MuiPaper-rounded"
+                className="MuiPaper-root makeStyles-paper-58 MuiPaper-elevation0 MuiPaper-rounded"
               >
                 <div
-                  className="MuiBox-root MuiBox-root-59 makeStyles-icon-57"
+                  className="MuiBox-root MuiBox-root-61 makeStyles-icon-59"
                 >
                   <svg
                     height={62}
@@ -855,13 +906,13 @@ Array [
               </div>
             </div>
             <div
-              className="MuiGrid-root makeStyles-item-55 MuiGrid-item"
+              className="MuiGrid-root makeStyles-item-57 MuiGrid-item"
             >
               <div
-                className="MuiPaper-root makeStyles-paper-56 MuiPaper-elevation0 MuiPaper-rounded"
+                className="MuiPaper-root makeStyles-paper-58 MuiPaper-elevation0 MuiPaper-rounded"
               >
                 <div
-                  className="MuiBox-root MuiBox-root-60 makeStyles-icon-57"
+                  className="MuiBox-root MuiBox-root-62 makeStyles-icon-59"
                 >
                   <svg
                     height={62}
@@ -884,13 +935,13 @@ Array [
               </div>
             </div>
             <div
-              className="MuiGrid-root makeStyles-item-55 MuiGrid-item"
+              className="MuiGrid-root makeStyles-item-57 MuiGrid-item"
             >
               <div
-                className="MuiPaper-root makeStyles-paper-56 MuiPaper-elevation0 MuiPaper-rounded"
+                className="MuiPaper-root makeStyles-paper-58 MuiPaper-elevation0 MuiPaper-rounded"
               >
                 <div
-                  className="MuiBox-root MuiBox-root-61 makeStyles-icon-57"
+                  className="MuiBox-root MuiBox-root-63 makeStyles-icon-59"
                 >
                   <svg
                     height={62}
@@ -913,13 +964,13 @@ Array [
               </div>
             </div>
             <div
-              className="MuiGrid-root makeStyles-item-55 MuiGrid-item"
+              className="MuiGrid-root makeStyles-item-57 MuiGrid-item"
             >
               <div
-                className="MuiPaper-root makeStyles-paper-56 MuiPaper-elevation0 MuiPaper-rounded"
+                className="MuiPaper-root makeStyles-paper-58 MuiPaper-elevation0 MuiPaper-rounded"
               >
                 <div
-                  className="MuiBox-root MuiBox-root-62 makeStyles-icon-57"
+                  className="MuiBox-root MuiBox-root-64 makeStyles-icon-59"
                 >
                   <svg
                     height={62}
@@ -942,13 +993,13 @@ Array [
               </div>
             </div>
             <div
-              className="MuiGrid-root makeStyles-item-55 MuiGrid-item"
+              className="MuiGrid-root makeStyles-item-57 MuiGrid-item"
             >
               <div
-                className="MuiPaper-root makeStyles-paper-56 MuiPaper-elevation0 MuiPaper-rounded"
+                className="MuiPaper-root makeStyles-paper-58 MuiPaper-elevation0 MuiPaper-rounded"
               >
                 <div
-                  className="MuiBox-root MuiBox-root-63 makeStyles-icon-57"
+                  className="MuiBox-root MuiBox-root-65 makeStyles-icon-59"
                 >
                   <svg
                     height={62}
@@ -975,13 +1026,13 @@ Array [
               </div>
             </div>
             <div
-              className="MuiGrid-root makeStyles-item-55 MuiGrid-item"
+              className="MuiGrid-root makeStyles-item-57 MuiGrid-item"
             >
               <div
-                className="MuiPaper-root makeStyles-paper-56 MuiPaper-elevation0 MuiPaper-rounded"
+                className="MuiPaper-root makeStyles-paper-58 MuiPaper-elevation0 MuiPaper-rounded"
               >
                 <div
-                  className="MuiBox-root MuiBox-root-64 makeStyles-icon-57"
+                  className="MuiBox-root MuiBox-root-66 makeStyles-icon-59"
                 >
                   <svg
                     height={62}
@@ -1004,13 +1055,13 @@ Array [
               </div>
             </div>
             <div
-              className="MuiGrid-root makeStyles-item-55 MuiGrid-item"
+              className="MuiGrid-root makeStyles-item-57 MuiGrid-item"
             >
               <div
-                className="MuiPaper-root makeStyles-paper-56 MuiPaper-elevation0 MuiPaper-rounded"
+                className="MuiPaper-root makeStyles-paper-58 MuiPaper-elevation0 MuiPaper-rounded"
               >
                 <div
-                  className="MuiBox-root MuiBox-root-65 makeStyles-icon-57"
+                  className="MuiBox-root MuiBox-root-67 makeStyles-icon-59"
                 >
                   <svg
                     height={62}
@@ -1037,7 +1088,7 @@ Array [
       </div>
     </div>
     <div
-      className="MuiGrid-root makeStyles-root-66 MuiGrid-item MuiGrid-grid-xs-12"
+      className="MuiGrid-root makeStyles-root-68 MuiGrid-item MuiGrid-grid-xs-12"
       id="education"
     >
       <div
@@ -1074,10 +1125,10 @@ Array [
               </p>
             </div>
             <div
-              className="MuiGrid-root makeStyles-item-68 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-2"
+              className="MuiGrid-root makeStyles-item-70 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-2"
             >
               <svg
-                className="makeStyles-logo-69"
+                className="makeStyles-logo-71"
                 height="62"
                 viewBox="0 0 533 260"
               >
@@ -1096,13 +1147,13 @@ Array [
             </div>
           </div>
           <hr
-            className="MuiDivider-root makeStyles-divider-70"
+            className="MuiDivider-root makeStyles-divider-72"
           />
           <ul
             className="MuiList-root MuiList-padding"
           >
             <li
-              className="MuiListItem-root makeStyles-root-53 MuiListItem-gutters"
+              className="MuiListItem-root makeStyles-root-55 MuiListItem-gutters"
               disabled={false}
             >
               <div
@@ -1116,7 +1167,7 @@ Array [
               </div>
             </li>
             <li
-              className="MuiListItem-root makeStyles-root-53 MuiListItem-gutters"
+              className="MuiListItem-root makeStyles-root-55 MuiListItem-gutters"
               disabled={false}
             >
               <div
@@ -1139,7 +1190,7 @@ Array [
             className="MuiList-root MuiList-padding"
           >
             <li
-              className="MuiListItem-root makeStyles-root-53 MuiListItem-gutters"
+              className="MuiListItem-root makeStyles-root-55 MuiListItem-gutters"
               disabled={false}
             >
               <div
@@ -1162,7 +1213,7 @@ Array [
             className="MuiList-root MuiList-padding"
           >
             <li
-              className="MuiListItem-root makeStyles-root-53 MuiListItem-gutters"
+              className="MuiListItem-root makeStyles-root-55 MuiListItem-gutters"
               disabled={false}
             >
               <div
@@ -1176,7 +1227,7 @@ Array [
               </div>
             </li>
             <li
-              className="MuiListItem-root makeStyles-root-53 MuiListItem-gutters"
+              className="MuiListItem-root makeStyles-root-55 MuiListItem-gutters"
               disabled={false}
             >
               <div
@@ -1194,7 +1245,7 @@ Array [
       </div>
     </div>
     <div
-      className="MuiGrid-root makeStyles-root-71 MuiGrid-item MuiGrid-grid-xs-12"
+      className="MuiGrid-root makeStyles-root-73 MuiGrid-item MuiGrid-grid-xs-12"
       id="about-me"
     >
       <div
@@ -1212,10 +1263,10 @@ Array [
             className="MuiGrid-root MuiGrid-container"
           >
             <div
-              className="MuiGrid-root makeStyles-avatar-73 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-4 MuiGrid-grid-lg-3"
+              className="MuiGrid-root makeStyles-avatar-75 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-4 MuiGrid-grid-lg-3"
             >
               <div
-                className="MuiAvatar-root MuiAvatar-rounded makeStyles-large-72 MuiAvatar-colorDefault gatsby-image-wrapper"
+                className="MuiAvatar-root MuiAvatar-rounded makeStyles-large-74 MuiAvatar-colorDefault gatsby-image-wrapper"
                 style={
                   Object {
                     "maxHeight": null,
@@ -1276,7 +1327,7 @@ Array [
               <p
                 className="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph"
               >
-                I've been a technology enthusiast ever since a young age. I've always enjoyed tinkering around to understand how things work, whether it's looking at source code or computer hardware. Long before the days of social media I wanted to create my own website. Shortly after I was gifted my first computer at 11 years old, I started the journey of creating web sites and fell in love with the web and programming.
+                I've been a technology enthusiast ever since a young age. I've always enjoyed tinkering around to understand how things work, whether it's looking at source code or computer hardware. Long before the days of social media I wanted to create my own website. Shortly after I was given my first computer at 11 years old, I started the journey of creating web sites and fell in love with the web and programming.
               </p>
               <p
                 className="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph"
@@ -1289,7 +1340,7 @@ Array [
       </div>
     </div>
     <div
-      className="MuiGrid-root makeStyles-root-74 MuiGrid-item MuiGrid-grid-xs-12"
+      className="MuiGrid-root makeStyles-root-76 MuiGrid-item MuiGrid-grid-xs-12"
       id="contact"
     >
       <div
@@ -1314,7 +1365,7 @@ Array [
             <a
               aria-disabled={false}
               aria-label="email"
-              className="MuiButtonBase-root MuiIconButton-root makeStyles-button-75"
+              className="MuiButtonBase-root MuiIconButton-root makeStyles-button-77"
               href="mailto:chadlefort@gmail.com"
               onBlur={[Function]}
               onDragLeave={[Function]}
@@ -1336,7 +1387,7 @@ Array [
               >
                 <svg
                   aria-hidden={true}
-                  className="MuiSvgIcon-root makeStyles-icon-76"
+                  className="MuiSvgIcon-root makeStyles-icon-78"
                   focusable="false"
                   viewBox="0 0 24 24"
                 >
@@ -1352,7 +1403,7 @@ Array [
             <a
               aria-disabled={false}
               aria-label="github"
-              className="MuiButtonBase-root MuiIconButton-root makeStyles-button-75"
+              className="MuiButtonBase-root MuiIconButton-root makeStyles-button-77"
               href="https://github.com/ChadLefort"
               onBlur={[Function]}
               onDragLeave={[Function]}
@@ -1374,7 +1425,7 @@ Array [
               >
                 <svg
                   aria-hidden={true}
-                  className="MuiSvgIcon-root makeStyles-icon-76"
+                  className="MuiSvgIcon-root makeStyles-icon-78"
                   focusable="false"
                   viewBox="0 0 24 24"
                 >
@@ -1390,7 +1441,7 @@ Array [
             <a
               aria-disabled={false}
               aria-label="linkedin"
-              className="MuiButtonBase-root MuiIconButton-root makeStyles-button-75"
+              className="MuiButtonBase-root MuiIconButton-root makeStyles-button-77"
               href="https://www.linkedin.com/in/chadlefort"
               onBlur={[Function]}
               onDragLeave={[Function]}
@@ -1412,7 +1463,7 @@ Array [
               >
                 <svg
                   aria-hidden={true}
-                  className="MuiSvgIcon-root makeStyles-icon-76"
+                  className="MuiSvgIcon-root makeStyles-icon-78"
                   focusable="false"
                   viewBox="0 0 24 24"
                 >
@@ -1428,7 +1479,7 @@ Array [
             <a
               aria-disabled={false}
               aria-label="twitter"
-              className="MuiButtonBase-root MuiIconButton-root makeStyles-button-75"
+              className="MuiButtonBase-root MuiIconButton-root makeStyles-button-77"
               href="https://twitter.com/ChadLefort"
               onBlur={[Function]}
               onDragLeave={[Function]}
@@ -1450,7 +1501,7 @@ Array [
               >
                 <svg
                   aria-hidden={true}
-                  className="MuiSvgIcon-root makeStyles-icon-76"
+                  className="MuiSvgIcon-root makeStyles-icon-78"
                   focusable="false"
                   viewBox="0 0 24 24"
                 >

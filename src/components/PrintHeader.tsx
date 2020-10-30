@@ -30,6 +30,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   icon: {
     margin: theme.spacing(0, 1)
+  },
+  item: {
+    paddingTop: theme.spacing(3.5)
   }
 }));
 
@@ -47,7 +50,7 @@ export const PrintHeader: React.FC = () => {
           <Grid item>
             <Logo variant="h2" component="h1" />
             <Typography color="textSecondary" variant="h5">
-              Frontend Developer
+              Frontend Engineer
             </Typography>
           </Grid>
         </Grid>
@@ -63,7 +66,7 @@ export const PrintHeader: React.FC = () => {
             </Box>
             <Box display="flex" alignItems="center">
               <GithubIcon fontSize="small" className={classes.icon} />
-              <Typography>ChadLefort</Typography>
+              <Typography>github.com/ChadLefort</Typography>
             </Box>
             <Box display="flex" alignItems="center">
               <DesktopClassicIcon fontSize="small" className={classes.icon} />
@@ -71,6 +74,14 @@ export const PrintHeader: React.FC = () => {
             </Box>
           </Box>
         </Grid>
+      </Grid>
+      <Grid container item className={classes.item}>
+        <Typography>
+          I’ve always had a strong passion for the web. Shortly after I was given my first computer, I grew interested in web development. I take pride in writing clean,
+          maintainable, and efficient code and have always enjoyed the feeling of accomplishment when programming. I not only take pride in my own work, but genuinely care that the
+          team I'm a part of succeeds in delivering great products that offer an excellent user experience. I'm also constantly furthering my skills by learning new patterns,
+          libraries, and frameworks to keep up with the ever changing demand the web has.
+        </Typography>
       </Grid>
     </Grid>
   );

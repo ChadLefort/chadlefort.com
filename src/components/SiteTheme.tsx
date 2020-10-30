@@ -44,6 +44,21 @@ export const SiteTheme: React.FC = ({ children }) => {
         type: prefersDarkMode ? 'dark' : 'light'
       },
       typography: {
+        h4: {
+          '@media print': {
+            fontSize: 20
+          }
+        },
+        h6: {
+          '@media print': {
+            fontSize: 16
+          }
+        },
+        subtitle2: {
+          '@media print': {
+            fontSize: 14
+          }
+        },
         body1: {
           fontFamily: `"Open Sans", "Helvetica", "Arial", sans-serif`,
           '@media print': {

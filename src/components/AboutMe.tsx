@@ -69,7 +69,7 @@ export const AboutMe: React.FC = () => {
             <Grid container alignContent="center" item xs={12} md={8} lg={9}>
               <Typography paragraph>
                 I've been a technology enthusiast ever since a young age. I've always enjoyed tinkering around to understand how things work, whether it's looking at source code or
-                computer hardware. Long before the days of social media I wanted to create my own website. Shortly after I was gifted my first computer at 11 years old, I started
+                computer hardware. Long before the days of social media I wanted to create my own website. Shortly after I was given my first computer at 11 years old, I started
                 the journey of creating web sites and fell in love with the web and programming.
               </Typography>
               <Typography paragraph>

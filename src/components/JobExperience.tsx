@@ -42,7 +42,13 @@ const useStyles = makeStyles((theme) => ({
       padding: '6px 0'
     },
     '@media print': {
+      margin: 0,
       padding: 0
+    }
+  },
+  timelineContent: {
+    '@media print': {
+      padding: theme.spacing(1)
     }
   },
   timelineDot: {
@@ -86,13 +92,13 @@ export const JobExperience: React.FC = () => {
                 <TimelineDot color="primary" className={classes.timelineDot} />
                 <TimelineConnector />
               </TimelineSeparator>
-              <TimelineContent data-sal={!isPrint ? 'slide-left' : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
+              <TimelineContent className={classes.timelineContent} data-sal={!isPrint ? 'slide-left' : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
                 <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
                   <Typography variant="h6" component="h1">
                     Veriforce
                   </Typography>
                   <Typography variant="subtitle2" component="h2" color="textSecondary" gutterBottom>
-                    Senior Frontend Developer
+                    Senior Frontend Engineer
                   </Typography>
                   <Hidden mdUp>
                     <Typography variant="body2" color="textSecondary">
@@ -101,19 +107,25 @@ export const JobExperience: React.FC = () => {
                   </Hidden>
                   <List dense={isPrint}>
                     <ListItem>
-                      <ListItemText primary="Playing a pivotal role in the process of architecting applications in React, Redux, TypeScript, and Material-UI for a contractor managemant SaaS platform." />
+                      <ListItemText primary="Architecting applications in React, Redux, TypeScript, and Material-UI and writing unit tests with Jest and React Testing Library for a contractor management platform." />
                     </ListItem>
                     <ListItem>
-                      <ListItemText primary="Set up a monorepo for over a dozen React applications and several private NPM packages using Lerna and Jenkins." />
+                      <ListItemText primary="Lead a team of two developers that met client deadlines for major revenue growing projects." />
                     </ListItem>
                     <ListItem>
-                      <ListItemText primary="Manage dependency upgrades and implementations of new libraries." />
+                      <ListItemText primary="Mentor teammates by having pair programming sessions and providing feedback on code reviews daily." />
                     </ListItem>
                     <ListItem>
-                      <ListItemText primary="Created the first private NPM package and build processes in the organization to share code between React/legacy applications." />
+                      <ListItemText primary="Advocate for UI and code consistency throughout the application by creating patterns for other teammates to follow." />
                     </ListItem>
                     <ListItem>
-                      <ListItemText primary="Implemented TypeScript into existing React applications." />
+                      <ListItemText primary="Set up a monorepo using Lerna for over a dozen React applications and NPM packages saving hours from weekly manual deployments." />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemText primary="Quarterly manage dependency upgrades that may fix underlying bugs and allow developers to use new features." />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemText primary="Proposed TypeScript and migrated existing React applications to it to reduce bugs and provide a better developer experience." />
                     </ListItem>
                   </List>
                 </Paper>
@@ -129,13 +141,18 @@ export const JobExperience: React.FC = () => {
                 <TimelineDot color="primary" className={classes.timelineDot} />
                 <TimelineConnector />
               </TimelineSeparator>
-              <TimelineContent data-sal={!isPrint ? (isSmallDown ? 'slide-left' : 'slide-right') : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
+              <TimelineContent
+                className={classes.timelineContent}
+                data-sal={!isPrint ? (isSmallDown ? 'slide-left' : 'slide-right') : null}
+                data-sal-duration="500"
+                data-sal-easing="ease-in-out-quart"
+              >
                 <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
                   <Typography variant="h6" component="h1">
                     Netchex
                   </Typography>
                   <Typography variant="subtitle2" component="h2" color="textSecondary" gutterBottom>
-                    Software Developer
+                    Full Stack Software Developer
                   </Typography>
                   <Hidden mdUp>
                     <Typography variant="body2" color="textSecondary">
@@ -144,13 +161,13 @@ export const JobExperience: React.FC = () => {
                   </Hidden>
                   <List dense={isPrint}>
                     <ListItem>
-                      <ListItemText primary="Worked in a agile scrum environment doing full stack development on an application that specialized in payroll, benefits, and human resources." />
+                      <ListItemText primary="Worked in an agile environment on an application that specialized in payroll, benefits, and human resources." />
                     </ListItem>
                     <ListItem>
-                      <ListItemText primary="Developed back-end code base using domain driven design with C#, Web API, and MVC5." />
+                      <ListItemText primary="Led a team of three developers on a rewrite of the benefits module." />
                     </ListItem>
                     <ListItem>
-                      <ListItemText primary="Developed frontend single page applications using AngularJS, TypeScript, Bootstrap, and LESS." />
+                      <ListItemText primary="Developed applications using domain driven design with C# for REST APIs and created single page applications using AngularJS, TypeScript, and Bootstrap." />
                     </ListItem>
                   </List>
                 </Paper>
@@ -166,7 +183,7 @@ export const JobExperience: React.FC = () => {
                 <TimelineDot color="primary" className={classes.timelineDot} />
                 <TimelineConnector />
               </TimelineSeparator>
-              <TimelineContent data-sal={!isPrint ? 'slide-left' : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
+              <TimelineContent className={classes.timelineContent} data-sal={!isPrint ? 'slide-left' : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
                 <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
                   <Typography variant="h6" component="h1">
                     Edison Chouest Offshore
@@ -181,7 +198,10 @@ export const JobExperience: React.FC = () => {
                   </Hidden>
                   <List dense={isPrint}>
                     <ListItem>
-                      <ListItemText primary="Implemented automation systems on new vessels using ladder logic." />
+                      <ListItemText primary="Implemented automation systems on several vessels using ladder logic and GE PLCs." />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemText primary="Modified logic using GE Proficy and created custom interfaces for vessels using GE Cimplicity." />
                     </ListItem>
                   </List>
                 </Paper>
@@ -196,7 +216,12 @@ export const JobExperience: React.FC = () => {
               <TimelineSeparator>
                 <TimelineDot color="primary" className={classes.timelineDot} />
               </TimelineSeparator>
-              <TimelineContent data-sal={!isPrint ? (isSmallDown ? 'slide-left' : 'slide-right') : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
+              <TimelineContent
+                className={classes.timelineContent}
+                data-sal={!isPrint ? (isSmallDown ? 'slide-left' : 'slide-right') : null}
+                data-sal-duration="500"
+                data-sal-easing="ease-in-out-quart"
+              >
                 <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
                   <Typography variant="h6" component="h1">
                     SCPDC
@@ -211,7 +236,7 @@ export const JobExperience: React.FC = () => {
                   </Hidden>
                   <List dense={isPrint}>
                     <ListItem>
-                      <ListItemText primary="Developed client sites using WordPress, Bootstrap, PHP, and jQuery." />
+                      <ListItemText primary="Developed client sites using WordPress, Bootstrap, PHP, and jQuery and modified custom reports using MS SQL Server." />
                     </ListItem>
                   </List>
                 </Paper>

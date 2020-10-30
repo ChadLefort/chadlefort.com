@@ -81,7 +81,7 @@ export const Header: React.FC = () => {
             <Grid item className={classes.title}>
               <Logo variant="h1" component="h1" />
               <Typography color="textSecondary" variant="h3" component="h2">
-                Frontend Developer
+                Frontend Engineer
               </Typography>
             </Grid>
           </Hidden>
