@@ -42,13 +42,8 @@ const useStyles = makeStyles((theme) => ({
       padding: '6px 0'
     },
     '@media print': {
-      margin: 0,
+      marginBottom: 0,
       padding: 0
-    }
-  },
-  timelineContent: {
-    '@media print': {
-      padding: theme.spacing(1)
     }
   },
   timelineDot: {
@@ -92,7 +87,7 @@ export const JobExperience: React.FC = () => {
                 <TimelineDot color="primary" className={classes.timelineDot} />
                 <TimelineConnector />
               </TimelineSeparator>
-              <TimelineContent className={classes.timelineContent} data-sal={!isPrint ? 'slide-left' : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
+              <TimelineContent data-sal={!isPrint ? 'slide-left' : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
                 <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
                   <Typography variant="h6" component="h1">
                     Veriforce
@@ -141,12 +136,7 @@ export const JobExperience: React.FC = () => {
                 <TimelineDot color="primary" className={classes.timelineDot} />
                 <TimelineConnector />
               </TimelineSeparator>
-              <TimelineContent
-                className={classes.timelineContent}
-                data-sal={!isPrint ? (isSmallDown ? 'slide-left' : 'slide-right') : null}
-                data-sal-duration="500"
-                data-sal-easing="ease-in-out-quart"
-              >
+              <TimelineContent data-sal={!isPrint ? (isSmallDown ? 'slide-left' : 'slide-right') : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
                 <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
                   <Typography variant="h6" component="h1">
                     Netchex
@@ -183,7 +173,7 @@ export const JobExperience: React.FC = () => {
                 <TimelineDot color="primary" className={classes.timelineDot} />
                 <TimelineConnector />
               </TimelineSeparator>
-              <TimelineContent className={classes.timelineContent} data-sal={!isPrint ? 'slide-left' : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
+              <TimelineContent data-sal={!isPrint ? 'slide-left' : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
                 <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
                   <Typography variant="h6" component="h1">
                     Edison Chouest Offshore
@@ -216,12 +206,7 @@ export const JobExperience: React.FC = () => {
               <TimelineSeparator>
                 <TimelineDot color="primary" className={classes.timelineDot} />
               </TimelineSeparator>
-              <TimelineContent
-                className={classes.timelineContent}
-                data-sal={!isPrint ? (isSmallDown ? 'slide-left' : 'slide-right') : null}
-                data-sal-duration="500"
-                data-sal-easing="ease-in-out-quart"
-              >
+              <TimelineContent data-sal={!isPrint ? (isSmallDown ? 'slide-left' : 'slide-right') : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
                 <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
                   <Typography variant="h6" component="h1">
                     SCPDC
