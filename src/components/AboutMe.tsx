@@ -46,7 +46,7 @@ export const AboutMe: React.FC = () => {
       query {
         file(relativePath: { eq: "me-and-mel.png" }) {
           childImageSharp {
-            fluid(maxWidth: 500, quality: 75) {
+            fluid(maxWidth: 500, quality: 100) {
               ...GatsbyImageSharpFluid_withWebp_tracedSVG
             }
           }
