@@ -11,7 +11,7 @@ export function useProfileImage() {
       query {
         file(relativePath: { eq: "me.png" }) {
           childImageSharp {
-            fluid(maxWidth: 500) {
+            fluid(maxWidth: 500, quality: 75) {
               ...GatsbyImageSharpFluid_withWebp_tracedSVG
             }
           }
