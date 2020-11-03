@@ -27,6 +27,15 @@ export const SiteTheme: React.FC = ({ children }) => {
 
   const muiTheme = responsiveFontSizes(
     createMuiTheme({
+      breakpoints: {
+        values: {
+          xs: 0,
+          sm: 600,
+          md: 1280,
+          lg: 1920,
+          xl: 2560
+        }
+      },
       palette: {
         primary: {
           main: prefersDarkMode ? grey[900] : grey[800]
@@ -73,7 +82,8 @@ export const SiteTheme: React.FC = ({ children }) => {
         },
         button: {
           fontFamily: `"Open Sans", "Helvetica", "Arial", sans-serif`,
-          fontWeight: 600
+          fontWeight: 600,
+          textTransform: 'none'
         }
       },
       props: {

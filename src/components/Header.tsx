@@ -50,7 +50,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   button: {
     margin: theme.spacing(2, 1),
     padding: theme.spacing(2, 4),
-    textTransform: 'none',
     [theme.breakpoints.down('sm')]: {
       margin: theme.spacing(1, 0)
     }

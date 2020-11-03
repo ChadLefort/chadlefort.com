@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: theme.palette.error.main
   },
   mainWindow: {
-    minHeight: 266,
+    minHeight: 350,
     backgroundColor: theme.palette.grey['A400'],
     borderRadius: theme.spacing(0, 0, 1, 1),
     padding: theme.spacing(1),
@@ -44,9 +44,6 @@ const useStyles = makeStyles((theme: Theme) => ({
       fontFamily: 'Monospace',
       fontSize: '1.2rem',
       margin: theme.spacing(2)
-    },
-    [theme.breakpoints.down('sm')]: {
-      minHeight: 335
     },
     [theme.breakpoints.down('xs')]: {
       minHeight: 500
