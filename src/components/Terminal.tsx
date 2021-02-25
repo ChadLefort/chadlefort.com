@@ -1,9 +1,10 @@
-import Box from '@material-ui/core/Box';
-import clsx from 'clsx';
 import React, { useEffect, useState } from 'react';
+import { Theme, makeStyles } from '@material-ui/core/styles';
+
+import Box from '@material-ui/core/Box';
 import Typing from 'react-typing-animation';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import clsx from 'clsx';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -41,8 +42,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(1),
     '& p': {
       color: theme.palette.common.white,
-      fontFamily: 'Monospace',
-      fontSize: '1.2rem',
+      fontFamily: 'Consolas',
+      fontSize: '1rem',
       margin: theme.spacing(2)
     },
     [theme.breakpoints.down('xs')]: {

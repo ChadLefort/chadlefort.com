@@ -45,21 +45,10 @@ module.exports = {
       }
     },
     {
-      resolve: 'gatsby-plugin-prefetch-google-fonts',
+      resolve: 'gatsby-plugin-google-fonts',
       options: {
-        fonts: [
-          {
-            family: 'Open Sans',
-            variants: ['400', '600']
-          },
-          {
-            family: 'Roboto',
-            variants: ['500']
-          },
-          {
-            family: 'Fjalla One'
-          }
-        ]
+        fonts: ['Open Sans:400,600', 'Roboto:500', 'Fjalla One', 'Consolas'],
+        display: 'swap'
       }
     },
     {
@@ -67,6 +56,12 @@ module.exports = {
       options: {
         trackingId: 'UA-43761615-3',
         head: false
+      }
+    },
+    {
+      resolve: 'gatsby-plugin-preconnect',
+      options: {
+        domains: ['https://stats.g.doubleclick.net', 'https://www.google-analytics.com']
       }
     },
     {
