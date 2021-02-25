@@ -45,10 +45,15 @@ module.exports = {
       }
     },
     {
-      resolve: 'gatsby-plugin-google-fonts',
+      resolve: '@slixites/gatsby-plugin-google-fonts',
       options: {
         fonts: ['Open Sans:400,600', 'Roboto:500', 'Fjalla One', 'Consolas'],
-        display: 'swap'
+        display: 'swap',
+        preconnect: true,
+        attributes: {
+          rel: 'stylesheet preload prefetch',
+          as: 'style'
+        }
       }
     },
     {
