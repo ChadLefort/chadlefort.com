@@ -68,6 +68,7 @@ module.exports = {
       options: {
         features: ['CustomEvent']
       }
-    }
+    },
+    'gatsby-plugin-netlify'
   ]
 };

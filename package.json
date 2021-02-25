@@ -29,6 +29,7 @@
     "gatsby-plugin-google-analytics": "^2.11.0",
     "gatsby-plugin-manifest": "^2.12.1",
     "gatsby-plugin-material-ui": "^2.1.10",
+    "gatsby-plugin-netlify": "^2.11.0",
     "gatsby-plugin-offline": "^3.10.2",
     "gatsby-plugin-polyfill-io": "^1.1.0",
     "gatsby-plugin-preact": "^4.7.0",
