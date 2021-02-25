@@ -59,12 +59,6 @@ module.exports = {
       }
     },
     {
-      resolve: 'gatsby-plugin-preconnect',
-      options: {
-        domains: ['https://stats.g.doubleclick.net', 'https://www.google-analytics.com']
-      }
-    },
-    {
       resolve: 'gatsby-plugin-polyfill-io',
       options: {
         features: ['CustomEvent']
