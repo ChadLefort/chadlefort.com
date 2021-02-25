@@ -45,11 +45,10 @@ module.exports = {
       }
     },
     {
-      resolve: 'gatsby-plugin-web-font-loader',
+      resolve: 'gatsby-plugin-google-fonts',
       options: {
-        google: {
-          families: ['Open Sans:400,600', 'Roboto:500', 'Fjalla One']
-        }
+        fonts: ['Open Sans:400,600', 'Roboto:500', 'Fjalla One', 'Consolas'],
+        display: 'swap'
       }
     },
     {
@@ -57,6 +56,12 @@ module.exports = {
       options: {
         trackingId: 'UA-43761615-3',
         head: false
+      }
+    },
+    {
+      resolve: 'gatsby-plugin-preconnect',
+      options: {
+        domains: ['https://stats.g.doubleclick.net', 'https://www.google-analytics.com']
       }
     },
     {

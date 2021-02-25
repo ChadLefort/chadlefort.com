@@ -63,7 +63,7 @@ export const AboutMe: React.FC = () => {
             About Me
           </Typography>
           <Grid container>
-            <Grid item xs={12} md={4} lg={3} className={classes.avatar}>
+            <Grid item xs={12} md={3} className={classes.avatar}>
               <Avatar alt="Chad and Melanie" variant="rounded" className={classes.large} component={Img} fluid={fluid} />
             </Grid>
             <Grid container alignContent="center" item xs={12} md={8} lg={9}>
