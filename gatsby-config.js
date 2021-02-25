@@ -45,21 +45,11 @@ module.exports = {
       }
     },
     {
-      resolve: 'gatsby-plugin-prefetch-google-fonts',
+      resolve: 'gatsby-plugin-web-font-loader',
       options: {
-        fonts: [
-          {
-            family: 'Open Sans',
-            variants: ['400', '600']
-          },
-          {
-            family: 'Roboto',
-            variants: ['500']
-          },
-          {
-            family: 'Fjalla One'
-          }
-        ]
+        google: {
+          families: ['Open Sans:400,600', 'Roboto:500', 'Fjalla One']
+        }
       }
     },
     {
