@@ -74,7 +74,7 @@ export const Header: React.FC = () => {
       <Grid container justify="center">
         <Grid container item justify="center" alignItems="center" xs={12}>
           <Grid item className={classes.avatar}>
-            <Avatar alt="Chad Lefort" className={classes.large} component={Img} fluid={fluid} />
+            <Avatar className={classes.large} component={Img} fluid={fluid} alt="Chad Lefort" />
           </Grid>
           <Hidden smDown>
             <Grid item className={classes.title}>

@@ -1,6 +1,7 @@
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import List from '@material-ui/core/List';
+import { ListItem } from './ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 import React from 'react';
@@ -12,7 +13,6 @@ import TimelineItem from '@material-ui/lab/TimelineItem';
 import TimelineOppositeContent from '@material-ui/lab/TimelineOppositeContent';
 import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
 import Typography from '@material-ui/core/Typography';
-import { ListItem } from './ListItem';
 import { makeStyles } from '@material-ui/core/styles';
 import { useScreenSize } from '../hooks/useScreenSize';
 
@@ -64,10 +64,10 @@ const useStyles = makeStyles((theme) => ({
 export const JobExperience: React.FC = () => {
   const classes = useStyles();
   const { isSmallDown, isExtraSmallDown, isPrint } = useScreenSize();
-  const veriforceDate = 'July 2017 - Present';
+  const cditDate = 'December 2020 - Present';
+  const veriforceDate = 'July 2017 - December 2020';
   const netchexDate = 'November 2014 – July 2017';
   const chouestDate = 'December 2013 – November 2014';
-  const scpdcDate = 'February 2013 - November 2013';
 
   return (
     <Grid item xs={12} className={classes.root} id="job-experience">
@@ -77,6 +77,47 @@ export const JobExperience: React.FC = () => {
             Job Experience
           </Typography>
           <Timeline align={isSmallDown ? 'left' : 'alternate'} className={classes.timeline} data-testid="timeline">
+            <TimelineItem>
+              <TimelineOppositeContent className={classes.timelineOpposite}>
+                <Typography variant="body2" color="textSecondary">
+                  {cditDate}
+                </Typography>
+              </TimelineOppositeContent>
+              <TimelineSeparator>
+                <TimelineDot color="primary" className={classes.timelineDot} />
+                <TimelineConnector />
+              </TimelineSeparator>
+              <TimelineContent
+                data-sal={!isPrint && !isExtraSmallDown ? (isSmallDown ? 'slide-left' : 'slide-right') : null}
+                data-sal-duration="500"
+                data-sal-easing="ease-in-out-quart"
+              >
+                <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
+                  <Typography variant="h6" component="h1">
+                    CDIT
+                  </Typography>
+                  <Typography variant="subtitle2" component="h2" color="textSecondary" gutterBottom>
+                    Senior Frontend Engineer
+                  </Typography>
+                  <Hidden mdUp>
+                    <Typography variant="body2" color="textSecondary">
+                      {cditDate}
+                    </Typography>
+                  </Hidden>
+                  <List dense={isPrint}>
+                    <ListItem>
+                      <ListItemText primary="Currently building a new platform in React, Redux, and Material-UI for a VOIP client." />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemText primary="Mirgrated modules from NPM packages to Webpack Module Federation to allow for a better Microfrontend architecture." />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemText primary="Improved Webpack configuration to minimize bundle sizes and reduce build times by over half." />
+                    </ListItem>
+                  </List>
+                </Paper>
+              </TimelineContent>
+            </TimelineItem>
             <TimelineItem>
               <TimelineOppositeContent className={classes.timelineOpposite}>
                 <Typography variant="body2" color="textSecondary">
@@ -102,25 +143,25 @@ export const JobExperience: React.FC = () => {
                   </Hidden>
                   <List dense={isPrint}>
                     <ListItem>
-                      <ListItemText primary="Architecting applications in React, Redux, TypeScript, and Material-UI and writing unit tests with Jest and React Testing Library for a contractor management platform." />
+                      <ListItemText primary="Architected applications in React, Redux, TypeScript, and Material-UI and wrote unit tests with Jest and React Testing Library for a contractor management platform." />
                     </ListItem>
                     <ListItem>
-                      <ListItemText primary="Led a team of two developers that met client deadlines for major revenue growing projects." />
+                      <ListItemText primary="Led a team of developers that met client deadlines for major revenue growing projects." />
                     </ListItem>
                     <ListItem>
-                      <ListItemText primary="Mentor teammates by having pair programming sessions and providing feedback on code reviews daily." />
+                      <ListItemText primary="Mentored teammates by having pair programming sessions and provided feedback on code reviews daily." />
                     </ListItem>
                     <ListItem>
-                      <ListItemText primary="Advocate for UI and code consistency throughout the application by creating patterns for other teammates to follow." />
+                      <ListItemText primary="Advocated for UI and code consistency throughout the application by creating patterns for other teammates to follow." />
                     </ListItem>
                     <ListItem>
                       <ListItemText primary="Set up a monorepo using Lerna for over a dozen React applications and NPM packages saving hours from weekly manual deployments." />
                     </ListItem>
                     <ListItem>
-                      <ListItemText primary="Quarterly manage dependency upgrades that may fix underlying bugs and allow developers to use new features." />
+                      <ListItemText primary="Quarterly managed dependency upgrades that fixed underlying bugs and allowed developers to use new features." />
                     </ListItem>
                     <ListItem>
-                      <ListItemText primary="Proposed TypeScript and migrated existing React applications to it to reduce bugs and provide a better developer experience." />
+                      <ListItemText primary="Migrated existing React applications to TypeScript to reduce bugs and provide a better developer experience." />
                     </ListItem>
                   </List>
                 </Paper>
@@ -158,7 +199,7 @@ export const JobExperience: React.FC = () => {
                       <ListItemText primary="Worked in an agile environment on an application that specialized in payroll, benefits, and human resources." />
                     </ListItem>
                     <ListItem>
-                      <ListItemText primary="Led a team of three developers on a rewrite of the benefits module." />
+                      <ListItemText primary="Led a team of developers on a rewrite of the benefits module." />
                     </ListItem>
                     <ListItem>
                       <ListItemText primary="Developed applications using domain driven design with C# for REST APIs and created single page applications using AngularJS, TypeScript, and Bootstrap." />
@@ -175,7 +216,6 @@ export const JobExperience: React.FC = () => {
               </TimelineOppositeContent>
               <TimelineSeparator>
                 <TimelineDot color="primary" className={classes.timelineDot} />
-                <TimelineConnector />
               </TimelineSeparator>
               <TimelineContent data-sal={!isPrint && !isExtraSmallDown ? 'slide-left' : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
                 <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
@@ -196,40 +236,6 @@ export const JobExperience: React.FC = () => {
                     </ListItem>
                     <ListItem>
                       <ListItemText primary="Modified logic using GE Proficy and created custom interfaces for vessels using GE Cimplicity." />
-                    </ListItem>
-                  </List>
-                </Paper>
-              </TimelineContent>
-            </TimelineItem>
-            <TimelineItem>
-              <TimelineOppositeContent className={classes.timelineOpposite}>
-                <Typography variant="body2" color="textSecondary">
-                  {scpdcDate}
-                </Typography>
-              </TimelineOppositeContent>
-              <TimelineSeparator>
-                <TimelineDot color="primary" className={classes.timelineDot} />
-              </TimelineSeparator>
-              <TimelineContent
-                data-sal={!isPrint && !isExtraSmallDown ? (isSmallDown ? 'slide-left' : 'slide-right') : null}
-                data-sal-duration="500"
-                data-sal-easing="ease-in-out-quart"
-              >
-                <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
-                  <Typography variant="h6" component="h1">
-                    SCPDC
-                  </Typography>
-                  <Typography variant="subtitle2" component="h2" color="textSecondary" gutterBottom>
-                    Software Developer Intern
-                  </Typography>
-                  <Hidden mdUp>
-                    <Typography variant="body2" color="textSecondary">
-                      {scpdcDate}
-                    </Typography>
-                  </Hidden>
-                  <List dense={isPrint}>
-                    <ListItem>
-                      <ListItemText primary="Developed client sites using WordPress, Bootstrap, PHP, and jQuery and modified custom reports using MS SQL Server." />
                     </ListItem>
                   </List>
                 </Paper>
