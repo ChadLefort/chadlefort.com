@@ -109,7 +109,7 @@ export const JobExperience: React.FC = () => {
                       <ListItemText primary="Currently building a new platform in React, Redux, and Material-UI for a VOIP client." />
                     </ListItem>
                     <ListItem>
-                      <ListItemText primary="Mirgrated modules from NPM packages to Webpack Module Federation to allow for a better Microfrontend architecture." />
+                      <ListItemText primary="Migrated modules from NPM packages to Webpack Module Federation to allow for a better Microfrontend architecture." />
                     </ListItem>
                     <ListItem>
                       <ListItemText primary="Improved Webpack configuration to minimize bundle sizes and reduce build times by over half." />
