@@ -106,13 +106,10 @@ export const JobExperience: React.FC = () => {
                   </Hidden>
                   <List dense={isPrint}>
                     <ListItem>
-                      <ListItemText primary="Currently building a new platform in React, Redux, and Material-UI for a VOIP client." />
+                      <ListItemText primary="Currently working on an instructor-guided online education platform for dentist using Vue, TypeScript, Nuxt, and Graphql." />
                     </ListItem>
                     <ListItem>
-                      <ListItemText primary="Migrated modules from NPM packages to Webpack Module Federation to allow for a better Microfrontend architecture." />
-                    </ListItem>
-                    <ListItem>
-                      <ListItemText primary="Improved Webpack configuration to minimize bundle sizes and reduce build times by over half." />
+                      <ListItemText primary="Helped build a new platform in React for a VOIP client and migrated modules from NPM packages to Webpack Module Federation to allow for a better Microfrontend architecture." />
                     </ListItem>
                   </List>
                 </Paper>
@@ -175,7 +172,6 @@ export const JobExperience: React.FC = () => {
               </TimelineOppositeContent>
               <TimelineSeparator>
                 <TimelineDot color="primary" className={classes.timelineDot} />
-                <TimelineConnector />
               </TimelineSeparator>
               <TimelineContent
                 data-sal={!isPrint && !isExtraSmallDown ? (isSmallDown ? 'slide-left' : 'slide-right') : null}
@@ -203,39 +199,6 @@ export const JobExperience: React.FC = () => {
                     </ListItem>
                     <ListItem>
                       <ListItemText primary="Developed applications using domain driven design with C# for REST APIs and created single page applications using AngularJS, TypeScript, and Bootstrap." />
-                    </ListItem>
-                  </List>
-                </Paper>
-              </TimelineContent>
-            </TimelineItem>
-            <TimelineItem>
-              <TimelineOppositeContent className={classes.timelineOpposite}>
-                <Typography variant="body2" color="textSecondary">
-                  {chouestDate}
-                </Typography>
-              </TimelineOppositeContent>
-              <TimelineSeparator>
-                <TimelineDot color="primary" className={classes.timelineDot} />
-              </TimelineSeparator>
-              <TimelineContent data-sal={!isPrint && !isExtraSmallDown ? 'slide-left' : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
-                <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
-                  <Typography variant="h6" component="h1">
-                    Edison Chouest Offshore
-                  </Typography>
-                  <Typography variant="subtitle2" component="h2" color="textSecondary" gutterBottom>
-                    PLC Programmer
-                  </Typography>
-                  <Hidden mdUp>
-                    <Typography variant="body2" color="textSecondary">
-                      {chouestDate}
-                    </Typography>
-                  </Hidden>
-                  <List dense={isPrint}>
-                    <ListItem>
-                      <ListItemText primary="Implemented automation systems on several vessels using ladder logic and GE PLCs." />
-                    </ListItem>
-                    <ListItem>
-                      <ListItemText primary="Modified logic using GE Proficy and created custom interfaces for vessels using GE Cimplicity." />
                     </ListItem>
                   </List>
                 </Paper>
