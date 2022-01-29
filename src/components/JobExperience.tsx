@@ -67,11 +67,10 @@ export const JobExperience: React.FC = () => {
   const cditDate = 'December 2020 - Present';
   const veriforceDate = 'July 2017 - December 2020';
   const netchexDate = 'November 2014 – July 2017';
-  const chouestDate = 'December 2013 – November 2014';
 
   return (
     <Grid item xs={12} className={classes.root} id="job-experience">
-      <Grid container justify="center">
+      <Grid container justifyContent="center">
         <Grid item xs={12} md={10} lg={8} xl={6}>
           <Typography variant="h4" align="center" gutterBottom>
             Job Experience

@@ -1,12 +1,13 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
 import React, { useEffect, useState } from 'react';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
+import { createTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
 import { grey } from '@material-ui/core/colors';
 
 type Theme = 'light' | 'dark';
 type ThemeContext = { theme: Theme; toggleTheme: () => void };
 
+// eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ThemeContext = React.createContext<ThemeContext>({} as ThemeContext);
 
 export const SiteTheme: React.FC = ({ children }) => {
@@ -26,7 +27,7 @@ export const SiteTheme: React.FC = ({ children }) => {
   }, [defaultPreference]);
 
   const muiTheme = responsiveFontSizes(
-    createMuiTheme({
+    createTheme({
       breakpoints: {
         values: {
           xs: 0,

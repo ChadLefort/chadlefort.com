@@ -57,7 +57,7 @@ export const AboutMe: React.FC = () => {
 
   return (
     <Grid item xs={12} className={classes.root} id="about-me">
-      <Grid container justify="center">
+      <Grid container justifyContent="center">
         <Grid item xs={12} md={10} lg={8} xl={6}>
           <Typography variant="h4" align="center" gutterBottom>
             About Me

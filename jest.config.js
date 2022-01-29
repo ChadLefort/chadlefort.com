@@ -13,5 +13,6 @@ module.exports = {
   },
   testURL: `http://localhost`,
   setupFiles: [`<rootDir>/loadershim.js`],
-  setupFilesAfterEnv: ['<rootDir>/setup-test-env.js']
+  setupFilesAfterEnv: ['<rootDir>/setup-test-env.js'],
+  testEnvironment: 'jsdom'
 };

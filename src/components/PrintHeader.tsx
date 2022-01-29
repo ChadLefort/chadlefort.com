@@ -42,7 +42,7 @@ export const PrintHeader: React.FC = () => {
 
   return (
     <Grid item xs={12} className={classes.root}>
-      <Grid container justify="space-between">
+      <Grid container justifyContent="space-between">
         <Grid container item xs={8} alignItems="center">
           <Grid item className={classes.avatar}>
             <Avatar alt="Chad Lefort" className={classes.medium} component={Img} fluid={fluid} loading="eager" />
@@ -54,7 +54,7 @@ export const PrintHeader: React.FC = () => {
             </Typography>
           </Grid>
         </Grid>
-        <Grid container item xs={4} alignItems="center" justify="flex-end">
+        <Grid container item xs={4} alignItems="center" justifyContent="flex-end">
           <Box>
             <Box display="flex" alignItems="center">
               <PhoneIcon fontSize="small" className={classes.icon} />

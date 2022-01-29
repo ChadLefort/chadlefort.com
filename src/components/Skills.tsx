@@ -48,12 +48,12 @@ export const Skills: React.FC = () => {
 
   return (
     <Grid item xs={12} className={classes.root} id="skills">
-      <Grid container justify="center">
+      <Grid container justifyContent="center">
         <Grid item xs={12}>
           <Typography variant="h4" align="center" gutterBottom>
             Skills
           </Typography>
-          <Grid container justify="center">
+          <Grid container justifyContent="center">
             <Grid item className={classes.item}>
               <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
                 <Box className={classes.icon}>

@@ -95,12 +95,12 @@ export const Education: React.FC = () => {
 
   return (
     <Grid item xs={12} className={classes.root} id="education">
-      <Grid container justify="center">
+      <Grid container justifyContent="center">
         <Grid item xs={12} md={10} lg={8} xl={6}>
           <Typography variant="h4" align="center" gutterBottom>
             Education
           </Typography>
-          <Grid container justify="space-between" direction={isSmallDown && !isPrint ? 'column-reverse' : 'row'}>
+          <Grid container justifyContent="space-between" direction={isSmallDown && !isPrint ? 'column-reverse' : 'row'}>
             <Grid item xs={isPrint ? 10 : 12} md={10}>
               <Typography variant="h6" component="h1" gutterBottom align={isSmallDown && !isPrint ? 'center' : 'inherit'}>
                 Nicholls State University

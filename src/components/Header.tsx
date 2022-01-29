@@ -71,8 +71,8 @@ export const Header: React.FC = () => {
 
   return (
     <Grid item xs={12} className={classes.root}>
-      <Grid container justify="center">
-        <Grid container item justify="center" alignItems="center" xs={12}>
+      <Grid container justifyContent="center">
+        <Grid container item justifyContent="center" alignItems="center" xs={12}>
           <Grid item className={classes.avatar}>
             <Avatar className={classes.large} component={Img} fluid={fluid} alt="Chad Lefort" />
           </Grid>
@@ -85,11 +85,11 @@ export const Header: React.FC = () => {
             </Grid>
           </Hidden>
         </Grid>
-        <Grid container item xs={12} md={10} lg={8} xl={6} justify="center">
+        <Grid container item xs={12} md={10} lg={8} xl={6} justifyContent="center">
           <Grid item xs={12}>
             <Terminal />
           </Grid>
-          <Grid item container justify="center">
+          <Grid item container justifyContent="center">
             <Button
               color="primary"
               variant="contained"

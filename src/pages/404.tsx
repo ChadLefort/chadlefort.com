@@ -19,7 +19,7 @@ const FourOhFour: React.FC = () => {
 
   return (
     <SiteTheme>
-      <Grid container direction="row" justify="center" alignItems="center" className={classes.root}>
+      <Grid container direction="row" justifyContent="center" alignItems="center" className={classes.root}>
         <Grid item>
           <Typography variant="h3" align="center" gutterBottom>
             Page not found

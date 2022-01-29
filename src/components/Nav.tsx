@@ -159,7 +159,7 @@ export const Nav: React.FC = () => {
       <AppBar position="fixed" elevation={0}>
         <Toolbar className={classes.toolbar}>
           <Hidden smDown>
-            <Grid container justify="center">
+            <Grid container justifyContent="center">
               <Grid item className={classes.linksOffset}>
                 {links.map(({ to, label }, index) => (
                   <Link key={index} onClick={scrollToSection(to)} className={classes.link} color="inherit" underline="none">

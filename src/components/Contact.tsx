@@ -34,7 +34,7 @@ export const Contact: React.FC = () => {
 
   return (
     <Grid item xs={12} className={classes.root} id="contact">
-      <Grid container justify="center">
+      <Grid container justifyContent="center">
         <Grid item xs={12} md={10} lg={8} xl={6}>
           <Typography variant="h4" align="center" gutterBottom>
             Contact
@@ -42,7 +42,7 @@ export const Contact: React.FC = () => {
           <Typography paragraph align="center">
             Have questions or a job opportunity? Let's get in touch.
           </Typography>
-          <Grid container item justify="center">
+          <Grid container item justifyContent="center">
             <IconButton aria-label="email" component="a" href="mailto:chadlefort@gmail.com" target="_blank" rel="noopener" className={classes.button}>
               <EmailIcon className={classes.icon} />
             </IconButton>
