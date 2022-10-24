@@ -47,7 +47,7 @@ module.exports = {
     {
       resolve: '@slixites/gatsby-plugin-google-fonts',
       options: {
-        fonts: ['Open Sans:400,600', 'Roboto:500', 'Fjalla One', 'Consolas'],
+        fonts: ['Open Sans:400,600', 'Roboto:500', 'Fjalla One', 'Source Code Pro'],
         display: 'swap',
         preconnect: true,
         attributes: {

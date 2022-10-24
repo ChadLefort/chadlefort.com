@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(1),
     '& p': {
       color: theme.palette.common.white,
-      fontFamily: 'Consolas',
+      fontFamily: 'Source Code Pro',
       fontSize: '1rem',
       margin: theme.spacing(2)
     },
