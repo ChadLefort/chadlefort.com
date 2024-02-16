@@ -5,6 +5,8 @@ import IconButton from '@material-ui/core/IconButton';
 import LinkedInIcon from 'mdi-material-ui/Linkedin';
 import React from 'react';
 import TwitterIcon from 'mdi-material-ui/Twitter';
+import Instagram from 'mdi-material-ui/Instagram';
+import Youtube from 'mdi-material-ui/Youtube';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 
@@ -54,6 +56,12 @@ export const Contact: React.FC = () => {
             </IconButton>
             <IconButton aria-label="twitter" component="a" href="https://twitter.com/ChadLefort" target="_blank" rel="noopener" className={classes.button}>
               <TwitterIcon className={classes.icon} />
+            </IconButton>
+            <IconButton aria-label="instagram" component="a" href="https://instagram.com/cl_skate/" target="_blank" rel="noopener" className={classes.button}>
+              <Instagram className={classes.icon} />
+            </IconButton>
+            <IconButton aria-label="youtube" component="a" href="https://www.youtube.com/chadlefort" target="_blank" rel="noopener" className={classes.button}>
+              <Youtube className={classes.icon} />
             </IconButton>
           </Grid>
         </Grid>
