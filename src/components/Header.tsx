@@ -99,7 +99,7 @@ export const Header: React.FC = () => {
               className={classes.button}
               component="a"
               href="/Chad Lefort - Resume.pdf"
-              download
+              download="Chad Lefort - Resume.pdf"
               fullWidth={isSmallDown}
               classes={{ iconSizeLarge: classes.icon }}
             >
