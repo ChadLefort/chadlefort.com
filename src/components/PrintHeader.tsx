@@ -50,7 +50,7 @@ export const PrintHeader: React.FC = () => {
           <Grid item>
             <Logo variant="h2" component="h1" />
             <Typography color="textSecondary" variant="h5">
-              Frontend Engineer
+              Senior Frontend Engineer
             </Typography>
           </Grid>
         </Grid>
@@ -77,8 +77,8 @@ export const PrintHeader: React.FC = () => {
       </Grid>
       <Grid container item className={classes.item}>
         <Typography>
-          I’ve always had a strong passion for the web. Shortly after I was given my first computer, I grew interested in web development. I take pride in writing clean,
-          maintainable, and efficient code and have always enjoyed the feeling of accomplishment when programming. I not only take pride in my own work, but genuinely care that the
+          I’ve always had a strong passion for the web. Shortly after I was given my first computer, I grew interested in web development. I take pride in writing
+          maintainable and efficient code and have always enjoyed the feeling of accomplishment when programming. I not only take pride in my own work, but I genuinely care that the
           team I'm a part of succeeds in delivering great products that offer an excellent user experience. I'm also constantly furthering my skills by learning new patterns,
           libraries, and frameworks to keep up with the ever changing demand the web has.
         </Typography>

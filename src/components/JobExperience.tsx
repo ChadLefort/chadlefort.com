@@ -105,10 +105,10 @@ export const JobExperience: React.FC = () => {
                   </Hidden>
                   <List dense={isPrint}>
                     <ListItem>
-                      <ListItemText primary="Built and architected a new mobile first dashboard, membership cart, and a live instructor-guided online education platform for dentist and their practices using Vue 3, TypeScript, Nuxt, and GraphQL." />
+                      <ListItemText primary="Built and architected a new mobile first dashboard, membership cart, and a live instructor-guided online education platform for dentists and their practices using Vue 3, TypeScript, Nuxt, and GraphQL." />
                     </ListItem>
                     <ListItem>
-                      <ListItemText primary="Helped build a new platform in React for a VOIP client and migrated modules from NPM packages to Webpack Module Federation to allow for a better Microfrontend architecture." />
+                      <ListItemText primary="Helped build a new platform in React for a VOIP client and migrated modules from NPM packages to Webpack Module Federation to allow for a better Micro Frontend architecture." />
                     </ListItem>
                   </List>
                 </Paper>
