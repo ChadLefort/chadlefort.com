@@ -89,6 +89,7 @@ export const Terminal: React.FC = () => {
   const [finishedTyping, setFinishedTyping] = useState(false);
   const [show, setShow] = useState(false);
   const handleFinishedTyping = () => setFinishedTyping(true);
+  const yearsOfExperience = new Date().getFullYear() - 2013;
 
   useEffect(() => {
     setShow(true);
@@ -110,7 +111,7 @@ export const Terminal: React.FC = () => {
         </Typography>
         {show && (
           <Box style={finishedTyping ? { display: 'block' } : { display: 'none' }}>
-            <Typography>&gt; Hello, I'm Chad, a senior frontend engineer from Mandeville, Louisiana.</Typography>
+            <Typography>&gt; Hello, I'm Chad, a senior frontend engineer from Mandeville, Louisiana with {yearsOfExperience} years of development experience.</Typography>
             <Typography>&gt; Shortly after I was given my first computer, I developed a strong passion for programming.</Typography>
             <Typography>&gt; I'm constantly furthering my skills to keep up with the ever changing demand the web has.</Typography>
             <Typography>&gt; I enjoy the feeling of accomplishment when programming, and I take pride in writing maintainable and efficient code.</Typography>
