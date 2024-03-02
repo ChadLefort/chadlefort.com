@@ -107,7 +107,7 @@ export const JobExperience: React.FC = () => {
                   </Hidden>
                   <List dense={isPrint}>
                     <ListItem>
-                      <ListItemText primary="Built and architected a new mobile first dashboard, membership cart, and a live instructor-guided online education SaaS platform for dentist and their practices using Vue 3, TypeScript, Nuxt, and GraphQL." />
+                      <ListItemText primary="Built and architected a new mobile first dashboard, membership cart, and a live instructor-guided online education SaaS platform for dentist and their practices using Vue 3, TypeScript, Nuxt, and GraphQL. Extensive testing was done with Vitest, Vue Testing Library, and Cypress with meaningful code coverage averaging around 80%." />
                     </ListItem>
                     <ListItem>
                       <ListItemText primary="In less than 2 years, launched 3 major high-impact projects that set speed and quality standards for the development team and brought measurable success for a client.  One project witnessed substantial growth across all aspects of the website with significant increases in views, clicks, and user engagement, ranging from 325% to 9564% over a 90 day period." />
@@ -151,13 +151,16 @@ export const JobExperience: React.FC = () => {
                       <ListItemText primary="Architected several projects in React, Redux, TypeScript, and Material-UI and wrote unit tests with Jest and React Testing Library for a contractor management SaaS platform." />
                     </ListItem>
                     <ListItem>
-                      <ListItemText primary="Saved hours of manual deployment time by creating a monorepo with Lerna for 17 React projects and 6 NPM packages leading to cost efficiency and improved productivity for a team of 7 frontend developers." />
+                      <ListItemText primary="Saved hours of manual deployment time by creating a monorepo with Lerna for 17 React projects and 6 NPM packages leading to cost efficiency and improved productivity for a team of 7 frontend developers. A substantial portion of the project involved ensuring that our CI/CD pipeline effectively built and released Docker containers and NPM packages." />
                     </ListItem>
                     <ListItem>
                       <ListItemText primary="Oversaw and mentored a team of 5 frontend developers to complete 3 major revenue-growing projects ahead of schedule by having pair programming sessions and code reviews regularly." />
                     </ListItem>
                     <ListItem>
                       <ListItemText primary="Advocated for UI and code consistency by creating design patterns and managing dependency upgrades, enhancing app stability and user experience." />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemText primary="Collaborated with backend engineers on API design so REST endpoints were scalable to support multiple microservices and frontend applications." />
                     </ListItem>
                     <ListItem>
                       <ListItemText primary="Migrated existing React projects to TypeScript which laid out the structure and configuration for future React projects." />
@@ -269,10 +272,10 @@ export const JobExperience: React.FC = () => {
                   </Hidden>
                   <List dense={isPrint}>
                     <ListItem>
-                      <ListItemText primary="Built a custom contact form using PHP, Bootstrap, and jQuery to guide customers in resolving their issues and reduce support calls." />
+                      <ListItemText primary="Built a custom contact form using PHP, Bootstrap, and jQuery for a permitting SaaS platform to guide customers in resolving their issues and reduce support calls." />
                     </ListItem>
                     <ListItem>
-                      <ListItemText primary="Developed 2 client sites using WordPress, Bootstrap, PHP, and jQuery." />
+                      <ListItemText primary="Built 2 client sites for local parish/county districts using WordPress, Bootstrap, PHP, and jQuery." />
                     </ListItem>
                   </List>
                 </Paper>
