@@ -111,9 +111,10 @@ export const Terminal: React.FC = () => {
         {show && (
           <Box style={finishedTyping ? { display: 'block' } : { display: 'none' }}>
             <Typography>&gt; Hello, I'm Chad, a senior frontend engineer from Mandeville, Louisiana.</Typography>
-            <Typography>&gt; I’ve always had a strong passion for the web. Shortly after I was given my first computer, I grew interested in web development.</Typography>
+            <Typography>&gt; Shortly after I was given my first computer, I developed a strong passion for programming.</Typography>
             <Typography>&gt; I'm constantly furthering my skills to keep up with the ever changing demand the web has.</Typography>
-            <Typography>&gt; I've always enjoyed the feeling of accomplishment when programming, and I take pride in writing maintainable and efficient code.</Typography>
+            <Typography>&gt; I enjoy the feeling of accomplishment when programming, and I take pride in writing maintainable and efficient code.</Typography>
+            <Typography>&gt; Committed to team success, I prioritize delivering exceptional products that provide an outstanding user experience.</Typography>
             <Typography>
               $ <Cursor />
             </Typography>

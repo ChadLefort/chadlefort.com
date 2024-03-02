@@ -73,8 +73,8 @@ export const AboutMe: React.FC = () => {
                 the journey of creating web sites and fell in love with the web and programming.
               </Typography>
               <Typography paragraph>
-                When I'm not programming, I enjoy spending time with my wife Melanie and my cat Pat. I also enjoy building and tearing apart computers, skateboarding, playing
-                guitar and bass, and exploring new worlds in video games!
+                When I'm not programming, I enjoy spending time with my wife Melanie and my cat Pat. I also enjoy skateboarding, riding my bike on trails, playing guitar, and
+                exploring new worlds in video games!
               </Typography>
             </Grid>
           </Grid>

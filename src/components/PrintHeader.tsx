@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   item: {
     paddingTop: theme.spacing(3.5)
+  },
+  typography: {
+    padding: theme.spacing(1)
   }
 }));
 
@@ -75,12 +78,14 @@ export const PrintHeader: React.FC = () => {
           </Box>
         </Grid>
       </Grid>
+
       <Grid container item className={classes.item}>
         <Typography>
-          I’ve always had a strong passion for the web. Shortly after I was given my first computer, I grew interested in web development. I take pride in writing
-          maintainable and efficient code and have always enjoyed the feeling of accomplishment when programming. I not only take pride in my own work, but I genuinely care that the
-          team I'm a part of succeeds in delivering great products that offer an excellent user experience. I'm also constantly furthering my skills by learning new patterns,
-          libraries, and frameworks to keep up with the ever changing demand the web has.
+          I’ve always had a strong passion for web development. I enjoy the feeling of accomplishment when programming, and I take pride in writing maintainable and efficient code.
+          Committed to team success, I prioritize delivering exceptional products that provide an outstanding user experience. Throughout my career I've specialized in frontend
+          solutions. I've architected and delivered a wide range of revenue growing projects while leveraging a variety of modern frameworks and libraries. Additionally, I've set
+          up and managed different configurations and created build pipelines for projects that have resulted in cost efficiency and improved productivity. One project that I
+          recently worked on had substantial growth across all aspects of the website with significant increases in user engagement ranging from 325% to 9564% over 90 days.
         </Typography>
       </Grid>
     </Grid>
