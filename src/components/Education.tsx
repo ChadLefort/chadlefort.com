@@ -40,11 +40,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   divider: {
     marginTop: theme.spacing(2)
-  },
-  hidden: {
-    '@media print': {
-      display: 'none'
-    }
   }
 }));
 
@@ -130,18 +125,18 @@ export const Education: React.FC = () => {
               <ListItemText primary="GPA: 3.6" />
             </ListItem>
           </List>
-          <Typography variant="h6" component="h3" className={classes.hidden}>
+          <Typography variant="h6" component="h3">
             Awards
           </Typography>
-          <List className={classes.hidden}>
+          <List>
             <ListItem>
               <ListItemText primary="Consistently been awarded the President’s List award since the Fall 2010 semester. The President’s List award requires a student to maintain a scholastic GPA of 3.5 or higher." />
             </ListItem>
           </List>
-          <Typography variant="h6" component="h3" className={classes.hidden}>
+          <Typography variant="h6" component="h3">
             Organizations
           </Typography>
-          <List className={classes.hidden}>
+          <List>
             <ListItem>
               <ListItemText primary="Member of Beta Gamma Sigma. It is the highest recognition a business student anywhere in the world can receive in a business program accredited by AACSB International." />
             </ListItem>

@@ -82,12 +82,11 @@ export const PrintHeader: React.FC = () => {
 
       <Grid container item className={classes.item}>
         <Typography>
-          I’ve always had a strong passion for web development. I enjoy the feeling of accomplishment when programming, and I take pride in writing maintainable and efficient code.
-          Committed to team success, I prioritize delivering exceptional products that provide an outstanding user experience. Over the {yearsOfExperience} years of my career I've
-          specialized in frontend solutions. I've architected and delivered a wide range of revenue growing projects while leveraging a variety of modern frameworks and libraries.
-          Additionally, I've set up and managed different configurations and created build pipelines for projects that have resulted in cost efficiency and improved productivity.
-          One project that I recently worked on had substantial growth across all aspects of the website with significant increases in views, clicks, and user engagement, ranging
-          from 325% to 9564% over a 90 day period.
+          Over the {yearsOfExperience}+ years of my career I've specialized in frontend solutions. I've architected and delivered a wide range of revenue growing projects while
+          leveraging a variety of modern frameworks and libraries. Committed to team success, I prioritize delivering exceptional products that provide an outstanding user
+          experience. One project that I recently worked on had substantial growth across all aspects of the website with significant increases in views, clicks, and user
+          engagement, ranging from 325% to 9564% over a 90 day period. Additionally, I've set up and managed different configurations and created build pipelines for projects that
+          have resulted in cost efficiency and improved productivity.
         </Typography>
       </Grid>
     </Grid>
