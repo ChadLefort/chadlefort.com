@@ -65,7 +65,7 @@ export const Skills: React.FC = () => {
   return (
     <Grid item xs={12} className={classes.root} id="skills">
       <Grid container justifyContent="center">
-        <Grid item xs={isPrint ? 12 : 6}>
+        <Grid item xs={12} md={6}>
           <Typography variant="h4" align="center" gutterBottom>
             Skills
           </Typography>
