@@ -13,8 +13,8 @@ export const ViteIcon: React.FC = () => (
     />
     <defs id="defs50">
       <linearGradient id="paint0_linear" x1="6.0002" y1="32.9999" x2="235" y2="344" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.07142 0 0 .07142 1.3398 1.8944)">
-        <stop stop-color="#41D1FF" id="stop38" />
-        <stop offset="1" stop-color="#BD34FE" id="stop40" />
+        <stop stopColor="#41D1FF" id="stop38" />
+        <stop offset="1" stopColor="#BD34FE" id="stop40" />
       </linearGradient>
       <linearGradient
         id="paint1_linear"
@@ -25,9 +25,9 @@ export const ViteIcon: React.FC = () => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="matrix(.07142 0 0 .07142 1.3398 1.8944)"
       >
-        <stop stop-color="#FFEA83" id="stop43" />
-        <stop offset=".0833" stop-color="#FFDD35" id="stop45" />
-        <stop offset="1" stop-color="#FFA800" id="stop47" />
+        <stop stopColor="#FFEA83" id="stop43" />
+        <stop offset=".0833" stopColor="#FFDD35" id="stop45" />
+        <stop offset="1" stopColor="#FFA800" id="stop47" />
       </linearGradient>
     </defs>
   </SvgWrapper>
