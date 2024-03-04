@@ -20,7 +20,7 @@ import { WebpackIcon } from './icons/WebpackIcon';
 import { DockerIcon } from './icons/DockerIcon';
 import { CICDIcon } from './icons/CICDIcon';
 import { TestingLibraryIcon } from './icons/TestingLibrary';
-import { GitIcon } from './icons/GitIcon';
+import { StorybookIcon } from './icons/StorybookIcon';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -172,6 +172,17 @@ export const Skills: React.FC = () => {
             <Grid item className={classes.item}>
               <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
                 <Box className={classes.icon}>
+                  <StorybookIcon />
+                </Box>
+                <Typography variant="body2" align="center">
+                  Storybook
+                </Typography>
+              </Paper>
+            </Grid>
+
+            <Grid item className={classes.item}>
+              <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
+                <Box className={classes.icon}>
                   <WebpackIcon />
                 </Box>
                 <Typography variant="body2" align="center">
@@ -209,17 +220,6 @@ export const Skills: React.FC = () => {
                 </Box>
                 <Typography variant="body2" align="center">
                   Testing Lib
-                </Typography>
-              </Paper>
-            </Grid>
-
-            <Grid item className={classes.item}>
-              <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
-                <Box className={classes.icon}>
-                  <GitIcon />
-                </Box>
-                <Typography variant="body2" align="center">
-                  Git
                 </Typography>
               </Paper>
             </Grid>
