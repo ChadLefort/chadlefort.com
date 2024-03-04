@@ -62,6 +62,6 @@ module.exports = {
         features: ['CustomEvent']
       }
     },
-    'gatsby-plugin-netlify'
+    'gatsby-plugin-cloudflare-pages'
   ]
 };
