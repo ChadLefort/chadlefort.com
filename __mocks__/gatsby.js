@@ -4,15 +4,15 @@ const { siteMetadata } = require('../gatsby-config');
 
 module.exports = {
   ...gatsby,
-  graphql: jest.fn(),
-  Link: jest.fn().mockImplementation(({ activeClassName, activeStyle, getProps, innerRef, partiallyActive, ref, replace, to, ...rest }) =>
+  graphql: vitest.fn(),
+  Link: vitest.fn().mockImplementation(({ activeClassName, activeStyle, getProps, innerRef, partiallyActive, ref, replace, to, ...rest }) =>
     React.createElement('a', {
       ...rest,
       href: to
     })
   ),
-  StaticQuery: jest.fn(),
-  useStaticQuery: jest.fn().mockImplementation(() => ({
+  StaticQuery: vitest.fn(),
+  useStaticQuery: vitest.fn().mockImplementation(() => ({
     site: { siteMetadata },
     file: {
       childImageSharp: {

@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 describe('Header', () => {
   test('Shows the download button', () => {
-    console.error = jest.fn();
+    console.error = vitest.fn();
     render(<Header />);
 
     expect(screen.getByRole('link')).toHaveTextContent('Download Resume');
