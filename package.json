@@ -17,7 +17,8 @@
     "clean": "gatsby clean",
     "lint": "eslint . --ext .ts,.tsx",
     "type-check": "tsc --pretty",
-    "test": "vitest",
+    "test": "vitest --run",
+    "test:watch": "vitest",
     "prepare": "husky"
   },
   "dependencies": {
