@@ -3,7 +3,7 @@ module.exports = {
     title: 'Chad Lefort - Senior Frontend Engineer',
     siteUrl: 'https://chadlefort.com',
     siteName: 'Chad Lefort',
-    description: `I'm Chad Lefort, a frontend engineer from Mandeville, Louisiana. I'm passionate and motivated about the web and always pushing myself and the web forward.`,
+    description: `I'm Chad Lefort, a senior frontend engineer from Mandeville, Louisiana with 11+ years of development experience.`,
     lang: 'en-US',
     avatar: '/me.png',
     image: '/logo.png',
