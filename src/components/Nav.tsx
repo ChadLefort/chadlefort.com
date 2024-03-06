@@ -162,7 +162,7 @@ export const Nav: React.FC = () => {
             <Grid container justifyContent="center">
               <Grid item className={classes.linksOffset}>
                 {links.map(({ to, label }, index) => (
-                  <Link key={index} onClick={scrollToSection(to)} className={classes.link} color="inherit" underline="none">
+                  <Link key={index} component="button" variant="body2" onClick={scrollToSection(to)} className={classes.link} color="inherit" underline="none">
                     {label}
                   </Link>
                 ))}
