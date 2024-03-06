@@ -12,6 +12,7 @@ import { Logo } from './Logo';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useProfileImage } from '../hooks/useProfileImage';
 import Divider from '@material-ui/core/Divider';
+import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles((theme: Theme) => ({
   medium: {
@@ -26,6 +27,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   divider: {
     marginTop: theme.spacing(2)
+  },
+  link: {
+    fontSize: 12
   }
 }));
 
@@ -51,19 +55,27 @@ export const PrintHeaderContent: React.FC = () => {
           <Box>
             <Box display="flex" alignItems="center">
               <PhoneIcon fontSize="small" className={classes.icon} />
-              <Typography>(985) 696-4781</Typography>
+              <Link href="tel:+19856964781" target="_blank" rel="noopener" className={classes.link} color="inherit" underline="none">
+                (985) 696-4781
+              </Link>
             </Box>
             <Box display="flex" alignItems="center">
               <EmailIcon fontSize="small" className={classes.icon} />
-              <Typography>chadlefort@gmail.com</Typography>
+              <Link href="mailto:chadlefort@gmail.com" target="_blank" rel="noopener" className={classes.link} color="inherit" underline="none">
+                chadlefort@gmail.com
+              </Link>
             </Box>
             <Box display="flex" alignItems="center">
               <GithubIcon fontSize="small" className={classes.icon} />
-              <Typography>github.com/ChadLefort</Typography>
+              <Link href="https://github.com/ChadLefort" target="_blank" rel="noopener" className={classes.link} color="inherit" underline="none">
+                https://github.com/ChadLefort
+              </Link>
             </Box>
             <Box display="flex" alignItems="center">
               <LinkedinIcon fontSize="small" className={classes.icon} />
-              <Typography>linkedin.com/in/chadlefort</Typography>
+              <Link href="https://linkedin.com/in/chadlefort" target="_blank" rel="noopener" className={classes.link} color="inherit" underline="none">
+                https://linkedin.com/in/chadlefort
+              </Link>
             </Box>
           </Box>
         </Grid>
