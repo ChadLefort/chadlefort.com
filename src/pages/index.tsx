@@ -1,6 +1,7 @@
 import React from 'react';
 import { AboutMe } from '../components/AboutMe';
 import { Contact } from '../components/Contact';
+import { CoverLetter } from '../components/CoverLetter';
 import { Education } from '../components/Education';
 import { Header } from '../components/Header';
 import { JobExperience } from '../components/JobExperience';
@@ -45,6 +46,7 @@ export function Head() {
 const Home: React.FC = () => {
   return (
     <Layout>
+      <CoverLetter />
       <PrintHeader />
       <Header />
       <JobExperience />

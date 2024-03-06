@@ -1,3 +1,5 @@
+import 'swiper/css';
+import 'swiper/css/effect-cards';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import Img, { FluidObject } from 'gatsby-image';
@@ -5,6 +7,8 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { graphql, useStaticQuery } from 'gatsby';
 import { makeStyles, Theme } from '@material-ui/core/styles';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, EffectCards } from 'swiper/modules';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -25,10 +29,10 @@ const useStyles = makeStyles((theme: Theme) => ({
       height: theme.spacing(30)
     }
   },
-  avatar: {
-    padding: theme.spacing(0, 4, 0, 0),
+  swiper: {
+    padding: theme.spacing(0, 7, 0, 0),
     [theme.breakpoints.down('sm')]: {
-      padding: theme.spacing(2, 4),
+      padding: theme.spacing(2, 4, 2, 5),
       display: 'flex',
       justifyContent: 'center'
     }
@@ -38,16 +42,16 @@ const useStyles = makeStyles((theme: Theme) => ({
 export const AboutMe: React.FC = () => {
   const classes = useStyles();
   const {
-    file: {
-      childImageSharp: { fluid }
-    }
-  } = useStaticQuery<{ file: { childImageSharp: { fluid: FluidObject } } }>(
+    allFile: { nodes }
+  } = useStaticQuery<{ allFile: { nodes: { childImageSharp: { fluid: FluidObject } }[] } }>(
     graphql`
       query {
-        file(relativePath: { eq: "me-and-mel.png" }) {
-          childImageSharp {
-            fluid(maxWidth: 500, quality: 100) {
-              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+        allFile(filter: { relativeDirectory: { eq: "about" } }, sort: { fields: [name], order: ASC }) {
+          nodes {
+            childImageSharp {
+              fluid(maxWidth: 500, quality: 100) {
+                ...GatsbyImageSharpFluid_withWebp_tracedSVG
+              }
             }
           }
         }
@@ -63,8 +67,23 @@ export const AboutMe: React.FC = () => {
             About Me
           </Typography>
           <Grid container>
-            <Grid item xs={12} md={3} className={classes.avatar}>
-              <Avatar alt="Chad and Melanie" variant="rounded" className={classes.large} component={Img} fluid={fluid} />
+            <Grid item xs={12} md={3} className={classes.swiper}>
+              <Swiper
+                slidesPerView={1}
+                grabCursor={true}
+                effect={'cards'}
+                autoplay={{
+                  delay: 3000,
+                  disableOnInteraction: false
+                }}
+                modules={[Autoplay, EffectCards]}
+              >
+                {nodes.map((node, index) => (
+                  <SwiperSlide>
+                    <Avatar key={index} alt="About Me Image" variant="rounded" className={classes.large} component={Img} fluid={node.childImageSharp.fluid} />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
             </Grid>
             <Grid container alignContent="center" item xs={12} md={8} lg={9}>
               <Typography paragraph>
