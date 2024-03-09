@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       margin: theme.spacing(2)
     },
     [theme.breakpoints.down('xs')]: {
-      minHeight: 500
+      minHeight: 768
     }
   },
   cursor: {

@@ -9,6 +9,7 @@ import Instagram from 'mdi-material-ui/Instagram';
 import Youtube from 'mdi-material-ui/Youtube';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core/styles';
+import { useScreenSize } from '../hooks/useScreenSize';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   button: {
     margin: theme.spacing(0, 1),
     [theme.breakpoints.down('xs')]: {
-      margin: theme.spacing(0, 0.5)
+      margin: theme.spacing(0, 0.125)
     }
   },
   icon: {
@@ -33,6 +34,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const Contact: React.FC = () => {
   const classes = useStyles();
+  const { isSmallDown } = useScreenSize();
 
   return (
     <Grid item xs={12} className={classes.root} id="contact">
@@ -42,7 +44,7 @@ export const Contact: React.FC = () => {
             Contact
           </Typography>
           <Typography paragraph align="center">
-            Have questions or a job opportunity? Let's get in touch.
+            Have questions or a job opportunity? {isSmallDown ? <br /> : null} Let's get in touch.
           </Typography>
           <Grid container item justifyContent="center">
             <IconButton aria-label="email" component="a" href="mailto:chadlefort@gmail.com" target="_blank" rel="noopener" className={classes.button}>
