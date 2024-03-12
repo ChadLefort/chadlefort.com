@@ -139,7 +139,7 @@ export const JobExperience: React.FC = () => {
                       <ListItemIcon className={classes.listItemIcon}>
                         <CircleSmall />
                       </ListItemIcon>
-                      <ListItemText primary="Helped build a new platform in React for a VOIP SaaS and migrated modules from NPM packages to Webpack Module Federation to allow for a better Microfrontend architecture. This improvement helped with challenges such as application updates, deployments, and reduced the number of pull requests needed from 5 down to 1." />
+                      <ListItemText primary="Helped build a new platform in React for a VOIP SaaS and migrated modules from NPM packages to Webpack Module Federation to allow for a better Microfrontend architecture. This improvement helped with challenges such as application updates, deployments, and reduced the number of pull requests needed from 5 to 1." />
                     </ListItem>
                   </List>
                 </Paper>
