@@ -5,8 +5,8 @@ module.exports = {
     siteName: 'Chad Lefort',
     description: `I'm Chad Lefort, a senior frontend engineer from Mandeville, Louisiana with 11+ years of development experience.`,
     lang: 'en-US',
-    avatar: '/me.png',
-    image: '/logo.png',
+    avatar: 'https://chadlefort.com/me.png',
+    image: 'https://chadlefort.com/logo.png',
     email: 'chadlefort@gmail.com',
     jobTitle: 'Senior Frontend Engineer'
   },
