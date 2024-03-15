@@ -6,7 +6,7 @@ module.exports = {
     description: `I'm Chad Lefort, a senior frontend engineer from Mandeville, Louisiana with 11+ years of development experience.`,
     lang: 'en-US',
     avatar: 'https://chadlefort.com/me.png',
-    image: 'https://chadlefort.com/logo.png',
+    image: 'https://chadlefort.com/card.png',
     email: 'chadlefort@gmail.com',
     jobTitle: 'Senior Frontend Engineer'
   },
@@ -16,6 +16,7 @@ module.exports = {
     'gatsby-plugin-sharp',
     'gatsby-plugin-material-ui',
     'gatsby-plugin-offline',
+    'gatsby-plugin-robots-txt',
     {
       resolve: 'gatsby-plugin-scroll-reveal',
       options: {
