@@ -218,7 +218,7 @@ export const SpearDashboard: React.FC = () => {
         </AppBar>
         <DialogContent>
           <Grid container justifyContent="center">
-            <Grid item xs={isMobileImage ? 3 : 8}>
+            <Grid item xs={isMobileImage ? 2 : 8}>
               {selectedImage && <Avatar alt="Spear Dashboard" variant="rounded" component={Img} fluid={selectedImage} style={{ height: '100%', width: '100%' }} />}
             </Grid>
           </Grid>
