@@ -1,5 +1,5 @@
 import React from 'react';
-import { SvgWrapper } from './SvgWrapper';
+import { SvgWrapper } from '../SvgWrapper';
 
 export const StorybookIcon: React.FC = () => (
   <SvgWrapper viewBox="0 0 24 24" title="Storybook">

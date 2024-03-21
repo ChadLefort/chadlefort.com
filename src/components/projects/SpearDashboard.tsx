@@ -8,8 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import { graphql, useStaticQuery } from 'gatsby';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
 import { BootstrapIcon } from '../icons/BootstrapIcon';
 import { GraphQLIcon } from '../icons/GraphQLIcon';
 import { VueIcon } from '../icons/VueIcon';
@@ -30,6 +28,7 @@ import { Pagination } from 'swiper/modules';
 import { useScreenSize } from '../../hooks/useScreenSize';
 import { NuxtIcon } from '../icons/NuxtIcon';
 import { MSWIcon } from '../icons/MSWIcon';
+import { PaperIcon } from '../PaperIcon';
 
 type Node = { nodes: { childImageSharp: { fluid: FluidObject } }[] };
 
@@ -54,20 +53,6 @@ const useStyles = makeStyles((theme: Theme) => ({
       display: 'flex',
       justifyContent: 'center'
     }
-  },
-  item: {
-    margin: theme.spacing(2),
-    maxWidth: 110,
-    width: '100%',
-    [theme.breakpoints.down('sm')]: {
-      margin: theme.spacing(1)
-    }
-  },
-  paper: {
-    padding: theme.spacing(1)
-  },
-  icon: {
-    margin: theme.spacing(1, 2)
   },
   appBar: {
     position: 'sticky'
@@ -179,115 +164,45 @@ export const SpearDashboard: React.FC = () => {
             </Grid>
 
             <Grid container justifyContent="center">
-              <Grid item className={classes.item}>
-                <Paper elevation={0} variant="elevation" className={classes.paper}>
-                  <Box className={classes.icon}>
-                    <VueIcon />
-                  </Box>
-                  <Typography variant="body2" align="center">
-                    Vue
-                  </Typography>
-                </Paper>
-              </Grid>
+              <PaperIcon name="Vue">
+                <VueIcon />
+              </PaperIcon>
 
-              <Grid item className={classes.item}>
-                <Paper elevation={0} variant="elevation" className={classes.paper}>
-                  <Box className={classes.icon}>
-                    <NuxtIcon />
-                  </Box>
-                  <Typography variant="body2" align="center">
-                    Nuxt
-                  </Typography>
-                </Paper>
-              </Grid>
+              <PaperIcon name="Nuxt">
+                <NuxtIcon />
+              </PaperIcon>
 
-              <Grid item className={classes.item}>
-                <Paper elevation={0} variant="elevation" className={classes.paper}>
-                  <Box className={classes.icon}>
-                    <TypeScriptIcon />
-                  </Box>
-                  <Typography variant="body2" align="center">
-                    TypeScript
-                  </Typography>
-                </Paper>
-              </Grid>
+              <PaperIcon name="TypeScript">
+                <TypeScriptIcon />
+              </PaperIcon>
 
-              <Grid item className={classes.item}>
-                <Paper elevation={0} variant="elevation" className={classes.paper}>
-                  <Box className={classes.icon}>
-                    <BootstrapIcon />
-                  </Box>
-                  <Typography variant="body2" align="center">
-                    Bootstrap
-                  </Typography>
-                </Paper>
-              </Grid>
+              <PaperIcon name="Bootstrap">
+                <BootstrapIcon />
+              </PaperIcon>
 
-              <Grid item className={classes.item}>
-                <Paper elevation={0} variant="elevation" className={classes.paper}>
-                  <Box className={classes.icon}>
-                    <GraphQLIcon />
-                  </Box>
-                  <Typography variant="body2" align="center">
-                    GraphQL
-                  </Typography>
-                </Paper>
-              </Grid>
+              <PaperIcon name="GraphQL">
+                <GraphQLIcon />
+              </PaperIcon>
 
-              <Grid item className={classes.item}>
-                <Paper elevation={0} variant="elevation" className={classes.paper}>
-                  <Box className={classes.icon}>
-                    <TypeORMIcon />
-                  </Box>
-                  <Typography variant="body2" align="center">
-                    TypeORM
-                  </Typography>
-                </Paper>
-              </Grid>
+              <PaperIcon name="TypeORM">
+                <TypeORMIcon />
+              </PaperIcon>
 
-              <Grid item className={classes.item}>
-                <Paper elevation={0} variant="elevation" className={classes.paper}>
-                  <Box className={classes.icon}>
-                    <VitestIcon />
-                  </Box>
-                  <Typography variant="body2" align="center">
-                    Vitest
-                  </Typography>
-                </Paper>
-              </Grid>
+              <PaperIcon name="Vitest">
+                <VitestIcon />
+              </PaperIcon>
 
-              <Grid item className={classes.item}>
-                <Paper elevation={0} variant="elevation" className={classes.paper}>
-                  <Box className={classes.icon}>
-                    <TestingLibraryIcon />
-                  </Box>
-                  <Typography variant="body2" align="center">
-                    Testing Lib
-                  </Typography>
-                </Paper>
-              </Grid>
+              <PaperIcon name="Testing Lib">
+                <TestingLibraryIcon />
+              </PaperIcon>
 
-              <Grid item className={classes.item}>
-                <Paper elevation={0} variant="elevation" className={classes.paper}>
-                  <Box className={classes.icon}>
-                    <MSWIcon />
-                  </Box>
-                  <Typography variant="body2" align="center">
-                    MSW
-                  </Typography>
-                </Paper>
-              </Grid>
+              <PaperIcon name="MSW">
+                <MSWIcon />
+              </PaperIcon>
 
-              <Grid item className={classes.item}>
-                <Paper elevation={0} variant="elevation" className={classes.paper}>
-                  <Box className={classes.icon}>
-                    <StorybookIcon />
-                  </Box>
-                  <Typography variant="body2" align="center">
-                    Storybook
-                  </Typography>
-                </Paper>
-              </Grid>
+              <PaperIcon name="Storybook">
+                <StorybookIcon />
+              </PaperIcon>
             </Grid>
           </Grid>
         </Grid>

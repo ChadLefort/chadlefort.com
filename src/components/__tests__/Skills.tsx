@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { Skills } from '../Skills';
+import { Skills } from '../home/Skills';
 
 describe('Skills', () => {
   test('Renders the section', () => {

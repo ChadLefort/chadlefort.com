@@ -1,5 +1,5 @@
 import React from 'react';
-import { SvgWrapper } from './SvgWrapper';
+import { SvgWrapper } from '../SvgWrapper';
 
 export const VitestIcon: React.FC = () => (
   <SvgWrapper viewBox="0 0 256 234" title="Vitest">

@@ -9,7 +9,7 @@ import Instagram from 'mdi-material-ui/Instagram';
 import Youtube from 'mdi-material-ui/Youtube';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { useScreenSize } from '../hooks/useScreenSize';
+import { useScreenSize } from '../../hooks/useScreenSize';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {

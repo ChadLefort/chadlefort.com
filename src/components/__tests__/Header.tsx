@@ -1,6 +1,7 @@
 import React from 'react';
-import { Header } from '../Header';
+import { Header } from '../home/Header';
 import { render, screen } from '@testing-library/react';
+import { vitest } from 'vitest';
 
 describe('Header', () => {
   test('Shows the download button', () => {

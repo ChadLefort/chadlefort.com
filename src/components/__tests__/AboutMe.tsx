@@ -1,5 +1,5 @@
 import React from 'react';
-import { AboutMe } from '../AboutMe';
+import { AboutMe } from '../home/AboutMe';
 import { render, screen } from '@testing-library/react';
 import { vi } from 'vitest';
 

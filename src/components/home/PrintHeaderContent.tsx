@@ -8,9 +8,9 @@ import Img from 'gatsby-image';
 import PhoneIcon from 'mdi-material-ui/Phone';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { Logo } from './Logo';
+import { Logo } from '../Logo';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { useProfileImage } from '../hooks/useProfileImage';
+import { useProfileImage } from '../../hooks/useProfileImage';
 import Divider from '@material-ui/core/Divider';
 import Link from '@material-ui/core/Link';
 

@@ -5,10 +5,10 @@ import HomeIcon from 'mdi-material-ui/Home';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'gatsby';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { SiteTheme } from '../components/SiteTheme';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     height: '100%'
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { SvgWrapper } from './SvgWrapper';
+import { SvgWrapper } from '../SvgWrapper';
 
 export const SassIcon: React.FC = () => (
   <SvgWrapper viewBox="0 0 24 24" title="Sass">

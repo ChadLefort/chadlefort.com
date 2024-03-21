@@ -2,8 +2,6 @@ import Grid from '@material-ui/core/Grid';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
 import { WebpackIcon } from '../icons/WebpackIcon';
 import { TypeScriptIcon } from '../icons/TypeScriptIcon';
 import { ReactIcon } from '../icons/ReactIcon';
@@ -13,6 +11,7 @@ import { NxIcon } from '../icons/NxIcon';
 import { JenkinsIcon } from '../icons/JenkinsIcon';
 import { Link } from '@material-ui/core';
 import GithubIcon from 'mdi-material-ui/Github';
+import { PaperIcon } from '../PaperIcon';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -21,14 +20,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(8, 2),
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(4)
-    }
-  },
-  item: {
-    margin: theme.spacing(2),
-    maxWidth: 110,
-    width: '100%',
-    [theme.breakpoints.down('sm')]: {
-      margin: theme.spacing(1)
     }
   },
   github: {
@@ -41,12 +32,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   githubIcon: {
     marginRight: theme.spacing(1)
-  },
-  paper: {
-    padding: theme.spacing(1)
-  },
-  icon: {
-    margin: theme.spacing(1, 2)
   },
   title: {
     marginBottom: theme.spacing(4)
@@ -87,82 +72,33 @@ export const ModuleFederation: React.FC = () => {
           </Grid>
 
           <Grid container justifyContent="center">
-            <Grid item className={classes.item}>
-              <Paper elevation={0} variant="elevation" className={classes.paper}>
-                <Box className={classes.icon}>
-                  <WebpackIcon />
-                </Box>
-                <Typography variant="body2" align="center">
-                  Webpack
-                </Typography>
-              </Paper>
-            </Grid>
+            <PaperIcon name="Webpack">
+              <WebpackIcon />
+            </PaperIcon>
 
-            <Grid item className={classes.item}>
-              <Paper elevation={0} variant="elevation" className={classes.paper}>
-                <Box className={classes.icon}>
-                  <NxIcon />
-                </Box>
-                <Typography variant="body2" align="center">
-                  Nx
-                </Typography>
-              </Paper>
-            </Grid>
+            <PaperIcon name="Nx">
+              <NxIcon />
+            </PaperIcon>
 
-            <Grid item className={classes.item}>
-              <Paper elevation={0} variant="elevation" className={classes.paper}>
-                <Box className={classes.icon}>
-                  <JenkinsIcon />
-                </Box>
-                <Typography variant="body2" align="center">
-                  Jenkins
-                </Typography>
-              </Paper>
-            </Grid>
+            <PaperIcon name="Jenkins">
+              <JenkinsIcon />
+            </PaperIcon>
 
-            <Grid item className={classes.item}>
-              <Paper elevation={0} variant="elevation" className={classes.paper}>
-                <Box className={classes.icon}>
-                  <ReactIcon />
-                </Box>
-                <Typography variant="body2" align="center">
-                  React
-                </Typography>
-              </Paper>
-            </Grid>
+            <PaperIcon name="React">
+              <ReactIcon />
+            </PaperIcon>
 
-            <Grid item className={classes.item}>
-              <Paper elevation={0} variant="elevation" className={classes.paper}>
-                <Box className={classes.icon}>
-                  <ReduxIcon />
-                </Box>
-                <Typography variant="body2" align="center">
-                  Redux
-                </Typography>
-              </Paper>
-            </Grid>
+            <PaperIcon name="Redux">
+              <ReduxIcon />
+            </PaperIcon>
 
-            <Grid item className={classes.item}>
-              <Paper elevation={0} variant="elevation" className={classes.paper}>
-                <Box className={classes.icon}>
-                  <TypeScriptIcon />
-                </Box>
-                <Typography variant="body2" align="center">
-                  TypeScript
-                </Typography>
-              </Paper>
-            </Grid>
+            <PaperIcon name="TypeScript">
+              <TypeScriptIcon />
+            </PaperIcon>
 
-            <Grid item className={classes.item}>
-              <Paper elevation={0} variant="elevation" className={classes.paper}>
-                <Box className={classes.icon}>
-                  <MUIIcon />
-                </Box>
-                <Typography variant="body2" align="center">
-                  Material-UI
-                </Typography>
-              </Paper>
-            </Grid>
+            <PaperIcon name="Material-UI">
+              <MUIIcon />
+            </PaperIcon>
           </Grid>
         </Grid>
       </Grid>

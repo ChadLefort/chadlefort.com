@@ -1,5 +1,5 @@
 import React from 'react';
-import { Contact } from '../Contact';
+import { Contact } from '../home/Contact';
 import { render, screen } from '@testing-library/react';
 
 describe('Contact', () => {

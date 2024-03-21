@@ -6,11 +6,11 @@ import Hidden from '@material-ui/core/Hidden';
 import Img from 'gatsby-image';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { Logo } from './Logo';
+import { Logo } from '../Logo';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { Terminal } from './Terminal';
-import { useProfileImage } from '../hooks/useProfileImage';
-import { useScreenSize } from '../hooks/useScreenSize';
+import { useProfileImage } from '../../hooks/useProfileImage';
+import { useScreenSize } from '../../hooks/useScreenSize';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {

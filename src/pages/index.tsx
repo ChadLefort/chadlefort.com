@@ -1,12 +1,12 @@
 import React from 'react';
-import { AboutMe } from '../components/AboutMe';
-import { Contact } from '../components/Contact';
-import { Education } from '../components/Education';
-import { Header } from '../components/Header';
-import { JobExperience } from '../components/JobExperience';
-import { Layout } from '../components/Layout';
-import { PrintHeader } from '../components/PrintHeader';
-import { Skills } from '../components/Skills';
+import { AboutMe } from '../components/home/AboutMe';
+import { Contact } from '../components/home/Contact';
+import { Education } from '../components/home/Education';
+import { Header } from '../components/home/Header';
+import { JobExperience } from '../components/home/JobExperience';
+import { Layout } from '../components/home/Layout';
+import { PrintHeader } from '../components/home/PrintHeader';
+import { Skills } from '../components/home/Skills';
 import { useSiteMetadata } from '../hooks/useSiteMetadata';
 
 export function Head() {
