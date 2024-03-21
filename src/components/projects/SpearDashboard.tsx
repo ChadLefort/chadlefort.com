@@ -63,6 +63,13 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   title: {
     marginBottom: theme.spacing(4)
+  },
+  subTitle: {
+    opacity: 0.7,
+    fontWeight: 600
+  },
+  secondaryTitle: {
+    marginTop: theme.spacing(4)
   }
 }));
 
@@ -126,6 +133,9 @@ export const SpearDashboard: React.FC = () => {
           <Grid item xs={12} md={10} lg={8} xl={6}>
             <Typography variant="h4" align="center" gutterBottom className={classes.title}>
               Spear Dashboard
+              <Typography paragraph className={classes.subTitle}>
+                Apr 2022 - Feb 2023
+              </Typography>
             </Typography>
             <Grid container>
               <Grid item xs={12} className={classes.swiperContainer}>
@@ -162,6 +172,10 @@ export const SpearDashboard: React.FC = () => {
                 </Typography>
               </Grid>
             </Grid>
+
+            <Typography variant="h5" align="center" gutterBottom className={classes.secondaryTitle}>
+              Built With
+            </Typography>
 
             <Grid container justifyContent="center">
               <PaperIcon name="Vue">
@@ -218,7 +232,7 @@ export const SpearDashboard: React.FC = () => {
         </AppBar>
         <DialogContent>
           <Grid container justifyContent="center">
-            <Grid item xs={isMobileImage ? 2 : 8}>
+            <Grid item xs={12} md={isMobileImage ? 2 : 8}>
               {selectedImage && <Avatar alt="Spear Dashboard" variant="rounded" component={Img} fluid={selectedImage} style={{ height: '100%', width: '100%' }} />}
             </Grid>
           </Grid>

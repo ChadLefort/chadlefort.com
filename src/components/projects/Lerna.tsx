@@ -21,6 +21,13 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   title: {
     marginBottom: theme.spacing(4)
+  },
+  subTitle: {
+    opacity: 0.7,
+    fontWeight: 600
+  },
+  secondaryTitle: {
+    marginTop: theme.spacing(4)
   }
 }));
 
@@ -33,7 +40,11 @@ export const Lerna: React.FC = () => {
         <Grid item xs={12} md={10} lg={8} xl={6}>
           <Typography variant="h4" align="center" gutterBottom className={classes.title}>
             Lerna Monorepo Migration
+            <Typography paragraph className={classes.subTitle}>
+              Oct 2019 - Dec 2019
+            </Typography>
           </Typography>
+
           <Grid container>
             <Grid container alignContent="center" item xs={12}>
               <Typography paragraph>
@@ -42,10 +53,16 @@ export const Lerna: React.FC = () => {
               </Typography>
               <Typography paragraph>
                 I encountered challenges in configuring Typescript to integrate with shared packages, and a substantial portion of the project involved ensuring that our continuous
-                integration system, Jenkins, effectively built and released Docker containers and NPM packages.
+                integration system, Jenkins, effectively built and released Docker containers and NPM packages. Our packages still needed to be published to NPM as we have a couple
+                of external legacy applications that consumed them for components. I also had to ensure that our Jenkins pipeline was able to build and deploy our applications in
+                parallel as previously we had to build and release them one by one.
               </Typography>
             </Grid>
           </Grid>
+
+          <Typography variant="h5" align="center" gutterBottom className={classes.secondaryTitle}>
+            Built With
+          </Typography>
 
           <Grid container justifyContent="center">
             <PaperIcon name="Lerna">

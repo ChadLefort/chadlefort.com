@@ -10,7 +10,6 @@ import { MUIIcon } from '../icons/MUIIcon';
 import { NxIcon } from '../icons/NxIcon';
 import { JenkinsIcon } from '../icons/JenkinsIcon';
 import { Link } from '@material-ui/core';
-import GithubIcon from 'mdi-material-ui/Github';
 import { PaperIcon } from '../PaperIcon';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -22,19 +21,15 @@ const useStyles = makeStyles((theme: Theme) => ({
       padding: theme.spacing(4)
     }
   },
-  github: {
-    margin: theme.spacing(2, 0)
-  },
-  githubText: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  githubIcon: {
-    marginRight: theme.spacing(1)
-  },
   title: {
     marginBottom: theme.spacing(4)
+  },
+  subTitle: {
+    opacity: 0.7,
+    fontWeight: 600
+  },
+  secondaryTitle: {
+    marginTop: theme.spacing(4)
   }
 }));
 
@@ -47,6 +42,9 @@ export const ModuleFederation: React.FC = () => {
         <Grid item xs={12} md={10} lg={8} xl={6}>
           <Typography variant="h4" align="center" gutterBottom className={classes.title}>
             Micro Frontend with Webpack 5 Module Federation
+            <Typography paragraph className={classes.subTitle}>
+              Jan 2021 - Mar 2021
+            </Typography>
           </Typography>
           <Grid container>
             <Grid container alignContent="center" item xs={12}>
@@ -60,16 +58,27 @@ export const ModuleFederation: React.FC = () => {
                 designed to enhance app functionality and necessitate frequent updates. I integrated these modules into a monorepo using NX. The applications showcased in the demo
                 were built with React and Redux, featuring the implementation of injectable Redux reducers.
               </Typography>
+              <Typography paragraph>
+                If you want to learn more about the project, you can check out the{' '}
+                <Link href="https://github.com/ChadLefort/mf-mfe-demo" target="_blank" rel="noopener" underline="none">
+                  GitHub repository
+                </Link>
+                . The repository contains a detailed{' '}
+                <Link href="https://github.com/ChadLefort/mf-mfe-demo/blob/master/README.md" target="_blank" rel="noopener" underline="none">
+                  README file
+                </Link>{' '}
+                that goes into explaining how to setup and run the project. Additionally, it also contains infomation on the{' '}
+                <Link href="https://github.com/ChadLefort/mf-mfe-demo/blob/master/docs/ARCHITECTURE.md" target="_blank" rel="noopener" underline="none">
+                  architecture
+                </Link>
+                .
+              </Typography>
             </Grid>
           </Grid>
 
-          <Grid item className={classes.github}>
-            <Link href="https://github.com/ChadLefort/mf-mfe-demo" target="_blank" rel="noopener" underline="none">
-              <Typography variant="h6" className={classes.githubText}>
-                <GithubIcon className={classes.githubIcon} /> GitHub
-              </Typography>
-            </Link>
-          </Grid>
+          <Typography variant="h5" align="center" gutterBottom className={classes.secondaryTitle}>
+            Built With
+          </Typography>
 
           <Grid container justifyContent="center">
             <PaperIcon name="Webpack">
