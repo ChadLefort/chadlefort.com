@@ -9,6 +9,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import { Link as GatsbyLink } from 'gatsby';
 import Button from '@material-ui/core/Button';
 import { Nav, ToggleDrawer } from '../Nav';
+import { Logo } from '../Logo';
 
 const useStyles = makeStyles((theme: Theme) => ({
   link: {
@@ -17,6 +18,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     margin: theme.spacing(0, 2),
     fontWeight: 600,
     verticalAlign: 'middle'
+  },
+  linkLogo: {
+    textDecoration: 'none',
+    color: theme.palette.common.white
   },
   gatsbyLinkDrawer: {
     padding: 0,
@@ -40,6 +45,12 @@ export const ProjectsNav = () => {
     { to: '/', label: 'Home', icon: HomeIcon },
     { to: '/projects', label: 'Projects', icon: ApplicationBracesIcon }
   ];
+
+  const linkLogo = () => (
+    <GatsbyLink to="/" className={classes.linkLogo}>
+      <Logo variant="h4" />
+    </GatsbyLink>
+  );
 
   const appBarLinks = () =>
     links.map(({ to, label }, index) => (
@@ -68,5 +79,5 @@ export const ProjectsNav = () => {
     </div>
   );
 
-  return <Nav appBarLinks={appBarLinks} drawerList={drawerList} />;
+  return <Nav linkLogo={linkLogo} appBarLinks={appBarLinks} drawerList={drawerList} />;
 };

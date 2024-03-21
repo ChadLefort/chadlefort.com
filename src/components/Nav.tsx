@@ -66,11 +66,12 @@ const ToggleThemeButton: React.FC = () => {
 export type ToggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => void;
 
 type Props = {
+  linkLogo?: () => React.ReactNode;
   appBarLinks: () => React.ReactNode;
   drawerList: ({ toggleDrawer }: { toggleDrawer: ToggleDrawer }) => React.ReactNode;
 };
 
-export const Nav: React.FC<Props> = ({ appBarLinks, drawerList }) => {
+export const Nav: React.FC<Props> = ({ linkLogo, appBarLinks, drawerList }) => {
   const classes = useStyles();
   const duration = 500;
   const [drawer, setDrawer] = useState(false);
@@ -116,9 +117,13 @@ export const Nav: React.FC<Props> = ({ appBarLinks, drawerList }) => {
             <ToggleThemeButton />
           </Hidden>
           <Hidden mdUp>
-            <Box onClick={scrollToTop}>
-              <Logo variant="h4" />
-            </Box>
+            {linkLogo ? (
+              linkLogo()
+            ) : (
+              <Box onClick={scrollToTop}>
+                <Logo variant="h4" />
+              </Box>
+            )}
             <IconButton color="inherit" aria-label="open drawer" edge="end" onClick={toggleDrawer(true)}>
               <HamburgerIcon className={classes.icon} />
             </IconButton>
