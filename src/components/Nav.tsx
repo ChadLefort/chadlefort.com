@@ -27,6 +27,9 @@ import { Logo } from './Logo';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { ThemeContext } from './SiteTheme';
 import { useScreenSize } from '../hooks/useScreenSize';
+import { Link as GatsbyLink } from 'gatsby';
+import ApplicationBracesIcon from 'mdi-material-ui/ApplicationBraces';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme: Theme) => ({
   offset: theme.mixins.toolbar,
@@ -50,6 +53,17 @@ const useStyles = makeStyles((theme: Theme) => ({
     cursor: 'pointer',
     margin: theme.spacing(0, 2),
     fontWeight: 600
+  },
+  gatsbyLinkNav: {
+    textDecoration: 'none',
+    color: theme.palette.common.white,
+    margin: theme.spacing(0, 2),
+    fontWeight: 600,
+    verticalAlign: 'middle'
+  },
+  gatsbyLinkDrawer: {
+    padding: 0,
+    width: '100%'
   },
   linksOffset: {
     marginLeft: 51.19
@@ -150,6 +164,14 @@ export const Nav: React.FC = () => {
             </ListItem>
           );
         })}
+        <Button component={GatsbyLink} to="/projects" className={classes.gatsbyLinkDrawer}>
+          <ListItem>
+            <ListItemIcon>
+              <ApplicationBracesIcon className={classes.icon} />
+            </ListItemIcon>
+            <ListItemText primary="Projects" classes={{ primary: classes.listItem }} />
+          </ListItem>
+        </Button>
       </List>
     </div>
   );
@@ -166,6 +188,9 @@ export const Nav: React.FC = () => {
                     {label}
                   </Link>
                 ))}
+                <GatsbyLink to="/projects" className={classes.gatsbyLinkNav}>
+                  Projects
+                </GatsbyLink>
               </Grid>
             </Grid>
             <ToggleThemeButton />

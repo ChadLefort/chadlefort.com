@@ -29,12 +29,18 @@ const useStyles = makeStyles((theme: Theme) => ({
       height: theme.spacing(30)
     }
   },
-  swiper: {
+  swiperContainer: {
     padding: theme.spacing(0, 7, 0, 0),
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(2, 4, 2, 5),
       display: 'flex',
       justifyContent: 'center'
+    }
+  },
+  swiper: {
+    width: '100%',
+    [theme.breakpoints.down('md')]: {
+      width: '240px'
     }
   }
 }));
@@ -67,7 +73,7 @@ export const AboutMe: React.FC = () => {
             About Me
           </Typography>
           <Grid container>
-            <Grid item xs={12} md={3} className={classes.swiper}>
+            <Grid item xs={12} md={3} className={classes.swiperContainer}>
               <Swiper
                 slidesPerView={1}
                 grabCursor={true}
@@ -77,6 +83,7 @@ export const AboutMe: React.FC = () => {
                   disableOnInteraction: false
                 }}
                 modules={[Autoplay, EffectCards]}
+                className={classes.swiper}
               >
                 {nodes.map((node, index) => (
                   <SwiperSlide>
