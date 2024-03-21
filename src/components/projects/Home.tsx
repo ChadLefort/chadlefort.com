@@ -40,8 +40,8 @@ const Home: React.FC = () => {
           <Typography variant="h4" align="center" gutterBottom className={classes.title}>
             Projects
           </Typography>
-          <Grid container>
-            <Grid item alignContent="center" xs={12} md={6} lg={4}>
+          <Grid container spacing={4}>
+            <Grid item xs={12}>
               <GatsbyLink to="/projects/spear-dashboard" className={classes.link}>
                 <Card className={classes.card}>
                   <CardActionArea>
@@ -51,6 +51,42 @@ const Home: React.FC = () => {
                       </Typography>
                       <Typography color="textSecondary">
                         Built and architected a new mobile-first dashboard for an education SaaS platform tailored to dentists and their practices.
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              </GatsbyLink>
+            </Grid>
+
+            <Grid item xs={12}>
+              <GatsbyLink to="/projects/webpack-5-module-federation" className={classes.link}>
+                <Card className={classes.card}>
+                  <CardActionArea>
+                    <CardContent>
+                      <Typography variant="h5" component="h2" className={classes.cardTitle}>
+                        Webpack 5 Module Federation
+                      </Typography>
+                      <Typography color="textSecondary">
+                        This client faced challenges with application updates and deployments, often requiring multiple pull requests for issue resolution, which were addressed by
+                        incorporating concepts from a demo application utilizing Webpack 5 Module Federation.
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              </GatsbyLink>
+            </Grid>
+
+            <Grid item xs={12}>
+              <GatsbyLink to="/projects/lerna-monorepo" className={classes.link}>
+                <Card className={classes.card}>
+                  <CardActionArea>
+                    <CardContent>
+                      <Typography variant="h5" component="h2" className={classes.cardTitle}>
+                        Lerna Monorepo Migration
+                      </Typography>
+                      <Typography color="textSecondary">
+                        Saved hours of manual deployment time by creating a monorepo with Lerna for 17 React apps and 6 NPM packages, leading to cost efficiency and improved
+                        productivity for a team of 7 frontend developers.
                       </Typography>
                     </CardContent>
                   </CardActionArea>

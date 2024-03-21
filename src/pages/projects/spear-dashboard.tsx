@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout } from '../../components/Projects/Layout';
+import { Layout } from '../../components/projects/Layout';
 import { SpearDashboard } from '../../components/projects/SpearDashboard';
 
 const SpearDashboardPage: React.FC = () => {

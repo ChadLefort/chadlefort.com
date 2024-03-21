@@ -44,7 +44,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   large: {
     width: '100%',
-    height: '100%'
+    height: '100%',
+    cursor: 'pointer'
   },
   swiperContainer: {
     marginBottom: theme.spacing(2),
@@ -146,7 +147,6 @@ export const SpearDashboard: React.FC = () => {
                 <Swiper
                   slidesPerView={isSmallDown ? 1 : 2}
                   spaceBetween={40}
-                  grabCursor={true}
                   pagination={{
                     clickable: true
                   }}
