@@ -1,5 +1,5 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { createTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
 import { grey } from '@material-ui/core/colors';
@@ -21,7 +21,7 @@ export const SiteTheme: React.FC = ({ children }) => {
     localStorage.setItem('theme', oppositeTheme);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const theme = localStorage.getItem('theme') as Theme | null;
     setTheme(theme || defaultPreference);
   }, [defaultPreference]);
