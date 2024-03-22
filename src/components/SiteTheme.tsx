@@ -11,9 +11,14 @@ type ThemeContext = { theme: Theme; toggleTheme: () => void };
 export const ThemeContext = React.createContext<ThemeContext>({} as ThemeContext);
 
 export const SiteTheme: React.FC = ({ children }) => {
+  const isPrint = useMediaQuery('print');
   const defaultPreference = useMediaQuery('(prefers-color-scheme: light)') ? 'light' : 'dark';
   const [theme, setTheme] = useState<Theme>(defaultPreference);
   const prefersDarkMode = theme === 'dark';
+
+  if (isPrint) {
+    setTheme('light');
+  }
 
   const toggleTheme = () => {
     const oppositeTheme = theme === 'light' ? 'dark' : 'light';
