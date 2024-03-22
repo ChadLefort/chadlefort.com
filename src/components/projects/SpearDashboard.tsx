@@ -224,7 +224,7 @@ export const SpearDashboard: React.FC = () => {
 
       <Dialog fullScreen open={open} scroll="body" onClose={handleClose} TransitionComponent={Transition}>
         <AppBar className={classes.appBar} elevation={0}>
-          <Toolbar className={classes.toolbar}>
+          <Toolbar className={classes.toolbar} disableGutters>
             <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
               <CloseIcon />
             </IconButton>
