@@ -46,15 +46,24 @@ module.exports = {
       }
     },
     {
-      resolve: '@slixites/gatsby-plugin-google-fonts',
+      resolve: 'gatsby-plugin-google-fonts-v2',
       options: {
-        fonts: ['Open Sans:400,600', 'Roboto:500', 'Fjalla One', 'Source Code Pro'],
-        display: 'swap',
-        preconnect: true,
-        attributes: {
-          rel: 'stylesheet preload prefetch',
-          as: 'style'
-        }
+        fonts: [
+          {
+            family: 'Open Sans',
+            weights: ['400', '600']
+          },
+          {
+            family: 'Roboto',
+            weights: ['500']
+          },
+          {
+            family: 'Fjalla One'
+          },
+          {
+            family: 'Source Code Pro'
+          }
+        ]
       }
     },
     {
