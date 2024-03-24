@@ -29,18 +29,11 @@ import { useScreenSize } from '../../hooks/useScreenSize';
 import { NuxtIcon } from '../icons/NuxtIcon';
 import { MSWIcon } from '../icons/MSWIcon';
 import { PaperIcon } from '../PaperIcon';
+import { Project } from './Project';
 
 type Node = { nodes: { childImageSharp: { fluid: FluidObject } }[] };
 
 const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    backgroundColor: theme.palette.secondary.main,
-    flexGrow: 1,
-    padding: theme.spacing(8, 2),
-    [theme.breakpoints.down('sm')]: {
-      padding: theme.spacing(4)
-    }
-  },
   large: {
     width: '100%',
     height: '100%',
@@ -60,22 +53,74 @@ const useStyles = makeStyles((theme: Theme) => ({
   toolbar: {
     display: 'flex',
     justifyContent: 'end'
-  },
-  title: {
-    marginBottom: theme.spacing(4)
-  },
-  subTitle: {
-    opacity: 0.7,
-    fontWeight: 600
-  },
-  secondaryTitle: {
-    marginTop: theme.spacing(4)
   }
 }));
 
 const Transition = React.forwardRef(function Transition(props: TransitionProps & { children?: React.ReactElement }, ref: React.Ref<unknown>) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
+
+const TextContent: React.FC = () => (
+  <Grid container alignContent="center" item xs={12}>
+    <Typography paragraph>
+      Built and architected a new mobile-first dashboard for an education SaaS platform tailored to dentists and their practices. Each area of the platform is represented by a
+      widget on the dashboard, requiring me to quickly familiarize myself with the entire platform.
+    </Typography>
+    <Typography paragraph>
+      Drawing from my experience with the previous project I worked on, this application was also developed using Vue, Nuxt, Typescript, GraphQL, and Bootstrap. Additionally, it
+      leveraged Vue's composable API and featured fully typed GraphQL type definitions generated using GraphQL Code Generator. Client-side mocks were implemented using Mock Service
+      Worker, and extensive code coverage was achieved through unit tests written with Vue Testing Library with meaningful code coverage averaging around 80%.
+    </Typography>
+    <Typography paragraph>
+      The project underwent multiple rounds of UX reviews, including A/B testing and several beta releases to users, culminating in a successful launch. The dashboard witnessed
+      substantial growth across all aspects of the website with significant increases in views, clicks, and user engagement, ranging from 325% to 9564% over a 90 day period.
+    </Typography>
+  </Grid>
+);
+
+const BuiltWith: React.FC = () => (
+  <Grid container justifyContent="center">
+    <PaperIcon name="Vue">
+      <VueIcon />
+    </PaperIcon>
+
+    <PaperIcon name="Nuxt">
+      <NuxtIcon />
+    </PaperIcon>
+
+    <PaperIcon name="TypeScript">
+      <TypeScriptIcon />
+    </PaperIcon>
+
+    <PaperIcon name="Bootstrap">
+      <BootstrapIcon />
+    </PaperIcon>
+
+    <PaperIcon name="GraphQL">
+      <GraphQLIcon />
+    </PaperIcon>
+
+    <PaperIcon name="TypeORM">
+      <TypeORMIcon />
+    </PaperIcon>
+
+    <PaperIcon name="Vitest">
+      <VitestIcon />
+    </PaperIcon>
+
+    <PaperIcon name="Testing Lib">
+      <TestingLibraryIcon />
+    </PaperIcon>
+
+    <PaperIcon name="MSW">
+      <MSWIcon />
+    </PaperIcon>
+
+    <PaperIcon name="Storybook">
+      <StorybookIcon />
+    </PaperIcon>
+  </Grid>
+);
 
 export const SpearDashboard: React.FC = () => {
   const classes = useStyles();
@@ -126,102 +171,28 @@ export const SpearDashboard: React.FC = () => {
     }
   }, [selectedImage]);
 
+  const SwiperImages: React.FC = () => (
+    <Grid item xs={12} className={classes.swiperContainer}>
+      <Swiper
+        slidesPerView={isSmallDown ? 1 : 2}
+        spaceBetween={40}
+        pagination={{
+          clickable: true
+        }}
+        modules={[Pagination]}
+      >
+        {thumbnail.nodes.map((node, index) => (
+          <SwiperSlide onClick={() => handleThumbnailClick(index)}>
+            <Avatar key={index} alt="Spear Dashboard" variant="rounded" className={classes.large} component={Img} fluid={node.childImageSharp.fluid} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </Grid>
+  );
+
   return (
     <>
-      <Grid item xs={12} className={classes.root}>
-        <Grid container justifyContent="center">
-          <Grid item xs={12} md={10} lg={8} xl={6}>
-            <Typography variant="h4" align="center" gutterBottom className={classes.title}>
-              Spear Dashboard
-              <Typography paragraph className={classes.subTitle}>
-                Apr 2022 - Feb 2023
-              </Typography>
-            </Typography>
-            <Grid container>
-              <Grid item xs={12} className={classes.swiperContainer}>
-                <Swiper
-                  slidesPerView={isSmallDown ? 1 : 2}
-                  spaceBetween={40}
-                  pagination={{
-                    clickable: true
-                  }}
-                  modules={[Pagination]}
-                >
-                  {thumbnail.nodes.map((node, index) => (
-                    <SwiperSlide onClick={() => handleThumbnailClick(index)}>
-                      <Avatar key={index} alt="Spear Dashboard" variant="rounded" className={classes.large} component={Img} fluid={node.childImageSharp.fluid} />
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </Grid>
-              <Grid container alignContent="center" item xs={12}>
-                <Typography paragraph>
-                  Built and architected a new mobile-first dashboard for an education SaaS platform tailored to dentists and their practices. Each area of the platform is
-                  represented by a widget on the dashboard, requiring me to quickly familiarize myself with the entire platform.
-                </Typography>
-                <Typography paragraph>
-                  Drawing from my experience with the previous project I worked on, this application was also developed using Vue, Nuxt, Typescript, GraphQL, and Bootstrap.
-                  Additionally, it leveraged Vue's composable API and featured fully typed GraphQL type definitions generated using GraphQL Code Generator. Client-side mocks were
-                  implemented using Mock Service Worker, and extensive code coverage was achieved through unit tests written with Vue Testing Library with meaningful code coverage
-                  averaging around 80%.
-                </Typography>
-                <Typography paragraph>
-                  The project underwent multiple rounds of UX reviews, including A/B testing and several beta releases to users, culminating in a successful launch. The dashboard
-                  witnessed substantial growth across all aspects of the website with significant increases in views, clicks, and user engagement, ranging from 325% to 9564% over a
-                  90 day period.
-                </Typography>
-              </Grid>
-            </Grid>
-
-            <Typography variant="h5" align="center" gutterBottom className={classes.secondaryTitle}>
-              Built With
-            </Typography>
-
-            <Grid container justifyContent="center">
-              <PaperIcon name="Vue">
-                <VueIcon />
-              </PaperIcon>
-
-              <PaperIcon name="Nuxt">
-                <NuxtIcon />
-              </PaperIcon>
-
-              <PaperIcon name="TypeScript">
-                <TypeScriptIcon />
-              </PaperIcon>
-
-              <PaperIcon name="Bootstrap">
-                <BootstrapIcon />
-              </PaperIcon>
-
-              <PaperIcon name="GraphQL">
-                <GraphQLIcon />
-              </PaperIcon>
-
-              <PaperIcon name="TypeORM">
-                <TypeORMIcon />
-              </PaperIcon>
-
-              <PaperIcon name="Vitest">
-                <VitestIcon />
-              </PaperIcon>
-
-              <PaperIcon name="Testing Lib">
-                <TestingLibraryIcon />
-              </PaperIcon>
-
-              <PaperIcon name="MSW">
-                <MSWIcon />
-              </PaperIcon>
-
-              <PaperIcon name="Storybook">
-                <StorybookIcon />
-              </PaperIcon>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
-
+      <Project title="Spear Dashboard" subtitle="Apr 2022 - Feb 2023" SwiperImages={SwiperImages} TextContent={TextContent} BuiltWith={BuiltWith} />
       <Dialog fullScreen open={open} scroll="body" onClose={handleClose} TransitionComponent={Transition}>
         <AppBar className={classes.appBar} elevation={0}>
           <Toolbar className={classes.toolbar} disableGutters>

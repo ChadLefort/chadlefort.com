@@ -7,6 +7,11 @@ import Typography from '@material-ui/core/Typography';
 import { Link } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';
 import { SiteTheme } from '../components/SiteTheme';
+import { HeadContent } from '../components/Head';
+
+export function Head() {
+  return <HeadContent />;
+}
 
 const useStyles = makeStyles(() => ({
   root: {

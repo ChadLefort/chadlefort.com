@@ -71,7 +71,7 @@ export const HomeNav: React.FC = () => {
     { to: 'contact', label: 'Contact', icon: EmailIcon }
   ];
 
-  const appBarLinks = () => (
+  const AppBarLinks: React.FC = () => (
     <>
       {links.map(({ to, label }, index) => (
         <Link key={index} component="button" variant="body2" onClick={scrollToSection(to)} className={classes.link} color="inherit" underline="none">
@@ -84,7 +84,7 @@ export const HomeNav: React.FC = () => {
     </>
   );
 
-  const drawerList = ({ toggleDrawer }: { toggleDrawer: ToggleDrawer }) => (
+  const DrawerList: React.FC<{ toggleDrawer: ToggleDrawer }> = ({ toggleDrawer }) => (
     <div className={classes.list} role="presentation" onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
       <List>
         {links.map(({ to, label, icon }, index) => {
@@ -110,5 +110,5 @@ export const HomeNav: React.FC = () => {
     </div>
   );
 
-  return <Nav appBarLinks={appBarLinks} drawerList={drawerList} />;
+  return <Nav AppBarLinks={AppBarLinks} DrawerList={DrawerList} />;
 };

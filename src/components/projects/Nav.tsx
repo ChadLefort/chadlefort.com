@@ -46,20 +46,23 @@ export const ProjectsNav = () => {
     { to: '/projects', label: 'Projects', icon: ApplicationBracesIcon }
   ];
 
-  const linkLogo = () => (
+  const LinkLogo: React.FC = () => (
     <GatsbyLink to="/" className={classes.linkLogo}>
       <Logo variant="h4" />
     </GatsbyLink>
   );
 
-  const appBarLinks = () =>
-    links.map(({ to, label }, index) => (
-      <GatsbyLink to={to} key={index} className={classes.link}>
-        {label}
-      </GatsbyLink>
-    ));
+  const AppBarLinks: React.FC = () => (
+    <>
+      {links.map(({ to, label }, index) => (
+        <GatsbyLink to={to} key={index} className={classes.link}>
+          {label}
+        </GatsbyLink>
+      ))}
+    </>
+  );
 
-  const drawerList = ({ toggleDrawer }: { toggleDrawer: ToggleDrawer }) => (
+  const DrawerList: React.FC<{ toggleDrawer: ToggleDrawer }> = ({ toggleDrawer }) => (
     <div className={classes.list} role="presentation" onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
       <List>
         {links.map(({ to, label, icon }, index) => {
@@ -79,5 +82,5 @@ export const ProjectsNav = () => {
     </div>
   );
 
-  return <Nav linkLogo={linkLogo} appBarLinks={appBarLinks} drawerList={drawerList} />;
+  return <Nav LinkLogo={LinkLogo} AppBarLinks={AppBarLinks} DrawerList={DrawerList} />;
 };

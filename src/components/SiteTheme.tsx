@@ -59,12 +59,26 @@ export const SiteTheme: React.FC = ({ children }) => {
         type: prefersDarkMode ? 'dark' : 'light'
       },
       typography: {
+        h1: {
+          fontWeight: 500
+        },
+        h2: {
+          fontWeight: 500
+        },
+        h3: {
+          fontWeight: 500
+        },
         h4: {
+          fontWeight: 500,
           '@media print': {
             fontSize: 20
           }
         },
+        h5: {
+          fontWeight: 500
+        },
         h6: {
+          fontWeight: 500,
           '@media print': {
             fontSize: 16
           }
@@ -75,19 +89,19 @@ export const SiteTheme: React.FC = ({ children }) => {
           }
         },
         body1: {
-          fontFamily: `"Open Sans", "Helvetica", "Arial", sans-serif`,
+          fontFamily: `"Open Sans Variable", "Helvetica", "Arial", sans-serif`,
           '@media print': {
             fontSize: 12
           }
         },
         body2: {
-          fontFamily: `"Open Sans", "Helvetica", "Arial", sans-serif`,
+          fontFamily: `"Open Sans Variable", "Helvetica", "Arial", sans-serif`,
           '@media print': {
             fontSize: 12
           }
         },
         button: {
-          fontFamily: `"Open Sans", "Helvetica", "Arial", sans-serif`,
+          fontFamily: `"Open Sans Variable", "Helvetica", "Arial", sans-serif`,
           fontWeight: 600,
           textTransform: 'none'
         }

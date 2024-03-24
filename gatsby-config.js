@@ -46,27 +46,6 @@ module.exports = {
       }
     },
     {
-      resolve: 'gatsby-plugin-google-fonts-v2',
-      options: {
-        fonts: [
-          {
-            family: 'Open Sans',
-            weights: ['400', '600']
-          },
-          {
-            family: 'Roboto',
-            weights: ['500']
-          },
-          {
-            family: 'Fjalla One'
-          },
-          {
-            family: 'Source Code Pro'
-          }
-        ]
-      }
-    },
-    {
       resolve: 'gatsby-plugin-polyfill-io',
       options: {
         features: ['CustomEvent']
