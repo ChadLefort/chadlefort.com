@@ -9,13 +9,11 @@ import { graphql, useStaticQuery } from 'gatsby';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { BootstrapIcon } from '../icons/BootstrapIcon';
-import { GraphQLIcon } from '../icons/GraphQLIcon';
 import { VueIcon } from '../icons/VueIcon';
 import { TypeScriptIcon } from '../icons/TypeScriptIcon';
 import { VitestIcon } from '../icons/VitestIcon';
 import { TestingLibraryIcon } from '../icons/TestingLibrary';
 import { StorybookIcon } from '../icons/StorybookIcon';
-import { TypeORMIcon } from '../icons/TypeORMIcon';
 import Dialog from '@material-ui/core/Dialog';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -30,8 +28,10 @@ import { NuxtIcon } from '../icons/NuxtIcon';
 import { MSWIcon } from '../icons/MSWIcon';
 import { PaperIcon } from '../PaperIcon';
 import { Project } from './Project';
+import { LaravelIcon } from '../icons/LaravelIcon';
 import { SassIcon } from '../icons/SassIcon';
 import { DockerIcon } from '../icons/DockerIcon';
+import Link from '@material-ui/core/Link';
 
 type Node = { nodes: { childImageSharp: { fluid: FluidObject } }[] };
 
@@ -65,17 +65,22 @@ const Transition = React.forwardRef(function Transition(props: TransitionProps &
 const TextContent: React.FC = () => (
   <Grid container alignContent="center" item xs={12}>
     <Typography paragraph>
-      Built and architected a new mobile-first dashboard for an education SaaS platform tailored to dentists and their practices. Each area of the platform is represented by a
-      widget on the dashboard, requiring me to quickly familiarize myself with the entire platform.
+      Built and architected a new mobile-first cart for an education SaaS platform tailored to dentists and their practices. This project revitalized the cart by enhancing user
+      experience, reducing friction points, and introducing promotional code functionality which exceeded new membership signup goals by 25%. This cart was specifically designed to
+      accommodate various cart types including memberships, campus events, and future offerings. Previously, different areas of the education platform had their own separate carts,
+      but the primary goal of this project was to introduce a new redesign and consolidate them into a single cohesive solution.
     </Typography>
     <Typography paragraph>
-      Drawing from my experience with the previous project I worked on, this application was also developed using Vue, Nuxt, Typescript, GraphQL, and Bootstrap. Additionally, it
-      leveraged Vue's composable API and featured fully typed GraphQL type definitions generated using GraphQL Code Generator. Client-side mocks were implemented using Mock Service
-      Worker, and extensive code coverage was achieved through unit tests written with Vue Testing Library with meaningful code coverage averaging around 80%.
+      The application was developed using Vue, Nuxt, Typescript, and Bootstrap, with Laravel serving as the backend REST API. It also made use of Vue's composable API, VeeValidate
+      to handle form validation, and incorporated client-side mocks using Mock Service Worker. Extensive code coverage was ensured through unit tests written with Vue Testing
+      Library with meaningful code coverage averaging around 80%.
     </Typography>
     <Typography paragraph>
-      The project underwent multiple rounds of UX reviews, including A/B testing and several beta releases to users, culminating in a successful launch. The dashboard witnessed
-      substantial growth across all aspects of the website with significant increases in views, clicks, and user engagement, ranging from 325% to 9564% over a 90 day period.
+      While the project might change in the future, you can check out the{' '}
+      <Link href="https://signup.speareducation.com/" target="_blank" rel="noopener" underline="none">
+        Spear Cart
+      </Link>{' '}
+      to see the current version. Please be mindful that the website is a live production version.
     </Typography>
   </Grid>
 );
@@ -102,14 +107,6 @@ const BuiltWith: React.FC = () => (
       <SassIcon />
     </PaperIcon>
 
-    <PaperIcon name="GraphQL">
-      <GraphQLIcon />
-    </PaperIcon>
-
-    <PaperIcon name="TypeORM">
-      <TypeORMIcon />
-    </PaperIcon>
-
     <PaperIcon name="Vitest">
       <VitestIcon />
     </PaperIcon>
@@ -126,13 +123,17 @@ const BuiltWith: React.FC = () => (
       <StorybookIcon />
     </PaperIcon>
 
+    <PaperIcon name="Laravel">
+      <LaravelIcon />
+    </PaperIcon>
+
     <PaperIcon name="Docker">
       <DockerIcon />
     </PaperIcon>
   </Grid>
 );
 
-export const SpearDashboard: React.FC = () => {
+export const SpearCart: React.FC = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<FluidObject | null>(null);
@@ -142,16 +143,16 @@ export const SpearDashboard: React.FC = () => {
   const { thumbnail, full } = useStaticQuery<{ thumbnail: Node; full: Node }>(
     graphql`
       query {
-        thumbnail: allFile(filter: { relativeDirectory: { eq: "dashboard" } }, sort: { fields: [name], order: ASC }) {
+        thumbnail: allFile(filter: { relativeDirectory: { eq: "sign-up" } }, sort: { fields: [name], order: ASC }) {
           nodes {
             childImageSharp {
-              fluid(cropFocus: NORTH, maxWidth: 1200, maxHeight: 800, quality: 100) {
+              fluid(maxWidth: 1200, maxHeight: 725, quality: 100) {
                 ...GatsbyImageSharpFluid_withWebp_tracedSVG
               }
             }
           }
         }
-        full: allFile(filter: { relativeDirectory: { eq: "dashboard" } }, sort: { fields: [name], order: ASC }) {
+        full: allFile(filter: { relativeDirectory: { eq: "sign-up" } }, sort: { fields: [name], order: ASC }) {
           nodes {
             childImageSharp {
               fluid(maxWidth: 1980, quality: 100) {
@@ -202,7 +203,7 @@ export const SpearDashboard: React.FC = () => {
 
   return (
     <>
-      <Project title="Spear Dashboard" subtitle="Apr 2022 - Feb 2023" SwiperImages={SwiperImages} TextContent={TextContent} BuiltWith={BuiltWith} />
+      <Project title="Spear Cart" subtitle="Aug 2023 - Feb 2024" SwiperImages={SwiperImages} TextContent={TextContent} BuiltWith={BuiltWith} />
       <Dialog fullScreen open={open} scroll="body" onClose={handleClose} TransitionComponent={Transition}>
         <AppBar className={classes.appBar} elevation={0}>
           <Toolbar className={classes.toolbar} disableGutters>
@@ -214,7 +215,7 @@ export const SpearDashboard: React.FC = () => {
         <DialogContent>
           <Grid container justifyContent="center">
             <Grid item xs={12} md={isMobileImage ? 2 : 8}>
-              {selectedImage && <Avatar alt="Spear Dashboard" variant="rounded" component={Img} fluid={selectedImage} style={{ height: '100%', width: '100%' }} />}
+              {selectedImage && <Avatar alt="Spear Cart" variant="rounded" component={Img} fluid={selectedImage} style={{ height: '100%', width: '100%' }} />}
             </Grid>
           </Grid>
         </DialogContent>

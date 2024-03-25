@@ -8,7 +8,7 @@ import { ReduxIcon } from '../icons/ReduxIcon';
 import { MUIIcon } from '../icons/MUIIcon';
 import { NxIcon } from '../icons/NxIcon';
 import { JenkinsIcon } from '../icons/JenkinsIcon';
-import { Link } from '@material-ui/core';
+import Link from '@material-ui/core/Link';
 import { PaperIcon } from '../PaperIcon';
 import { Project } from './Project';
 

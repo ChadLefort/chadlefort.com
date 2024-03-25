@@ -42,6 +42,24 @@ const Home: React.FC = () => {
           </Typography>
           <Grid container spacing={4}>
             <Grid item xs={12}>
+              <GatsbyLink to="/projects/spear-cart" className={classes.link}>
+                <Card className={classes.card}>
+                  <CardActionArea>
+                    <CardContent>
+                      <Typography variant="h5" component="h2" className={classes.cardTitle}>
+                        Spear Cart
+                      </Typography>
+                      <Typography color="textSecondary">
+                        Built and architected a new mobile-first cart for an education SaaS platform tailored to dentists and their practices. This project revitalized the cart by
+                        enhancing user experience, reducing friction points, and introducing promotional code functionality which exceeded new membership signup goals by 25%.
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              </GatsbyLink>
+            </Grid>
+
+            <Grid item xs={12}>
               <GatsbyLink to="/projects/spear-dashboard" className={classes.link}>
                 <Card className={classes.card}>
                   <CardActionArea>
