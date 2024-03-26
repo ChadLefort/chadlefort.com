@@ -17,15 +17,14 @@ import { TransitionProps } from '@material-ui/core/transitions';
 import DialogContent from '@material-ui/core/DialogContent';
 import CloseIcon from 'mdi-material-ui/Close';
 import { Pagination } from 'swiper/modules';
-
 import Link from '@material-ui/core/Link';
+
 import { BootstrapIcon } from '../icons/BootstrapIcon';
 import { VueIcon } from '../icons/VueIcon';
 import { TypeScriptIcon } from '../icons/TypeScriptIcon';
 import { VitestIcon } from '../icons/VitestIcon';
 import { TestingLibraryIcon } from '../icons/TestingLibrary';
 import { StorybookIcon } from '../icons/StorybookIcon';
-
 import { useScreenSize } from '../../hooks/useScreenSize';
 import { NuxtIcon } from '../icons/NuxtIcon';
 import { MSWIcon } from '../icons/MSWIcon';
@@ -34,7 +33,6 @@ import { Project } from './Project';
 import { LaravelIcon } from '../icons/LaravelIcon';
 import { SassIcon } from '../icons/SassIcon';
 import { DockerIcon } from '../icons/DockerIcon';
-
 
 type Node = { nodes: { childImageSharp: { fluid: FluidObject } }[] };
 
