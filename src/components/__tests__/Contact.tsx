@@ -1,6 +1,7 @@
 import React from 'react';
-import { Contact } from '../home/Contact';
 import { render, screen } from '@testing-library/react';
+
+import { Contact } from '../home/Contact';
 
 describe('Contact', () => {
   test('Renders the section', () => {

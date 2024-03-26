@@ -49,21 +49,19 @@ export const AboutMe: React.FC = () => {
   const classes = useStyles();
   const {
     allFile: { nodes }
-  } = useStaticQuery<{ allFile: { nodes: { childImageSharp: { fluid: FluidObject } }[] } }>(
-    graphql`
-      query {
-        allFile(filter: { relativeDirectory: { eq: "about" } }, sort: { fields: [name], order: ASC }) {
-          nodes {
-            childImageSharp {
-              fluid(maxWidth: 500, quality: 100) {
-                ...GatsbyImageSharpFluid_withWebp_tracedSVG
-              }
+  } = useStaticQuery<{ allFile: { nodes: { childImageSharp: { fluid: FluidObject } }[] } }>(graphql`
+    query {
+      allFile(filter: { relativeDirectory: { eq: "about" } }, sort: { fields: [name], order: ASC }) {
+        nodes {
+          childImageSharp {
+            fluid(maxWidth: 500, quality: 100) {
+              ...GatsbyImageSharpFluid_withWebp_tracedSVG
             }
           }
         }
       }
-    `
-  );
+    }
+  `);
 
   return (
     <Grid item xs={12} className={classes.root} id="about-me">

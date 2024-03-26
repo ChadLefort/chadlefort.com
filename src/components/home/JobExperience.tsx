@@ -1,7 +1,6 @@
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import List from '@material-ui/core/List';
-import { ListItem } from '../ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Paper from '@material-ui/core/Paper';
@@ -15,8 +14,10 @@ import TimelineOppositeContent from '@material-ui/lab/TimelineOppositeContent';
 import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { useScreenSize } from '../../hooks/useScreenSize';
 import CircleSmall from 'mdi-material-ui/CircleSmall';
+
+import { useScreenSize } from '../../hooks/useScreenSize';
+import { ListItem } from '../ListItem';
 
 const useStyles = makeStyles((theme) => ({
   root: {

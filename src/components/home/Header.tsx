@@ -6,8 +6,9 @@ import Hidden from '@material-ui/core/Hidden';
 import Img from 'gatsby-image';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { Logo } from '../Logo';
 import { makeStyles, Theme } from '@material-ui/core/styles';
+
+import { Logo } from '../Logo';
 import { Terminal } from './Terminal';
 import { useProfileImage } from '../../hooks/useProfileImage';
 import { useScreenSize } from '../../hooks/useScreenSize';

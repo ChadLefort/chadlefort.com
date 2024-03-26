@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useSiteMetadata } from '../hooks/useSiteMetadata';
 
 export const HeadContent: React.FC = () => {

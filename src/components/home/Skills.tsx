@@ -2,6 +2,7 @@ import Grid from '@material-ui/core/Grid';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core/styles';
+
 import { ViteIcon } from '../icons/ViteIcon';
 import { MUIIcon } from '../icons/MUIIcon';
 import { BootstrapIcon } from '../icons/BootstrapIcon';

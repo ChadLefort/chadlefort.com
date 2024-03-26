@@ -1,6 +1,7 @@
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 import { HomeNav } from './Nav';
 import { SiteTheme } from '../SiteTheme';
 

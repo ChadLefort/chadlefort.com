@@ -1,7 +1,8 @@
 import React from 'react';
-import { AboutMe } from '../home/AboutMe';
 import { render, screen } from '@testing-library/react';
 import { vi } from 'vitest';
+
+import { AboutMe } from '../home/AboutMe';
 
 describe('About Me', () => {
   vi.mock('gatsby', async () => {

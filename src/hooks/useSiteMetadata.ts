@@ -15,25 +15,23 @@ type Data = {
 export function useSiteMetadata() {
   const {
     site: { siteMetadata }
-  } = useStaticQuery<{ site: { siteMetadata: Data } }>(
-    graphql`
-      query {
-        site {
-          siteMetadata {
-            title
-            siteUrl
-            siteName
-            description
-            lang
-            avatar
-            image
-            email
-            jobTitle
-          }
+  } = useStaticQuery<{ site: { siteMetadata: Data } }>(graphql`
+    query {
+      site {
+        siteMetadata {
+          title
+          siteUrl
+          siteName
+          description
+          lang
+          avatar
+          image
+          email
+          jobTitle
         }
       }
-    `
-  );
+    }
+  `);
 
   return siteMetadata;
 }

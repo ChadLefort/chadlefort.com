@@ -12,8 +12,9 @@ import LightbulbOffIcon from 'mdi-material-ui/LightbulbOff';
 import LightbulbOnIcon from 'mdi-material-ui/LightbulbOn';
 import React, { useContext, useEffect, useState } from 'react';
 import Toolbar from '@material-ui/core/Toolbar';
-import { Logo } from './Logo';
 import { makeStyles, Theme } from '@material-ui/core/styles';
+
+import { Logo } from './Logo';
 import { ThemeContext } from './SiteTheme';
 import { useScreenSize } from '../hooks/useScreenSize';
 

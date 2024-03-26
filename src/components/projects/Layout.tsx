@@ -1,9 +1,10 @@
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { makeStyles } from '@material-ui/core/styles';
+
 import { ProjectsNav } from './Nav';
 import { SiteTheme } from '../SiteTheme';
-import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
   root: {

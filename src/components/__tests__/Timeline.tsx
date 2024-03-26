@@ -1,6 +1,7 @@
 import React from 'react';
-import { JobExperience } from '../home/JobExperience';
 import { render, screen } from '@testing-library/react';
+
+import { JobExperience } from '../home/JobExperience';
 
 describe('Job Experience', () => {
   test('Renders the section', () => {

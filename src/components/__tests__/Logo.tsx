@@ -1,6 +1,7 @@
 import React from 'react';
-import { Logo } from '../Logo';
 import { render, screen } from '@testing-library/react';
+
+import { Logo } from '../Logo';
 
 describe('Logo', () => {
   test('Displays my name', () => {

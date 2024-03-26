@@ -1,6 +1,8 @@
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
+
 import { WebpackIcon } from '../icons/WebpackIcon';
 import { TypeScriptIcon } from '../icons/TypeScriptIcon';
 import { ReactIcon } from '../icons/ReactIcon';
@@ -8,7 +10,6 @@ import { ReduxIcon } from '../icons/ReduxIcon';
 import { MUIIcon } from '../icons/MUIIcon';
 import { NxIcon } from '../icons/NxIcon';
 import { JenkinsIcon } from '../icons/JenkinsIcon';
-import Link from '@material-ui/core/Link';
 import { PaperIcon } from '../PaperIcon';
 import { Project } from './Project';
 

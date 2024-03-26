@@ -4,8 +4,9 @@ import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { ListItem } from '../ListItem';
 import { makeStyles, Theme } from '@material-ui/core/styles';
+
+import { ListItem } from '../ListItem';
 import { useScreenSize } from '../../hooks/useScreenSize';
 
 const useStyles = makeStyles((theme: Theme) => ({

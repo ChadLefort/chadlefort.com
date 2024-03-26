@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { AboutMe } from '../components/home/AboutMe';
 import { Contact } from '../components/home/Contact';
 import { Education } from '../components/home/Education';

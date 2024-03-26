@@ -11,10 +11,11 @@ import React from 'react';
 import SchoolIcon from 'mdi-material-ui/School';
 import scroller from 'react-scroll/modules/mixins/scroller';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { useScreenSize } from '../../hooks/useScreenSize';
 import { Link as GatsbyLink } from 'gatsby';
 import ApplicationBracesIcon from 'mdi-material-ui/ApplicationBraces';
 import Button from '@material-ui/core/Button';
+
+import { useScreenSize } from '../../hooks/useScreenSize';
 import { Nav, ToggleDrawer } from '../Nav';
 
 const useStyles = makeStyles((theme: Theme) => ({

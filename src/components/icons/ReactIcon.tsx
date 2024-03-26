@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { SvgWrapper } from '../SvgWrapper';
 
 export const ReactIcon: React.FC = () => (

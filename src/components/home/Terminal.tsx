@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Theme, makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typing from '@chadlefort/react-typing-animation';
 import Typography from '@material-ui/core/Typography';
