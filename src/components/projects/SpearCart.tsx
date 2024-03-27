@@ -33,6 +33,7 @@ import { Project } from './Project';
 import { LaravelIcon } from '../icons/LaravelIcon';
 import { SassIcon } from '../icons/SassIcon';
 import { DockerIcon } from '../icons/DockerIcon';
+import { PiniaIcon } from '../icons/PiniaIcon';
 
 type Node = { nodes: { childImageSharp: { fluid: FluidObject } }[] };
 
@@ -94,6 +95,10 @@ const BuiltWith: React.FC = () => (
 
     <PaperIcon name="Nuxt">
       <NuxtIcon />
+    </PaperIcon>
+
+    <PaperIcon name="Pinia">
+      <PiniaIcon />
     </PaperIcon>
 
     <PaperIcon name="TypeScript">

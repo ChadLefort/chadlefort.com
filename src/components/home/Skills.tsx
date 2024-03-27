@@ -20,6 +20,14 @@ import { CICDIcon } from '../icons/CICDIcon';
 import { TestingLibraryIcon } from '../icons/TestingLibrary';
 import { StorybookIcon } from '../icons/StorybookIcon';
 import { PaperIcon } from '../PaperIcon';
+import { NuxtIcon } from '../icons/NuxtIcon';
+import { JavaScriptIcon } from '../icons/JavaScriptIcon';
+import { HTMLIcon } from '../icons/HTMLIcon';
+import { CSSIcon } from '../icons/CSSIcon';
+import { GitIcon } from '../icons/GitIcon';
+import { TypeORMIcon } from '../icons/TypeORMIcon';
+import { PiniaIcon } from '../icons/PiniaIcon';
+import { MSWIcon } from '../icons/MSWIcon';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -46,6 +54,14 @@ export const Skills: React.FC = () => {
             Skills
           </Typography>
           <Grid container justifyContent="center">
+            <PaperIcon name="TypeScript">
+              <TypeScriptIcon />
+            </PaperIcon>
+
+            <PaperIcon name="JavaScript">
+              <JavaScriptIcon />
+            </PaperIcon>
+
             <PaperIcon name="React">
               <ReactIcon />
             </PaperIcon>
@@ -54,20 +70,48 @@ export const Skills: React.FC = () => {
               <ReduxIcon />
             </PaperIcon>
 
-            <PaperIcon name="TypeScript">
-              <TypeScriptIcon />
-            </PaperIcon>
-
             <PaperIcon name="Vue">
               <VueIcon />
+            </PaperIcon>
+
+            <PaperIcon name="Nuxt">
+              <NuxtIcon />
+            </PaperIcon>
+
+            <PaperIcon name="Pinia">
+              <PiniaIcon />
+            </PaperIcon>
+
+            <PaperIcon name="Vite">
+              <ViteIcon />
+            </PaperIcon>
+
+            <PaperIcon name="Vitest">
+              <VitestIcon />
+            </PaperIcon>
+
+            <PaperIcon name="Testing Lib">
+              <TestingLibraryIcon />
+            </PaperIcon>
+
+            <PaperIcon name="MSW">
+              <MSWIcon />
+            </PaperIcon>
+
+            <PaperIcon name="Webpack">
+              <WebpackIcon />
+            </PaperIcon>
+
+            <PaperIcon name="Node JS">
+              <NodeJSIcon />
             </PaperIcon>
 
             <PaperIcon name="GraphQL">
               <GraphQLIcon />
             </PaperIcon>
 
-            <PaperIcon name="Node JS">
-              <NodeJSIcon />
+            <PaperIcon name="TypeORM">
+              <TypeORMIcon />
             </PaperIcon>
 
             <PaperIcon name="Sass">
@@ -86,20 +130,16 @@ export const Skills: React.FC = () => {
               <StorybookIcon />
             </PaperIcon>
 
-            <PaperIcon name="Webpack">
-              <WebpackIcon />
+            <PaperIcon name="HTML">
+              <HTMLIcon />
             </PaperIcon>
 
-            <PaperIcon name="Vite">
-              <ViteIcon />
+            <PaperIcon name="CSS">
+              <CSSIcon />
             </PaperIcon>
 
-            <PaperIcon name="Vitest">
-              <VitestIcon />
-            </PaperIcon>
-
-            <PaperIcon name="Testing Lib">
-              <TestingLibraryIcon />
+            <PaperIcon name="Git">
+              <GitIcon />
             </PaperIcon>
 
             <PaperIcon name="Docker">

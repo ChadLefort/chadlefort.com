@@ -31,9 +31,9 @@ export const PrintHeader: React.FC = () => {
         <Typography>
           Over the {yearsOfExperience}+ years of my career I've specialized in frontend solutions. I've architected and delivered a wide range of revenue growing projects while
           leveraging a variety of modern frameworks and libraries. Committed to team success, I prioritize delivering exceptional products that provide an outstanding user
-          experience. One project that I recently worked on had substantial growth across all aspects of the website with significant increases in views, clicks, and user
-          engagement, ranging from 325% to 9564% over a 90 day period. Additionally, I've set up and managed different configurations and created build pipelines for projects that
-          have resulted in cost efficiency and improved productivity.
+          experience. Most recently I have led the development of a mobile first dashboard and sign up cart for users. The dashboard saw user engagement improvements of over 9000%
+          in areas and the new sign up cart exceeded new membership goals by 25%. Additionally, I've set up and managed different configurations and created build pipelines for
+          projects that have resulted in cost efficiency and improved productivity.
         </Typography>
       </Grid>
     </Grid>
