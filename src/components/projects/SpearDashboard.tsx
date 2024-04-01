@@ -3,11 +3,11 @@ import 'swiper/css/pagination';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import Img, { FluidObject } from 'gatsby-image';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { graphql, useStaticQuery } from 'gatsby';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
 import Dialog from '@material-ui/core/Dialog';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -16,7 +16,7 @@ import Slide from '@material-ui/core/Slide';
 import { TransitionProps } from '@material-ui/core/transitions';
 import DialogContent from '@material-ui/core/DialogContent';
 import CloseIcon from 'mdi-material-ui/Close';
-import { Pagination } from 'swiper/modules';
+import { Keyboard, Pagination } from 'swiper/modules';
 
 import { TypeORMIcon } from '../icons/TypeORMIcon';
 import { StorybookIcon } from '../icons/StorybookIcon';
@@ -136,7 +136,7 @@ const BuiltWith: React.FC = () => (
 export const SpearDashboard: React.FC = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<FluidObject | null>(null);
+  const [selectedImage, setSelectedImage] = useState<{ index: number; image: FluidObject } | null>(null);
   const [isMobileImage, setIsMobileImage] = useState(false);
   const { isSmallDown } = useScreenSize();
 
@@ -163,8 +163,8 @@ export const SpearDashboard: React.FC = () => {
     }
   `);
 
-  const handleThumbnailClick = (index: number) => {
-    setSelectedImage(full.nodes[index].childImageSharp.fluid);
+  const handleThumbnailClick = (swiper: SwiperClass) => {
+    setSelectedImage({ index: swiper.activeIndex, image: full.nodes[swiper.activeIndex].childImageSharp.fluid });
     setOpen(true);
   };
 
@@ -172,26 +172,21 @@ export const SpearDashboard: React.FC = () => {
     setOpen(false);
   };
 
-  useEffect(() => {
-    if (selectedImage?.src.includes('mobile')) {
+  const handleSlideChange = (swiper: SwiperClass) => {
+    const selectedImage = full.nodes[swiper.activeIndex].childImageSharp.fluid;
+
+    if (selectedImage.src.includes('mobile')) {
       setIsMobileImage(true);
     } else {
       setIsMobileImage(false);
     }
-  }, [selectedImage]);
+  };
 
   const SwiperImages: React.FC = () => (
     <Grid item xs={12} className={classes.swiperContainer}>
-      <Swiper
-        slidesPerView={isSmallDown ? 1 : 2}
-        spaceBetween={40}
-        pagination={{
-          clickable: true
-        }}
-        modules={[Pagination]}
-      >
+      <Swiper slidesPerView={isSmallDown ? 1 : 2} spaceBetween={40} keyboard pagination={{ clickable: true }} modules={[Pagination, Keyboard]} onClick={handleThumbnailClick}>
         {thumbnail.nodes.map((node, index) => (
-          <SwiperSlide onClick={() => handleThumbnailClick(index)}>
+          <SwiperSlide>
             <Avatar key={index} alt="Spear Dashboard" variant="rounded" className={classes.large} component={Img} fluid={node.childImageSharp.fluid} />
           </SwiperSlide>
         ))}
@@ -213,7 +208,13 @@ export const SpearDashboard: React.FC = () => {
         <DialogContent>
           <Grid container justifyContent="center">
             <Grid item xs={12} md={isMobileImage ? 2 : 8}>
-              {selectedImage && <Avatar alt="Spear Dashboard" variant="rounded" component={Img} fluid={selectedImage} style={{ height: '100%', width: '100%' }} />}
+              <Swiper slidesPerView={1} autoHeight keyboard initialSlide={selectedImage?.index ?? 0} modules={[Keyboard]} onSlideChange={handleSlideChange}>
+                {full.nodes.map((node, index) => (
+                  <SwiperSlide>
+                    <Avatar key={index} alt="Spear Dashboard" variant="rounded" component={Img} fluid={node.childImageSharp.fluid} style={{ width: '100%', height: '100%' }} />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
             </Grid>
           </Grid>
         </DialogContent>
