@@ -18,7 +18,7 @@ describe('Skills', () => {
     expect(screen.getByTitle('Vue')).toBeDefined();
     expect(screen.getByTitle('TypeScript')).toBeDefined();
     expect(screen.getByTitle('Material-UI')).toBeDefined();
-    expect(screen.getByTitle('Node JS')).toBeDefined();
+    expect(screen.getByTitle('Node.js')).toBeDefined();
     expect(screen.getByTitle('GraphQL')).toBeDefined();
   });
 });

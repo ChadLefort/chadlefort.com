@@ -102,7 +102,7 @@ export const Skills: React.FC = () => {
               <WebpackIcon />
             </PaperIcon>
 
-            <PaperIcon name="Node JS">
+            <PaperIcon name="Node.js">
               <NodeJSIcon />
             </PaperIcon>
 

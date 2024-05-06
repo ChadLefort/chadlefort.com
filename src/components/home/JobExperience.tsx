@@ -76,11 +76,11 @@ const useStyles = makeStyles((theme) => ({
 export const JobExperience: React.FC = () => {
   const classes = useStyles();
   const { isSmallDown, isExtraSmallDown, isPrint } = useScreenSize();
-  const cditDate = 'December 2020 - Present';
+  const apertureDate = 'April 2024 - Present';
+  const cditDate = 'December 2020 - April 2024';
   const veriforceDate = 'July 2017 - December 2020';
   const netchexDate = 'November 2014 – July 2017';
   const chouestDate = 'December 2013 – November 2014';
-  const scpdcDate = 'February 2013 – November 2013';
 
   return (
     <Grid item xs={12} className={classes.root} id="job-experience">
@@ -90,6 +90,45 @@ export const JobExperience: React.FC = () => {
             Job Experience
           </Typography>
           <Timeline align={isSmallDown ? 'left' : 'alternate'} className={classes.timeline} data-testid="timeline">
+            <TimelineItem>
+              <TimelineOppositeContent className={classes.timelineOpposite}>
+                <Typography variant="body2" color="textSecondary">
+                  {apertureDate}
+                </Typography>
+              </TimelineOppositeContent>
+              <TimelineSeparator>
+                <TimelineDot color="primary" className={classes.timelineDot} />
+                <TimelineConnector />
+              </TimelineSeparator>
+              <TimelineContent
+                data-sal={!isPrint && !isExtraSmallDown ? (isSmallDown ? 'slide-left' : 'slide-right') : null}
+                data-sal-duration="500"
+                data-sal-easing="ease-in-out-quart"
+              >
+                <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
+                  <Typography variant="h6" component="h1">
+                    Aperture Education
+                  </Typography>
+                  <Typography variant="subtitle2" component="h2" color="textSecondary" gutterBottom>
+                    Senior Frontend Engineer
+                  </Typography>
+                  <Hidden mdUp>
+                    <Typography variant="body2" color="textSecondary">
+                      {apertureDate}
+                    </Typography>
+                  </Hidden>
+                  <List dense={isPrint}>
+                    <ListItem>
+                      <ListItemIcon className={classes.listItemIcon}>
+                        <CircleSmall />
+                      </ListItemIcon>
+                      <ListItemText primary="Currently developing a K-12 student assessment platform focusing on social and emotional learning, leveraging React, TypeScript, Zustand, and TanStack Query." />
+                    </ListItem>
+                  </List>
+                </Paper>
+              </TimelineContent>
+            </TimelineItem>
+
             <TimelineItem>
               <TimelineOppositeContent className={classes.timelineOpposite}>
                 <Typography variant="body2" color="textSecondary">
@@ -271,7 +310,6 @@ export const JobExperience: React.FC = () => {
               </TimelineOppositeContent>
               <TimelineSeparator>
                 <TimelineDot color="primary" className={classes.timelineDot} />
-                <TimelineConnector />
               </TimelineSeparator>
               <TimelineContent data-sal={!isPrint && !isExtraSmallDown ? 'slide-left' : null} data-sal-duration="500" data-sal-easing="ease-in-out-quart">
                 <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
@@ -292,44 +330,6 @@ export const JobExperience: React.FC = () => {
                         <CircleSmall />
                       </ListItemIcon>
                       <ListItemText primary="Built a tool to store excel spreadsheets for logic controller's configuration files using Node.js, Express, MySQL Bootstrap, and jQuery that helped with better organization and searchability of data." />
-                    </ListItem>
-                  </List>
-                </Paper>
-              </TimelineContent>
-            </TimelineItem>
-
-            <TimelineItem>
-              <TimelineOppositeContent className={classes.timelineOpposite}>
-                <Typography variant="body2" color="textSecondary">
-                  {scpdcDate}
-                </Typography>
-              </TimelineOppositeContent>
-              <TimelineSeparator>
-                <TimelineDot color="primary" className={classes.timelineDot} />
-              </TimelineSeparator>
-              <TimelineContent
-                data-sal={!isPrint && !isExtraSmallDown ? (isSmallDown ? 'slide-left' : 'slide-right') : null}
-                data-sal-duration="500"
-                data-sal-easing="ease-in-out-quart"
-              >
-                <Paper elevation={0} variant={isPrint ? 'outlined' : 'elevation'} className={classes.paper}>
-                  <Typography variant="h6" component="h1">
-                    South Central Planning and Development Commission
-                  </Typography>
-                  <Typography variant="subtitle2" component="h2" color="textSecondary" gutterBottom>
-                    Software Developer Intern
-                  </Typography>
-                  <Hidden mdUp>
-                    <Typography variant="body2" color="textSecondary">
-                      {scpdcDate}
-                    </Typography>
-                  </Hidden>
-                  <List dense={isPrint}>
-                    <ListItem>
-                      <ListItemIcon className={classes.listItemIcon}>
-                        <CircleSmall />
-                      </ListItemIcon>
-                      <ListItemText primary="Built a custom contact form using PHP, Bootstrap, and jQuery for a permitting SaaS platform to guide customers in resolving their issues and reduce support calls." />
                     </ListItem>
                   </List>
                 </Paper>
