@@ -128,7 +128,7 @@ export const Terminal: FC<Props> = ({ prefersReducedMotion }) => {
         <Tab icon={Folder} label="chadlefort.com" active />
         <Tab idx={1} icon={Code2} label="nvim" href="/#skills" hideOnMobile />
         <Tab idx={2} icon={FolderGit2} label="~/dotfiles" href="https://github.com/ChadLefort" hideOnMobile />
-        <Tab idx={3} icon={Folder} label="~/projects" href="/projects" />
+        <Tab idx={3} mobileIdx={1} icon={Folder} label="~/projects" href="/projects" />
       </div>
 
       <div className="bg-term-bg px-3 py-2 sm:px-4 sm:py-3">
@@ -153,7 +153,7 @@ export const Terminal: FC<Props> = ({ prefersReducedMotion }) => {
         </div>
       </div>
 
-      <div className="bg-term-bg text-term-fg min-h-[280px] px-4 pt-3 pb-5 font-mono text-[12.5px] leading-6 break-words sm:min-h-[420px] sm:px-5 sm:pt-4 sm:pb-6 sm:text-[15px] sm:leading-7">
+      <div className="bg-term-bg text-term-fg h-[340px] overflow-y-auto px-4 pt-3 pb-5 font-mono text-[12.5px] leading-6 break-words sm:h-auto sm:min-h-[420px] sm:overflow-visible sm:px-5 sm:pt-4 sm:pb-6 sm:text-[15px] sm:leading-7">
         <p className="m-0">
           <span className="text-term-prompt">→</span> <span>{typed}</span>
           {!cmdDone && <Cursor />}

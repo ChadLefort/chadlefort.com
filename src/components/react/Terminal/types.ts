@@ -10,6 +10,7 @@ export type MdLine =
 
 export type TabProps = {
   idx?: number;
+  mobileIdx?: number;
   icon: LucideIcon;
   label: string;
   active?: boolean;

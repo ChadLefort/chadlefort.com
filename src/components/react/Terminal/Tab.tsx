@@ -22,12 +22,23 @@ const tabStyles = tv({
   }
 });
 
-export const Tab: FC<TabProps> = ({ idx, icon: Icon, label, active, href, hideOnMobile }) => {
+export const Tab: FC<TabProps> = ({ idx, mobileIdx, icon: Icon, label, active, href, hideOnMobile }) => {
   const className = tabStyles({ active, hideOnMobile, interactive: Boolean(href) });
 
   const inner = (
     <>
-      {idx != null && <span className="font-mono opacity-80">{idx}</span>}
+      {idx != null && (
+        <span className="font-mono opacity-80">
+          {mobileIdx != null ? (
+            <>
+              <span className="sm:hidden">{mobileIdx}</span>
+              <span className="hidden sm:inline">{idx}</span>
+            </>
+          ) : (
+            idx
+          )}
+        </span>
+      )}
       <Icon className="h-3.5 w-3.5" aria-hidden="true" />
       <span className="font-mono">{label}</span>
     </>
