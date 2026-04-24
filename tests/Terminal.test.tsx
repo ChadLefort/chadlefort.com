@@ -7,7 +7,7 @@ describe('Terminal', () => {
   it('renders the prompt fully when reduced motion is preferred', () => {
     render(<Terminal prefersReducedMotion />);
 
-    expect(screen.getByText('./chad-lefort.sh')).toBeInTheDocument();
+    expect(screen.getByText('cat about.md')).toBeInTheDocument();
     expect(screen.getByText(/senior frontend engineer from Mandeville/i)).toBeInTheDocument();
   });
 

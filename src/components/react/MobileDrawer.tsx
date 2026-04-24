@@ -45,8 +45,11 @@ export const MobileDrawer: FC<Props> = ({ links }) => {
         <Menu className="h-6 w-6" aria-hidden="true" />
       </RACButton>
 
-      <ModalOverlay isDismissable className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-sm">
-        <Modal className="glass-strong h-full w-80 max-w-full text-[var(--text)] shadow-2xl">
+      <ModalOverlay
+        isDismissable
+        className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-sm transition-opacity duration-200 ease-out data-[entering]:opacity-0 data-[exiting]:opacity-0"
+      >
+        <Modal className="glass-strong h-full w-80 max-w-full transform-gpu text-[var(--text)] shadow-2xl transition-transform duration-300 ease-out data-[entering]:translate-x-full data-[exiting]:translate-x-full motion-reduce:transition-none">
           <Dialog className="flex h-full flex-col outline-none">
             <div className="flex items-center justify-between border-b border-[var(--glass-border)] px-4 py-3">
               <Heading slot="title" className="font-display text-lg">

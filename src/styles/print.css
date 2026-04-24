@@ -25,13 +25,24 @@
     --nav-fg: #1a1a1a;
   }
 
-  html,
+  html {
+    zoom: 0.95;
+    background: #ffffff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
   body {
     background: #ffffff !important;
     color: #1a1a1a !important;
-    font-size: 10pt;
+    font-size: 9.5pt;
     line-height: 1.4;
     font-family: 'Roboto', system-ui, sans-serif;
+    margin: 0 !important;
+    padding: 0.38in 0.42in !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
   }
@@ -88,12 +99,17 @@
     background: transparent !important;
   }
 
-  section > div {
+  section > div,
+  section > div > div,
+  section > div > div > div {
     padding: 0 !important;
+    margin: 0 !important;
     background: transparent !important;
     border: 0 !important;
     border-radius: 0 !important;
-    max-width: none !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
 
   /* print header */
@@ -197,9 +213,14 @@
   /* job experience timeline */
   ol[aria-label='Employment history'] {
     list-style: none;
-    padding: 0 0 0 0.22in !important;
-    margin: 0;
+    display: block !important;
+    gap: 0 !important;
+    padding: 0 0 0 0.2in !important;
+    margin: 0 !important;
     position: relative;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
 
   ol[aria-label='Employment history']::before {
@@ -213,10 +234,17 @@
     padding-left: 0 !important;
     margin: 0 0 0.08in 0 !important;
     grid-template-columns: none !important;
-    break-inside: avoid;
+    break-inside: auto;
     text-align: left !important;
     width: 100% !important;
+    max-width: 100% !important;
     box-sizing: border-box !important;
+  }
+
+  /* keep header + first bullet together to avoid orphan title */
+  ol[aria-label='Employment history'] > li header {
+    break-inside: avoid;
+    break-after: avoid;
   }
 
   ol[aria-label='Employment history'] li > div,
@@ -224,39 +252,41 @@
   ol[aria-label='Employment history'] li [data-reveal] {
     box-sizing: border-box !important;
     max-width: 100% !important;
+    width: 100% !important;
   }
 
   /* timeline dot on each li */
   ol[aria-label='Employment history'] > li::before {
     content: '';
     position: absolute;
-    left: -0.175in;
+    left: -0.15in;
     top: 0.155in;
     width: 0.09in;
     height: 0.09in;
     background: #1a1a1a;
     border-radius: 50%;
-    z-index: 2;
+    z-index: 3;
   }
 
-  /* timeline line segment per li (extends into margin-bottom for continuity) */
+  /* per-li line segment: each li draws its own line so it repeats on every page.
+     Dot covers the portion that visually overlaps. Bottom extends into margin gap for continuity. */
   ol[aria-label='Employment history'] > li::after {
     content: '';
     position: absolute;
-    left: -0.137in;
+    left: -0.112in;
     top: 0;
-    bottom: -0.08in;
-    width: 0.8pt;
-    background: #b8b8b8;
+    bottom: -0.1in;
+    width: 1.5pt;
+    background: #888888 !important;
     z-index: 1;
   }
 
-  /* first li line starts at dot center */
+  /* first li line starts at dot (not above) */
   ol[aria-label='Employment history'] > li:first-child::after {
     top: 0.2in;
   }
 
-  /* last li line ends at dot center (no extension into margin) */
+  /* last li line ends at its own dot */
   ol[aria-label='Employment history'] > li:last-child::after {
     top: 0;
     bottom: auto;
@@ -420,8 +450,17 @@
   }
 
   #education header p:first-of-type {
+    font-size: 10pt;
     font-weight: 600;
     color: #1a1a1a !important;
+    margin: 0.02in 0 0 0 !important;
+  }
+
+  #education header p:nth-of-type(2) {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9pt;
+    color: #555 !important;
+    margin: 0.02in 0 0 0 !important;
   }
 
   #education h4 {
@@ -487,13 +526,11 @@
     padding-left: 1rem;
   }
 
+  /* @page margin: 0 forces no browser-level margins. Body padding above provides the
+     visible margin so it survives Chrome's "None" margin option. */
   @page {
-    margin: 0.4in 0.45in;
+    margin: 0;
     size: letter;
-  }
-
-  @page :first {
-    margin-top: 0.4in;
   }
 }
 
