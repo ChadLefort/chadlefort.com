@@ -1,0 +1,60 @@
+---
+import { Icon } from 'astro-icon/components';
+import { ThemeToggle } from '~/components/react/ThemeToggle';
+import { MobileDrawer } from '~/components/react/MobileDrawer';
+import { homeNav, type NavLink } from '~/data/nav';
+import Logo from '~/components/Logo.astro';
+
+type Props = {
+  links?: NavLink[];
+  showLogoOnDesktop?: boolean;
+};
+
+const { links = homeNav, showLogoOnDesktop = false } = Astro.props;
+---
+
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<header data-no-print class="glass-nav sticky top-0 z-30 text-[var(--nav-fg)]">
+  <div
+    class="max-w-section mx-auto hidden h-16 w-full items-center gap-4 px-4 sm:px-6 md:grid md:grid-cols-[1fr_auto_1fr]"
+  >
+    <div class="flex items-center justify-start">
+      {
+        showLogoOnDesktop && (
+          <a href="/" class="font-display text-base tracking-wide hover:opacity-90">
+            <Logo as="span" size="sm" />
+          </a>
+        )
+      }
+    </div>
+
+    <nav aria-label="Primary" class="flex items-center justify-center gap-1">
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            class="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold tracking-wide text-[var(--nav-fg)]/85 transition hover:bg-white/5 hover:text-[var(--nav-fg)] focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:outline-none"
+          >
+            <Icon name={link.icon} class="h-4 w-4 opacity-70" aria-hidden="true" />
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center justify-end">
+      <ThemeToggle client:idle />
+    </div>
+  </div>
+
+  <div class="max-w-section mx-auto flex h-16 w-full items-center justify-between gap-4 px-4 sm:px-6 md:hidden">
+    <a href="/" class="font-display text-base tracking-wide hover:opacity-90">
+      <Logo as="span" size="sm" />
+    </a>
+    <div class="flex items-center gap-1">
+      <ThemeToggle client:idle />
+      <MobileDrawer client:idle links={links} />
+    </div>
+  </div>
+</header>

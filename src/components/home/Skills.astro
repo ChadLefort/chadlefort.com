@@ -1,0 +1,28 @@
+---
+import { Icon } from 'astro-icon/components';
+import Reveal from '~/components/Reveal.astro';
+import Section from '~/components/Section.astro';
+import { skills } from '~/data/skills';
+---
+
+<Section id="skills" eyebrow="What I work in" title="Skills" tone="alt">
+  <ul class="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8" aria-label="Skills">
+    {
+      skills.map((skill, index) => (
+        <Reveal as="li" delay={Math.min(index * 25, 500)}>
+          <div class="group card card-hover flex h-full flex-col items-center justify-center gap-2 p-5">
+            <Icon
+              name={skill.icon}
+              class="h-9 w-9 transition-transform duration-300 group-hover:scale-110 motion-reduce:group-hover:scale-100"
+              style={skill.color ? `color: ${skill.color};` : undefined}
+              aria-hidden="true"
+            />
+            <span class="text-center text-xs font-semibold tracking-wide text-[var(--text)]/90 md:text-sm">
+              {skill.name}
+            </span>
+          </div>
+        </Reveal>
+      ))
+    }
+  </ul>
+</Section>

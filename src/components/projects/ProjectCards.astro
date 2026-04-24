@@ -1,0 +1,91 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import Reveal from '~/components/Reveal.astro';
+import type { CollectionEntry } from 'astro:content';
+
+type ProjectEntry = CollectionEntry<'projects'>;
+
+type Props = {
+  projects: ProjectEntry[];
+};
+
+const { projects } = Astro.props;
+
+const initialsFor = (title: string) =>
+  title
+    .split(' ')
+    .map((word) => word[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join('')
+    .toUpperCase();
+---
+
+<ul class="grid grid-cols-1 gap-8 md:grid-cols-2">
+  {
+    projects.map((project: ProjectEntry, index: number) => {
+      const href = `/projects/${project.id}`;
+      const initials = initialsFor(project.data.title);
+
+      return (
+        <Reveal as="li" delay={index * 80}>
+          <a
+            href={href}
+            class="group card card-hover flex h-full flex-col p-5 focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:outline-none"
+          >
+            <div class="relative aspect-[16/9] w-full overflow-hidden rounded-2xl">
+              {project.data.cover ? (
+                <Image
+                  src={project.data.cover}
+                  alt={project.data.coverAlt ?? project.data.title}
+                  width={1280}
+                  format="webp"
+                  quality={80}
+                  loading={index < 2 ? 'eager' : 'lazy'}
+                  class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                />
+              ) : (
+                <div class={`flex h-full w-full items-center justify-center bg-gradient-to-br ${project.data.accent}`}>
+                  <span class="font-display text-7xl tracking-tighter text-white/85 mix-blend-overlay md:text-8xl">
+                    {initials}
+                  </span>
+                </div>
+              )}
+              <span
+                aria-hidden="true"
+                class="absolute top-4 right-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/40 text-white backdrop-blur transition group-hover:border-white/40 group-hover:bg-black/60"
+              >
+                <Icon
+                  name="lucide:arrow-up-right"
+                  class="h-4 w-4 transition-transform duration-300 group-hover:rotate-12 motion-reduce:group-hover:rotate-0"
+                  aria-hidden="true"
+                />
+              </span>
+            </div>
+
+            <div class="flex flex-1 flex-col gap-3 px-2 pt-5 pb-2">
+              <p class="font-mono text-[11px] tracking-[0.25em] text-[var(--color-accent)] uppercase">
+                {project.data.subtitle}
+              </p>
+              <h3 class="font-display text-2xl tracking-tight md:text-3xl">{project.data.title}</h3>
+              <p class="leading-relaxed text-[var(--text-muted)]">{project.data.summary}</p>
+              <ul class="mt-auto flex flex-wrap gap-1.5 pt-3">
+                {project.data.tech.slice(0, 6).map((tag: string) => (
+                  <li class="rounded-full border border-[var(--glass-border)] bg-[var(--tile-bg)] px-2.5 py-0.5 text-[11px] font-semibold tracking-wide text-[var(--text-muted)]">
+                    {tag}
+                  </li>
+                ))}
+                {project.data.tech.length > 6 && (
+                  <li class="rounded-full border border-[var(--glass-border)] px-2.5 py-0.5 text-[11px] font-semibold tracking-wide text-[var(--text-muted)]">
+                    +{project.data.tech.length - 6}
+                  </li>
+                )}
+              </ul>
+            </div>
+          </a>
+        </Reveal>
+      );
+    })
+  }
+</ul>

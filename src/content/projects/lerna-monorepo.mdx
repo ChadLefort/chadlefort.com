@@ -1,0 +1,31 @@
+---
+title: Lerna Monorepo Migration
+subtitle: Oct 2019 - Dec 2019
+summary: Consolidated 17 React apps and 6 NPM packages into a Lerna monorepo, saving the team hours of deploy time.
+tech:
+  - Lerna
+  - Jenkins
+  - NPM
+  - React
+  - Redux
+  - TypeScript
+order: 4
+span: md
+accent: from-purple-500/25 via-fuchsia-500/15 to-pink-500/10
+start: 2019-10
+end: 2019-12
+---
+
+## Problem
+
+A team of seven frontend engineers maintained 17 React apps and 6 internal NPM packages across separate repos, each with its own build pipeline. Deployments had to happen one at a time, and cross-package changes were painful.
+
+## Solution
+
+I migrated everything into a single Lerna-powered monorepo and wired the Jenkins pipeline to build and release Docker images and NPM packages in parallel. External legacy consumers still got published NPM packages, and TypeScript project references kept shared code sane.
+
+## Impact
+
+- Saved **hours** of manual deploy time per release cycle.
+- Enabled parallel CI builds that previously ran sequentially.
+- Simplified cross-package refactors and shared utility work.

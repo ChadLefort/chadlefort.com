@@ -1,0 +1,107 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import { pwaInfo } from 'virtual:pwa-info';
+import SEO from '~/components/SEO.astro';
+import ThemeScript from '~/components/ThemeScript.astro';
+import Nav from '~/components/Nav.astro';
+import PWARegister from '~/components/PWARegister.astro';
+import { ScrollToTop } from '~/components/react/ScrollToTop';
+import { homeNav, type NavLink } from '~/data/nav';
+import '~/styles/global.css';
+
+type Props = {
+  title?: string;
+  description?: string;
+  image?: string;
+  pathname?: string;
+  navLinks?: NavLink[];
+  showLogoOnDesktop?: boolean;
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
+};
+
+const {
+  title,
+  description,
+  image,
+  pathname,
+  navLinks = homeNav,
+  showLogoOnDesktop = false,
+  structuredData
+} = Astro.props;
+---
+
+<html lang="en-US" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#21252b" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Chad Lefort" />
+    {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
+
+    <ThemeScript />
+    <SEO title={title} description={description} image={image} pathname={pathname} structuredData={structuredData} />
+    <PWARegister />
+    <ClientRouter />
+  </head>
+
+  <body class="relative isolate min-h-screen overflow-x-hidden text-[var(--text)]">
+    <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+      <div class="absolute inset-0 bg-[var(--surface)]"></div>
+      <div
+        class="absolute -top-40 -left-40 h-[40rem] w-[40rem] rounded-full bg-[var(--color-terminal-blue)]/15 blur-[140px]"
+        style="opacity: var(--blob-opacity, 1);"
+      >
+      </div>
+      <div
+        class="absolute top-[20%] -right-32 h-[36rem] w-[36rem] rounded-full bg-[var(--color-terminal-magenta)]/10 blur-[140px]"
+        style="opacity: var(--blob-opacity, 1);"
+      >
+      </div>
+      <div
+        class="absolute bottom-0 left-1/3 h-[40rem] w-[40rem] rounded-full bg-[var(--color-terminal-green)]/10 blur-[160px]"
+        style="opacity: var(--blob-opacity, 1);"
+      >
+      </div>
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_transparent_0%,_var(--surface)_70%)]"></div>
+    </div>
+
+    <Nav links={navLinks} showLogoOnDesktop={showLogoOnDesktop} />
+
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+
+    <ScrollToTop client:idle />
+
+    <script>
+      const reveal = () => {
+        const elements = document.querySelectorAll<HTMLElement>('[data-reveal]');
+        if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          elements.forEach((el) => el.classList.add('in-view'));
+          return;
+        }
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1, rootMargin: '0px 0px -10% 0px' }
+        );
+        elements.forEach((el) => io.observe(el));
+      };
+      document.addEventListener('astro:page-load', reveal);
+      reveal();
+    </script>
+  </body>
+</html>

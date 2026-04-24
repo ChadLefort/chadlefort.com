@@ -1,0 +1,57 @@
+---
+type Props = {
+  id: string;
+  tone?: 'base' | 'alt' | 'hero' | 'plain';
+  class?: string;
+  title?: string;
+  eyebrow?: string;
+  as?: 'section' | 'div';
+  hideFromPrint?: boolean;
+  printOnly?: boolean;
+  titleAlign?: 'center' | 'left';
+  width?: 'narrow' | 'wide' | 'full';
+  tile?: boolean;
+};
+
+const {
+  id,
+  tone = 'base',
+  class: className = '',
+  title,
+  eyebrow,
+  as: Tag = 'section',
+  hideFromPrint = false,
+  printOnly = false,
+  titleAlign = 'center',
+  width = 'wide',
+  tile = true
+} = Astro.props as Props;
+
+const widthClass = width === 'full' ? 'max-w-shell' : width === 'narrow' ? 'max-w-4xl' : 'max-w-section';
+
+const tileBg = tone === 'alt' ? 'bg-[var(--tile-bg-alt)]' : 'bg-[var(--tile-bg)]';
+const tileClass = tile && tone !== 'plain' ? `${tileBg} border border-[var(--glass-border)] rounded-3xl` : '';
+---
+
+<Tag
+  id={id}
+  class={`relative scroll-mt-24 px-4 py-10 sm:px-6 md:py-16 print:p-0 ${className}`}
+  data-no-print={hideFromPrint ? true : undefined}
+  data-print-only={printOnly ? true : undefined}
+>
+  <div class={`relative mx-auto w-full ${widthClass} ${tileClass} px-6 py-20 sm:px-10 lg:px-16 md:py-28 print:p-0`}>
+    {
+      (title || eyebrow) && (
+        <header
+          class={`mb-16 flex flex-col gap-4 md:mb-20 ${titleAlign === 'center' ? 'items-center text-center' : 'items-start text-left'}`}
+        >
+          {eyebrow && (
+            <p class="font-mono text-[11px] tracking-[0.3em] text-[var(--color-accent)] uppercase">{eyebrow}</p>
+          )}
+          {title && <h2 class="font-display text-4xl tracking-tight md:text-6xl">{title}</h2>}
+        </header>
+      )
+    }
+    <slot />
+  </div>
+</Tag>

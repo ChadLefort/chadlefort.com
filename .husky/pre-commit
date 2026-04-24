@@ -1,1 +1,2 @@
-npm test
+bunx lint-staged
+bun run typecheck

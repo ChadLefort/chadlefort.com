@@ -1,0 +1,47 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import { site, yearsOfExperience } from '~/data/site';
+import me from '~/assets/me.png';
+
+const years = yearsOfExperience();
+---
+
+<section data-print-only class="hidden">
+  <div class="print-header">
+    <div class="print-header-top">
+      <Image src={me} alt="Chad Lefort" width={120} height={120} format="webp" quality={88} class="print-avatar" />
+      <div class="print-name-block">
+        <h1>{site.name}</h1>
+        <p>{site.jobTitle}</p>
+      </div>
+      <div class="print-contact">
+        <div class="print-contact-row">
+          <Icon name="lucide:phone" aria-hidden="true" />
+          <span>(985) 696-4781</span>
+        </div>
+        <div class="print-contact-row">
+          <Icon name="lucide:mail" aria-hidden="true" />
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+        </div>
+        <div class="print-contact-row">
+          <Icon name="simple-icons:github" aria-hidden="true" />
+          <a href={site.social.github}>github.com/ChadLefort</a>
+        </div>
+        <div class="print-contact-row">
+          <Icon name="simple-icons:linkedin" aria-hidden="true" />
+          <a href={site.social.linkedin}>linkedin.com/in/chadlefort</a>
+        </div>
+      </div>
+    </div>
+
+    <p class="print-summary">
+      Over my {years}+ year career I've specialized in frontend solutions. I've architected and delivered a wide range
+      of revenue-growing projects while leveraging a variety of modern frameworks and libraries. Committed to team
+      success, I prioritize delivering exceptional products that provide an outstanding user experience. Most recently
+      I've led the development of a mobile-first dashboard and sign-up cart that drove user engagement improvements of
+      over 9000% in areas and exceeded new membership goals by 25%. I've also set up and managed build pipelines that
+      improved cost efficiency and team productivity.
+    </p>
+  </div>
+</section>
