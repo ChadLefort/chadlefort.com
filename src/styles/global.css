@@ -104,27 +104,29 @@
 
   --default-border-radius: 0.75rem;
 
-  /* light mode - homelab grays, never pure white */
+  /* light mode - inverted homelab ramp, cool grays */
   color-scheme: light;
-  --surface: #b8bec9;
-  --surface-alt: #aab0bc;
-  --surface-raised: #cdd2db;
-  --text: #1a1d23;
-  --text-muted: rgba(26, 29, 35, 0.66);
-  --border: rgba(26, 29, 35, 0.16);
-  --nav-bg: rgba(33, 37, 43, 0.9);
+  --surface: #eceef2;
+  --surface-alt: #dde0e6;
+  --surface-raised: #f4f5f8;
+  --text: #232529;
+  --text-muted: #4b525f;
+  --border: rgba(35, 37, 41, 0.14);
+  --nav-bg: rgba(33, 37, 43, 0.92);
   --nav-fg: #eceef2;
-  --tile-bg: rgba(195, 201, 212, 0.55);
-  --tile-bg-alt: rgba(178, 186, 199, 0.65);
-  --card-grad-from: rgba(205, 211, 220, 0.85);
-  --card-grad-to: rgba(178, 186, 199, 0.78);
-  --card-border: rgba(26, 29, 35, 0.14);
-  --card-border-hover: rgba(10, 122, 202, 0.55);
-  --glass-bg: rgba(195, 201, 212, 0.5);
-  --glass-bg-strong: rgba(178, 186, 199, 0.78);
-  --glass-border: rgba(26, 29, 35, 0.14);
-  --glass-border-strong: rgba(26, 29, 35, 0.2);
-  --blob-opacity: 0.25;
+  --tile-bg: rgba(222, 225, 231, 0.7);
+  --tile-bg-alt: rgba(209, 213, 221, 0.72);
+  --card-grad-from: #f4f5f8;
+  --card-grad-to: #dde0e6;
+  --card-border: rgba(35, 37, 41, 0.12);
+  --card-border-hover: rgba(10, 93, 165, 0.45);
+  --glass-bg: rgba(236, 238, 242, 0.72);
+  --glass-bg-strong: rgba(221, 224, 230, 0.85);
+  --glass-border: rgba(35, 37, 41, 0.12);
+  --glass-border-strong: rgba(35, 37, 41, 0.18);
+  --blob-opacity: 0.28;
+  --color-accent: #0a5da5;
+  --color-accent-strong: #0a7aca;
 
   /* light terminal - desaturated grays, JetBrains-like */
   --term-bg: #c8cdd6;
@@ -153,6 +155,8 @@
   --text: var(--color-12);
   --text-muted: var(--color-11);
   --border: rgba(255, 255, 255, 0.08);
+  --color-accent: #569cd6;
+  --color-accent-strong: #0a7aca;
   --nav-bg: rgba(33, 37, 43, 0.85);
   --nav-fg: var(--color-12);
   --tile-bg: rgba(41, 43, 48, 0.4);

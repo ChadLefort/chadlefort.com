@@ -16,15 +16,82 @@ import {
 } from 'lucide-react';
 import { yearsOfExperience } from '~/data/site';
 
-const lines = (years: number) => [
-  {
-    text: `# Hello, I'm Chad - a senior frontend engineer from Mandeville, Louisiana with ${years}+ years of development experience.`
-  },
-  { text: '# Shortly after I was given my first computer, I developed a strong passion for programming.' },
-  { text: "# I'm constantly furthering my skills to keep up with the ever changing demand of the web." },
-  { text: '# I take pride in writing maintainable, accessible, and efficient code.' },
-  { text: '# Committed to team success, I prioritize delivering exceptional user experiences.' }
+type MdLine =
+  | { kind: 'h1'; text: string }
+  | { kind: 'h2'; text: string }
+  | { kind: 'p'; text: string }
+  | { kind: 'li'; text: string }
+  | { kind: 'blank' };
+
+const lines = (years: number): MdLine[] => [
+  { kind: 'h1', text: 'Chad Lefort' },
+  { kind: 'blank' },
+  { kind: 'p', text: `Senior frontend engineer from Mandeville, Louisiana with ${years}+ years of experience.` },
+  { kind: 'blank' },
+  { kind: 'h2', text: 'About' },
+  { kind: 'blank' },
+  { kind: 'li', text: 'Discovered programming after getting my first computer.' },
+  { kind: 'li', text: 'Constantly sharpening skills for the ever-changing web.' },
+  { kind: 'li', text: 'Write maintainable, accessible, and efficient code.' },
+  { kind: 'li', text: 'Deliver exceptional user experiences.' }
 ];
+
+const TrafficLights: FC = () => (
+  <div className="mr-1 flex shrink-0 items-center gap-[7px] pr-3 pl-1 sm:mr-2 sm:pr-4 sm:pl-2">
+    <span
+      className="inline-block h-3 w-3 rounded-full shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.25)]"
+      style={{ background: '#ff5f57' }}
+      aria-hidden="true"
+    />
+    <span
+      className="inline-block h-3 w-3 rounded-full shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.25)]"
+      style={{ background: '#febc2e' }}
+      aria-hidden="true"
+    />
+    <span
+      className="inline-block h-3 w-3 rounded-full shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.25)]"
+      style={{ background: '#28c840' }}
+      aria-hidden="true"
+    />
+  </div>
+);
+
+const MdRow: FC<{ line: MdLine }> = ({ line }) => {
+  if (line.kind === 'blank') return <p className="m-0 h-[0.6em]" aria-hidden="true" />;
+
+  if (line.kind === 'h1') {
+    return (
+      <p className="m-0 font-semibold">
+        <span style={{ color: 'var(--term-prompt)' }}># </span>
+        <span style={{ color: 'var(--term-fg)' }}>{line.text}</span>
+      </p>
+    );
+  }
+
+  if (line.kind === 'h2') {
+    return (
+      <p className="m-0 font-semibold">
+        <span style={{ color: 'var(--term-prompt)' }}>## </span>
+        <span style={{ color: 'var(--term-fg)' }}>{line.text}</span>
+      </p>
+    );
+  }
+
+  if (line.kind === 'li') {
+    return (
+      <p className="m-0">
+        <span style={{ color: 'var(--term-prompt)' }}>- </span>
+        <span style={{ color: 'var(--term-comment)' }}>{line.text}</span>
+      </p>
+    );
+  }
+
+  return (
+    <p className="m-0" style={{ color: 'var(--term-comment)' }}>
+      {line.text}
+    </p>
+  );
+};
 
 const Cursor: FC = () => (
   <span
@@ -114,14 +181,14 @@ export const Terminal: FC<Props> = ({ prefersReducedMotion }) => {
 
   useEffect(() => {
     if (reduced.current) {
-      setTyped('./chad-lefort.sh');
+      setTyped('cat ABOUT.md');
       setCmdDone(true);
       setLineIndex(body.length);
 
       return;
     }
 
-    const command = './chad-lefort.sh';
+    const command = 'cat ABOUT.md';
     let i = 0;
     const timer = window.setInterval(() => {
       i += 1;
@@ -171,6 +238,7 @@ export const Terminal: FC<Props> = ({ prefersReducedMotion }) => {
         className="flex items-end gap-1 overflow-x-auto px-2 pt-2 sm:px-3 sm:pt-3"
         style={{ background: 'var(--term-menu-bg)' }}
       >
+        <TrafficLights />
         <Tab icon={Folder} label="chadlefort.com" active />
         <Tab idx={1} icon={Code2} label="nvim" href="/#skills" hideOnMobile />
         <Tab idx={2} icon={FolderGit2} label="~/dotfiles" href="https://github.com/ChadLefort" hideOnMobile />
@@ -179,7 +247,7 @@ export const Terminal: FC<Props> = ({ prefersReducedMotion }) => {
 
       <div className="px-3 py-2 sm:px-4 sm:py-3" style={{ background: 'var(--term-bg)' }}>
         <div
-          className="inline-flex max-w-full flex-wrap items-center gap-x-2 gap-y-1 rounded-full px-3 py-1.5 shadow-inner shadow-black/10 sm:gap-x-3 sm:px-4"
+          className="inline-flex max-w-full flex-wrap items-center gap-x-2 gap-y-2 rounded-2xl px-4 py-2.5 shadow-inner shadow-black/10 sm:gap-x-3 sm:rounded-full sm:px-4 sm:py-1.5"
           style={{ background: 'var(--term-status-bg)' }}
         >
           <Segment icon={Apple} text="clefort" />
@@ -212,11 +280,9 @@ export const Terminal: FC<Props> = ({ prefersReducedMotion }) => {
         </p>
 
         {cmdDone && (
-          <div className="mt-3 space-y-1">
-            {body.slice(0, lineIndex).map((line) => (
-              <p key={line.text} className="m-0" style={{ color: 'var(--term-comment)' }}>
-                {line.text}
-              </p>
+          <div className="mt-3">
+            {body.slice(0, lineIndex).map((line, i) => (
+              <MdRow key={i} line={line} />
             ))}
             {lineIndex >= body.length && (
               <p className="m-0 mt-3">
