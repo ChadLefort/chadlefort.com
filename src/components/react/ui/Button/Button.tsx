@@ -1,10 +1,8 @@
 import type { FC, ReactNode } from 'react';
 import { Button as RACButton, composeRenderProps, type ButtonProps as RACButtonProps } from 'react-aria-components';
-import { tv } from 'tailwind-variants';
+import { tv, type VariantProps } from 'tailwind-variants';
 
-import type { ButtonStyleProps } from './types';
-
-export const focusRing = tv({
+const focusRing = tv({
   base: 'outline outline-accent outline-offset-[3px] forced-colors:outline-[Highlight]',
   variants: {
     isFocusVisible: {
@@ -100,6 +98,16 @@ export const buttonStyles = tv({
     shape: 'default'
   }
 });
+
+type ButtonVariants = VariantProps<typeof buttonStyles>;
+
+export type ButtonStyleProps = {
+  variant?: ButtonVariants['variant'];
+  color?: ButtonVariants['color'];
+  size?: ButtonVariants['size'];
+  shape?: ButtonVariants['shape'];
+  fullWidth?: ButtonVariants['fullWidth'];
+};
 
 type Props = Omit<RACButtonProps, 'className' | 'children'> &
   ButtonStyleProps & {
