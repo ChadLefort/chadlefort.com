@@ -1,0 +1,103 @@
+---
+import { site } from '~/data/site';
+import { jobs } from '~/data/jobs';
+import { skills } from '~/data/skills';
+
+type Props = {
+  title?: string;
+  description?: string;
+  image?: string;
+  pathname?: string;
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
+};
+
+const {
+  title,
+  description = site.description,
+  image = site.ogImage,
+  pathname = Astro.url.pathname,
+  structuredData
+} = Astro.props;
+
+const fullTitle = title ? `${title} - ${site.name}` : site.title;
+const canonical = new URL(pathname, site.siteUrl).toString();
+const fullImage = new URL(image, site.siteUrl).toString();
+
+const currentJob = jobs[0];
+
+const personLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': `${site.siteUrl}#chad-lefort`,
+  name: site.name,
+  jobTitle: site.jobTitle,
+  email: `mailto:${site.email}`,
+  image: new URL(site.avatar, site.siteUrl).toString(),
+  url: site.siteUrl,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Mandeville',
+    addressRegion: 'LA',
+    addressCountry: 'US'
+  },
+  worksFor: currentJob
+    ? {
+        '@type': 'Organization',
+        name: currentJob.company
+      }
+    : undefined,
+  hasOccupation: {
+    '@type': 'Occupation',
+    name: site.jobTitle,
+    occupationLocation: {
+      '@type': 'City',
+      name: 'Mandeville, LA'
+    },
+    skills: skills.map((s) => s.name).join(', ')
+  },
+  alumniOf: {
+    '@type': 'CollegeOrUniversity',
+    name: 'Nicholls State University',
+    url: 'https://www.nicholls.edu/'
+  },
+  knowsAbout: skills.map((s) => s.name),
+  sameAs: Object.values(site.social)
+};
+
+const websiteLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: site.name,
+  url: site.siteUrl,
+  inLanguage: site.lang,
+  author: { '@type': 'Person', name: site.name, url: site.siteUrl }
+};
+
+const structured = Array.isArray(structuredData) ? structuredData : structuredData ? [structuredData] : [];
+
+const jsonLdGraph = [personLd, websiteLd, ...structured];
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta name="robots" content="index, follow, noai, noimageai" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:image" content={fullImage} />
+<meta property="og:locale" content={site.lang} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={fullImage} />
+
+<link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt — agent reading list" />
+<link rel="alternate" type="text/plain" href="/llms-full.txt" title="Full site content for agents" />
+<link rel="alternate" type="text/markdown" href="/resume.md" title="Resume in markdown" />
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLdGraph)} is:inline />

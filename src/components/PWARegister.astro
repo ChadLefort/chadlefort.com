@@ -1,0 +1,10 @@
+<script>
+  import { registerSW } from 'virtual:pwa-register';
+
+  registerSW({
+    immediate: true,
+    onOfflineReady() {
+      console.info('App ready for offline use');
+    }
+  });
+</script>

@@ -1,0 +1,52 @@
+---
+title: Spear Cart
+subtitle: Aug 2023 - Feb 2024
+summary: A mobile-first multi-cart experience for an education SaaS that exceeded membership goals by 25%.
+cover: ../../assets/projects/spear-cart/cart_1_membership.png
+coverAlt: Spear Cart membership flow
+gallery:
+  - src: ../../assets/projects/spear-cart/cart_1_membership.png
+    alt: Spear Cart membership step 1
+  - src: ../../assets/projects/spear-cart/cart_2_membership.png
+    alt: Spear Cart membership step 2
+  - src: ../../assets/projects/spear-cart/cart_3_membership.png
+    alt: Spear Cart membership step 3
+  - src: ../../assets/projects/spear-cart/cart_4_membership.png
+    alt: Spear Cart membership step 4
+  - src: ../../assets/projects/spear-cart/cart_5_campus.png
+    alt: Spear Cart campus event variant
+externalUrl: https://signup.speareducation.com/
+tech:
+  - Vue
+  - Nuxt
+  - Pinia
+  - TypeScript
+  - Bootstrap
+  - Sass
+  - Vitest
+  - Testing Library
+  - MSW
+  - Storybook
+  - Laravel
+  - Docker
+order: 1
+featured: true
+span: xl
+accent: from-rose-500/25 via-pink-500/20 to-amber-400/10
+start: 2023-08
+end: 2024-02
+---
+
+## Problem
+
+Separate carts for memberships, campus events, and future offerings meant duplicated logic, friction for users, and fragmented analytics. Conversion on the membership flow had been flat for months.
+
+## Solution
+
+I built a single, mobile-first cart that replaced every legacy checkout with a shared cart type system. The UI was rebuilt in Vue 3 + Nuxt + Pinia with TypeScript end to end, reusable checkout components, and promotional-code support. Forms were validated with VeeValidate and edge cases were covered by unit tests using Vue Testing Library (~80% meaningful coverage) plus MSW for offline-first API mocks.
+
+## Impact
+
+- Membership signups exceeded their goal by **25%** after launch.
+- Consolidated three cart experiences into one reusable cart engine.
+- Cut frontend defects in half during the first quarter after launch.

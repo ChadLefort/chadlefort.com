@@ -1,0 +1,37 @@
+---
+import { getImage } from 'astro:assets';
+import Section from '~/components/Section.astro';
+import { AboutMeSwiper } from '~/components/react/AboutMeSwiper';
+import about1 from '~/assets/about/about-1.png';
+import about2 from '~/assets/about/about-2.png';
+import about3 from '~/assets/about/about-3.png';
+import about4 from '~/assets/about/about-4.png';
+import about5 from '~/assets/about/about-5.png';
+
+const sources = [about1, about2, about3, about4, about5];
+const processed = await Promise.all(
+  sources.map(async (source, index) => {
+    const optimized = await getImage({ src: source, width: 520, format: 'webp', quality: 85 });
+    return { src: optimized.src, alt: `About me photo ${index + 1}` };
+  })
+);
+---
+
+<Section id="about-me" eyebrow="About me" title="A bit about Chad" tone="alt" hideFromPrint>
+  <div class="mx-auto grid max-w-5xl items-center gap-12 md:grid-cols-[minmax(0,300px)_1fr]">
+    <AboutMeSwiper client:visible images={processed} />
+    <div class="space-y-5 text-base leading-relaxed text-[var(--text-muted)] md:text-lg">
+      <p>
+        I've been a technology enthusiast ever since a young age. Whether it's looking at source code or computer
+        hardware, I've always enjoyed tinkering around to understand how things work. Shortly after I was given my first
+        computer at 11 years old, I started the journey of creating web sites and fell in love with the web and
+        programming.
+      </p>
+      <p>
+        When I'm not programming, I enjoy taking daily walks with my wife Melanie and taking naps on the couch with my
+        cat. I also enjoy skateboarding a couple of times a week (even though my knees don't), riding my bike on trails,
+        playing guitar, and adventuring in video games.
+      </p>
+    </div>
+  </div>
+</Section>

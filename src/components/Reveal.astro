@@ -1,0 +1,13 @@
+---
+type Props = {
+  class?: string;
+  as?: 'div' | 'li' | 'section' | 'article';
+  delay?: number;
+};
+
+const { class: className = '', as: Tag = 'div', delay = 0 } = Astro.props;
+---
+
+<Tag class={`fade-up ${className}`} style={delay ? `transition-delay: ${delay}ms;` : undefined} data-reveal>
+  <slot />
+</Tag>

@@ -1,0 +1,33 @@
+---
+title: Webpack 5 Module Federation
+subtitle: Jan 2021 - Mar 2021
+summary: Cut a team's PR churn from 5-7 per ticket to 1 by introducing Module Federation for a microfrontend monorepo.
+repoUrl: https://github.com/ChadLefort/mf-mfe-demo
+tech:
+  - Webpack
+  - Nx
+  - Jenkins
+  - React
+  - Redux
+  - TypeScript
+  - Material UI
+order: 3
+span: md
+accent: from-emerald-500/25 via-teal-500/15 to-sky-500/10
+start: 2021-01
+end: 2021-03
+---
+
+## Problem
+
+Every ticket forced the team to ship 4-7 coordinated pull requests before code review could even start. Releases were painful and updates stalled behind coordination overhead.
+
+## Solution
+
+I built a reference microfrontend monorepo on Nx that demonstrated Webpack 5 Module Federation with injectable Redux reducers. Teams could load and own federated modules independently, while the shell app composed them at runtime. The patterns from this demo were brought into the client's production applications.
+
+## Impact
+
+- Reduced the number of PRs per issue from 5-7 down to **1**.
+- Applications could ship independently, unlocking incremental delivery.
+- Full write-up, architecture docs, and code live on [GitHub](https://github.com/ChadLefort/mf-mfe-demo).
