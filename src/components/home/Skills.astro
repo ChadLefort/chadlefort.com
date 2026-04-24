@@ -17,9 +17,7 @@ import { skills } from '~/data/skills';
               style={skill.color ? `color: ${skill.color};` : undefined}
               aria-hidden="true"
             />
-            <span class="text-center text-xs font-semibold tracking-wide text-[var(--text)]/90 md:text-sm">
-              {skill.name}
-            </span>
+            <span class="text-fg/90 text-center text-xs font-semibold tracking-wide md:text-sm">{skill.name}</span>
           </div>
         </Reveal>
       ))

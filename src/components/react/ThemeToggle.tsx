@@ -63,7 +63,7 @@ export const ThemeToggle: FC = () => {
       icon={mounted && theme === 'dark' ? <SunIcon /> : <MoonIcon />}
       variant="ghost"
       color="neutral"
-      className="text-[var(--nav-fg)]"
+      className="text-nav-fg"
     />
   );
 };

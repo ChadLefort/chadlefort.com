@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Briefcase, Code2, GraduationCap, Home, LayoutDashboard, Mail, Menu, User, X } from 'lucide-react';
 import { Button as RACButton, Dialog, DialogTrigger, Heading, Modal, ModalOverlay } from 'react-aria-components';
 import type { NavLink } from '~/data/nav';
-import { buttonStyles } from '~/utils/styles';
+import { buttonStyles } from '~/components/react/ui/Button';
 
 type Props = { links: NavLink[] };
 
@@ -39,7 +39,7 @@ export const MobileDrawer: FC<Props> = ({ links }) => {
           color: 'neutral',
           size: 'md',
           shape: 'icon',
-          className: 'text-[var(--nav-fg)]'
+          className: 'text-nav-fg'
         })}
       >
         <Menu className="h-6 w-6" aria-hidden="true" />
@@ -49,9 +49,9 @@ export const MobileDrawer: FC<Props> = ({ links }) => {
         isDismissable
         className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-sm transition-opacity duration-200 ease-out data-[entering]:opacity-0 data-[exiting]:opacity-0"
       >
-        <Modal className="glass-strong h-full w-80 max-w-full transform-gpu text-[var(--text)] shadow-2xl transition-transform duration-300 ease-out data-[entering]:translate-x-full data-[exiting]:translate-x-full motion-reduce:transition-none">
+        <Modal className="glass-strong text-fg h-full w-80 max-w-full transform-gpu shadow-2xl transition-transform duration-300 ease-out data-[entering]:translate-x-full data-[exiting]:translate-x-full motion-reduce:transition-none">
           <Dialog className="flex h-full flex-col outline-none">
-            <div className="flex items-center justify-between border-b border-[var(--glass-border)] px-4 py-3">
+            <div className="border-glass-border flex items-center justify-between border-b px-4 py-3">
               <Heading slot="title" className="font-display text-lg">
                 Menu
               </Heading>
@@ -73,9 +73,9 @@ export const MobileDrawer: FC<Props> = ({ links }) => {
                     key={link.href}
                     href={link.href}
                     onClick={() => setOpen(false)}
-                    className="flex items-center gap-3 rounded-lg px-3 py-3 font-semibold transition hover:bg-white/5 focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:outline-none"
+                    className="focus-visible:ring-accent flex items-center gap-3 rounded-lg px-3 py-3 font-semibold transition hover:bg-white/5 focus-visible:ring-2 focus-visible:outline-none"
                   >
-                    <Icon className="h-5 w-5 text-[var(--text-muted)]" aria-hidden="true" />
+                    <Icon className="text-fg-muted h-5 w-5" aria-hidden="true" />
                     {link.label}
                   </a>
                 );

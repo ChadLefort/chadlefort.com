@@ -1,1 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#21252b"/><path d="M18 22l10 10-10 10M30 44h16" stroke="#569cd6" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Chad Lefort favicon</title>
+  <desc id="desc">Terminal-inspired prompt mark on a dark rounded square.</desc>
+  <defs>
+    <linearGradient id="surface" x1="10" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#30333a" />
+      <stop offset="1" stop-color="#21252b" />
+    </linearGradient>
+    <linearGradient id="prompt" x1="18" y1="18" x2="34" y2="42" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#9cdcfd" />
+      <stop offset="1" stop-color="#569cd6" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="18" fill="url(#surface)" />
+  <rect x="2.5" y="2.5" width="59" height="59" rx="15.5" fill="none" stroke="#ffffff" stroke-opacity="0.08" />
+  <circle cx="17" cy="14" r="2.5" fill="#4ec9b0" />
+  <path
+    d="M27 19.5 16.5 32 27 44.5"
+    fill="none"
+    stroke="url(#prompt)"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="6"
+  />
+  <path d="M35.5 44H48" fill="none" stroke="url(#prompt)" stroke-linecap="round" stroke-width="6" />
+</svg>

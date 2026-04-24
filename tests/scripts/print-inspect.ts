@@ -15,7 +15,6 @@ const run = async () => {
     const cs = getComputedStyle(ol);
     const beforeCs = getComputedStyle(ol, '::before');
     const firstLi = ol.firstElementChild;
-    const liCs = firstLi ? getComputedStyle(firstLi) : null;
     const liBeforeCs = firstLi ? getComputedStyle(firstLi, '::before') : null;
 
     return {

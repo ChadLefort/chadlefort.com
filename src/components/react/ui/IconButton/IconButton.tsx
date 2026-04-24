@@ -1,17 +1,15 @@
 import type { FC, ReactNode } from 'react';
 import { Button as RACButton, composeRenderProps, type ButtonProps } from 'react-aria-components';
-import { buttonStyles, type ButtonStyleProps } from '~/utils/styles';
 
-type ButtonVariants = NonNullable<ButtonStyleProps>;
+import { buttonStyles } from '../Button/Button';
+import type { IconButtonStyleProps } from './types';
 
-type Props = Omit<ButtonProps, 'className' | 'children'> & {
-  label: string;
-  icon: ReactNode;
-  variant?: ButtonVariants['variant'];
-  color?: ButtonVariants['color'];
-  size?: ButtonVariants['size'];
-  className?: string;
-};
+type Props = Omit<ButtonProps, 'className' | 'children'> &
+  IconButtonStyleProps & {
+    label: string;
+    icon: ReactNode;
+    className?: string;
+  };
 
 export const IconButton: FC<Props> = ({
   label,

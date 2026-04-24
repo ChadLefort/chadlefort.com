@@ -5,7 +5,6 @@ import { Icon } from 'astro-icon/components';
 import Base from '~/layouts/Base.astro';
 import { ProjectGallery } from '~/components/react/ProjectGallery';
 import ProjectTabs from '~/components/projects/ProjectTabs.astro';
-import { type NavLink } from '~/data/nav';
 import { site } from '~/data/site';
 
 type Props = { project: CollectionEntry<'projects'> };
@@ -21,13 +20,6 @@ export const getStaticPaths = async () => {
 
 const { project } = Astro.props as Props;
 const { Content } = await render(project);
-
-const navLinks: NavLink[] = [
-  { href: '/', label: 'Home', icon: 'lucide:home' },
-  { href: '/#job-experience', label: 'Experience', icon: 'lucide:briefcase' },
-  { href: '/#contact', label: 'Contact', icon: 'lucide:mail' },
-  { href: '/projects', label: 'Projects', icon: 'lucide:layout-dashboard' }
-];
 
 type GalleryItem = NonNullable<CollectionEntry<'projects'>['data']['gallery']>[number];
 
@@ -79,6 +71,15 @@ const breadcrumbLd = {
     }
   ]
 };
+
+const backLinkClass =
+  'border-glass-border bg-glass text-fg hover:bg-glass-strong focus-visible:ring-accent inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-semibold transition focus-visible:ring-2 focus-visible:outline-none';
+
+const primaryCtaClass =
+  'bg-accent-strong hover:bg-accent focus-visible:ring-accent focus-visible:ring-offset-surface inline-flex scale-100 items-center gap-2 rounded-xl px-6 py-3 font-semibold text-white transition-all duration-200 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.98] motion-reduce:hover:scale-100';
+
+const secondaryCtaClass =
+  'border-glass-border-strong bg-glass text-fg hover:border-accent focus-visible:ring-accent focus-visible:ring-offset-surface inline-flex scale-100 items-center gap-2 rounded-xl border px-6 py-3 font-semibold transition-all duration-200 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.98] motion-reduce:hover:scale-100';
 ---
 
 <Base
@@ -86,33 +87,26 @@ const breadcrumbLd = {
   description={project.data.summary}
   image={coverUrl}
   pathname={`/projects/${project.id}`}
-  navLinks={navLinks}
-  showLogoOnDesktop
   structuredData={[projectLd, breadcrumbLd]}
 >
   <article>
     <section class="relative px-4 pt-12 pb-16 sm:px-6 md:pt-20 md:pb-24">
       <div class="max-w-section mx-auto">
-        <a
-          href="/projects"
-          class="inline-flex items-center gap-1.5 rounded-full border border-[var(--glass-border)] bg-[var(--glass-bg)] px-3 py-1.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--glass-bg-strong)] focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:outline-none"
-        >
+        <a href="/projects" class={backLinkClass}>
           <Icon name="lucide:chevron-left" class="h-4 w-4" aria-hidden="true" />
           Back to projects
         </a>
 
         <div class="mt-10 grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-center md:gap-14">
           <div>
-            <p class="font-mono text-xs tracking-[0.3em] text-[var(--color-accent)] uppercase">
-              {project.data.subtitle}
-            </p>
-            <h1 class="font-display mt-3 text-5xl tracking-tight md:text-6xl">{project.data.title}</h1>
-            <p class="mt-6 text-lg leading-relaxed text-[var(--text-muted)] md:text-xl">{project.data.summary}</p>
+            <p class="text-accent font-mono text-xs tracking-[0.3em] uppercase">{project.data.subtitle}</p>
+            <h1 class="font-display mt-3 text-5xl md:text-6xl">{project.data.title}</h1>
+            <p class="text-fg-muted mt-6 text-lg leading-relaxed md:text-xl">{project.data.summary}</p>
 
             <ul class="mt-8 flex flex-wrap gap-2">
               {
                 project.data.tech.map((tag: string) => (
-                  <li class="rounded-full border border-[var(--glass-border)] bg-[var(--glass-bg)] px-3 py-1 text-xs font-semibold tracking-wide text-[var(--text)]">
+                  <li class="border-glass-border bg-glass text-fg rounded-full border px-3 py-1 text-xs font-semibold tracking-wide">
                     {tag}
                   </li>
                 ))
@@ -122,12 +116,7 @@ const breadcrumbLd = {
             <div class="mt-10 flex flex-wrap gap-3">
               {
                 project.data.externalUrl && (
-                  <a
-                    href={project.data.externalUrl}
-                    target="_blank"
-                    rel="noopener"
-                    class="inline-flex scale-100 items-center gap-2 rounded-xl bg-[var(--color-accent-strong)] px-6 py-3 font-semibold text-white transition-all duration-200 hover:scale-[1.02] hover:bg-[var(--color-accent)] focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface)] focus-visible:outline-none active:scale-[0.98] motion-reduce:hover:scale-100"
-                  >
+                  <a href={project.data.externalUrl} target="_blank" rel="noopener" class={primaryCtaClass}>
                     <Icon name="lucide:external-link" class="h-4 w-4" aria-hidden="true" />
                     Visit live site
                   </a>
@@ -135,12 +124,7 @@ const breadcrumbLd = {
               }
               {
                 project.data.repoUrl && (
-                  <a
-                    href={project.data.repoUrl}
-                    target="_blank"
-                    rel="noopener"
-                    class="inline-flex scale-100 items-center gap-2 rounded-xl border border-[var(--glass-border-strong)] bg-[var(--glass-bg)] px-6 py-3 font-semibold text-[var(--text)] transition-all duration-200 hover:scale-[1.02] hover:border-[var(--color-accent)] focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface)] focus-visible:outline-none active:scale-[0.98] motion-reduce:hover:scale-100"
-                  >
+                  <a href={project.data.repoUrl} target="_blank" rel="noopener" class={secondaryCtaClass}>
                     <Icon name="lucide:github" class="h-4 w-4" aria-hidden="true" />
                     Repository
                   </a>
@@ -151,7 +135,7 @@ const breadcrumbLd = {
 
           {
             project.data.cover && (
-              <div class="overflow-hidden rounded-2xl border border-[var(--glass-border)] bg-[var(--surface-raised)]">
+              <div class="border-glass-border bg-surface-raised overflow-hidden rounded-2xl border">
                 <Image
                   src={project.data.cover}
                   alt={project.data.title}
