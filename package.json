@@ -3,7 +3,7 @@
   "private": true,
   "description": "Personal website",
   "version": "2.0.0",
-  "license": "0BSD",
+  "license": "MIT",
   "type": "module",
   "repository": {
     "type": "git",
