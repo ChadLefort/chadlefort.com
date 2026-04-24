@@ -28,6 +28,12 @@
     "test:coverage": "vitest --run --coverage",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
+    "audit": "fallow audit",
+    "dead-code": "fallow dead-code",
+    "dupes": "fallow dupes",
+    "health": "fallow health",
+    "fallow:fix": "fallow fix --yes",
+    "fallow:fix:preview": "fallow fix --dry-run",
     "prepare": "husky"
   },
   "dependencies": {
@@ -40,7 +46,6 @@
     "@tailwindcss/vite": "^4.1.16",
     "astro": "^5.15.0",
     "astro-icon": "^1.1.5",
-    "clsx": "^2.1.1",
     "lucide-react": "^1.9.0",
     "react": "^19.2.0",
     "react-aria-components": "^1.17.0",
@@ -68,6 +73,7 @@
     "@vitest/coverage-v8": "^3.2.3",
     "@vitest/ui": "^3.2.3",
     "axe-core": "^4.11.0",
+    "fallow": "^2.48.4",
     "husky": "^9.1.7",
     "jsdom": "^27.0.0",
     "lint-staged": "^16.2.0",

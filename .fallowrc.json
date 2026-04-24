@@ -1,0 +1,13 @@
+{
+  "ignoreDependencies": [
+    "@astrojs/mdx",
+    "@astrojs/react",
+    "@astrojs/sitemap",
+    "@tailwindcss/vite",
+    "@iconify-json/lucide",
+    "@iconify-json/mdi",
+    "@iconify-json/simple-icons",
+    "@iconify-json/devicon",
+    "axe-core"
+  ]
+}

@@ -27,6 +27,7 @@ const previewHost = '127.0.0.1';
 const previewPort = 4326;
 const previewUrl = `http://${previewHost}:${previewPort}/`;
 
+// fallow-ignore-next-line complexity
 const waitForServer = async (url, timeoutMs = 30_000) => {
   const start = Date.now();
   while (Date.now() - start < timeoutMs) {

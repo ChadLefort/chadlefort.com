@@ -1,22 +1,13 @@
 import type { APIRoute } from 'astro';
-import { getCollection } from 'astro:content';
-import { site, yearsOfExperience } from '~/data/site';
 import { jobs } from '~/data/jobs';
-import { skills } from '~/data/skills';
+import { site } from '~/data/site';
+import { introLines, skillsSection, sortedProjects } from '~/utils/markdown-sections';
 
 export const GET: APIRoute = async () => {
-  const projects = (await getCollection('projects')).sort(
-    (a: { data: { order?: number } }, b: { data: { order?: number } }) => (a.data.order ?? 99) - (b.data.order ?? 99)
-  );
-
+  const projects = await sortedProjects();
   const out: string[] = [];
 
-  out.push(`# ${site.name}`);
-  out.push('');
-  out.push(
-    `> ${site.jobTitle} from Mandeville, Louisiana with ${yearsOfExperience()}+ years shipping accessible, maintainable, performant web apps.`
-  );
-  out.push('');
+  out.push(...introLines());
   out.push(
     'This is the canonical reading list for agents. Every HTML page has a companion markdown target listed below. For the full aggregated content, fetch llms-full.txt.'
   );
@@ -41,9 +32,7 @@ export const GET: APIRoute = async () => {
   }
   out.push('');
 
-  out.push('## Skills');
-  out.push(skills.map((s) => s.name).join(', ') + '.');
-  out.push('');
+  out.push(...skillsSection());
 
   out.push('## Contact');
   out.push(`- Email: ${site.email}`);
