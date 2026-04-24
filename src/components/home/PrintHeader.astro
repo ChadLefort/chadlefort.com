@@ -10,7 +10,17 @@ const years = yearsOfExperience();
 <section data-print-only class="hidden">
   <div class="print-header">
     <div class="print-header-top">
-      <Image src={me} alt="Chad Lefort" width={120} height={120} format="webp" quality={88} class="print-avatar" />
+      <Image
+        src={me}
+        alt="Chad Lefort"
+        width={120}
+        height={120}
+        format="webp"
+        quality={88}
+        loading="eager"
+        fetchpriority="high"
+        class="print-avatar"
+      />
       <div class="print-name-block">
         <h1>{site.name}</h1>
         <p>{site.jobTitle}</p>

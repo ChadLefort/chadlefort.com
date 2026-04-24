@@ -8,7 +8,7 @@ import { jobs } from '~/data/jobs';
   <div class="relative mx-auto w-full max-w-6xl">
     <span
       aria-hidden="true"
-      class="pointer-events-none absolute top-0 bottom-0 left-4 w-px bg-gradient-to-b from-transparent via-[var(--color-accent)]/40 to-transparent md:left-1/2 md:-translate-x-1/2 print:hidden"
+      class="via-accent/40 pointer-events-none absolute top-0 bottom-0 left-4 w-px bg-gradient-to-b from-transparent to-transparent md:left-1/2 md:-translate-x-1/2 print:hidden"
     ></span>
 
     <ol class="flex flex-col gap-6 md:gap-16" aria-label="Employment history">
@@ -21,7 +21,7 @@ import { jobs } from '~/data/jobs';
             <li class="print-job relative pl-12 md:grid md:grid-cols-2 md:items-center md:gap-x-16 md:pl-0">
               <span
                 aria-hidden="true"
-                class="absolute top-6 left-4 z-10 inline-flex h-4 w-4 -translate-x-1/2 items-center justify-center rounded-full bg-[var(--color-accent)] ring-4 ring-[var(--surface)] md:top-1/2 md:left-1/2 md:-translate-y-1/2 print:hidden"
+                class="bg-accent ring-surface absolute top-6 left-4 z-10 inline-flex h-4 w-4 -translate-x-1/2 items-center justify-center rounded-full ring-4 md:top-1/2 md:left-1/2 md:-translate-y-1/2 print:hidden"
               />
 
               {isLeft ? (
@@ -29,20 +29,18 @@ import { jobs } from '~/data/jobs';
                   <div class="md:order-1 md:text-right">
                     <Reveal class={`card card-hover p-6 md:p-8 ${fadeDir}`}>
                       <header class="flex flex-col gap-1 md:items-end">
-                        <h3 class="font-display text-xl tracking-tight text-[var(--text)] md:text-2xl">
-                          {job.company}
-                        </h3>
-                        <p class="text-sm font-semibold text-[var(--color-accent)] md:text-base">{job.role}</p>
-                        <p class="font-mono text-xs text-[var(--text-muted)] md:hidden">
+                        <h3 class="font-display text-fg text-xl md:text-2xl">{job.company}</h3>
+                        <p class="text-accent text-sm font-semibold md:text-base">{job.role}</p>
+                        <p class="text-fg-muted font-mono text-xs md:hidden">
                           {job.start} &ndash; {job.end}
                         </p>
                       </header>
-                      <ul class="mt-4 space-y-2 text-left text-sm leading-relaxed text-[var(--text-muted)] md:text-[15px]">
+                      <ul class="text-fg-muted mt-4 space-y-2 text-left text-sm leading-relaxed md:text-base">
                         {job.bullets.map((bullet) => (
                           <li class="flex gap-2">
                             <span
                               aria-hidden="true"
-                              class="mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-accent)]"
+                              class="bg-accent mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full"
                             />
                             <span>{bullet}</span>
                           </li>
@@ -51,35 +49,33 @@ import { jobs } from '~/data/jobs';
                     </Reveal>
                   </div>
                   <div class="hidden md:order-2 md:block">
-                    <p class="font-mono text-sm tracking-wide text-[var(--text-muted)]">
-                      <span class="text-[var(--color-accent)]">{job.start}</span> &mdash; {job.end}
+                    <p class="text-fg-muted font-mono text-sm tracking-wide">
+                      <span class="text-accent">{job.start}</span> &mdash; {job.end}
                     </p>
                   </div>
                 </>
               ) : (
                 <>
                   <div class="hidden md:order-1 md:block md:text-right">
-                    <p class="font-mono text-sm tracking-wide text-[var(--text-muted)]">
-                      <span class="text-[var(--color-accent)]">{job.start}</span> &mdash; {job.end}
+                    <p class="text-fg-muted font-mono text-sm tracking-wide">
+                      <span class="text-accent">{job.start}</span> &mdash; {job.end}
                     </p>
                   </div>
                   <div class="md:order-2">
                     <Reveal class={`card card-hover p-6 md:p-8 ${fadeDir}`}>
                       <header class="flex flex-col gap-1">
-                        <h3 class="font-display text-xl tracking-tight text-[var(--text)] md:text-2xl">
-                          {job.company}
-                        </h3>
-                        <p class="text-sm font-semibold text-[var(--color-accent)] md:text-base">{job.role}</p>
-                        <p class="font-mono text-xs text-[var(--text-muted)] md:hidden">
+                        <h3 class="font-display text-fg text-xl md:text-2xl">{job.company}</h3>
+                        <p class="text-accent text-sm font-semibold md:text-base">{job.role}</p>
+                        <p class="text-fg-muted font-mono text-xs md:hidden">
                           {job.start} &ndash; {job.end}
                         </p>
                       </header>
-                      <ul class="mt-4 space-y-2 text-sm leading-relaxed text-[var(--text-muted)] md:text-[15px]">
+                      <ul class="text-fg-muted mt-4 space-y-2 text-sm leading-relaxed md:text-base">
                         {job.bullets.map((bullet) => (
                           <li class="flex gap-2">
                             <span
                               aria-hidden="true"
-                              class="mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-accent)]"
+                              class="bg-accent mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full"
                             />
                             <span>{bullet}</span>
                           </li>

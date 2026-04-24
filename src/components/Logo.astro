@@ -1,13 +1,24 @@
 ---
+import { tv } from 'tailwind-variants';
+
 type Props = {
   as?: 'h1' | 'h2' | 'span' | 'div';
   class?: string;
   size?: 'sm' | 'md' | 'lg';
 };
 
-const { as: Tag = 'span', class: className = '', size = 'md' } = Astro.props as Props;
+const { as: Tag = 'span', class: className, size = 'md' } = Astro.props as Props;
 
-const sizeClass = size === 'lg' ? 'text-5xl md:text-6xl' : size === 'sm' ? 'text-xl' : 'text-2xl';
+const styles = tv({
+  base: 'font-display tracking-wide',
+  variants: {
+    size: {
+      sm: 'text-xl',
+      md: 'text-2xl',
+      lg: 'text-5xl md:text-6xl'
+    }
+  }
+});
 ---
 
-<Tag class={`font-display tracking-wide ${sizeClass} ${className}`}>Chad Lefort</Tag>
+<Tag class={styles({ size, class: className })}>Chad Lefort</Tag>

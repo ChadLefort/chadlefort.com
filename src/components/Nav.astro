@@ -15,7 +15,7 @@ const { links = homeNav, showLogoOnDesktop = false } = Astro.props;
 
 <a href="#main" class="skip-link">Skip to main content</a>
 
-<header data-no-print class="glass-nav sticky top-0 z-30 text-[var(--nav-fg)]">
+<header data-no-print class="glass-nav text-nav-fg sticky top-0 z-30">
   <div
     class="max-w-section mx-auto hidden h-16 w-full items-center gap-4 px-4 sm:px-6 md:grid md:grid-cols-[1fr_auto_1fr]"
   >
@@ -34,7 +34,7 @@ const { links = homeNav, showLogoOnDesktop = false } = Astro.props;
         links.map((link) => (
           <a
             href={link.href}
-            class="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold tracking-wide text-[var(--nav-fg)]/85 transition hover:bg-white/5 hover:text-[var(--nav-fg)] focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:outline-none"
+            class="text-nav-fg/85 hover:text-nav-fg focus-visible:ring-accent inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold tracking-wide transition hover:bg-white/5 focus-visible:ring-2 focus-visible:outline-none"
           >
             <Icon name={link.icon} class="h-4 w-4 opacity-70" aria-hidden="true" />
             {link.label}

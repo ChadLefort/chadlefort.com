@@ -6,21 +6,20 @@ type Props = {
 };
 
 const { hasGallery } = Astro.props;
+
+const tabClass =
+  'project-tab cursor-pointer text-fg-muted hover:text-fg focus-visible:ring-accent aria-selected:border-accent aria-selected:text-fg inline-flex items-center gap-2 border-b-2 border-transparent px-5 py-3 text-sm font-semibold tracking-wide transition focus-visible:ring-2 focus-visible:outline-none';
 ---
 
 <div class="project-tabs" data-default={hasGallery ? 'description' : 'description'}>
-  <div
-    role="tablist"
-    aria-label="Project sections"
-    class="mb-10 flex items-center gap-2 border-b border-[var(--glass-border)]"
-  >
+  <div role="tablist" aria-label="Project sections" class="border-glass-border mb-10 flex items-center gap-2 border-b">
     <button
       type="button"
       role="tab"
       aria-selected="true"
       aria-controls="panel-description"
       data-tab="description"
-      class="project-tab inline-flex items-center gap-2 border-b-2 border-transparent px-5 py-3 text-sm font-semibold tracking-wide text-[var(--text-muted)] transition hover:text-[var(--text)] focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:outline-none aria-selected:border-[var(--color-accent)] aria-selected:text-[var(--text)]"
+      class={tabClass}
     >
       <Icon name="lucide:file-text" class="h-4 w-4" aria-hidden="true" />
       Description
@@ -33,7 +32,7 @@ const { hasGallery } = Astro.props;
           aria-selected="false"
           aria-controls="panel-gallery"
           data-tab="gallery"
-          class="project-tab inline-flex items-center gap-2 border-b-2 border-transparent px-5 py-3 text-sm font-semibold tracking-wide text-[var(--text-muted)] transition hover:text-[var(--text)] focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:outline-none aria-selected:border-[var(--color-accent)] aria-selected:text-[var(--text)]"
+          class={tabClass}
         >
           <Icon name="lucide:images" class="h-4 w-4" aria-hidden="true" />
           Images

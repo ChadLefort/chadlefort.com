@@ -32,9 +32,9 @@ const initialsFor = (title: string) =>
         <Reveal as="li" delay={index * 80}>
           <a
             href={href}
-            class="group card card-hover flex h-full flex-col p-5 focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:outline-none"
+            class="group card card-hover focus-visible:ring-accent flex h-full flex-col p-5 focus-visible:ring-2 focus-visible:outline-none"
           >
-            <div class="relative aspect-[16/9] w-full overflow-hidden rounded-2xl">
+            <div class="relative aspect-video w-full overflow-hidden rounded-2xl">
               {project.data.cover ? (
                 <Image
                   src={project.data.cover}
@@ -65,19 +65,17 @@ const initialsFor = (title: string) =>
             </div>
 
             <div class="flex flex-1 flex-col gap-3 px-2 pt-5 pb-2">
-              <p class="font-mono text-[11px] tracking-[0.25em] text-[var(--color-accent)] uppercase">
-                {project.data.subtitle}
-              </p>
-              <h3 class="font-display text-2xl tracking-tight md:text-3xl">{project.data.title}</h3>
-              <p class="leading-relaxed text-[var(--text-muted)]">{project.data.summary}</p>
+              <p class="text-accent font-mono text-xs tracking-[0.25em] uppercase">{project.data.subtitle}</p>
+              <h3 class="font-display text-2xl md:text-3xl">{project.data.title}</h3>
+              <p class="text-fg-muted leading-relaxed">{project.data.summary}</p>
               <ul class="mt-auto flex flex-wrap gap-1.5 pt-3">
                 {project.data.tech.slice(0, 6).map((tag: string) => (
-                  <li class="rounded-full border border-[var(--glass-border)] bg-[var(--tile-bg)] px-2.5 py-0.5 text-[11px] font-semibold tracking-wide text-[var(--text-muted)]">
+                  <li class="border-glass-border bg-tile text-fg-muted rounded-full border px-2.5 py-0.5 text-xs font-semibold tracking-wide">
                     {tag}
                   </li>
                 ))}
                 {project.data.tech.length > 6 && (
-                  <li class="rounded-full border border-[var(--glass-border)] px-2.5 py-0.5 text-[11px] font-semibold tracking-wide text-[var(--text-muted)]">
+                  <li class="border-glass-border text-fg-muted rounded-full border px-2.5 py-0.5 text-xs font-semibold tracking-wide">
                     +{project.data.tech.length - 6}
                   </li>
                 )}

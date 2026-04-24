@@ -51,24 +51,12 @@ const {
     <ClientRouter />
   </head>
 
-  <body class="relative isolate min-h-screen overflow-x-hidden text-[var(--text)]">
+  <body class="text-fg relative isolate min-h-screen overflow-x-hidden">
     <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-      <div class="absolute inset-0 bg-[var(--surface)]"></div>
-      <div
-        class="absolute -top-40 -left-40 h-[40rem] w-[40rem] rounded-full bg-[var(--color-terminal-blue)]/15 blur-[140px]"
-        style="opacity: var(--blob-opacity, 1);"
-      >
-      </div>
-      <div
-        class="absolute top-[20%] -right-32 h-[36rem] w-[36rem] rounded-full bg-[var(--color-terminal-magenta)]/10 blur-[140px]"
-        style="opacity: var(--blob-opacity, 1);"
-      >
-      </div>
-      <div
-        class="absolute bottom-0 left-1/3 h-[40rem] w-[40rem] rounded-full bg-[var(--color-terminal-green)]/10 blur-[160px]"
-        style="opacity: var(--blob-opacity, 1);"
-      >
-      </div>
+      <div class="bg-surface absolute inset-0"></div>
+      <div class="blob bg-terminal-blue/15 absolute -top-40 -left-40 h-160 w-160 rounded-full blur-[140px]"></div>
+      <div class="blob bg-terminal-magenta/10 absolute top-[20%] -right-32 h-144 w-144 rounded-full blur-[140px]"></div>
+      <div class="blob bg-terminal-green/10 absolute bottom-0 left-1/3 h-160 w-160 rounded-full blur-[160px]"></div>
       <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_transparent_0%,_var(--surface)_70%)]"></div>
     </div>
 

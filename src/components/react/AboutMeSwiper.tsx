@@ -14,7 +14,7 @@ export const AboutMeSwiper: FC<Props> = ({ images }) => {
   const reduced = prefersReducedMotion();
 
   return (
-    <div className="mx-auto w-full max-w-[260px]">
+    <div className="mx-auto w-full max-w-65">
       <Swiper
         slidesPerView={1}
         grabCursor
@@ -27,7 +27,7 @@ export const AboutMeSwiper: FC<Props> = ({ images }) => {
         {images.map((image) => (
           <SwiperSlide
             key={image.src}
-            className="overflow-hidden rounded-2xl bg-[var(--surface-raised)] ring-1 ring-[var(--glass-border)]"
+            className="bg-surface-raised ring-glass-border overflow-hidden rounded-2xl ring-1"
           >
             <img
               src={image.src}

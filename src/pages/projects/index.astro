@@ -3,21 +3,12 @@ import { type CollectionEntry, getCollection } from 'astro:content';
 import Base from '~/layouts/Base.astro';
 import Section from '~/components/Section.astro';
 import ProjectCards from '~/components/projects/ProjectCards.astro';
-import { type NavLink } from '~/data/nav';
 import { site } from '~/data/site';
 
 type Project = CollectionEntry<'projects'>;
 
 const raw = await getCollection('projects');
 const projects = raw.sort((a: Project, b: Project) => a.data.order - b.data.order);
-
-const navLinks: NavLink[] = [
-  { href: '/', label: 'Home', icon: 'lucide:home' },
-  { href: '/#job-experience', label: 'Experience', icon: 'lucide:briefcase' },
-  { href: '/#skills', label: 'Skills', icon: 'lucide:code-2' },
-  { href: '/#contact', label: 'Contact', icon: 'lucide:mail' },
-  { href: '/projects', label: 'Projects', icon: 'lucide:layout-dashboard' }
-];
 
 const collectionLd = {
   '@context': 'https://schema.org',
@@ -52,15 +43,13 @@ const breadcrumbLd = {
   title="Projects"
   description="Selected case studies from Chad Lefort's frontend engineering work."
   pathname="/projects"
-  navLinks={navLinks}
-  showLogoOnDesktop
   structuredData={[collectionLd, breadcrumbLd]}
 >
   <section class="px-4 pt-20 pb-8 sm:px-6 md:pt-28">
     <div class="max-w-section mx-auto">
-      <p class="font-mono text-xs tracking-[0.3em] text-[var(--color-accent)] uppercase">Case studies</p>
-      <h1 class="font-display mt-3 text-4xl tracking-tight md:text-6xl">Work worth talking about</h1>
-      <p class="mt-4 max-w-2xl text-lg text-[var(--text-muted)]">
+      <p class="text-accent font-mono text-xs tracking-[0.3em] uppercase">Some things I've shipped</p>
+      <h1 class="font-display mt-3 text-4xl md:text-6xl">Projects</h1>
+      <p class="text-fg-muted mt-4 max-w-2xl text-lg">
         A tour through shipped products, platform migrations, and frontend architecture bets. Each card opens a deeper
         write-up with screenshots, stack choices, and outcomes.
       </p>

@@ -1,4 +1,6 @@
 ---
+import { tv } from 'tailwind-variants';
+
 type Props = {
   id: string;
   tone?: 'base' | 'alt' | 'hero' | 'plain';
@@ -16,7 +18,7 @@ type Props = {
 const {
   id,
   tone = 'base',
-  class: className = '',
+  class: className,
   title,
   eyebrow,
   as: Tag = 'section',
@@ -27,30 +29,55 @@ const {
   tile = true
 } = Astro.props as Props;
 
-const widthClass = width === 'full' ? 'max-w-shell' : width === 'narrow' ? 'max-w-4xl' : 'max-w-section';
+const section = tv({
+  base: 'relative scroll-mt-24 px-4 py-5 sm:px-6 sm:py-8 md:py-16 print:p-0'
+});
 
-const tileBg = tone === 'alt' ? 'bg-[var(--tile-bg-alt)]' : 'bg-[var(--tile-bg)]';
-const tileClass = tile && tone !== 'plain' ? `${tileBg} border border-[var(--glass-border)] rounded-3xl` : '';
+const tile$ = tv({
+  base: 'relative mx-auto w-full px-5 py-10 sm:px-10 sm:py-14 md:py-28 lg:px-16 print:p-0',
+  variants: {
+    width: {
+      narrow: 'max-w-4xl',
+      wide: 'max-w-section',
+      full: 'max-w-shell'
+    },
+    tone: {
+      base: 'bg-tile border-glass-border rounded-3xl border',
+      alt: 'bg-tile-alt border-glass-border rounded-3xl border',
+      hero: 'bg-tile border-glass-border rounded-3xl border',
+      plain: ''
+    },
+    tileOff: {
+      true: '!border-0 !bg-transparent'
+    }
+  }
+});
+
+const header = tv({
+  base: 'mb-8 flex flex-col gap-4 sm:mb-12 md:mb-20',
+  variants: {
+    align: {
+      center: 'items-center text-center',
+      left: 'items-start text-left'
+    }
+  }
+});
+
+const tileOff = !tile || tone === 'plain';
 ---
 
 <Tag
   id={id}
-  class={`relative scroll-mt-24 px-4 py-5 sm:px-6 sm:py-8 md:py-16 print:p-0 ${className}`}
+  class={section({ class: className })}
   data-no-print={hideFromPrint ? true : undefined}
   data-print-only={printOnly ? true : undefined}
 >
-  <div
-    class={`relative mx-auto w-full ${widthClass} ${tileClass} px-5 py-10 sm:px-10 sm:py-14 md:py-28 lg:px-16 print:p-0`}
-  >
+  <div class={tile$({ width, tone, tileOff })}>
     {
       (title || eyebrow) && (
-        <header
-          class={`mb-8 flex flex-col gap-4 sm:mb-12 md:mb-20 ${titleAlign === 'center' ? 'items-center text-center' : 'items-start text-left'}`}
-        >
-          {eyebrow && (
-            <p class="font-mono text-[11px] tracking-[0.3em] text-[var(--color-accent)] uppercase">{eyebrow}</p>
-          )}
-          {title && <h2 class="font-display text-4xl tracking-tight md:text-6xl">{title}</h2>}
+        <header class={header({ align: titleAlign })}>
+          {eyebrow && <p class="text-accent font-mono text-xs tracking-[0.3em] uppercase">{eyebrow}</p>}
+          {title && <h2 class="font-display text-4xl md:text-6xl">{title}</h2>}
         </header>
       )
     }

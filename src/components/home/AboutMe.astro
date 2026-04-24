@@ -17,10 +17,10 @@ const processed = await Promise.all(
 );
 ---
 
-<Section id="about-me" eyebrow="About me" title="A bit about Chad" tone="alt" hideFromPrint>
+<Section id="about-me" eyebrow="A bit about Chad" title="About me" tone="alt" hideFromPrint>
   <div class="mx-auto grid max-w-5xl items-center gap-12 md:grid-cols-[minmax(0,300px)_1fr]">
     <AboutMeSwiper client:visible images={processed} />
-    <div class="space-y-5 text-base leading-relaxed text-[var(--text-muted)] md:text-lg">
+    <div class="text-fg-muted space-y-5 text-base leading-relaxed md:text-lg">
       <p>
         I've been a technology enthusiast ever since a young age. Whether it's looking at source code or computer
         hardware, I've always enjoyed tinkering around to understand how things work. Shortly after I was given my first

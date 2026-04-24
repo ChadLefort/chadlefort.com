@@ -1,7 +1,11 @@
+import type { FC, ReactNode } from 'react';
+import { Button as RACButton, composeRenderProps, type ButtonProps as RACButtonProps } from 'react-aria-components';
 import { tv } from 'tailwind-variants';
 
+import type { ButtonStyleProps } from './types';
+
 export const focusRing = tv({
-  base: 'outline outline-[var(--color-accent)] outline-offset-[3px] forced-colors:outline-[Highlight]',
+  base: 'outline outline-accent outline-offset-[3px] forced-colors:outline-[Highlight]',
   variants: {
     isFocusVisible: {
       false: 'outline-0',
@@ -50,44 +54,40 @@ export const buttonStyles = tv({
     {
       variant: 'solid',
       color: 'brand',
-      class: [
-        'bg-[var(--color-accent-strong)]',
-        'data-[hovered]:bg-[var(--color-accent)]',
-        'data-[pressed]:bg-[var(--color-accent-strong)]'
-      ]
+      class: ['bg-accent-strong', 'data-[hovered]:bg-accent', 'data-[pressed]:bg-accent-strong']
     },
     {
       variant: 'solid',
       color: 'neutral',
-      class: ['bg-[var(--color-1)] text-[var(--color-12)]', 'data-[hovered]:bg-[var(--color-3)]']
+      class: ['bg-ink-950 text-ink-100', 'data-[hovered]:bg-ink-800']
     },
     {
       variant: 'solid',
       color: 'term',
       class: [
-        'bg-[var(--color-terminal-bg)] text-[var(--color-terminal-fg)] border border-[var(--color-7)]',
-        'data-[hovered]:border-[var(--color-terminal-blue)] data-[hovered]:text-white'
+        'bg-terminal-bg text-terminal-fg border border-ink-500',
+        'data-[hovered]:border-terminal-blue data-[hovered]:text-white'
       ]
     },
     {
       variant: 'outline',
       color: 'brand',
-      class: ['text-[var(--color-accent)] border-[var(--color-accent)]', 'data-[hovered]:bg-[var(--color-accent)]/10']
+      class: ['text-accent border-accent', 'data-[hovered]:bg-accent/10']
     },
     {
       variant: 'outline',
       color: 'neutral',
-      class: ['text-[var(--text)] border-[var(--border)]', 'data-[hovered]:bg-[var(--surface-alt)]']
+      class: ['text-fg border-border-subtle', 'data-[hovered]:bg-surface-alt']
     },
     {
       variant: 'ghost',
       color: 'brand',
-      class: ['text-[var(--color-accent)]', 'data-[hovered]:bg-[var(--color-accent)]/10']
+      class: ['text-accent', 'data-[hovered]:bg-accent/10']
     },
     {
       variant: 'ghost',
       color: 'neutral',
-      class: ['text-[var(--text)]', 'data-[hovered]:bg-[var(--surface-alt)]']
+      class: ['text-fg', 'data-[hovered]:bg-surface-alt']
     },
     { shape: 'icon', size: 'sm', class: 'h-9 w-9 min-h-0' },
     { shape: 'icon', size: 'md', class: 'h-11 w-11 min-h-0' },
@@ -101,28 +101,34 @@ export const buttonStyles = tv({
   }
 });
 
-export type ButtonStyleProps = Parameters<typeof buttonStyles>[0];
+type Props = Omit<RACButtonProps, 'className' | 'children'> &
+  ButtonStyleProps & {
+    startIcon?: ReactNode;
+    endIcon?: ReactNode;
+    children?: ReactNode;
+    className?: string;
+  };
 
-export const cardStyles = tv({
-  base: [
-    'relative overflow-hidden rounded-2xl',
-    'bg-[var(--surface-alt)] ring-1 ring-[var(--border)]',
-    'transition-[transform,box-shadow] duration-200 ease-out',
-    'hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-black/20',
-    'motion-reduce:hover:translate-y-0 motion-reduce:transition-none'
-  ],
-  variants: {
-    interactive: {
-      true: 'cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--color-accent)] focus-visible:outline-offset-2'
-    },
-    padding: {
-      none: '',
-      sm: 'p-4',
-      md: 'p-6',
-      lg: 'p-8'
-    }
-  },
-  defaultVariants: {
-    padding: 'md'
-  }
-});
+export const Button: FC<Props> = ({
+  variant,
+  color,
+  size,
+  shape,
+  fullWidth,
+  startIcon,
+  endIcon,
+  children,
+  className,
+  ...props
+}) => (
+  <RACButton
+    {...props}
+    className={composeRenderProps(className, (extra, renderProps) =>
+      buttonStyles({ ...renderProps, variant, color, size, shape, fullWidth, className: extra })
+    )}
+  >
+    {startIcon ? <span aria-hidden="true">{startIcon}</span> : null}
+    {children ? <span>{children}</span> : null}
+    {endIcon ? <span aria-hidden="true">{endIcon}</span> : null}
+  </RACButton>
+);

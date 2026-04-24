@@ -15,7 +15,7 @@ const links = [
 
 <Section id="contact" eyebrow="Get in touch" title="Contact" tone="base" hideFromPrint>
   <div class="mx-auto max-w-3xl text-center">
-    <p class="text-lg text-[var(--text-muted)]">Have questions or a job opportunity? Let's get in touch.</p>
+    <p class="text-fg-muted text-lg">Have questions or a job opportunity? Let's get in touch.</p>
     <ul class="mt-10 flex flex-wrap items-center justify-center gap-3">
       {
         links.map((link) => (
@@ -25,7 +25,7 @@ const links = [
               rel={link.href.startsWith('http') ? 'noopener' : undefined}
               target={link.href.startsWith('http') ? '_blank' : undefined}
               aria-label={link.label}
-              class="group card card-hover inline-flex h-14 w-14 items-center justify-center text-[var(--text)] focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:outline-none"
+              class="group card card-hover text-fg focus-visible:ring-accent inline-flex h-14 w-14 items-center justify-center focus-visible:ring-2 focus-visible:outline-none"
             >
               <Icon
                 name={link.icon}
@@ -42,14 +42,14 @@ const links = [
         type="button"
         data-copy-email
         data-email={site.email}
-        class="group inline-flex items-center gap-3 rounded-full border border-[var(--glass-border)] bg-[var(--glass-bg)] px-4 py-2 font-mono text-sm text-[var(--text)] transition hover:border-[var(--color-accent)] focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:outline-none"
+        class="group border-glass-border bg-glass text-fg hover:border-accent focus-visible:ring-accent inline-flex cursor-pointer items-center gap-3 rounded-full border px-4 py-2 font-mono text-sm transition focus-visible:ring-2 focus-visible:outline-none"
         aria-label={`Copy email ${site.email} to clipboard`}
       >
-        <Icon name="lucide:mail" class="h-4 w-4 text-[var(--color-accent)]" aria-hidden="true" />
+        <Icon name="lucide:mail" class="text-accent h-4 w-4" aria-hidden="true" />
         <span data-copy-email-label>{site.email}</span>
         <Icon
           name="lucide:copy"
-          class="h-4 w-4 text-[var(--text-muted)] transition group-hover:text-[var(--color-accent)]"
+          class="text-fg-muted group-hover:text-accent h-4 w-4 transition"
           aria-hidden="true"
           data-copy-email-icon
         />
