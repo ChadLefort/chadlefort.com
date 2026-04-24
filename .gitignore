@@ -15,6 +15,11 @@ pids
 coverage
 .nyc_output
 
+# Test artifacts
+test-results
+playwright-report
+blob-report
+
 # Dependencies
 node_modules
 jspm_packages
