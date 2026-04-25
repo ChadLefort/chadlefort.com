@@ -1,5 +1,6 @@
 ---
 import Base from '~/layouts/Base.astro';
+import { buttonStyles } from '~/components/react/ui/Button/Button';
 ---
 
 <Base title="Page not found" description="The page you're looking for doesn't exist.">
@@ -9,11 +10,6 @@ import Base from '~/layouts/Base.astro';
     <p class="text-fg-muted max-w-md">
       The link might be broken or the page may have moved. Head back home to find what you're looking for.
     </p>
-    <a
-      href="/"
-      class="bg-ink-900 hover:bg-ink-800 focus-visible:ring-accent inline-flex items-center gap-2 rounded-lg px-5 py-2.5 font-semibold text-white transition focus-visible:ring-2 focus-visible:outline-none"
-    >
-      Back home
-    </a>
+    <a href="/" class={buttonStyles({ variant: 'solid', color: 'brand', size: 'lg' })}>Back home</a>
   </section>
 </Base>

@@ -40,8 +40,8 @@
   --color-12: #eceef2;
 
   --background: #21252b;
-  --accent: #569cd6;
-  --accent-strong: #0a7aca;
+  --accent: #0a5da5;
+  --accent-strong: #07406f;
 
   --terminal-bg: #282c34;
   --terminal-fg: #cccccc;
@@ -62,14 +62,14 @@
   --text: #232529;
   --text-muted: #4b525f;
   --border: rgba(35, 37, 41, 0.14);
-  --nav-bg: rgba(33, 37, 43, 0.62);
-  --nav-fg: #eceef2;
+  --nav-bg: rgba(157, 163, 173, 0.7);
+  --nav-fg: #232529;
   --tile-bg: #c8cdd6;
   --tile-bg-alt: #bec3cd;
   --card-grad-from: #f4f5f8;
   --card-grad-to: #dde0e6;
   --card-border: rgba(35, 37, 41, 0.12);
-  --card-border-hover: rgba(10, 93, 165, 0.45);
+  --card-border-hover: rgba(10, 93, 165, 0.55);
   --glass-bg: rgba(236, 238, 242, 0.72);
   --glass-bg-strong: rgba(221, 224, 230, 0.85);
   --glass-border: rgba(35, 37, 41, 0.12);
@@ -96,13 +96,15 @@
 :root.dark,
 .dark {
   color-scheme: dark;
+  --accent: #569cd6;
+  --accent-strong: #0a7aca;
   --surface: var(--background);
   --surface-alt: rgba(48, 51, 58, 0.55);
   --surface-raised: rgba(58, 62, 72, 0.78);
   --text: var(--color-12);
   --text-muted: var(--color-11);
   --border: rgba(255, 255, 255, 0.08);
-  --nav-bg: rgba(33, 37, 43, 0.55);
+  --nav-bg: rgba(40, 44, 52, 0.8);
   --nav-fg: var(--color-12);
   --tile-bg: rgba(41, 43, 48, 0.4);
   --tile-bg-alt: rgba(48, 51, 58, 0.5);
