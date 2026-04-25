@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { Icon } from '@iconify/react';
 import { tv } from 'tailwind-variants';
 
 import type { SegmentProps } from './types';
@@ -22,9 +23,9 @@ const segmentStyles = tv({
   }
 });
 
-export const Segment: FC<SegmentProps> = ({ icon: Icon, text, tone, hideOnMobile }) => (
+export const Segment: FC<SegmentProps> = ({ icon, text, tone, hideOnMobile }) => (
   <span className={segmentStyles({ tone, hideOnMobile })}>
-    {Icon && <Icon className="h-3.5 w-3.5" aria-hidden="true" />}
+    {icon && <Icon icon={icon} className="h-3.5 w-3.5" aria-hidden="true" />}
     {text && <span className="font-mono text-[11px] sm:text-[12px]">{text}</span>}
   </span>
 );

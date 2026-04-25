@@ -6,10 +6,13 @@
   (() => {
     const apply = () => {
       const root = document.documentElement;
+
       root.classList.add('js');
+
       try {
         const stored = localStorage.getItem('theme');
         const theme = stored === 'light' || stored === 'dark' ? stored : 'dark';
+
         root.classList.toggle('dark', theme === 'dark');
         root.dataset.theme = theme;
       } catch (error) {
@@ -17,6 +20,7 @@
         root.dataset.theme = 'dark';
       }
     };
+
     apply();
     document.addEventListener('astro:after-swap', apply);
   })();

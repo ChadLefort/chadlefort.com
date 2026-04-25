@@ -5,12 +5,12 @@ import { site } from '~/data/site';
 
 const links = [
   { label: 'Email', href: `mailto:${site.email}`, icon: 'lucide:mail' },
-  { label: 'GitHub', href: site.social.github, icon: 'lucide:github' },
-  { label: 'LinkedIn', href: site.social.linkedin, icon: 'lucide:linkedin' },
-  { label: 'Twitter', href: site.social.twitter, icon: 'lucide:twitter' },
+  { label: 'GitHub', href: site.social.github, icon: 'simple-icons:github' },
+  { label: 'LinkedIn', href: site.social.linkedin, icon: 'simple-icons:linkedin' },
+  { label: 'Twitter', href: site.social.twitter, icon: 'simple-icons:twitter' },
   { label: 'Bluesky', href: site.social.bluesky, icon: 'simple-icons:bluesky' },
-  { label: 'Instagram', href: site.social.instagram, icon: 'lucide:instagram' },
-  { label: 'YouTube', href: site.social.youtube, icon: 'lucide:youtube' }
+  { label: 'Instagram', href: site.social.instagram, icon: 'simple-icons:instagram' },
+  { label: 'YouTube', href: site.social.youtube, icon: 'simple-icons:youtube' }
 ];
 ---
 
@@ -63,6 +63,7 @@ const links = [
   const init = () => {
     document.querySelectorAll<HTMLButtonElement>('[data-copy-email]').forEach((btn) => {
       if (btn.dataset.copyEmailBound) return;
+
       btn.dataset.copyEmailBound = 'true';
 
       const label = btn.querySelector<HTMLElement>('[data-copy-email-label]');

@@ -69,24 +69,29 @@ const { links = homeNav, showLogoOnDesktop = true, compactLogo = false } = Astro
   import { typeText } from '~/utils/typeText';
 
   const TEXT = 'Chad Lefort';
+
   let io: IntersectionObserver | undefined;
 
   const typeInto = (el: HTMLElement) => {
     if (el.dataset.typed === 'true') return;
+
     el.dataset.typed = 'true';
     typeText(el, TEXT);
   };
 
   const setup = () => {
     io?.disconnect();
+
     const nav = document.querySelector<HTMLElement>('[data-nav]');
-    const hero = document.querySelector<HTMLElement>('[data-hero]');
+
     if (!nav) return;
 
+    const trigger = document.querySelector<HTMLElement>('[data-hero-name]');
     const texts = nav.querySelectorAll<HTMLElement>('[data-logo-text]');
+
     if (!texts.length) return;
 
-    if (!hero) {
+    if (!trigger) {
       texts.forEach(typeInto);
       return;
     }
@@ -100,12 +105,15 @@ const { links = homeNav, showLogoOnDesktop = true, compactLogo = false } = Astro
       (entries) => {
         const entry = entries[0];
         const past = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+
         nav.dataset.navCompact = past ? 'false' : 'true';
+
         if (past) texts.forEach(typeInto);
       },
       { rootMargin: '-64px 0px 0px 0px' }
     );
-    io.observe(hero);
+
+    io.observe(trigger);
   };
 
   setup();

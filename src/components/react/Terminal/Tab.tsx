@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { Icon } from '@iconify/react';
 import { tv } from 'tailwind-variants';
 
 import type { TabProps } from './types';
@@ -22,7 +23,7 @@ const tabStyles = tv({
   }
 });
 
-export const Tab: FC<TabProps> = ({ idx, mobileIdx, icon: Icon, label, active, href, hideOnMobile }) => {
+export const Tab: FC<TabProps> = ({ idx, mobileIdx, icon, label, active, href, hideOnMobile }) => {
   const className = tabStyles({ active, hideOnMobile, interactive: Boolean(href) });
 
   const inner = (
@@ -39,7 +40,7 @@ export const Tab: FC<TabProps> = ({ idx, mobileIdx, icon: Icon, label, active, h
           )}
         </span>
       )}
-      <Icon className="h-3.5 w-3.5" aria-hidden="true" />
+      <Icon icon={icon} className="h-3.5 w-3.5" aria-hidden="true" />
       <span className="font-mono">{label}</span>
     </>
   );

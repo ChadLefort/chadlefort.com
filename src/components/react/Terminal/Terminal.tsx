@@ -1,18 +1,5 @@
 import type { FC } from 'react';
 import { useEffect, useRef, useState } from 'react';
-import {
-  Apple,
-  Briefcase,
-  Clock,
-  Code2,
-  Folder,
-  FolderGit2,
-  GitBranch,
-  Hexagon,
-  Minus,
-  PencilLine,
-  Plus
-} from 'lucide-react';
 import { yearsOfExperience } from '~/data/site';
 import { useInView } from '~/hooks/useInView';
 import { useReducedMotion } from '~/hooks/useReducedMotion';
@@ -129,31 +116,27 @@ export const Terminal: FC<Props> = ({ prefersReducedMotion }) => {
         <TrafficLights />
       </div>
       <div className="bg-term-menu-bg flex items-end gap-1 overflow-x-auto px-2 sm:px-3">
-        <Tab icon={Folder} label="chadlefort.com" active />
-        <Tab idx={1} icon={Code2} label="nvim" href="/#skills" hideOnMobile />
-        <Tab idx={2} icon={FolderGit2} label="~/dotfiles" href="https://github.com/ChadLefort" hideOnMobile />
-        <Tab idx={3} mobileIdx={1} icon={Folder} label="~/projects" href="/projects" />
+        <Tab icon="simple-icons:tmux" label="chadlefort.com" active />
+        <Tab idx={1} icon="simple-icons:neovim" label="nvim" href="/#skills" hideOnMobile />
+        <Tab idx={2} icon="lucide:folder-git-2" label="~/dotfiles" href="https://github.com/ChadLefort" hideOnMobile />
+        <Tab idx={3} mobileIdx={1} icon="lucide:folder" label="~/projects" href="/projects" />
       </div>
 
       <div className="bg-term-bg px-3 pt-4 sm:px-4 sm:pt-6 sm:pb-1">
         <div className="bg-term-status-bg inline-flex max-w-full flex-wrap items-center gap-x-2 gap-y-2 rounded-2xl px-4 py-2.5 shadow-inner shadow-black/10 sm:gap-x-3 sm:rounded-full sm:px-4 sm:py-1.5">
-          <Segment icon={Apple} text="clefort" />
+          <Segment icon="simple-icons:apple" text="clefort" />
           <Sep />
           <Segment text="~/development/chadlefort.com" hideOnMobile />
           <Sep hideOnMobile />
-          <Segment icon={GitBranch} text="v2" tone="branch" />
+          <Segment icon="lucide:git-branch" text="main" tone="branch" />
           <Sep />
-          <Segment icon={Briefcase} hideOnMobile />
+          <Segment icon="lucide:pencil-line" text="2" hideOnMobile />
+          <Segment icon="lucide:plus" text={String(years)} tone="add" />
+          <Segment icon="lucide:minus" text="0" tone="del" hideOnMobile />
           <Sep hideOnMobile />
-          <Segment icon={PencilLine} text="2" hideOnMobile />
+          <Segment icon="simple-icons:nodedotjs" text="v24.15.0" tone="add" hideOnMobile />
           <Sep hideOnMobile />
-          <Segment icon={Plus} text={String(years)} tone="add" />
-          <Sep />
-          <Segment icon={Minus} text="0" tone="del" hideOnMobile />
-          <Sep hideOnMobile />
-          <Segment icon={Hexagon} text="v24.14.1" tone="info" hideOnMobile />
-          <Sep hideOnMobile />
-          <Segment icon={Clock} text={time ?? '—:—'} />
+          <Segment icon="lucide:clock" text={time ?? '—:—'} />
         </div>
       </div>
 
