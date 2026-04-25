@@ -142,7 +142,7 @@ export const Terminal: FC<Props> = ({ prefersReducedMotion }) => {
           <Segment icon={gitBranch} text="feat/redesign" tone="branch" />
           <Sep />
           <Segment icon={pencilLine} text="2" hideOnMobile />
-          <Segment icon={plus} text={String(years)} tone="add" />
+          <Segment icon={plus} text={String(years)} tone="add" hideOnMobile />
           <Segment icon={minus} text="0" tone="del" hideOnMobile />
           <Sep hideOnMobile />
           <Segment icon={nodedotjs} text="v24.15.0" tone="add" hideOnMobile />

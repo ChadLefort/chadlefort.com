@@ -101,16 +101,19 @@ const { links = homeNav, showLogoOnDesktop = true, compactLogo = false } = Astro
       delete el.dataset.typed;
     });
 
+    const NAV_HEIGHT = 64;
+
     io = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
-        const past = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+        const rootTop = entry.rootBounds?.top ?? NAV_HEIGHT;
+        const past = !entry.isIntersecting && entry.boundingClientRect.bottom <= rootTop;
 
         nav.dataset.navCompact = past ? 'false' : 'true';
 
         if (past) texts.forEach(typeInto);
       },
-      { rootMargin: '-64px 0px 0px 0px' }
+      { rootMargin: `-${NAV_HEIGHT}px 0px 0px 0px` }
     );
 
     io.observe(trigger);
