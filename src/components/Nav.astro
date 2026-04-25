@@ -28,7 +28,7 @@ const { links = homeNav, showLogoOnDesktop = true, compactLogo = false } = Astro
     <div class="flex items-center justify-start">
       {
         showLogoOnDesktop && (
-          <a href="/" class="font-display text-base tracking-wide hover:opacity-90">
+          <a href="/" aria-label="Chad Lefort home" class="font-display text-base tracking-wide hover:opacity-90">
             <Logo as="span" size="sm" />
           </a>
         )
@@ -40,7 +40,7 @@ const { links = homeNav, showLogoOnDesktop = true, compactLogo = false } = Astro
         links.map((link) => (
           <a
             href={link.href}
-            class="text-nav-fg/85 hover:text-nav-fg focus-visible:ring-accent inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold tracking-wide transition hover:bg-white/5 focus-visible:ring-2 focus-visible:outline-none"
+            class="text-nav-fg/85 hover:text-nav-fg focus-visible:ring-accent inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold tracking-wide transition hover:bg-black/10 focus-visible:ring-2 focus-visible:outline-none dark:hover:bg-white/5"
           >
             <Icon name={link.icon} class="h-4 w-4 opacity-70" aria-hidden="true" />
             {link.label}
@@ -55,7 +55,7 @@ const { links = homeNav, showLogoOnDesktop = true, compactLogo = false } = Astro
   </div>
 
   <div class="max-w-section mx-auto flex h-16 w-full items-center justify-between gap-4 px-4 sm:px-6 md:hidden">
-    <a href="/" class="font-display text-base tracking-wide hover:opacity-90">
+    <a href="/" aria-label="Chad Lefort home" class="font-display text-base tracking-wide hover:opacity-90">
       <Logo as="span" size="sm" />
     </a>
     <div class="flex items-center gap-1">

@@ -34,7 +34,7 @@ export const MobileDrawer: FC<Props> = ({ links }) => {
 
       <ModalOverlay
         isDismissable
-        className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-sm transition-opacity duration-200 ease-out data-[entering]:opacity-0 data-[exiting]:opacity-0"
+        className="fixed inset-0 z-50 flex justify-end bg-black/30 backdrop-blur-sm transition-opacity duration-200 ease-out data-[entering]:opacity-0 data-[exiting]:opacity-0 dark:bg-black/60"
       >
         <Modal className="bg-nav-bg text-nav-fg border-glass-border h-full w-80 max-w-full transform-gpu border-l shadow-2xl backdrop-blur-[32px] backdrop-saturate-[180%] transition-transform duration-300 ease-out data-[entering]:translate-x-full data-[exiting]:translate-x-full motion-reduce:transition-none">
           <Dialog className="flex h-full flex-col outline-none">
@@ -54,7 +54,7 @@ export const MobileDrawer: FC<Props> = ({ links }) => {
                     key={link.href}
                     href={link.href}
                     onClick={() => setOpen(false)}
-                    className="focus-visible:ring-accent flex items-center gap-3 rounded-lg px-3 py-3 font-semibold transition hover:bg-white/5 focus-visible:ring-2 focus-visible:outline-none"
+                    className="focus-visible:ring-accent flex items-center gap-3 rounded-lg px-3 py-3 font-semibold transition hover:bg-black/10 focus-visible:ring-2 focus-visible:outline-none dark:hover:bg-white/5"
                   >
                     <Icon className="text-fg-muted h-5 w-5" aria-hidden="true" />
                     {link.label}
