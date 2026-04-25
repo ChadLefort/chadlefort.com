@@ -5,13 +5,15 @@ import Nicholls from '~/assets/logos/nicholls.svg';
 
 <Section id="education" eyebrow="Where I learned" title="Education" tone="base">
   <article class="mx-auto w-full max-w-5xl">
-    <header class="grid grid-cols-[1fr_auto] items-start gap-8">
-      <div>
+    <header
+      class="flex flex-col items-center gap-6 text-center md:grid md:grid-cols-[1fr_auto] md:items-center md:gap-8 md:text-left"
+    >
+      <Nicholls aria-label="Nicholls State Colonels" class="h-16 w-auto md:order-2 md:h-20 print:h-10" />
+      <div class="md:order-1">
         <h3 class="font-display text-2xl md:text-3xl">Nicholls State University</h3>
         <p class="text-accent mt-1 text-sm font-semibold md:text-base">Bachelor of Science (B.S.)</p>
         <p class="text-fg-muted mt-1 font-mono text-xs md:text-sm">August 2009 &ndash; December 2013</p>
       </div>
-      <Nicholls aria-label="Nicholls State Colonels" class="h-14 w-auto md:h-20 print:h-10" />
     </header>
 
     <hr class="border-glass-border my-6 border-t" />

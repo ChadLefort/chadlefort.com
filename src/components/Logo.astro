@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Picture } from 'astro:assets';
 import { tv } from 'tailwind-variants';
 import icon from '~/assets/icon.png';
 
@@ -29,15 +29,17 @@ const iconSize = size === 'lg' ? 56 : size === 'md' ? 32 : 24;
 <Tag class={styles({ size, class: className })}>
   {
     showIcon && (
-      <Image
+      <Picture
         src={icon}
         alt=""
         width={iconSize}
         height={iconSize}
         densities={[1, 2, 3]}
         quality={95}
-        format="webp"
+        formats={['avif', 'webp']}
+        fallbackFormat="webp"
         loading="eager"
+        pictureAttributes={{ class: 'inline-flex shrink-0' }}
         class="shrink-0 rounded-md"
       />
     )

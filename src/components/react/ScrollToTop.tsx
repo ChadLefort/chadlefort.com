@@ -2,10 +2,12 @@ import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { ArrowUp } from 'lucide-react';
 import { IconButton } from './ui/IconButton';
+import { useReducedMotion } from '~/hooks/useReducedMotion';
 import { cn } from '~/utils/cn';
 
 export const ScrollToTop: FC = () => {
   const [visible, setVisible] = useState(false);
+  const reduced = useReducedMotion();
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 400);
@@ -17,8 +19,6 @@ export const ScrollToTop: FC = () => {
   }, []);
 
   const scrollUp = () => {
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
     window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
   };
 

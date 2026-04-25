@@ -1,5 +1,5 @@
 ---
-import { Image, getImage } from 'astro:assets';
+import { Picture, getImage } from 'astro:assets';
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import { Icon } from 'astro-icon/components';
 import Base from '~/layouts/Base.astro';
@@ -23,16 +23,50 @@ const { Content } = await render(project);
 
 type GalleryItem = NonNullable<CollectionEntry<'projects'>['data']['gallery']>[number];
 
+const landscapeWidths = [640, 960, 1200];
+const portraitWidths = [260, 400, 520];
+const landscapeSizes = '(min-width: 768px) 600px, 100vw';
+const portraitSizes = '260px';
+
+const toThumbSrcSet = async (src: GalleryItem['src'], widths: number[], format: 'avif' | 'webp') => {
+  const variants = await Promise.all(
+    widths.map(async (w) => {
+      const img = await getImage({ src, width: w, format, quality: 82 });
+      return `${img.src} ${w}w`;
+    })
+  );
+
+  return variants.join(', ');
+};
+
 const gallery = await Promise.all(
   (project.data.gallery ?? []).map(async (item: GalleryItem) => {
-    const optimized = await getImage({ src: item.src, width: 1600, format: 'webp', quality: 82 });
+    const probe = await getImage({ src: item.src, width: 1600, format: 'webp', quality: 82 });
     const aspect =
-      optimized.attributes.width && optimized.attributes.height
-        ? Number(optimized.attributes.width) / Number(optimized.attributes.height)
+      probe.attributes.width && probe.attributes.height
+        ? Number(probe.attributes.width) / Number(probe.attributes.height)
         : 1;
     const orientation: 'portrait' | 'landscape' = aspect < 0.85 ? 'portrait' : 'landscape';
+    const widths = orientation === 'portrait' ? portraitWidths : landscapeWidths;
+    const sizes = orientation === 'portrait' ? portraitSizes : landscapeSizes;
 
-    return { src: optimized.src, alt: item.alt, orientation };
+    const [thumbAvif, thumbWebp, thumbFallback, fullAvif] = await Promise.all([
+      toThumbSrcSet(item.src, widths, 'avif'),
+      toThumbSrcSet(item.src, widths, 'webp'),
+      getImage({ src: item.src, width: widths[widths.length - 1], format: 'webp', quality: 82 }),
+      getImage({ src: item.src, width: 1600, format: 'avif', quality: 72 })
+    ]);
+
+    return {
+      src: probe.src,
+      fullAvif: fullAvif.src,
+      thumbSrc: thumbFallback.src,
+      thumbAvif,
+      thumbWebp,
+      thumbSizes: sizes,
+      alt: item.alt,
+      orientation
+    };
   })
 );
 
@@ -136,13 +170,17 @@ const secondaryCtaClass =
           {
             project.data.cover && (
               <div class="border-glass-border bg-surface-raised overflow-hidden rounded-2xl border">
-                <Image
+                <Picture
                   src={project.data.cover}
                   alt={project.data.title}
-                  width={1400}
-                  format="webp"
+                  widths={[640, 960, 1280, 1600]}
+                  sizes="(min-width: 768px) 640px, 100vw"
+                  formats={['avif', 'webp']}
+                  fallbackFormat="webp"
                   quality={82}
                   loading="eager"
+                  fetchpriority="high"
+                  pictureAttributes={{ class: 'block h-full w-full' }}
                   class="h-full w-full object-cover"
                 />
               </div>

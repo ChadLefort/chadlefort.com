@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Picture } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import { Terminal } from '~/components/react/Terminal';
 import { yearsOfExperience } from '~/data/site';
@@ -12,16 +12,18 @@ const years = yearsOfExperience();
   <div class="max-w-section mx-auto flex w-full flex-col items-center gap-8 sm:gap-10 md:gap-12">
     <div class="flex flex-col items-center gap-6 text-center md:flex-row md:items-center md:gap-12 md:text-left">
       <div class="ring-glass-border-strong relative h-44 w-44 overflow-hidden rounded-full ring-1 md:h-56 md:w-56">
-        <Image
+        <Picture
           src={me}
           alt="Chad Lefort portrait"
           width={224}
           height={224}
-          densities={[1, 2]}
+          densities={[1, 2, 3]}
           loading="eager"
           fetchpriority="high"
-          format="webp"
+          formats={['avif', 'webp']}
+          fallbackFormat="webp"
           quality={95}
+          pictureAttributes={{ class: 'block h-full w-full' }}
           class="h-full w-full object-cover"
         />
         <div aria-hidden="true" class="bg-ink-300 pointer-events-none absolute inset-0 opacity-50 mix-blend-color">
@@ -32,8 +34,8 @@ const years = yearsOfExperience();
         <h1 class="font-display mt-3 text-5xl md:text-7xl">Chad Lefort</h1>
         <p class="text-fg-muted mt-3 text-xl font-medium md:text-2xl">Senior Frontend Engineer</p>
         <p class="text-fg-muted mt-5 text-base leading-relaxed md:text-lg">
-          Frontend engineer from Louisiana with {years}+ years shipping maintainable, accessible production-ready
-          systems.
+          Frontend engineer from Louisiana with {years}+ years shipping maintainable, accessible, production-ready
+          systems. Obsessive about design systems, consistency, and interfaces that feel polished for all users.
         </p>
       </div>
     </div>

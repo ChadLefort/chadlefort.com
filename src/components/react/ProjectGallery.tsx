@@ -2,7 +2,16 @@ import type { FC, ReactNode } from 'react';
 import { useEffect, useId, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight, Smartphone, Monitor, X } from 'lucide-react';
 
-type GalleryImage = { src: string; alt: string; orientation: 'portrait' | 'landscape' };
+type GalleryImage = {
+  src: string;
+  fullAvif: string;
+  thumbSrc: string;
+  thumbAvif: string;
+  thumbWebp: string;
+  thumbSizes: string;
+  alt: string;
+  orientation: 'portrait' | 'landscape';
+};
 type IndexedImage = GalleryImage & { index: number };
 type Props = { images: GalleryImage[]; title: string };
 
@@ -13,13 +22,17 @@ const Thumb: FC<{ image: GalleryImage; onOpen: (trigger: HTMLElement) => void }>
     className="group border-glass-border bg-surface-raised hover:border-accent/60 focus-visible:ring-accent relative block w-full overflow-hidden rounded-xl border transition focus-visible:ring-2 focus-visible:outline-none"
     aria-label={`Open ${image.alt} in lightbox`}
   >
-    <img
-      src={image.src}
-      alt={image.alt}
-      loading="lazy"
-      decoding="async"
-      className="block h-full w-full object-cover transition group-hover:scale-[1.01]"
-    />
+    <picture>
+      <source type="image/avif" srcSet={image.thumbAvif} sizes={image.thumbSizes} />
+      <source type="image/webp" srcSet={image.thumbWebp} sizes={image.thumbSizes} />
+      <img
+        src={image.thumbSrc}
+        alt={image.alt}
+        loading="lazy"
+        decoding="async"
+        className="block h-full w-full object-cover transition group-hover:scale-[1.01]"
+      />
+    </picture>
   </button>
 );
 
@@ -100,11 +113,14 @@ const Lightbox: FC<{
         </button>
       )}
 
-      <img
-        src={images[active].src}
-        alt={images[active].alt}
-        className="max-h-full max-w-full rounded-lg object-contain"
-      />
+      <picture>
+        <source type="image/avif" srcSet={images[active].fullAvif} />
+        <img
+          src={images[active].src}
+          alt={images[active].alt}
+          className="max-h-full max-w-full rounded-lg object-contain"
+        />
+      </picture>
 
       {images.length > 1 && (
         <button

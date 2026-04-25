@@ -15,6 +15,7 @@ import {
   Plus
 } from 'lucide-react';
 import { yearsOfExperience } from '~/data/site';
+import { useReducedMotion } from '~/hooks/useReducedMotion';
 import { Cursor } from './Cursor';
 import { MdRow } from './MdRow';
 import { Segment } from './Segment';
@@ -58,9 +59,6 @@ const lines = (years: number): IdentifiedLine[] =>
 
 type Props = { prefersReducedMotion?: boolean };
 
-const prefsReduced = () =>
-  typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
 const formatTime = () => new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
 
 const COMMAND = 'cat ABOUT.md';
@@ -70,7 +68,8 @@ export const Terminal: FC<Props> = ({ prefersReducedMotion }) => {
   const [cmdDone, setCmdDone] = useState(false);
   const [lineIndex, setLineIndex] = useState(0);
   const [time, setTime] = useState<string | null>(null);
-  const reduced = useRef(prefersReducedMotion ?? prefsReduced());
+  const motionPref = useReducedMotion();
+  const reduced = useRef(prefersReducedMotion ?? motionPref);
   const body = lines(years);
 
   const charCount = useMotionValue(0);
@@ -139,7 +138,7 @@ export const Terminal: FC<Props> = ({ prefersReducedMotion }) => {
             <Tab idx={3} mobileIdx={1} icon={Folder} label="~/projects" href="/projects" />
           </div>
 
-          <div className="bg-term-bg px-3 py-2 sm:px-4 sm:py-3">
+          <div className="bg-term-bg px-3 pt-4 sm:px-4 sm:pt-6 sm:pb-1">
             <div className="bg-term-status-bg inline-flex max-w-full flex-wrap items-center gap-x-2 gap-y-2 rounded-2xl px-4 py-2.5 shadow-inner shadow-black/10 sm:gap-x-3 sm:rounded-full sm:px-4 sm:py-1.5">
               <Segment icon={Apple} text="clefort" />
               <Sep />
@@ -161,7 +160,7 @@ export const Terminal: FC<Props> = ({ prefersReducedMotion }) => {
             </div>
           </div>
 
-          <div className="bg-term-bg text-term-fg h-[340px] overflow-y-auto px-4 pt-3 pb-5 font-mono text-[12.5px] leading-6 break-words sm:h-auto sm:min-h-[420px] sm:overflow-visible sm:px-5 sm:pt-4 sm:pb-6 sm:text-[15px] sm:leading-7">
+          <div className="bg-term-bg text-term-fg h-auto min-h-[520px] px-4 pt-3 pb-5 font-mono text-[12.5px] leading-6 break-words sm:min-h-[420px] sm:px-5 sm:pt-4 sm:pb-6 sm:text-[15px] sm:leading-7">
             <p className="m-0">
               <span className="text-term-prompt">→</span> <m.span>{typed}</m.span>
               {!cmdDone && <Cursor />}

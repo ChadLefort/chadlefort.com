@@ -1,20 +1,22 @@
 import type { FC } from 'react';
-import { m, LazyMotion, MotionConfig, domAnimation, useReducedMotion, type Variants } from 'motion/react';
+import { m, LazyMotion, MotionConfig, domAnimation, type Variants } from 'motion/react';
+import { useMediaQuery } from '~/hooks/useMediaQuery';
+import { useReducedMotion } from '~/hooks/useReducedMotion';
 import type { Job } from '~/data/jobs';
 
 type Props = { jobs: Job[] };
 
 const cardVariants: Variants = {
-  offscreen: (isLeft: boolean) => ({
+  offscreen: (fromLeft: boolean) => ({
     opacity: 0,
-    x: isLeft ? -48 : 48,
-    y: 24
+    x: fromLeft ? -32 : 32,
+    y: 16
   }),
   onscreen: {
     opacity: 1,
     x: 0,
     y: 0,
-    transition: { type: 'spring', bounce: 0.18, duration: 0.9 }
+    transition: { type: 'spring', bounce: 0.15, duration: 0.45 }
   }
 };
 
@@ -23,17 +25,18 @@ const dotVariants: Variants = {
   onscreen: {
     scale: 1,
     opacity: 1,
-    transition: { type: 'spring', stiffness: 500, damping: 18, delay: 0.15 }
+    transition: { type: 'spring', stiffness: 600, damping: 20, delay: 0.05 }
   }
 };
 
 const dateVariants: Variants = {
-  offscreen: { opacity: 0, y: 8 },
-  onscreen: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.25 } }
+  offscreen: { opacity: 0, y: 6 },
+  onscreen: { opacity: 1, y: 0, transition: { duration: 0.25, delay: 0.1 } }
 };
 
 export const JobTimeline: FC<Props> = ({ jobs }) => {
   const reduced = useReducedMotion();
+  const isDesktop = useMediaQuery('(min-width: 768px)');
   const initial = reduced ? 'onscreen' : 'offscreen';
 
   return (
@@ -48,12 +51,13 @@ export const JobTimeline: FC<Props> = ({ jobs }) => {
           <ol className="flex flex-col gap-6 md:gap-16" aria-label="Employment history">
             {jobs.map((job, index) => {
               const isLeft = index % 2 === 0;
-              const viewport = { once: true, amount: 0.3, margin: '0px 0px -80px 0px' };
+              const fromLeft = isDesktop && isLeft;
+              const viewport = { once: true, amount: 0.15, margin: '0px 0px -40px 0px' };
 
               const card = (
                 <m.div
                   variants={cardVariants}
-                  custom={isLeft}
+                  custom={fromLeft}
                   className="card card-hover p-6 md:p-8"
                   whileHover={{ y: -4 }}
                   transition={{ type: 'spring', stiffness: 300, damping: 20 }}
@@ -89,7 +93,7 @@ export const JobTimeline: FC<Props> = ({ jobs }) => {
 
               return (
                 <m.li
-                  key={job.company + job.start}
+                  key={`${job.company}${job.start}-${isDesktop ? 'd' : 'm'}`}
                   initial={initial}
                   whileInView="onscreen"
                   viewport={viewport}

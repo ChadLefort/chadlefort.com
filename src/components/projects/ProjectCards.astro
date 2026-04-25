@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Picture } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import Reveal from '~/components/Reveal.astro';
 import type { CollectionEntry } from 'astro:content';
@@ -36,13 +36,16 @@ const initialsFor = (title: string) =>
           >
             <div class="relative aspect-video w-full overflow-hidden rounded-2xl">
               {project.data.cover ? (
-                <Image
+                <Picture
                   src={project.data.cover}
                   alt={project.data.coverAlt ?? project.data.title}
-                  width={1280}
-                  format="webp"
-                  quality={80}
+                  widths={[640, 960, 1280]}
+                  sizes="(min-width: 768px) 640px, 100vw"
+                  formats={['avif', 'webp']}
+                  fallbackFormat="webp"
+                  quality={82}
                   loading={index < 2 ? 'eager' : 'lazy'}
+                  pictureAttributes={{ class: 'block h-full w-full' }}
                   class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
                 />
               ) : (

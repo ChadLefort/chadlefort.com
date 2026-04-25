@@ -45,13 +45,13 @@ export default defineConfig({
         ]
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,webp,woff2,ico}'],
+        globPatterns: ['**/*.{js,css,html,svg,avif,webp,woff2,ico}'],
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
         navigateFallback: '/',
         navigateFallbackDenylist: [/^\/llms/, /^\/resume\.md$/, /^\/sitemap/, /\.pdf$/],
         runtimeCaching: [
           {
-            urlPattern: /^https?.*\.(?:png|jpg|jpeg|svg|webp|gif|ico)$/,
+            urlPattern: /^https?.*\.(?:png|jpg|jpeg|svg|avif|webp|gif|ico)$/,
             handler: 'CacheFirst',
             options: {
               cacheName: 'image-cache',

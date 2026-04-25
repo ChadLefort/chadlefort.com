@@ -243,12 +243,13 @@ try {
     <text x="300" y="176" class="name">Chad Lefort</text>
     <text x="300" y="220" class="role">Senior Frontend Engineer</text>
 
-    <text x="84" y="346" class="summary">
+    <text x="84" y="332" class="summary">
       <tspan x="84" dy="0">Frontend engineer from Louisiana with</tspan>
-      <tspan x="84" dy="38">${years}+ years building accessible,</tspan>
-      <tspan x="84" dy="38">maintainable, production-ready systems.</tspan>
-      <tspan x="84" dy="38">Focused on shipping delightful user</tspan>
-      <tspan x="84" dy="38">experiences that scale and last.</tspan>
+      <tspan x="84" dy="38">${years}+ years shipping maintainable,</tspan>
+      <tspan x="84" dy="38">accessible, production-ready systems.</tspan>
+      <tspan x="84" dy="38">Obsessive about design systems,</tspan>
+      <tspan x="84" dy="38">consistency, and interfaces that feel</tspan>
+      <tspan x="84" dy="38">polished for all users.</tspan>
     </text>
   </g>
   <rect x="18" y="18" width="1164" height="594" rx="24" fill="none" stroke="#fff" stroke-opacity="0.06" />

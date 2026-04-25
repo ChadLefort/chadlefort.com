@@ -9,10 +9,32 @@ import about4 from '~/assets/about/about-4.png';
 import about5 from '~/assets/about/about-5.png';
 
 const sources = [about1, about2, about3, about4, about5];
+const widths = [260, 400, 500];
+const toSrcSet = async (src: (typeof sources)[number], format: 'avif' | 'webp') => {
+  const variants = await Promise.all(
+    widths.map(async (w) => {
+      const img = await getImage({ src, width: w, format, quality: 88 });
+      return `${img.src} ${w}w`;
+    })
+  );
+
+  return variants.join(', ');
+};
+
 const processed = await Promise.all(
-  sources.map(async (source, index) => {
-    const optimized = await getImage({ src: source, width: 520, format: 'webp', quality: 85 });
-    return { src: optimized.src, alt: `About me photo ${index + 1}` };
+  sources.map(async (src, index) => {
+    const [avif, webp, fallback] = await Promise.all([
+      toSrcSet(src, 'avif'),
+      toSrcSet(src, 'webp'),
+      getImage({ src, width: 500, format: 'webp', quality: 88 })
+    ]);
+
+    return {
+      avif,
+      webp,
+      src: fallback.src,
+      alt: `About me photo ${index + 1}`
+    };
   })
 );
 ---
