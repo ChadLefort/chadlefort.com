@@ -36,12 +36,12 @@ export const MobileDrawer: FC<Props> = ({ links }) => {
         isDismissable
         className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-sm transition-opacity duration-200 ease-out data-[entering]:opacity-0 data-[exiting]:opacity-0"
       >
-        <Modal className="glass-strong text-fg h-full w-80 max-w-full transform-gpu shadow-2xl transition-transform duration-300 ease-out data-[entering]:translate-x-full data-[exiting]:translate-x-full motion-reduce:transition-none">
+        <Modal className="bg-nav-bg text-nav-fg border-glass-border h-full w-80 max-w-full transform-gpu border-l shadow-2xl backdrop-blur-[32px] backdrop-saturate-[180%] transition-transform duration-300 ease-out data-[entering]:translate-x-full data-[exiting]:translate-x-full motion-reduce:transition-none">
           <Dialog className="flex h-full flex-col outline-none">
-            <div className="border-glass-border flex items-center justify-between border-b px-4 py-3">
-              <Heading slot="title" className="font-display text-lg">
-                Menu
-              </Heading>
+            <Heading slot="title" className="sr-only">
+              Menu
+            </Heading>
+            <div className="border-glass-border flex items-center justify-end border-b px-4 py-3">
               <IconButton slot="close" label="Close menu" icon={<X className="h-6 w-6" />} />
             </div>
 
