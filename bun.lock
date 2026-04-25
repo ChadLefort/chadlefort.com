@@ -27,6 +27,8 @@
       },
       "devDependencies": {
         "@astrojs/check": "^0.9.4",
+        "@iconify-icons/lucide": "^1.2.135",
+        "@iconify-icons/simple-icons": "^1.2.74",
         "@iconify-json/devicon": "^1.2.62",
         "@playwright/test": "^1.59.1",
         "@testing-library/dom": "^10.4.0",
@@ -386,6 +388,10 @@
     "@fallow-cli/win32-arm64-msvc": ["@fallow-cli/win32-arm64-msvc@2.48.4", "", { "os": "win32", "cpu": "arm64" }, "sha512-m6YfYAwHwFxtb7tl+cYft3jR47EagYzbPtJwSVN80vUbH9rkR6Rsc1MKadXhuAAOToa0YApcGtSesGwXfdWbdA=="],
 
     "@fallow-cli/win32-x64-msvc": ["@fallow-cli/win32-x64-msvc@2.48.4", "", { "os": "win32", "cpu": "x64" }, "sha512-QTvZUX8TCILkuYgZisqLUZe3bN2R2dABiJES5lqnxDr6ouGc/ABDGLNg0dgUdgjNA4xmo+YFLfEISxLXOTUJrw=="],
+
+    "@iconify-icons/lucide": ["@iconify-icons/lucide@1.2.135", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-t2Dya1a+PInBmHScbbGyseze7rrGHRW/dYF4GTR6f51N08sCg6KrtE4zmplnZE1ul2NyC+sxKpXRCv48hEgaQw=="],
+
+    "@iconify-icons/simple-icons": ["@iconify-icons/simple-icons@1.2.74", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-FWmuSbg+KDUreysuaE8DYu/jbv4+FtSY+ppAi8w8sgX9CKTP6watB+PLeMbklOL/G5PnBlHnvM/ihkZ+n96OZw=="],
 
     "@iconify-json/devicon": ["@iconify-json/devicon@1.2.62", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-X0o0+fOJL2t5JTbDCGLRzrmvf8Pv5q8dr86+fW+F/VJ9qvXTtny6lqGIwjE9AY4VTLm3i8f/N+VtRheSW6OkEg=="],
 

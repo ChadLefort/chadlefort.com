@@ -1,3 +1,5 @@
+import type { IconifyIcon } from '@iconify/react';
+
 export type MdLine =
   | { kind: 'h1'; text: string }
   | { kind: 'h2'; text: string }
@@ -9,7 +11,7 @@ export type MdLine =
 export type TabProps = {
   idx?: number;
   mobileIdx?: number;
-  icon: string;
+  icon: IconifyIcon;
   label: string;
   active?: boolean;
   href?: string;
@@ -17,7 +19,7 @@ export type TabProps = {
 };
 
 export type SegmentProps = {
-  icon?: string;
+  icon?: IconifyIcon;
   text?: string;
   tone?: 'fg' | 'branch' | 'add' | 'del' | 'info';
   hideOnMobile?: boolean;

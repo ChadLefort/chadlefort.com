@@ -60,6 +60,8 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
+    "@iconify-icons/lucide": "^1.2.135",
+    "@iconify-icons/simple-icons": "^1.2.74",
     "@iconify-json/devicon": "^1.2.62",
     "@playwright/test": "^1.59.1",
     "@testing-library/dom": "^10.4.0",

@@ -1,5 +1,16 @@
 import type { FC } from 'react';
 import { useEffect, useRef, useState } from 'react';
+import apple from '@iconify-icons/simple-icons/apple';
+import neovim from '@iconify-icons/simple-icons/neovim';
+import nodedotjs from '@iconify-icons/simple-icons/nodedotjs';
+import tmux from '@iconify-icons/simple-icons/tmux';
+import clock from '@iconify-icons/lucide/clock';
+import folder from '@iconify-icons/lucide/folder';
+import folderGit2 from '@iconify-icons/lucide/folder-git-2';
+import gitBranch from '@iconify-icons/lucide/git-branch';
+import minus from '@iconify-icons/lucide/minus';
+import pencilLine from '@iconify-icons/lucide/pencil-line';
+import plus from '@iconify-icons/lucide/plus';
 import { yearsOfExperience } from '~/data/site';
 import { useInView } from '~/hooks/useInView';
 import { useReducedMotion } from '~/hooks/useReducedMotion';
@@ -116,27 +127,27 @@ export const Terminal: FC<Props> = ({ prefersReducedMotion }) => {
         <TrafficLights />
       </div>
       <div className="bg-term-menu-bg flex items-end gap-1 overflow-x-auto px-2 sm:px-3">
-        <Tab icon="simple-icons:tmux" label="chadlefort.com" active />
-        <Tab idx={1} icon="simple-icons:neovim" label="nvim" href="/#skills" hideOnMobile />
-        <Tab idx={2} icon="lucide:folder-git-2" label="~/dotfiles" href="https://github.com/ChadLefort" hideOnMobile />
-        <Tab idx={3} mobileIdx={1} icon="lucide:folder" label="~/projects" href="/projects" />
+        <Tab icon={tmux} label="chadlefort.com" active />
+        <Tab idx={1} icon={neovim} label="nvim" href="/#skills" hideOnMobile />
+        <Tab idx={2} icon={folderGit2} label="~/dotfiles" href="https://github.com/ChadLefort" hideOnMobile />
+        <Tab idx={3} mobileIdx={1} icon={folder} label="~/projects" href="/projects" />
       </div>
 
       <div className="bg-term-bg px-3 pt-4 sm:px-4 sm:pt-6 sm:pb-1">
         <div className="bg-term-status-bg inline-flex max-w-full flex-wrap items-center gap-x-2 gap-y-2 rounded-2xl px-4 py-2.5 shadow-inner shadow-black/10 sm:gap-x-3 sm:rounded-full sm:px-4 sm:py-1.5">
-          <Segment icon="simple-icons:apple" text="clefort" />
+          <Segment icon={apple} text="clefort" />
           <Sep />
           <Segment text="~/development/chadlefort.com" hideOnMobile />
           <Sep hideOnMobile />
-          <Segment icon="lucide:git-branch" text="main" tone="branch" />
+          <Segment icon={gitBranch} text="main" tone="branch" />
           <Sep />
-          <Segment icon="lucide:pencil-line" text="2" hideOnMobile />
-          <Segment icon="lucide:plus" text={String(years)} tone="add" />
-          <Segment icon="lucide:minus" text="0" tone="del" hideOnMobile />
+          <Segment icon={pencilLine} text="2" hideOnMobile />
+          <Segment icon={plus} text={String(years)} tone="add" />
+          <Segment icon={minus} text="0" tone="del" hideOnMobile />
           <Sep hideOnMobile />
-          <Segment icon="simple-icons:nodedotjs" text="v24.15.0" tone="add" hideOnMobile />
+          <Segment icon={nodedotjs} text="v24.15.0" tone="add" hideOnMobile />
           <Sep hideOnMobile />
-          <Segment icon="lucide:clock" text={time ?? '—:—'} />
+          <Segment icon={clock} text={time ?? '—:—'} />
         </div>
       </div>
 
