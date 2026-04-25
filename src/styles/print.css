@@ -37,7 +37,7 @@
     color: #1a1a1a !important;
     font-size: 9.5pt;
     line-height: 1.4;
-    font-family: 'Roboto', system-ui, sans-serif;
+    font-family: 'Roboto Variable', 'Roboto', system-ui, sans-serif;
     margin: 0 !important;
     padding: 0.38in 0.42in !important;
     width: 100% !important;
@@ -135,7 +135,7 @@
   }
 
   .print-name-block h1 {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
     font-size: 28pt;
     line-height: 1;
     margin: 0;
@@ -188,7 +188,7 @@
 
   /* big centered section titles */
   main h2 {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
     font-size: 17pt;
     color: #1a1a1a;
     margin: 0 0 0.12in 0 !important;
@@ -329,7 +329,7 @@
   }
 
   ol[aria-label='Employment history'] li header h3 {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
     font-size: 12pt;
     color: #1a1a1a !important;
     margin: 0 !important;
@@ -349,7 +349,7 @@
   /* mobile-only date <p> needs to show in print */
   ol[aria-label='Employment history'] li header p:nth-of-type(2) {
     display: block !important;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
     font-size: 9pt;
     color: #555 !important;
     margin: 0.02in 0 0 0 !important;
@@ -444,7 +444,7 @@
   }
 
   #education h3 {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
     font-size: 13pt;
     color: #1a1a1a;
     font-weight: 700;
@@ -459,14 +459,14 @@
   }
 
   #education header p:nth-of-type(2) {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
     font-size: 9pt;
     color: #555 !important;
     margin: 0.02in 0 0 0 !important;
   }
 
   #education h4 {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
     font-size: 11pt;
     color: #1a1a1a;
     margin-top: 0.1in;

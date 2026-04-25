@@ -11,7 +11,6 @@ const rootDir = path.resolve(__dirname, '..');
 const publicDir = path.join(rootDir, 'public');
 const tempDir = await mkdtemp(path.join(os.tmpdir(), 'chad-brand-assets-'));
 
-const faviconSvgPath = path.join(publicDir, 'favicon.svg');
 const portraitPath = path.join(rootDir, 'src', 'assets', 'me.png');
 const resumePdfPath = path.join(publicDir, 'chad-lefort-resume.pdf');
 const displayFontPath = path.join(publicDir, 'fonts', 'jetbrains-mono-latin-wght-normal.woff2');
@@ -133,8 +132,7 @@ try {
   await generateResumePdf();
   run('pdftoppm', ['-f', '1', '-singlefile', '-png', resumePdfPath, resumePreviewBase]);
 
-  const [faviconSvg, portrait, resumePreview, displayFont, sansFont] = await Promise.all([
-    readFile(faviconSvgPath, 'utf8'),
+  const [portrait, resumePreview, displayFont, sansFont] = await Promise.all([
     readFile(portraitPath),
     readFile(resumePreviewPath),
     readFile(displayFontPath),
@@ -265,26 +263,6 @@ try {
     ])
     .png()
     .toFile(path.join(publicDir, 'card.png'));
-
-  const faviconSvgBuffer = Buffer.from(faviconSvg);
-  await Promise.all([
-    sharp(faviconSvgBuffer).resize(180, 180).png().toFile(path.join(publicDir, 'apple-touch-icon.png')),
-    sharp(faviconSvgBuffer).resize(192, 192).png().toFile(path.join(publicDir, 'icon-192.png')),
-    sharp(faviconSvgBuffer).resize(512, 512).png().toFile(path.join(publicDir, 'icon-512.png')),
-    sharp(faviconSvgBuffer)
-      .resize(512, 512)
-      .png()
-      .toFile(path.join(rootDir, 'src', 'assets', 'icon.png'))
-  ]);
-
-  run('magick', [
-    faviconSvgPath,
-    '-background',
-    'none',
-    '-define',
-    'icon:auto-resize=16,32,48',
-    path.join(publicDir, 'favicon.ico')
-  ]);
 } finally {
   await rm(tempDir, { recursive: true, force: true });
 }
