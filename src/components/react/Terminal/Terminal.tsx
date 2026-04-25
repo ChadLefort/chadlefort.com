@@ -139,7 +139,7 @@ export const Terminal: FC<Props> = ({ prefersReducedMotion }) => {
           <Sep />
           <Segment text="~/development/chadlefort.com" hideOnMobile />
           <Sep hideOnMobile />
-          <Segment icon={gitBranch} text="main" tone="branch" />
+          <Segment icon={gitBranch} text="feat/redesign" tone="branch" />
           <Sep />
           <Segment icon={pencilLine} text="2" hideOnMobile />
           <Segment icon={plus} text={String(years)} tone="add" />
