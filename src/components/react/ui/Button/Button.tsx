@@ -1,6 +1,15 @@
 import type { FC, ReactNode } from 'react';
+import { m, LazyMotion, MotionConfig, domAnimation } from 'motion/react';
 import { Button as RACButton, composeRenderProps, type ButtonProps as RACButtonProps } from 'react-aria-components';
 import { tv, type VariantProps } from 'tailwind-variants';
+
+const MotionRACButton = m.create(RACButton);
+
+const motionPress = {
+  whileHover: { scale: 1.03 },
+  whileTap: { scale: 0.96 },
+  transition: { type: 'spring', stiffness: 420, damping: 22 }
+} as const;
 
 const focusRing = tv({
   base: 'outline outline-accent outline-offset-[3px] forced-colors:outline-[Highlight]',
@@ -17,9 +26,7 @@ export const buttonStyles = tv({
   base: [
     'inline-flex items-center justify-center gap-2 cursor-pointer',
     'font-semibold tracking-tight select-none',
-    'transition-[transform,background-color,color,box-shadow] duration-150 ease-out',
-    'scale-100 data-[pressed]:scale-[0.97]',
-    'motion-reduce:transition-none motion-reduce:data-[pressed]:scale-100',
+    'transition-[background-color,color,box-shadow] duration-150 ease-out',
     'data-[disabled]:cursor-not-allowed data-[disabled]:opacity-60'
   ],
   variants: {
@@ -109,7 +116,18 @@ export type ButtonStyleProps = {
   fullWidth?: ButtonVariants['fullWidth'];
 };
 
-type Props = Omit<RACButtonProps, 'className' | 'children'> &
+type ConflictingHandlers =
+  | 'style'
+  | 'onAnimationStart'
+  | 'onAnimationEnd'
+  | 'onAnimationIteration'
+  | 'onDrag'
+  | 'onDragStart'
+  | 'onDragEnd'
+  | 'onHoverStart'
+  | 'onHoverEnd';
+
+type Props = Omit<RACButtonProps, 'className' | 'children' | ConflictingHandlers> &
   ButtonStyleProps & {
     startIcon?: ReactNode;
     endIcon?: ReactNode;
@@ -129,14 +147,19 @@ export const Button: FC<Props> = ({
   className,
   ...props
 }) => (
-  <RACButton
-    {...props}
-    className={composeRenderProps(className, (extra, renderProps) =>
-      buttonStyles({ ...renderProps, variant, color, size, shape, fullWidth, className: extra })
-    )}
-  >
-    {startIcon ? <span aria-hidden="true">{startIcon}</span> : null}
-    {children ? <span>{children}</span> : null}
-    {endIcon ? <span aria-hidden="true">{endIcon}</span> : null}
-  </RACButton>
+  <LazyMotion features={domAnimation} strict>
+    <MotionConfig reducedMotion="user">
+      <MotionRACButton
+        {...motionPress}
+        {...props}
+        className={composeRenderProps(className, (extra, renderProps) =>
+          buttonStyles({ ...renderProps, variant, color, size, shape, fullWidth, className: extra })
+        )}
+      >
+        {startIcon ? <span aria-hidden="true">{startIcon}</span> : null}
+        {children ? <span>{children}</span> : null}
+        {endIcon ? <span aria-hidden="true">{endIcon}</span> : null}
+      </MotionRACButton>
+    </MotionConfig>
+  </LazyMotion>
 );

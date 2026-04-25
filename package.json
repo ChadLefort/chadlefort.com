@@ -48,6 +48,7 @@
     "astro": "^5.15.0",
     "astro-icon": "^1.1.5",
     "lucide-react": "^1.9.0",
+    "motion": "^12.38.0",
     "react": "^19.2.0",
     "react-aria-components": "^1.17.0",
     "react-dom": "^19.2.0",

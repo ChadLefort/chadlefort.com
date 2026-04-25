@@ -1,9 +1,9 @@
 import type { FC } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Briefcase, Code2, GraduationCap, Home, LayoutDashboard, Mail, Menu, User, X } from 'lucide-react';
-import { Button as RACButton, Dialog, DialogTrigger, Heading, Modal, ModalOverlay } from 'react-aria-components';
+import { Dialog, DialogTrigger, Heading, Modal, ModalOverlay } from 'react-aria-components';
 import type { NavLink } from '~/data/nav';
-import { buttonStyles } from '~/components/react/ui/Button';
+import { IconButton } from '~/components/react/ui/IconButton';
 
 type Props = { links: NavLink[] };
 
@@ -19,7 +19,6 @@ const iconMap: Record<string, typeof Home> = {
 
 export const MobileDrawer: FC<Props> = ({ links }) => {
   const [isOpen, setOpen] = useState(false);
-  const triggerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onPageLoad = () => setOpen(false);
@@ -31,19 +30,7 @@ export const MobileDrawer: FC<Props> = ({ links }) => {
 
   return (
     <DialogTrigger isOpen={isOpen} onOpenChange={setOpen}>
-      <RACButton
-        ref={triggerRef}
-        aria-label="Open navigation menu"
-        className={buttonStyles({
-          variant: 'ghost',
-          color: 'neutral',
-          size: 'md',
-          shape: 'icon',
-          className: 'text-nav-fg'
-        })}
-      >
-        <Menu className="h-6 w-6" aria-hidden="true" />
-      </RACButton>
+      <IconButton label="Open navigation menu" icon={<Menu className="h-6 w-6" />} className="text-nav-fg" />
 
       <ModalOverlay
         isDismissable
@@ -55,13 +42,7 @@ export const MobileDrawer: FC<Props> = ({ links }) => {
               <Heading slot="title" className="font-display text-lg">
                 Menu
               </Heading>
-              <RACButton
-                slot="close"
-                aria-label="Close menu"
-                className={buttonStyles({ variant: 'ghost', color: 'neutral', size: 'md', shape: 'icon' })}
-              >
-                <X className="h-6 w-6" aria-hidden="true" />
-              </RACButton>
+              <IconButton slot="close" label="Close menu" icon={<X className="h-6 w-6" />} />
             </div>
 
             <nav aria-label="Mobile" className="flex flex-col gap-1 p-4">

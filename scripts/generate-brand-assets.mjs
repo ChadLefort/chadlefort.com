@@ -32,11 +32,13 @@ const waitForServer = async (url, timeoutMs = 30_000) => {
   const start = Date.now();
   while (Date.now() - start < timeoutMs) {
     try {
+      // eslint-disable-next-line no-await-in-loop
       const response = await fetch(url);
       if (response.ok || response.status === 404) return;
     } catch {
       // keep polling
     }
+    // eslint-disable-next-line no-await-in-loop
     await new Promise((resolve) => setTimeout(resolve, 250));
   }
   throw new Error(`Preview server did not respond at ${url} within ${timeoutMs}ms`);

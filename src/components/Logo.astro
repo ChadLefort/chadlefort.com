@@ -1,16 +1,19 @@
 ---
+import { Image } from 'astro:assets';
 import { tv } from 'tailwind-variants';
+import icon from '~/assets/icon.png';
 
 type Props = {
   as?: 'h1' | 'h2' | 'span' | 'div';
   class?: string;
   size?: 'sm' | 'md' | 'lg';
+  showIcon?: boolean;
 };
 
-const { as: Tag = 'span', class: className, size = 'md' } = Astro.props as Props;
+const { as: Tag = 'span', class: className, size = 'md', showIcon = true } = Astro.props as Props;
 
 const styles = tv({
-  base: 'font-display tracking-wide',
+  base: 'font-display inline-flex items-center gap-2 tracking-wide',
   variants: {
     size: {
       sm: 'text-xl',
@@ -19,6 +22,25 @@ const styles = tv({
     }
   }
 });
+
+const iconSize = size === 'lg' ? 56 : size === 'md' ? 32 : 24;
 ---
 
-<Tag class={styles({ size, class: className })}>Chad Lefort</Tag>
+<Tag class={styles({ size, class: className })}>
+  {
+    showIcon && (
+      <Image
+        src={icon}
+        alt=""
+        width={iconSize}
+        height={iconSize}
+        densities={[1, 2, 3]}
+        quality={95}
+        format="webp"
+        loading="eager"
+        class="shrink-0 rounded-md"
+      />
+    )
+  }
+  <span>Chad Lefort</span>
+</Tag>

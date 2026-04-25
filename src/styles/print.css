@@ -535,6 +535,13 @@
     margin: 0;
     size: letter;
   }
+
+  /* Force motion-animated elements into their final state for print */
+  .print-job,
+  .print-job * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 @media not print {
