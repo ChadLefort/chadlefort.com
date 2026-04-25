@@ -50,9 +50,18 @@ const initialsFor = (title: string) =>
                 />
               ) : (
                 <div class={`flex h-full w-full items-center justify-center bg-gradient-to-br ${project.data.accent}`}>
-                  <span class="font-display text-7xl tracking-tighter text-white/85 mix-blend-overlay md:text-8xl">
-                    {initials}
-                  </span>
+                  {project.data.icon ? (
+                    <Icon
+                      name={project.data.icon}
+                      style={project.data.iconColor ? { color: project.data.iconColor } : undefined}
+                      class="h-24 w-24 md:h-32 md:w-32"
+                      aria-hidden="true"
+                    />
+                  ) : (
+                    <span class="font-display text-7xl tracking-tighter text-white/85 mix-blend-overlay md:text-8xl">
+                      {initials}
+                    </span>
+                  )}
                 </div>
               )}
               <span

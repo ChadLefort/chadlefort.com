@@ -10,6 +10,8 @@ const projects = defineCollection({
       summary: z.string(),
       cover: image().optional(),
       coverAlt: z.string().optional(),
+      icon: z.string().optional(),
+      iconColor: z.string().optional(),
       gallery: z.array(z.object({ src: image(), alt: z.string() })).optional(),
       externalUrl: z.string().url().optional(),
       repoUrl: z.string().url().optional(),

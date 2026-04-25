@@ -1,6 +1,7 @@
 import type { FC } from 'react';
-import { useCallback, useEffect, useState } from 'react';
-import { IconButton } from './ui/IconButton';
+import { useEffect, useState } from 'react';
+import { ToggleButton, composeRenderProps } from 'react-aria-components';
+import { buttonStyles } from './ui/Button/Button';
 
 type Theme = 'light' | 'dark';
 
@@ -34,36 +35,38 @@ const MoonIcon: FC = () => (
 );
 
 export const ThemeToggle: FC = () => {
-  const [theme, setTheme] = useState<Theme>('dark');
+  const [isDark, setDark] = useState(true);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const initial = (document.documentElement.classList.contains('dark') ? 'dark' : 'light') as Theme;
-
-    setTheme(initial);
+    setDark(document.documentElement.classList.contains('dark'));
     setMounted(true);
   }, []);
 
-  const toggle = useCallback(() => {
-    setTheme((prev) => {
-      const next = prev === 'dark' ? 'light' : 'dark';
+  const onChange = (selected: boolean) => {
+    setDark(selected);
+    apply(selected ? 'dark' : 'light');
+  };
 
-      apply(next);
-
-      return next;
-    });
-  }, []);
-
-  const next = theme === 'dark' ? 'light' : 'dark';
+  const next = isDark ? 'light' : 'dark';
 
   return (
-    <IconButton
-      onPress={toggle}
-      label={`Turn on ${next} mode`}
-      icon={mounted && theme === 'dark' ? <SunIcon /> : <MoonIcon />}
-      variant="ghost"
-      color="neutral"
-      className="text-nav-fg"
-    />
+    <ToggleButton
+      isSelected={isDark}
+      onChange={onChange}
+      aria-label={`Turn on ${next} mode`}
+      className={composeRenderProps('text-nav-fg', (extra, renderProps) =>
+        buttonStyles({
+          ...renderProps,
+          variant: 'ghost',
+          color: 'neutral',
+          shape: 'icon',
+          press: 'bouncy',
+          className: extra
+        })
+      )}
+    >
+      <span aria-hidden="true">{mounted && isDark ? <SunIcon /> : <MoonIcon />}</span>
+    </ToggleButton>
   );
 };

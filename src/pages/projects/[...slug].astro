@@ -3,8 +3,7 @@ import { Picture, getImage } from 'astro:assets';
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import { Icon } from 'astro-icon/components';
 import Base from '~/layouts/Base.astro';
-import { ProjectGallery } from '~/components/react/ProjectGallery';
-import ProjectTabs from '~/components/projects/ProjectTabs.astro';
+import { ProjectTabsIsland } from '~/components/react/ProjectTabsIsland';
 import { site } from '~/data/site';
 
 type Props = { project: CollectionEntry<'projects'> };
@@ -65,7 +64,9 @@ const gallery = await Promise.all(
       thumbWebp,
       thumbSizes: sizes,
       alt: item.alt,
-      orientation
+      orientation,
+      width: Number(probe.attributes.width ?? 1),
+      height: Number(probe.attributes.height ?? 1)
     };
   })
 );
@@ -192,21 +193,16 @@ const secondaryCtaClass =
 
     <section class="px-4 pb-24 sm:px-6 md:pb-32">
       <div class="max-w-section mx-auto">
-        <ProjectTabs hasGallery={gallery.length > 0}>
-          <div slot="description" class="card p-8 md:p-16">
-            <div class="project-prose">
-              <Content />
-            </div>
-          </div>
-
-          {
-            gallery.length > 0 && (
-              <div slot="gallery">
-                <ProjectGallery client:load images={gallery} title={project.data.title} />
-              </div>
-            )
-          }
-        </ProjectTabs>
+        <ProjectTabsIsland
+          client:load
+          hasGallery={gallery.length > 0}
+          galleryImages={gallery}
+          title={project.data.title}
+        >
+          <Fragment slot="description">
+            <Content />
+          </Fragment>
+        </ProjectTabsIsland>
       </div>
     </section>
   </article>
