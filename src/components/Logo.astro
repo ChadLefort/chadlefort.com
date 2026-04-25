@@ -1,16 +1,16 @@
 ---
-import { Picture } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
 import { tv } from 'tailwind-variants';
-import icon from '~/assets/icon.png';
 
 type Props = {
   as?: 'h1' | 'h2' | 'span' | 'div';
   class?: string;
   size?: 'sm' | 'md' | 'lg';
   showIcon?: boolean;
+  showText?: boolean;
 };
 
-const { as: Tag = 'span', class: className, size = 'md', showIcon = true } = Astro.props as Props;
+const { as: Tag = 'span', class: className, size = 'md', showIcon = true, showText = true } = Astro.props as Props;
 
 const styles = tv({
   base: 'font-display inline-flex items-center gap-2 tracking-wide',
@@ -23,26 +23,10 @@ const styles = tv({
   }
 });
 
-const iconSize = size === 'lg' ? 56 : size === 'md' ? 32 : 24;
+const iconClass = size === 'lg' ? 'h-10 w-10 md:h-12 md:w-12' : size === 'md' ? 'h-7 w-7' : 'h-6 w-6';
 ---
 
 <Tag class={styles({ size, class: className })}>
-  {
-    showIcon && (
-      <Picture
-        src={icon}
-        alt=""
-        width={iconSize}
-        height={iconSize}
-        densities={[1, 2, 3]}
-        quality={95}
-        formats={['avif', 'webp']}
-        fallbackFormat="webp"
-        loading="eager"
-        pictureAttributes={{ class: 'inline-flex shrink-0' }}
-        class="shrink-0 rounded-md"
-      />
-    )
-  }
-  <span>Chad Lefort</span>
+  {showIcon && <Icon name="lucide:terminal" class={`text-accent shrink-0 ${iconClass}`} aria-hidden="true" />}
+  {showText && <span data-logo-text>Chad Lefort</span>}
 </Tag>

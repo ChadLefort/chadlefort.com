@@ -2,32 +2,34 @@
   :root,
   :root.dark,
   .dark {
-    color-scheme: light;
-    --surface: #ffffff;
-    --surface-alt: #ffffff;
-    --surface-raised: #ffffff;
-    --text: #1a1a1a;
-    --text-muted: #444444;
-    --border: #cccccc;
-    --accent: #0a7aca;
-    --accent-strong: #0a7aca;
-    --tile-bg: transparent;
-    --tile-bg-alt: transparent;
-    --card-grad-from: transparent;
-    --card-grad-to: transparent;
-    --card-border: #cccccc;
-    --glass-bg: transparent;
-    --glass-bg-strong: transparent;
-    --glass-border: #cccccc;
-    --glass-border-strong: #cccccc;
-    --blob-opacity: 0;
-    --nav-bg: transparent;
-    --nav-fg: #1a1a1a;
+    color-scheme: light !important;
+    --surface: #ffffff !important;
+    --surface-alt: #ffffff !important;
+    --surface-raised: #ffffff !important;
+    --text: #1a1a1a !important;
+    --text-muted: #444444 !important;
+    --border: #cccccc !important;
+    --accent: #0a7aca !important;
+    --accent-strong: #0a7aca !important;
+    --tile-bg: transparent !important;
+    --tile-bg-alt: transparent !important;
+    --card-grad-from: transparent !important;
+    --card-grad-to: transparent !important;
+    --card-border: #cccccc !important;
+    --glass-bg: transparent !important;
+    --glass-bg-strong: transparent !important;
+    --glass-border: #cccccc !important;
+    --glass-border-strong: #cccccc !important;
+    --blob-opacity: 0 !important;
+    --nav-bg: transparent !important;
+    --nav-fg: #1a1a1a !important;
   }
 
-  html {
+  html,
+  html.dark {
     zoom: 0.95;
     background: #ffffff !important;
+    background-color: #ffffff !important;
     margin: 0 !important;
     padding: 0 !important;
   }
@@ -39,7 +41,7 @@
     line-height: 1.4;
     font-family: 'Roboto Variable', 'Roboto', system-ui, sans-serif;
     margin: 0 !important;
-    padding: 0.38in 0.42in !important;
+    padding: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
@@ -68,9 +70,11 @@
   }
 
   /* card glow pseudo - kill it */
-  .card::before,
-  .card::after {
-    display: none !important;
+  .card {
+    &::before,
+    &::after {
+      display: none !important;
+    }
   }
 
   body > div[aria-hidden='true'] {
@@ -87,32 +91,59 @@
     display: block !important;
   }
 
-  main,
-  main > * {
+  main {
     padding: 0 !important;
     margin: 0 !important;
+
+    & > * {
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+
+    /* big centered section titles */
+    & h2 {
+      font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
+      font-size: 17pt;
+      color: #1a1a1a;
+      margin: 0 0 0.12in 0 !important;
+      padding: 0;
+      border: 0;
+      text-align: center !important;
+      text-transform: none;
+      letter-spacing: -0.06em;
+      font-weight: 700;
+    }
+
+    /* eyebrow above section title - hide */
+    & section header {
+      margin-bottom: 0.1in !important;
+      align-items: center !important;
+
+      & > p {
+        display: none;
+      }
+    }
   }
 
   section {
     padding: 0 !important;
     margin: 0 0 0.28in 0 !important;
     background: transparent !important;
+
+    & > div,
+    & > div > div,
+    & > div > div > div {
+      padding: 0 !important;
+      margin: 0 !important;
+      background: transparent !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      max-width: 100% !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
   }
 
-  section > div,
-  section > div > div,
-  section > div > div > div {
-    padding: 0 !important;
-    margin: 0 !important;
-    background: transparent !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    max-width: 100% !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-  }
-
-  /* print header */
   .print-header {
     border-bottom: 1pt solid #c8c8c8;
     padding-bottom: 0.18in;
@@ -134,21 +165,23 @@
     border: 1pt solid #c8c8c8;
   }
 
-  .print-name-block h1 {
-    font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
-    font-size: 28pt;
-    line-height: 1;
-    margin: 0;
-    color: #1a1a1a;
-    font-weight: 700;
-    letter-spacing: -0.06em;
-  }
+  .print-name-block {
+    & h1 {
+      font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
+      font-size: 28pt;
+      line-height: 1;
+      margin: 0;
+      color: #1a1a1a;
+      font-weight: 700;
+      letter-spacing: -0.06em;
+    }
 
-  .print-name-block p {
-    font-size: 13pt;
-    color: #555;
-    margin: 0.04in 0 0 0;
-    font-weight: 500;
+    & p {
+      font-size: 13pt;
+      color: #555;
+      margin: 0.04in 0 0 0;
+      font-weight: 500;
+    }
   }
 
   .print-contact {
@@ -164,19 +197,19 @@
     align-items: center;
     gap: 0.06in;
     justify-content: flex-end;
-  }
 
-  .print-contact-row svg,
-  .print-contact-row [data-icon] {
-    width: 10pt;
-    height: 10pt;
-    color: #1a1a1a;
-    flex-shrink: 0;
-  }
+    & svg,
+    & [data-icon] {
+      width: 10pt;
+      height: 10pt;
+      color: #1a1a1a;
+      flex-shrink: 0;
+    }
 
-  .print-contact-row a {
-    color: #0a7aca;
-    text-decoration: none;
+    & a {
+      color: #0a7aca;
+      text-decoration: none;
+    }
   }
 
   .print-summary {
@@ -186,32 +219,8 @@
     line-height: 1.5;
   }
 
-  /* big centered section titles */
-  main h2 {
-    font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
-    font-size: 17pt;
-    color: #1a1a1a;
-    margin: 0 0 0.12in 0 !important;
-    padding: 0;
-    border: 0;
-    text-align: center !important;
-    text-transform: none;
-    letter-spacing: -0.06em;
-    font-weight: 700;
-  }
-
-  /* eyebrow above section title - hide */
-  main section header > p {
-    display: none;
-  }
-
-  main section header {
-    margin-bottom: 0.1in !important;
-    align-items: center !important;
-  }
-
   /* job experience timeline */
-  ol[aria-label='Employment history'] {
+  .print-timeline {
     list-style: none;
     display: block !important;
     gap: 0 !important;
@@ -221,163 +230,157 @@
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
-  }
 
-  ol[aria-label='Employment history']::before {
-    display: none !important;
-  }
+    &::before {
+      display: none !important;
+    }
 
-  ol[aria-label='Employment history'] > li {
-    display: block !important;
-    position: relative;
-    padding: 0 !important;
-    padding-left: 0 !important;
-    margin: 0 0 0.08in 0 !important;
-    grid-template-columns: none !important;
-    break-inside: auto;
-    text-align: left !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-  }
+    & > li {
+      display: block !important;
+      position: relative;
+      padding: 0 !important;
+      margin: 0 0 0.08in 0 !important;
+      grid-template-columns: none !important;
+      break-inside: auto;
+      text-align: left !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
 
-  /* keep header + first bullet together to avoid orphan title */
-  ol[aria-label='Employment history'] > li header {
-    break-inside: avoid;
-    break-after: avoid;
-  }
+      /* timeline dot */
+      &::before {
+        content: '';
+        position: absolute;
+        left: -0.15in;
+        top: 0.155in;
+        width: 0.09in;
+        height: 0.09in;
+        background: #1a1a1a;
+        border-radius: 50%;
+        z-index: 3;
+      }
 
-  ol[aria-label='Employment history'] li > div,
-  ol[aria-label='Employment history'] li > div > div,
-  ol[aria-label='Employment history'] li [data-reveal] {
-    box-sizing: border-box !important;
-    max-width: 100% !important;
-    width: 100% !important;
-  }
+      /* per-li line segment so it repeats on every page */
+      &::after {
+        content: '';
+        position: absolute;
+        left: -0.112in;
+        top: 0;
+        bottom: -0.1in;
+        width: 1.5pt;
+        background: #888888 !important;
+        z-index: 1;
+      }
 
-  /* timeline dot on each li */
-  ol[aria-label='Employment history'] > li::before {
-    content: '';
-    position: absolute;
-    left: -0.15in;
-    top: 0.155in;
-    width: 0.09in;
-    height: 0.09in;
-    background: #1a1a1a;
-    border-radius: 50%;
-    z-index: 3;
-  }
+      /* first li line starts at dot (not above) */
+      &:first-child::after {
+        top: 0.2in;
+      }
 
-  /* per-li line segment: each li draws its own line so it repeats on every page.
-     Dot covers the portion that visually overlaps. Bottom extends into margin gap for continuity. */
-  ol[aria-label='Employment history'] > li::after {
-    content: '';
-    position: absolute;
-    left: -0.112in;
-    top: 0;
-    bottom: -0.1in;
-    width: 1.5pt;
-    background: #888888 !important;
-    z-index: 1;
-  }
+      /* last li line ends at its own dot */
+      &:last-child::after {
+        top: 0;
+        bottom: auto;
+        height: 0.2in;
+      }
 
-  /* first li line starts at dot (not above) */
-  ol[aria-label='Employment history'] > li:first-child::after {
-    top: 0.2in;
-  }
+      /* keep header + first bullet together to avoid orphan title */
+      & header {
+        break-inside: avoid;
+        break-after: avoid;
+        display: block !important;
+        margin: 0 0 0.05in 0 !important;
+        text-align: left !important;
+        align-items: flex-start !important;
 
-  /* last li line ends at its own dot */
-  ol[aria-label='Employment history'] > li:last-child::after {
-    top: 0;
-    bottom: auto;
-    height: 0.2in;
-  }
+        & h3 {
+          font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
+          font-size: 12pt;
+          color: #1a1a1a !important;
+          margin: 0 !important;
+          text-align: left !important;
+          font-weight: 700;
+          letter-spacing: -0.06em;
+        }
 
-  /* hide the screen-only desktop date column (the empty/hidden side div) */
-  ol[aria-label='Employment history'] li > div.hidden {
-    display: none !important;
-  }
+        & p:nth-of-type(1) {
+          font-size: 10pt;
+          color: #1a1a1a !important;
+          margin: 0.02in 0 0 0 !important;
+          text-align: left !important;
+          font-weight: 600;
+        }
 
-  /* timeline dot indicator from screen */
-  ol[aria-label='Employment history'] li > span[aria-hidden='true'] {
-    display: none !important;
-  }
+        /* mobile-only date <p> needs to show in print */
+        & p:nth-of-type(2) {
+          display: block !important;
+          font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
+          font-size: 9pt;
+          color: #555 !important;
+          margin: 0.02in 0 0 0 !important;
+          text-align: left !important;
+        }
+      }
 
-  /* the card-bearing div */
-  ol[aria-label='Employment history'] li > div {
-    display: block !important;
-    text-align: left !important;
-  }
+      & > div,
+      & [data-reveal] {
+        box-sizing: border-box !important;
+        max-width: 100% !important;
+        width: 100% !important;
+      }
 
-  ol[aria-label='Employment history'] li > div > div,
-  ol[aria-label='Employment history'] li [data-reveal] {
-    display: block !important;
-    background: #ffffff !important;
-    padding: 0.1in 0.14in !important;
-    border: 0.5pt solid #888 !important;
-    border-radius: 4pt !important;
-    text-align: left !important;
-    margin: 0 !important;
-    color: #1a1a1a !important;
-  }
+      /* hide the screen-only desktop date column */
+      & > div.hidden {
+        display: none !important;
+      }
 
-  ol[aria-label='Employment history'] li header {
-    display: block !important;
-    margin: 0 0 0.05in 0 !important;
-    text-align: left !important;
-    align-items: flex-start !important;
-  }
+      /* timeline dot indicator from screen */
+      & > span[aria-hidden='true'] {
+        display: none !important;
+      }
 
-  ol[aria-label='Employment history'] li header h3 {
-    font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
-    font-size: 12pt;
-    color: #1a1a1a !important;
-    margin: 0 !important;
-    text-align: left !important;
-    font-weight: 700;
-    letter-spacing: -0.06em;
-  }
+      /* the card-bearing div */
+      & > div {
+        display: block !important;
+        text-align: left !important;
+      }
 
-  ol[aria-label='Employment history'] li header p:nth-of-type(1) {
-    font-size: 10pt;
-    color: #1a1a1a !important;
-    margin: 0.02in 0 0 0 !important;
-    text-align: left !important;
-    font-weight: 600;
-  }
+      & > div > div,
+      & [data-reveal] {
+        display: block !important;
+        background: #ffffff !important;
+        padding: 0.1in 0.14in !important;
+        border: 0.5pt solid #888 !important;
+        border-radius: 4pt !important;
+        text-align: left !important;
+        margin: 0 !important;
+        color: #1a1a1a !important;
+      }
 
-  /* mobile-only date <p> needs to show in print */
-  ol[aria-label='Employment history'] li header p:nth-of-type(2) {
-    display: block !important;
-    font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
-    font-size: 9pt;
-    color: #555 !important;
-    margin: 0.02in 0 0 0 !important;
-    text-align: left !important;
-  }
+      & ul {
+        margin: 0.04in 0 0 0.18in !important;
+        padding: 0 !important;
+        list-style: disc;
 
-  ol[aria-label='Employment history'] li ul {
-    margin: 0.04in 0 0 0.18in !important;
-    padding: 0 !important;
-    list-style: disc;
-  }
+        & li {
+          display: list-item !important;
+          margin: 0.02in 0 !important;
+          padding: 0 !important;
+          font-size: 9pt;
+          color: #1a1a1a !important;
+          line-height: 1.4;
+          text-align: left !important;
 
-  ol[aria-label='Employment history'] li ul li {
-    display: list-item !important;
-    margin: 0.02in 0 !important;
-    padding: 0 !important;
-    font-size: 9pt;
-    color: #1a1a1a !important;
-    line-height: 1.4;
-    text-align: left !important;
-  }
+          &::before {
+            display: none !important;
+          }
 
-  ol[aria-label='Employment history'] li ul li::before {
-    display: none !important;
-  }
-
-  ol[aria-label='Employment history'] li ul li > span:first-child {
-    display: none !important;
+          & > span:first-child {
+            display: none !important;
+          }
+        }
+      }
+    }
   }
 
   /* skills as labeled icon tile grid */
@@ -388,120 +391,126 @@
     list-style: none !important;
     padding: 0 !important;
     margin: 0 !important;
-  }
 
-  #skills [aria-label='Skills'] li {
-    display: block !important;
-    break-inside: avoid;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
+    & li {
+      display: block !important;
+      break-inside: avoid;
+      margin: 0 !important;
+      padding: 0 !important;
 
-  #skills [aria-label='Skills'] li > div {
-    display: flex !important;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.04in;
-    padding: 0.06in 0.04in !important;
-    border: 0.5pt solid #888 !important;
-    border-radius: 3pt !important;
-    background: #ffffff !important;
-    transform: none !important;
-    color: #1a1a1a !important;
-  }
+      & > div {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.04in;
+        padding: 0.06in 0.04in !important;
+        border: 0.5pt solid #888 !important;
+        border-radius: 3pt !important;
+        background: #ffffff !important;
+        transform: none !important;
+        color: #1a1a1a !important;
+      }
 
-  #skills [aria-label='Skills'] li svg,
-  #skills [aria-label='Skills'] li [data-icon] {
-    width: 24pt !important;
-    height: 24pt !important;
-    transform: none !important;
-  }
+      & svg,
+      & [data-icon] {
+        width: 24pt !important;
+        height: 24pt !important;
+        transform: none !important;
+      }
 
-  #skills [aria-label='Skills'] li span {
-    font-size: 7pt !important;
-    color: #1a1a1a !important;
-    text-align: center;
-    line-height: 1.1;
-  }
-
-  /* hide alt print-only skill list */
-  .print-skill-list {
-    display: none !important;
+      & span {
+        font-size: 7pt !important;
+        color: #1a1a1a !important;
+        text-align: center;
+        line-height: 1.1;
+      }
+    }
   }
 
   /* education layout */
-  #education article {
-    display: block !important;
-    grid-template-columns: none !important;
-    max-width: none !important;
-  }
+  #education {
+    & article {
+      display: block !important;
+      grid-template-columns: none !important;
+      max-width: none !important;
+    }
 
-  #education header {
-    display: grid !important;
-    grid-template-columns: 1fr auto !important;
-    gap: 0.18in !important;
-    align-items: center;
-  }
+    & article > header {
+      flex-direction: row-reverse !important;
+      align-items: flex-start !important;
+      justify-content: space-between !important;
+      gap: 0.2in !important;
+      text-align: left !important;
 
-  #education h3 {
-    font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
-    font-size: 13pt;
-    color: #1a1a1a;
-    font-weight: 700;
-    letter-spacing: -0.06em;
-  }
+      & > div {
+        flex: 1 1 auto !important;
+        text-align: left !important;
 
-  #education header p:first-of-type {
-    font-size: 10pt;
-    font-weight: 600;
-    color: #1a1a1a !important;
-    margin: 0.02in 0 0 0 !important;
-  }
+        & p:first-of-type {
+          font-size: 10pt;
+          font-weight: 600;
+          color: #1a1a1a !important;
+          margin: 0.02in 0 0 0 !important;
+          text-align: left !important;
+        }
 
-  #education header p:nth-of-type(2) {
-    font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
-    font-size: 9pt;
-    color: #555 !important;
-    margin: 0.02in 0 0 0 !important;
-  }
+        & p:nth-of-type(2) {
+          font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
+          font-size: 9pt;
+          color: #555 !important;
+          margin: 0.02in 0 0 0 !important;
+          text-align: left !important;
+        }
+      }
+    }
 
-  #education h4 {
-    font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
-    font-size: 11pt;
-    color: #1a1a1a;
-    margin-top: 0.1in;
-    margin-bottom: 0.04in;
-    font-weight: 700;
-    letter-spacing: -0.06em;
-  }
+    & h3 {
+      font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
+      font-size: 13pt;
+      color: #1a1a1a;
+      font-weight: 700;
+      letter-spacing: -0.06em;
+      text-align: left !important;
+    }
 
-  #education ul {
-    margin: 0.04in 0 0 0.16in !important;
-    padding: 0 !important;
-    list-style: disc;
-  }
+    & h4 {
+      font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
+      font-size: 11pt;
+      color: #1a1a1a;
+      margin-top: 0.1in;
+      margin-bottom: 0.04in;
+      font-weight: 700;
+      letter-spacing: -0.06em;
+    }
 
-  #education ul li {
-    display: list-item !important;
-    margin: 0.02in 0;
-    padding: 0;
-    font-size: 9pt;
-    color: #1a1a1a;
-  }
+    & ul {
+      margin: 0.04in 0 0 0.16in !important;
+      padding: 0 !important;
+      list-style: disc;
 
-  #education ul li > span:first-child {
-    display: none !important;
-  }
+      & li {
+        display: list-item !important;
+        margin: 0.02in 0;
+        padding: 0;
+        font-size: 9pt;
+        color: #1a1a1a;
 
-  #education hr {
-    border: 0;
-    border-top: 0.5pt solid #d0d0d0;
-    margin: 0.06in 0;
-  }
+        & > span:first-child {
+          display: none !important;
+        }
+      }
+    }
 
-  #education svg {
-    height: 0.55in !important;
-    width: auto !important;
+    & hr {
+      border: 0;
+      border-top: 0.5pt solid #d0d0d0;
+      margin: 0.06in 0;
+    }
+
+    & svg {
+      height: 0.55in !important;
+      width: auto !important;
+    }
   }
 
   /* Page breaks */
@@ -517,11 +526,11 @@
   a {
     color: #0a7aca !important;
     text-decoration: none !important;
-  }
 
-  a[href^='http']::after,
-  a[href^='mailto']::after {
-    content: '';
+    &[href^='http']::after,
+    &[href^='mailto']::after {
+      content: '';
+    }
   }
 
   ul,
@@ -529,10 +538,11 @@
     padding-left: 1rem;
   }
 
-  /* @page margin: 0 forces no browser-level margins. Body padding above provides the
-     visible margin so it survives Chrome's "None" margin option. */
+  /* @page top/bottom margins repeat on every page so content doesn't bleed to edges on
+     page 2+. Horizontal margin still comes from body padding so it survives Chrome's
+     "None" margin option for the first page. */
   @page {
-    margin: 0;
+    margin: 0.5in;
     size: letter;
   }
 

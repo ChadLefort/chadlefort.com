@@ -1,5 +1,5 @@
 import { execFileSync, spawn } from 'node:child_process';
-import { readFile, mkdtemp, rm, stat } from 'node:fs/promises';
+import { readFile, mkdtemp, rm } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -44,13 +44,10 @@ const waitForServer = async (url, timeoutMs = 30_000) => {
 };
 
 const generateResumePdf = async () => {
-  try {
-    await stat(path.join(rootDir, 'dist', 'index.html'));
-  } catch {
-    run(path.join(rootDir, 'node_modules', '.bin', 'astro'), ['build']);
-  }
-
   const astroBin = path.join(rootDir, 'node_modules', '.bin', 'astro');
+
+  run(astroBin, ['build']);
+
   const preview = spawn(astroBin, ['preview', '--host', previewHost, '--port', String(previewPort)], {
     cwd: rootDir,
     stdio: ['ignore', 'inherit', 'inherit'],
@@ -80,7 +77,7 @@ const generateResumePdf = async () => {
     await page.pdf({
       path: resumePdfPath,
       format: 'Letter',
-      margin: { top: '0.4in', right: '0.45in', bottom: '0.4in', left: '0.45in' },
+      margin: { top: '0', right: '0', bottom: '0', left: '0' },
       printBackground: true,
       preferCSSPageSize: true
     });

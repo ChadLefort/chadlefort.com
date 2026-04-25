@@ -1,15 +1,6 @@
 import type { FC, ReactNode } from 'react';
-import { m, LazyMotion, MotionConfig, domAnimation } from 'motion/react';
 import { Button as RACButton, composeRenderProps, type ButtonProps as RACButtonProps } from 'react-aria-components';
 import { tv, type VariantProps } from 'tailwind-variants';
-
-const MotionRACButton = m.create(RACButton);
-
-const motionPress = {
-  whileHover: { scale: 1.03 },
-  whileTap: { scale: 0.96 },
-  transition: { type: 'spring', stiffness: 420, damping: 22 }
-} as const;
 
 const focusRing = tv({
   base: 'outline outline-accent outline-offset-[3px] forced-colors:outline-[Highlight]',
@@ -26,7 +17,7 @@ export const buttonStyles = tv({
   base: [
     'inline-flex items-center justify-center gap-2 cursor-pointer',
     'font-semibold tracking-tight select-none',
-    'transition-[background-color,color,box-shadow] duration-150 ease-out',
+    'transition-[background-color,color,box-shadow,transform] duration-150 ease-out',
     'data-[disabled]:cursor-not-allowed data-[disabled]:opacity-60'
   ],
   variants: {
@@ -50,6 +41,17 @@ export const buttonStyles = tv({
       default: '',
       pill: 'rounded-full',
       icon: 'rounded-full p-0 aspect-square'
+    },
+    press: {
+      none: '',
+      subtle: [
+        'data-[hovered]:scale-[1.03] data-[pressed]:scale-[0.96]',
+        'motion-reduce:data-[hovered]:scale-100 motion-reduce:data-[pressed]:scale-100'
+      ],
+      bouncy: [
+        'data-[hovered]:scale-[1.08] data-[pressed]:scale-[0.92]',
+        'motion-reduce:data-[hovered]:scale-100 motion-reduce:data-[pressed]:scale-100'
+      ]
     },
     fullWidth: {
       true: 'w-full'
@@ -102,7 +104,8 @@ export const buttonStyles = tv({
     variant: 'solid',
     color: 'brand',
     size: 'md',
-    shape: 'default'
+    shape: 'default',
+    press: 'subtle'
   }
 });
 
@@ -113,21 +116,11 @@ export type ButtonStyleProps = {
   color?: ButtonVariants['color'];
   size?: ButtonVariants['size'];
   shape?: ButtonVariants['shape'];
+  press?: ButtonVariants['press'];
   fullWidth?: ButtonVariants['fullWidth'];
 };
 
-type ConflictingHandlers =
-  | 'style'
-  | 'onAnimationStart'
-  | 'onAnimationEnd'
-  | 'onAnimationIteration'
-  | 'onDrag'
-  | 'onDragStart'
-  | 'onDragEnd'
-  | 'onHoverStart'
-  | 'onHoverEnd';
-
-type Props = Omit<RACButtonProps, 'className' | 'children' | ConflictingHandlers> &
+type Props = Omit<RACButtonProps, 'className' | 'children'> &
   ButtonStyleProps & {
     startIcon?: ReactNode;
     endIcon?: ReactNode;
@@ -140,6 +133,7 @@ export const Button: FC<Props> = ({
   color,
   size,
   shape,
+  press,
   fullWidth,
   startIcon,
   endIcon,
@@ -147,19 +141,14 @@ export const Button: FC<Props> = ({
   className,
   ...props
 }) => (
-  <LazyMotion features={domAnimation} strict>
-    <MotionConfig reducedMotion="user">
-      <MotionRACButton
-        {...motionPress}
-        {...props}
-        className={composeRenderProps(className, (extra, renderProps) =>
-          buttonStyles({ ...renderProps, variant, color, size, shape, fullWidth, className: extra })
-        )}
-      >
-        {startIcon ? <span aria-hidden="true">{startIcon}</span> : null}
-        {children ? <span>{children}</span> : null}
-        {endIcon ? <span aria-hidden="true">{endIcon}</span> : null}
-      </MotionRACButton>
-    </MotionConfig>
-  </LazyMotion>
+  <RACButton
+    {...props}
+    className={composeRenderProps(className, (extra, renderProps) =>
+      buttonStyles({ ...renderProps, variant, color, size, shape, press, fullWidth, className: extra })
+    )}
+  >
+    {startIcon ? <span aria-hidden="true">{startIcon}</span> : null}
+    {children ? <span>{children}</span> : null}
+    {endIcon ? <span aria-hidden="true">{endIcon}</span> : null}
+  </RACButton>
 );

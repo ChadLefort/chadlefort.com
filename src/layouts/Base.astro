@@ -16,6 +16,7 @@ type Props = {
   pathname?: string;
   navLinks?: NavLink[];
   showLogoOnDesktop?: boolean;
+  compactLogo?: boolean;
   structuredData?: Record<string, unknown> | Record<string, unknown>[];
 };
 
@@ -26,6 +27,7 @@ const {
   pathname,
   navLinks = homeNav,
   showLogoOnDesktop = true,
+  compactLogo = false,
   structuredData
 } = Astro.props;
 ---
@@ -35,6 +37,7 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#21252b" />
@@ -54,12 +57,12 @@ const {
     <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
       <div class="bg-surface absolute inset-0"></div>
       <div class="blob bg-terminal-blue/15 absolute -top-40 -left-40 h-160 w-160 rounded-full blur-[140px]"></div>
-      <div class="blob bg-terminal-magenta/10 absolute top-[20%] -right-32 h-144 w-144 rounded-full blur-[140px]"></div>
-      <div class="blob bg-terminal-green/10 absolute bottom-0 left-1/3 h-160 w-160 rounded-full blur-[160px]"></div>
+      <div class="blob bg-terminal-green/10 absolute top-[20%] -right-32 h-144 w-144 rounded-full blur-[140px]"></div>
+      <div class="blob bg-terminal-blue/15 absolute bottom-0 left-1/3 h-160 w-160 rounded-full blur-[160px]"></div>
       <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_transparent_0%,_var(--surface)_70%)]"></div>
     </div>
 
-    <Nav links={navLinks} showLogoOnDesktop={showLogoOnDesktop} />
+    <Nav links={navLinks} showLogoOnDesktop={showLogoOnDesktop} compactLogo={compactLogo} />
 
     <main id="main" tabindex="-1">
       <slot />

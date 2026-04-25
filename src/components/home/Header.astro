@@ -2,21 +2,18 @@
 import { Picture } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import { Terminal } from '~/components/react/Terminal';
-import { yearsOfExperience } from '~/data/site';
 import me from '~/assets/me.png';
-
-const years = yearsOfExperience();
 ---
 
-<section class="relative px-4 pt-8 pb-6 sm:px-6 sm:pt-10 sm:pb-8 md:pt-20 md:pb-10" data-no-print>
+<section class="relative px-4 pt-8 pb-6 sm:px-6 sm:pt-10 sm:pb-8 md:pt-20 md:pb-10" data-no-print data-hero>
   <div class="max-w-section mx-auto flex w-full flex-col items-center gap-8 sm:gap-10 md:gap-12">
     <div class="flex flex-col items-center gap-6 text-center md:flex-row md:items-center md:gap-12 md:text-left">
-      <div class="ring-glass-border-strong relative h-44 w-44 overflow-hidden rounded-full ring-1 md:h-56 md:w-56">
+      <div class="ring-glass-border-strong relative h-36 w-36 overflow-hidden rounded-full ring-1 md:h-44 md:w-44">
         <Picture
           src={me}
           alt="Chad Lefort portrait"
-          width={224}
-          height={224}
+          width={176}
+          height={176}
           densities={[1, 2, 3]}
           loading="eager"
           fetchpriority="high"
@@ -31,12 +28,8 @@ const years = yearsOfExperience();
       </div>
       <div class="max-w-xl">
         <p class="text-accent font-mono text-xs tracking-[0.3em] uppercase">$ whoami</p>
-        <h1 class="font-display mt-3 text-5xl md:text-7xl">Chad Lefort</h1>
+        <h1 class="font-display mt-3 text-6xl md:text-8xl">Chad Lefort</h1>
         <p class="text-fg-muted mt-3 text-xl font-medium md:text-2xl">Senior Frontend Engineer</p>
-        <p class="text-fg-muted mt-5 text-base leading-relaxed md:text-lg">
-          Frontend engineer from Louisiana with {years}+ years shipping maintainable, accessible, production-ready
-          systems. Obsessive about design systems, consistency, and interfaces that feel polished for all users.
-        </p>
       </div>
     </div>
 

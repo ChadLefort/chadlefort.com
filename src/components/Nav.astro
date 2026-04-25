@@ -8,14 +8,20 @@ import Logo from '~/components/Logo.astro';
 type Props = {
   links?: NavLink[];
   showLogoOnDesktop?: boolean;
+  compactLogo?: boolean;
 };
 
-const { links = homeNav, showLogoOnDesktop = true } = Astro.props;
+const { links = homeNav, showLogoOnDesktop = true, compactLogo = false } = Astro.props;
 ---
 
 <a href="#main" class="skip-link">Skip to main content</a>
 
-<header data-no-print class="glass-nav text-nav-fg sticky top-0 z-30">
+<header
+  data-no-print
+  data-nav
+  data-nav-compact={compactLogo ? 'true' : 'false'}
+  class="glass-nav text-nav-fg sticky top-0 z-30"
+>
   <div
     class="max-w-section mx-auto hidden h-16 w-full items-center gap-4 px-4 sm:px-6 md:grid md:grid-cols-[1fr_auto_1fr]"
   >
@@ -58,3 +64,50 @@ const { links = homeNav, showLogoOnDesktop = true } = Astro.props;
     </div>
   </div>
 </header>
+
+<script>
+  import { typeText } from '~/utils/typeText';
+
+  const TEXT = 'Chad Lefort';
+  let io: IntersectionObserver | undefined;
+
+  const typeInto = (el: HTMLElement) => {
+    if (el.dataset.typed === 'true') return;
+    el.dataset.typed = 'true';
+    typeText(el, TEXT);
+  };
+
+  const setup = () => {
+    io?.disconnect();
+    const nav = document.querySelector<HTMLElement>('[data-nav]');
+    const hero = document.querySelector<HTMLElement>('[data-hero]');
+    if (!nav) return;
+
+    const texts = nav.querySelectorAll<HTMLElement>('[data-logo-text]');
+    if (!texts.length) return;
+
+    if (!hero) {
+      texts.forEach(typeInto);
+      return;
+    }
+
+    texts.forEach((el) => {
+      el.textContent = '';
+      delete el.dataset.typed;
+    });
+
+    io = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        const past = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+        nav.dataset.navCompact = past ? 'false' : 'true';
+        if (past) texts.forEach(typeInto);
+      },
+      { rootMargin: '-64px 0px 0px 0px' }
+    );
+    io.observe(hero);
+  };
+
+  setup();
+  document.addEventListener('astro:page-load', setup);
+</script>
