@@ -1,13 +1,25 @@
 import type { Command } from './types';
+import { homeNav } from '~/data/nav';
 import { nodeAt, projects, resolvePath } from '../vfs';
 
+const slug = (s: string) => s.toLowerCase().replace(/\s+/g, '-');
+
+const fromNav = homeNav.reduce<Record<string, string>>((acc, link) => {
+  acc[slug(link.label)] = link.href;
+
+  if (link.hash) {
+    const id = link.href.split('#')[1];
+
+    if (id) acc[id] = link.href;
+  }
+
+  return acc;
+}, {});
+
 const directRoutes: Record<string, string> = {
+  ...fromNav,
   about: '/#about-me',
-  contact: '/#contact',
-  education: '/#education',
   experience: '/#job-experience',
-  skills: '/#skills',
-  projects: '/projects',
   home: '/',
   '~': '/',
   '/': '/'
@@ -19,7 +31,7 @@ export const open: Command = (args, ctx) => {
     return;
   }
 
-  const target = args[0];
+  const target = args[0].replace(/^#/, '');
   const directHit = directRoutes[target];
 
   if (directHit) {

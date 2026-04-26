@@ -150,6 +150,8 @@
   --container-shell: 1480px;
   --container-section: 1352px;
 
+  --breakpoint-nav: 980px;
+
   --color-ink-100: var(--color-12);
   --color-ink-300: var(--color-9);
   --color-ink-500: var(--color-7);

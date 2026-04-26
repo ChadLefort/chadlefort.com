@@ -17,6 +17,8 @@ import {
   pushHistory as storePushHistory,
   setCwd as storeSetCwd,
   setLines as storeSetLines,
+  setMaximized,
+  setMinimized,
   type Line,
   type LineBody
 } from './store';
@@ -58,6 +60,27 @@ const completeFromCwd = (root: FsDir, cwd: string[], prefix: string): { matches:
 
 const goTo = (route: string) => {
   window.setTimeout(() => {
+    const url = new URL(route, window.location.origin);
+    const samePath = url.pathname === window.location.pathname;
+
+    if (samePath && url.hash) {
+      const el = document.querySelector(url.hash);
+
+      if (el) {
+        setMaximized(false);
+        setMinimized(false);
+        window.history.replaceState(null, '', url.hash);
+        document.body.style.overflow = '';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+        });
+
+        return;
+      }
+    }
+
     void navigate(route);
   }, 250);
 };
