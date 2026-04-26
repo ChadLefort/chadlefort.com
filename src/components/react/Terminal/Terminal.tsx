@@ -49,10 +49,7 @@ const wrapper = tv({
 });
 
 const container = tv({
-  base: [
-    'ring-glass-border relative w-full overflow-hidden ring-1',
-    'origin-center transition-[border-radius,max-width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]'
-  ],
+  base: ['bg-term-bg ring-glass-border relative w-full overflow-hidden ring-1'],
   variants: {
     maximized: {
       true: 'fixed inset-0 z-50 max-w-none rounded-none flex flex-col',
