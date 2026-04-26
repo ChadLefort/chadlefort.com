@@ -1,5 +1,5 @@
 import { execFileSync, spawn } from 'node:child_process';
-import { readFile, mkdtemp, rm } from 'node:fs/promises';
+import { readFile, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -13,6 +13,7 @@ const tempDir = await mkdtemp(path.join(os.tmpdir(), 'chad-brand-assets-'));
 
 const portraitPath = path.join(rootDir, 'src', 'assets', 'me.png');
 const resumePdfPath = path.join(publicDir, 'chad-lefort-resume.pdf');
+const resumeMdPath = path.join(publicDir, 'chad-lefort-resume.md');
 const displayFontPath = path.join(publicDir, 'fonts', 'jetbrains-mono-latin-wght-normal.woff2');
 const sansFontPath = path.join(publicDir, 'fonts', 'roboto-latin-wght-normal.woff2');
 const resumePreviewBase = path.join(tempDir, 'resume-preview');
@@ -85,6 +86,13 @@ const generateResumePdf = async () => {
       printBackground: true,
       preferCSSPageSize: true
     });
+
+    const mdResponse = await fetch(`${previewUrl}resume.md`);
+
+    if (mdResponse.ok) {
+      await writeFile(resumeMdPath, await mdResponse.text(), 'utf8');
+    }
+
     await browser.close();
   } finally {
     preview.kill('SIGTERM');

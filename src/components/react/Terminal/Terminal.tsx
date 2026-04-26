@@ -1,177 +1,156 @@
 import type { FC } from 'react';
-import { useEffect, useRef, useState } from 'react';
-import apple from '@iconify-icons/simple-icons/apple';
+import { useEffect } from 'react';
+import { tv } from 'tailwind-variants';
+import { useStore } from '@nanostores/react';
 import neovim from '@iconify-icons/simple-icons/neovim';
-import nodedotjs from '@iconify-icons/simple-icons/nodedotjs';
+import gnubash from '@iconify-icons/simple-icons/gnubash';
 import tmux from '@iconify-icons/simple-icons/tmux';
-import clock from '@iconify-icons/lucide/clock';
 import folder from '@iconify-icons/lucide/folder';
 import folderGit2 from '@iconify-icons/lucide/folder-git-2';
-import gitBranch from '@iconify-icons/lucide/git-branch';
-import minus from '@iconify-icons/lucide/minus';
-import pencilLine from '@iconify-icons/lucide/pencil-line';
-import plus from '@iconify-icons/lucide/plus';
-import { yearsOfExperience } from '~/data/site';
-import { useInView } from '~/hooks/useInView';
-import { useReducedMotion } from '~/hooks/useReducedMotion';
-import { useTypewriter } from '~/hooks/useTypewriter';
-import { Cursor } from './Cursor';
-import { MdRow } from './MdRow';
-import { Segment } from './Segment';
-import { Sep } from './Sep';
+import { DemoBody } from './DemoBody';
+import { Shell } from './Shell';
 import { Tab } from './Tab';
 import { TrafficLights } from './TrafficLights';
-import type { MdLine } from './types';
+import {
+  $closed,
+  $interactive,
+  $maximized,
+  $minimized,
+  appendLines,
+  setClosed,
+  setInteractive,
+  setMaximized,
+  setMinimized
+} from './store';
 
-type IdentifiedLine = MdLine & { id: string };
+const KONAMI = [
+  'ArrowUp',
+  'ArrowUp',
+  'ArrowDown',
+  'ArrowDown',
+  'ArrowLeft',
+  'ArrowRight',
+  'ArrowLeft',
+  'ArrowRight',
+  'b',
+  'a'
+] as const;
 
-const lines = (years: number): IdentifiedLine[] =>
-  (
-    [
-      { kind: 'h1', text: 'Chad Lefort' },
-      { kind: 'blank' },
-      { kind: 'p', text: `Senior frontend engineer from Mandeville, Louisiana with ${years}+ years of experience.` },
-      { kind: 'blank' },
-      { kind: 'h2', text: 'About' },
-      { kind: 'blank' },
-      {
-        kind: 'bq',
-        text: 'Shortly after I was given my first computer, I developed a strong passion for programming.'
-      },
-      { kind: 'blank' },
-      {
-        kind: 'bq',
-        text: "I'm constantly furthering my skills to keep up with the ever changing demand the web has."
-      },
-      { kind: 'blank' },
-      {
-        kind: 'bq',
-        text: 'I enjoy the feeling of accomplishment when programming, and I take pride in writing maintainable and efficient code.'
-      },
-      { kind: 'blank' },
-      {
-        kind: 'bq',
-        text: 'Committed to team success, I prioritize delivering exceptional products that provide an outstanding user experience.'
-      }
-    ] as MdLine[]
-  ).map((line, i) => ({ ...line, id: `${line.kind}-${i}` }));
-
-type Props = { prefersReducedMotion?: boolean };
-
-const formatTime = () => new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
-
-const COMMAND = 'cat ABOUT.md';
-
-export const Terminal: FC<Props> = ({ prefersReducedMotion }) => {
-  const years = yearsOfExperience();
-  const [cmdDone, setCmdDone] = useState(false);
-  const [lineIndex, setLineIndex] = useState(0);
-  const [time, setTime] = useState<string | null>(null);
-  const motionPref = useReducedMotion();
-  const reduced = useRef(prefersReducedMotion ?? motionPref);
-  const body = lines(years);
-  const [containerRef, inView] = useInView<HTMLDivElement>({ threshold: 0.25, respectReducedMotion: false });
-
-  const onCommandTyped = () => {
-    window.setTimeout(() => setCmdDone(true), 200);
-  };
-
-  const typedFromHook = useTypewriter(COMMAND, {
-    perChar: 80,
-    enabled: inView && !reduced.current,
-    onComplete: onCommandTyped
-  });
-  const typed = reduced.current ? COMMAND : typedFromHook;
-
-  useEffect(() => {
-    if (reduced.current) {
-      setCmdDone(true);
-      setLineIndex(body.length);
+const container = tv({
+  base: 'ring-glass-border relative w-full overflow-hidden ring-1',
+  variants: {
+    maximized: {
+      true: 'fixed inset-0 z-50 max-w-none rounded-none flex flex-col',
+      false: 'mx-auto max-w-section rounded-2xl'
     }
-  }, [body.length]);
+  }
+});
+
+const titlebar = tv({ base: 'bg-term-menu-bg flex items-center px-3 py-3 sm:px-4 sm:py-3.5' });
+
+const tabsBar = tv({ base: 'bg-term-menu-bg flex items-end gap-1 overflow-x-auto px-2 sm:px-3' });
+
+const slot = tv({
+  base: 'relative w-full',
+  variants: {
+    maximized: {
+      true: 'flex-1 min-h-0',
+      false: 'h-[520px] sm:h-[480px]'
+    }
+  }
+});
+
+export const Terminal: FC = () => {
+  const maximized = useStore($maximized);
+  const minimized = useStore($minimized);
+  const closed = useStore($closed);
+  const interactive = useStore($interactive);
 
   useEffect(() => {
-    if (!cmdDone || reduced.current) return;
-    if (lineIndex >= body.length) return;
+    if (closed || !maximized || minimized) return;
 
-    const timer = window.setTimeout(() => setLineIndex((v) => v + 1), 35);
+    const prev = document.body.style.overflow;
 
-    return () => window.clearTimeout(timer);
-  }, [cmdDone, lineIndex, body.length]);
-
-  useEffect(() => {
-    setTime(formatTime());
-    const tick = () => setTime(formatTime());
-    const now = new Date();
-    const msToNextMinute = (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
-    let interval: number | undefined;
-    const timeout = window.setTimeout(() => {
-      tick();
-      interval = window.setInterval(tick, 60_000);
-    }, msToNextMinute);
+    document.body.style.overflow = 'hidden';
 
     return () => {
-      window.clearTimeout(timeout);
-      if (interval) window.clearInterval(interval);
+      document.body.style.overflow = prev;
     };
+  }, [maximized, minimized, closed]);
+
+  useEffect(() => {
+    let idx = 0;
+
+    const onKey = (e: KeyboardEvent) => {
+      const expected = KONAMI[idx].toLowerCase();
+      const got = e.key.toLowerCase();
+
+      if (got === expected) {
+        idx += 1;
+
+        if (idx === KONAMI.length) {
+          setClosed(false);
+          setMinimized(false);
+          setMaximized(true);
+          setInteractive(true);
+          appendLines([{ kind: 'success', text: '✓ konami unlocked — interactive shell + fullscreen' }]);
+          idx = 0;
+        }
+      } else {
+        idx = got === KONAMI[0].toLowerCase() ? 1 : 0;
+      }
+    };
+
+    window.addEventListener('keydown', onKey);
+
+    return () => window.removeEventListener('keydown', onKey);
   }, []);
 
+  if (closed) return null;
+
+  const onMaximize = () => {
+    const next = !$maximized.get();
+
+    setMaximized(next);
+
+    if (next) {
+      setInteractive(true);
+      if ($minimized.get()) setMinimized(false);
+    }
+  };
+
+  const onMinimize = () => {
+    const next = !$minimized.get();
+
+    setMinimized(next);
+
+    if (next && $maximized.get()) setMaximized(false);
+  };
+
   return (
-    <div
-      ref={containerRef}
-      className="max-w-section ring-glass-border relative mx-auto w-full overflow-hidden rounded-2xl ring-1"
-      aria-label="Terminal introduction"
-      data-no-print
-    >
-      <div className="bg-term-menu-bg flex items-center px-3 py-3 sm:px-4 sm:py-3.5">
-        <TrafficLights />
-      </div>
-      <div className="bg-term-menu-bg flex items-end gap-1 overflow-x-auto px-2 sm:px-3">
-        <Tab icon={tmux} label="chadlefort.com" active />
-        <Tab idx={1} icon={neovim} label="nvim" href="/#skills" hideOnMobile />
-        <Tab idx={2} icon={folderGit2} label="~/dotfiles" href="https://github.com/ChadLefort" hideOnMobile />
-        <Tab idx={3} mobileIdx={1} icon={folder} label="~/projects" href="/projects" />
+    <div className={container({ maximized })} aria-label="Terminal" data-no-print>
+      <div className={titlebar()}>
+        <TrafficLights
+          onClose={() => setClosed(true)}
+          onMinimize={onMinimize}
+          onMaximize={onMaximize}
+          maximized={maximized}
+        />
       </div>
 
-      <div className="bg-term-bg px-3 pt-4 sm:px-4 sm:pt-6 sm:pb-1">
-        <div className="bg-term-status-bg inline-flex max-w-full flex-wrap items-center gap-x-2 gap-y-2 rounded-2xl px-4 py-2.5 shadow-inner shadow-black/10 sm:gap-x-3 sm:rounded-full sm:px-4 sm:py-1.5">
-          <Segment icon={apple} text="clefort" />
-          <Sep />
-          <Segment text="~/development/chadlefort.com" hideOnMobile />
-          <Sep hideOnMobile />
-          <Segment icon={gitBranch} text="feat/redesign" tone="branch" />
-          <Sep />
-          <Segment icon={pencilLine} text="2" hideOnMobile />
-          <Segment icon={plus} text={String(years)} tone="add" hideOnMobile />
-          <Segment icon={minus} text="0" tone="del" hideOnMobile />
-          <Sep hideOnMobile />
-          <Segment icon={nodedotjs} text="v24.15.0" tone="add" hideOnMobile />
-          <Sep hideOnMobile />
-          <Segment icon={clock} text={time ?? '—:—'} />
-        </div>
-      </div>
-
-      <div className="bg-term-bg text-term-fg h-auto min-h-[520px] px-4 pt-3 pb-5 font-mono text-[12.5px] leading-6 break-words sm:min-h-[420px] sm:px-5 sm:pt-4 sm:pb-6 sm:text-[15px] sm:leading-7">
-        <p className="m-0">
-          <span className="text-term-prompt">→</span> <span>{typed}</span>
-          {!cmdDone && <Cursor />}
-        </p>
-
-        {cmdDone && (
-          <div className="mt-3">
-            {body.slice(0, lineIndex).map((line) => (
-              <div key={line.id} className="term-line">
-                <MdRow line={line} />
-              </div>
-            ))}
-            {lineIndex >= body.length && (
-              <p className="m-0 mt-3">
-                <span className="text-term-prompt">→</span> <Cursor />
-              </p>
-            )}
+      {!minimized && (
+        <>
+          <div className={tabsBar()}>
+            <Tab tone="session" icon={tmux} label="chadlefort_com" />
+            <Tab idx={1} icon={gnubash} label="zsh" active />
+            <Tab idx={2} icon={neovim} label="nvim" href="/#skills" hideOnMobile />
+            <Tab idx={3} icon={folderGit2} label="~/dotfiles" href="https://github.com/ChadLefort" hideOnMobile />
+            <Tab idx={4} mobileIdx={2} icon={folder} label="~/projects" href="/projects" />
           </div>
-        )}
-      </div>
+
+          <div className={slot({ maximized })}>{interactive ? <Shell /> : <DemoBody paused={interactive} />}</div>
+        </>
+      )}
     </div>
   );
 };

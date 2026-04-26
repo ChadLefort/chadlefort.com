@@ -1,6 +1,7 @@
 ---
 import Section from '~/components/Section.astro';
 import Nicholls from '~/assets/logos/nicholls.svg';
+import { education } from '~/data/education';
 ---
 
 <Section id="education" eyebrow="Where I learned" title="Education" tone="alt">
@@ -10,9 +11,11 @@ import Nicholls from '~/assets/logos/nicholls.svg';
     >
       <Nicholls aria-label="Nicholls State Colonels" class="h-16 w-auto md:order-2 md:h-20 print:h-10" />
       <div class="md:order-1">
-        <h3 class="font-display text-2xl md:text-3xl">Nicholls State University</h3>
-        <p class="text-accent mt-1 text-sm font-semibold md:text-base">Bachelor of Science (B.S.)</p>
-        <p class="text-fg-muted mt-1 font-mono text-xs md:text-sm">August 2009 &ndash; December 2013</p>
+        <h3 class="font-display text-2xl md:text-3xl">{education.institution}</h3>
+        <p class="text-accent mt-1 text-sm font-semibold md:text-base">{education.degree}</p>
+        <p class="text-fg-muted mt-1 font-mono text-xs md:text-sm">
+          {education.start} &ndash; {education.end}
+        </p>
       </div>
     </header>
 
@@ -21,40 +24,36 @@ import Nicholls from '~/assets/logos/nicholls.svg';
     <ul class="text-fg-muted space-y-2 text-sm md:text-base">
       <li class="flex gap-3">
         <span aria-hidden="true" class="bg-accent mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full"></span>
-        <span>Majored in Computer Information Systems</span>
+        <span>Majored in {education.major}</span>
       </li>
       <li class="flex gap-3">
         <span aria-hidden="true" class="bg-accent mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full"></span>
-        <span>GPA: 3.6</span>
+        <span>GPA: {education.gpa}</span>
       </li>
     </ul>
 
     <h4 class="font-display mt-10 text-lg md:text-xl">Awards</h4>
     <ul class="text-fg-muted mt-3 space-y-2 text-sm md:text-base">
-      <li class="flex gap-3">
-        <span aria-hidden="true" class="bg-accent mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full"></span>
-        <span
-          >Consistently awarded the President's List since the Fall 2010 semester (scholastic GPA of 3.5 or higher
-          required).</span
-        >
-      </li>
+      {
+        education.awards.map((award) => (
+          <li class="flex gap-3">
+            <span aria-hidden="true" class="bg-accent mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full" />
+            <span>{award}</span>
+          </li>
+        ))
+      }
     </ul>
 
     <h4 class="font-display mt-10 text-lg md:text-xl">Organizations</h4>
     <ul class="text-fg-muted mt-3 space-y-2 text-sm md:text-base">
-      <li class="flex gap-3">
-        <span aria-hidden="true" class="bg-accent mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full"></span>
-        <span
-          >Member of Beta Gamma Sigma, the highest recognition for a business student at an AACSB-accredited program.</span
-        >
-      </li>
-      <li class="flex gap-3">
-        <span aria-hidden="true" class="bg-accent mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full"></span>
-        <span
-          >Member of Upsilon Pi Epsilon, the first international honor society in the computing and information
-          disciplines.</span
-        >
-      </li>
+      {
+        education.organizations.map((org) => (
+          <li class="flex gap-3">
+            <span aria-hidden="true" class="bg-accent mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full" />
+            <span>{org}</span>
+          </li>
+        ))
+      }
     </ul>
   </article>
 </Section>

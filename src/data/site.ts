@@ -1,13 +1,26 @@
+const location = {
+  city: 'Mandeville',
+  state: 'LA',
+  stateLong: 'Louisiana',
+  country: 'US',
+  timezone: 'America/Chicago',
+  timezoneShort: 'CT'
+} as const;
+
+export const locationShort = `${location.city}, ${location.state}`;
+export const locationLong = `${location.city}, ${location.stateLong}`;
+
 export const site = {
   title: 'Chad Lefort - Senior Frontend Engineer',
   name: 'Chad Lefort',
   jobTitle: 'Senior Frontend Engineer',
   siteUrl: 'https://chadlefort.com',
-  description: `I'm Chad Lefort, a senior frontend engineer from Mandeville, Louisiana with ${new Date().getFullYear() - 2013}+ years of development experience.`,
+  description: `I'm Chad Lefort, a senior frontend engineer from ${locationLong} with ${new Date().getFullYear() - 2013}+ years of development experience.`,
   lang: 'en-US',
-  email: 'chadlefort@gmail.com',
+  email: 'chad@chadlefort.com',
   ogImage: '/card.png',
   avatar: '/me.png',
+  location,
   social: {
     github: 'https://github.com/ChadLefort',
     linkedin: 'https://www.linkedin.com/in/chadlefort',

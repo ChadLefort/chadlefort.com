@@ -6,6 +6,10 @@ import * as matchers from 'vitest-axe/matchers';
 
 expect.extend(matchers);
 
+if (!Element.prototype.scrollTo) {
+  Element.prototype.scrollTo = function scrollTo() {};
+}
+
 if (!window.matchMedia) {
   Object.defineProperty(window, 'matchMedia', {
     writable: true,

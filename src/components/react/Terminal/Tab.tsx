@@ -7,6 +7,10 @@ import type { TabProps } from './types';
 const tabStyles = tv({
   base: 'inline-flex items-center gap-2 rounded-t-xl px-3 py-2 text-[12px] font-medium transition sm:px-4',
   variants: {
+    tone: {
+      default: '',
+      session: ''
+    },
     active: {
       true: 'bg-term-tab-active text-term-tab-text',
       false: 'bg-term-tab-inactive text-term-fg/80'
@@ -18,13 +22,15 @@ const tabStyles = tv({
       true: 'cursor-pointer hover:brightness-110'
     }
   },
+  compoundVariants: [{ tone: 'session', class: 'bg-term-tab-session text-term-tab-session-text' }],
   defaultVariants: {
-    active: false
+    active: false,
+    tone: 'default'
   }
 });
 
-export const Tab: FC<TabProps> = ({ idx, mobileIdx, icon, label, active, href, hideOnMobile }) => {
-  const className = tabStyles({ active, hideOnMobile, interactive: Boolean(href) });
+export const Tab: FC<TabProps> = ({ idx, mobileIdx, icon, label, active, href, hideOnMobile, tone }) => {
+  const className = tabStyles({ active, hideOnMobile, interactive: Boolean(href), tone });
 
   const inner = (
     <>

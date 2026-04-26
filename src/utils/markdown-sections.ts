@@ -1,7 +1,8 @@
 import { getCollection } from 'astro:content';
+import { education } from '~/data/education';
 import { jobs } from '~/data/jobs';
 import { skills } from '~/data/skills';
-import { site, yearsOfExperience } from '~/data/site';
+import { locationLong, site, yearsOfExperience } from '~/data/site';
 
 export const sortedProjects = async () =>
   (await getCollection('projects')).sort(
@@ -11,7 +12,7 @@ export const sortedProjects = async () =>
 export const introLines = (): string[] => [
   `# ${site.name}`,
   '',
-  `> ${site.jobTitle} from Mandeville, Louisiana with ${yearsOfExperience()}+ years shipping accessible, maintainable, performant web apps.`,
+  `> ${site.jobTitle} from ${locationLong} with ${yearsOfExperience()}+ years shipping accessible, maintainable, performant web apps.`,
   ''
 ];
 
@@ -80,13 +81,12 @@ export const projectDetailLines = (project: ProjectEntry): string[] => [
 
 export const educationSection = (): string[] => [
   '## Education',
-  '### Nicholls State University — Bachelor of Science (B.S.)',
-  '_August 2009 – December 2013_',
+  `### ${education.institution} — ${education.degree}`,
+  `_${education.start} – ${education.end}_`,
   '',
-  '- Majored in Computer Information Systems',
-  '- GPA: 3.6',
-  "- President's List every semester since Fall 2010 (3.5+ GPA required)",
-  '- Member of Beta Gamma Sigma (highest business-student honor at AACSB programs)',
-  '- Member of Upsilon Pi Epsilon (first international honor society in computing)',
+  `- Majored in ${education.major}`,
+  `- GPA: ${education.gpa}`,
+  ...education.awards.map((a) => `- ${a}`),
+  ...education.organizations.map((o) => `- ${o}`),
   ''
 ];

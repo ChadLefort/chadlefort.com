@@ -16,6 +16,7 @@ export type TabProps = {
   active?: boolean;
   href?: string;
   hideOnMobile?: boolean;
+  tone?: 'default' | 'session';
 };
 
 export type SegmentProps = {

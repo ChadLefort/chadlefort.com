@@ -1,5 +1,5 @@
 ---
-import { site } from '~/data/site';
+import { locationShort, site } from '~/data/site';
 import { jobs } from '~/data/jobs';
 import { skills } from '~/data/skills';
 
@@ -36,9 +36,9 @@ const personLd = {
   url: site.siteUrl,
   address: {
     '@type': 'PostalAddress',
-    addressLocality: 'Mandeville',
-    addressRegion: 'LA',
-    addressCountry: 'US'
+    addressLocality: site.location.city,
+    addressRegion: site.location.state,
+    addressCountry: site.location.country
   },
   worksFor: currentJob
     ? {
@@ -51,7 +51,7 @@ const personLd = {
     name: site.jobTitle,
     occupationLocation: {
       '@type': 'City',
-      name: 'Mandeville, LA'
+      name: locationShort
     },
     skills: skills.map((s) => s.name).join(', ')
   },

@@ -61,12 +61,12 @@ test.describe('projects', () => {
 
     await expect(descTab).toHaveAttribute('aria-selected', 'true');
 
-    await descTab.focus();
-    await page.keyboard.press('ArrowRight');
+    await descTab.click();
+    await descTab.press('ArrowRight');
     await expect(imagesTab).toHaveAttribute('aria-selected', 'true');
     await expect(imagesTab).toBeFocused();
 
-    await page.keyboard.press('Home');
+    await imagesTab.press('Home');
     await expect(descTab).toHaveAttribute('aria-selected', 'true');
   });
 

@@ -6,7 +6,8 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '~': fileURLToPath(new URL('./src', import.meta.url))
+      '~': fileURLToPath(new URL('./src', import.meta.url)),
+      'astro:transitions/client': fileURLToPath(new URL('./src/test/astro-transitions-client.ts', import.meta.url))
     }
   },
   test: {

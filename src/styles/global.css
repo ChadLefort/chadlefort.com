@@ -83,8 +83,10 @@
   --term-fg: #21252b;
   --term-menu-bg: #9da3ad;
   --term-tab-inactive: #aab0ba;
-  --term-tab-active: #4b525f;
-  --term-tab-text: #eceef2;
+  --term-tab-active: #0a7aca;
+  --term-tab-text: #ffffff;
+  --term-tab-session: #4ec9b0;
+  --term-tab-session-text: #1a1b26;
   --term-status-bg: #e8eaee;
   --term-status-fg: #21252b;
   --term-comment: #4b525f;
@@ -128,8 +130,10 @@
   --term-fg: #cccccc;
   --term-menu-bg: #1a1d23;
   --term-tab-inactive: #21252b;
-  --term-tab-active: #4ec9b0;
-  --term-tab-text: #0d1117;
+  --term-tab-active: #0b7aca;
+  --term-tab-text: #ffffff;
+  --term-tab-session: #4ec9b0;
+  --term-tab-session-text: #1a1b26;
   --term-status-bg: #3a3e48;
   --term-status-fg: #cccccc;
   --term-comment: #9da5b4;
@@ -203,6 +207,8 @@
   --color-term-tab-inactive: var(--term-tab-inactive);
   --color-term-tab-active: var(--term-tab-active);
   --color-term-tab-text: var(--term-tab-text);
+  --color-term-tab-session: var(--term-tab-session);
+  --color-term-tab-session-text: var(--term-tab-session-text);
   --color-term-status-bg: var(--term-status-bg);
   --color-term-status-fg: var(--term-status-fg);
   --color-term-comment: var(--term-comment);

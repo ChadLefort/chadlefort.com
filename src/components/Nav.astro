@@ -50,7 +50,7 @@ const { links = homeNav, showLogoOnDesktop = true, compactLogo = false } = Astro
     </nav>
 
     <div class="flex items-center justify-end">
-      <ThemeToggle client:idle />
+      <ThemeToggle client:load />
     </div>
   </div>
 
@@ -59,7 +59,7 @@ const { links = homeNav, showLogoOnDesktop = true, compactLogo = false } = Astro
       <Logo as="span" size="sm" />
     </a>
     <div class="flex items-center gap-1">
-      <ThemeToggle client:idle />
+      <ThemeToggle client:load />
       <MobileDrawer client:idle links={links} />
     </div>
   </div>

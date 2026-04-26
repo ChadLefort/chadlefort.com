@@ -1,19 +1,19 @@
 import type { APIRoute } from 'astro';
-import { site, yearsOfExperience } from '~/data/site';
+import { locationLong, site, yearsOfExperience } from '~/data/site';
 import { contactBullets, educationSection, experienceSection, skillsSection } from '~/utils/markdown-sections';
 
 export const GET: APIRoute = async () => {
   const out: string[] = [];
 
   out.push(`# ${site.name}`);
-  out.push(`${site.jobTitle} · Mandeville, Louisiana`);
+  out.push(`${site.jobTitle} · ${locationLong}`);
   out.push('');
   out.push(...contactBullets());
   out.push('');
 
   out.push('## Summary');
   out.push(
-    `Frontend engineer from Louisiana with ${yearsOfExperience()}+ years shipping maintainable, accessible, and fast web apps for teams of every size.`
+    `Frontend engineer from ${site.location.stateLong} with ${yearsOfExperience()}+ years shipping maintainable, accessible, and fast web apps for teams of every size.`
   );
   out.push('');
 
