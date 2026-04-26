@@ -20,8 +20,8 @@ import {
   type Line,
   type LineBody
 } from './store';
-import { formatTime } from './utils';
-import { buildFs, formatPath, nodeAt, type FsDir } from './vfs';
+import { formatTime, getSiteHost } from './utils';
+import { buildFs, cwdForHost, formatPath, nodeAt, type FsDir } from './vfs';
 
 const shellRoot = tv({
   base: [
@@ -63,7 +63,8 @@ const goTo = (route: string) => {
 };
 
 export const Shell: FC = () => {
-  const root = useMemo(buildFs, []);
+  const host = getSiteHost();
+  const root = useMemo(() => buildFs(host), [host]);
   const years = yearsOfExperience();
   const lines = useStore($lines);
   const cwd = useStore($cwd);
@@ -78,6 +79,15 @@ export const Shell: FC = () => {
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
+
+  useEffect(() => {
+    const target = cwdForHost(host);
+    const current = $cwd.get();
+
+    if (current[0] === target[0] && current[1] !== target[1]) {
+      storeSetCwd(target);
+    }
+  }, [host]);
 
   useEffect(() => {
     setTime(formatTime());

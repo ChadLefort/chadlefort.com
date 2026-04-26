@@ -9,6 +9,7 @@ import folder from '@iconify-icons/lucide/folder';
 import folderGit2 from '@iconify-icons/lucide/folder-git-2';
 import { DemoBody } from './DemoBody';
 import { Tab } from './Tab';
+import { getSessionLabel, getSiteHost } from './utils';
 
 const Shell = lazy(() => import('./Shell').then((m) => ({ default: m.Shell })));
 import { TrafficLights } from './TrafficLights';
@@ -37,6 +38,16 @@ const KONAMI = [
   'a'
 ] as const;
 
+const wrapper = tv({
+  base: 'relative w-full',
+  variants: {
+    maximized: {
+      true: 'min-h-[604px] sm:min-h-[564px]',
+      false: ''
+    }
+  }
+});
+
 const container = tv({
   base: [
     'ring-glass-border relative w-full overflow-hidden ring-1',
@@ -46,6 +57,21 @@ const container = tv({
     maximized: {
       true: 'fixed inset-0 z-50 max-w-none rounded-none flex flex-col',
       false: 'mx-auto max-w-section rounded-2xl'
+    },
+    closing: {
+      true: 'term-closing pointer-events-none',
+      false: ''
+    }
+  },
+  defaultVariants: { closing: false }
+});
+
+const collapse = tv({
+  base: 'grid origin-top transition-[grid-template-rows,opacity,transform,filter] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)]',
+  variants: {
+    minimized: {
+      true: 'grid-rows-[0fr] -translate-y-2 scale-y-95 opacity-0 blur-sm',
+      false: 'grid-rows-[1fr] translate-y-0 scale-y-100 opacity-100'
     }
   }
 });
@@ -166,53 +192,26 @@ export const Terminal: FC = () => {
   };
 
   return (
-    <div
-      className={`${container({ maximized })} ${closing ? 'term-closing pointer-events-none' : ''}`}
-      style={{ viewTransitionName: 'terminal' }}
-      aria-label="Terminal"
-      data-no-print
-    >
-      <div className={titlebar()}>
-        <TrafficLights onClose={onClose} onMinimize={onMinimize} onMaximize={onMaximize} maximized={maximized} />
-      </div>
-
-      {maximized ? (
-        <div className="flex min-h-0 flex-1 flex-col">
-          <div className={tabsBar()}>
-            <Tab tone="session" icon={tmux} label="chadlefort_com" />
-            <Tab idx={1} icon={gnubash} label="zsh" active />
-            <Tab idx={2} icon={neovim} label="nvim" href="/#skills" hideOnMobile />
-            <Tab idx={3} icon={folderGit2} label="~/dotfiles" href="https://github.com/ChadLefort" hideOnMobile />
-            <Tab idx={4} mobileIdx={2} icon={folder} label="~/projects" href="/projects" />
-          </div>
-          <div className={slot({ maximized: true })}>
-            {interactive ? (
-              <Suspense fallback={null}>
-                <Shell />
-              </Suspense>
-            ) : (
-              <DemoBody paused={interactive} />
-            )}
-          </div>
+    <div className={wrapper({ maximized })} data-no-print>
+      <div
+        className={container({ maximized, closing })}
+        style={{ viewTransitionName: 'terminal' }}
+        aria-label="Terminal"
+      >
+        <div className={titlebar()}>
+          <TrafficLights onClose={onClose} onMinimize={onMinimize} onMaximize={onMaximize} maximized={maximized} />
         </div>
-      ) : (
-        <div
-          aria-hidden={minimized}
-          className={`grid origin-top transition-[grid-template-rows,opacity,transform,filter] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
-            minimized
-              ? '-translate-y-2 scale-y-95 grid-rows-[0fr] opacity-0 blur-sm'
-              : 'translate-y-0 scale-y-100 grid-rows-[1fr] opacity-100'
-          }`}
-        >
-          <div className="min-h-0 overflow-hidden">
+
+        {maximized ? (
+          <div className="flex min-h-0 flex-1 flex-col">
             <div className={tabsBar()}>
-              <Tab tone="session" icon={tmux} label="chadlefort_com" />
+              <Tab tone="session" icon={tmux} label={getSessionLabel(getSiteHost())} />
               <Tab idx={1} icon={gnubash} label="zsh" active />
               <Tab idx={2} icon={neovim} label="nvim" href="/#skills" hideOnMobile />
               <Tab idx={3} icon={folderGit2} label="~/dotfiles" href="https://github.com/ChadLefort" hideOnMobile />
               <Tab idx={4} mobileIdx={2} icon={folder} label="~/projects" href="/projects" />
             </div>
-            <div className={slot({ maximized: false })}>
+            <div className={slot({ maximized: true })}>
               {interactive ? (
                 <Suspense fallback={null}>
                   <Shell />
@@ -222,8 +221,29 @@ export const Terminal: FC = () => {
               )}
             </div>
           </div>
-        </div>
-      )}
+        ) : (
+          <div aria-hidden={minimized} className={collapse({ minimized })}>
+            <div className="min-h-0 overflow-hidden">
+              <div className={tabsBar()}>
+                <Tab tone="session" icon={tmux} label={getSessionLabel(getSiteHost())} />
+                <Tab idx={1} icon={gnubash} label="zsh" active />
+                <Tab idx={2} icon={neovim} label="nvim" href="/#skills" hideOnMobile />
+                <Tab idx={3} icon={folderGit2} label="~/dotfiles" href="https://github.com/ChadLefort" hideOnMobile />
+                <Tab idx={4} mobileIdx={2} icon={folder} label="~/projects" href="/projects" />
+              </div>
+              <div className={slot({ maximized: false })}>
+                {interactive ? (
+                  <Suspense fallback={null}>
+                    <Shell />
+                  </Suspense>
+                ) : (
+                  <DemoBody paused={interactive} />
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

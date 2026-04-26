@@ -1,10 +1,28 @@
 <script>
   import { registerSW } from 'virtual:pwa-register';
 
-  registerSW({
-    immediate: true,
-    onOfflineReady() {
-      console.info('App ready for offline use');
+  const isLocalhost = ['localhost', '127.0.0.1', '0.0.0.0', '[::1]'].includes(location.hostname);
+
+  if (isLocalhost) {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .getRegistrations()
+        .then((regs) => regs.forEach((r) => r.unregister()))
+        .catch(() => undefined);
     }
-  });
+
+    if (typeof caches !== 'undefined') {
+      caches
+        .keys()
+        .then((keys) => keys.forEach((k) => caches.delete(k)))
+        .catch(() => undefined);
+    }
+  } else {
+    registerSW({
+      immediate: true,
+      onOfflineReady() {
+        console.info('App ready for offline use');
+      }
+    });
+  }
 </script>

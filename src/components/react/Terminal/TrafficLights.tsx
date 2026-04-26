@@ -3,7 +3,7 @@ import { tv, type VariantProps } from 'tailwind-variants';
 
 const light = tv({
   base: [
-    'group inline-flex h-6 w-6 items-center justify-center rounded-full',
+    'inline-flex h-6 w-6 items-center justify-center rounded-full',
     'transition-opacity hover:opacity-90',
     'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2'
   ],

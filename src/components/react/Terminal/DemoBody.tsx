@@ -10,8 +10,8 @@ import { Cursor } from './Cursor';
 import { MdRow } from './MdRow';
 import { StatusLine } from './StatusLine';
 import type { MdLine } from './types';
-import { formatTime } from './utils';
-import { INITIAL_CWD, formatPath } from './vfs';
+import { formatTime, getSiteHost } from './utils';
+import { cwdForHost, formatPath } from './vfs';
 
 const demoBody = tv({
   base: [
@@ -44,7 +44,6 @@ const lines = (years: number): IdentifiedLine[] => {
 const COMMAND = 'cat ABOUT.md';
 
 const DEMO_STATUS = {
-  cwd: formatPath(INITIAL_CWD),
   branch: 'feat/redesign',
   modified: 2,
   removed: 0
@@ -97,7 +96,7 @@ export const DemoBody: FC<Props> = ({ paused }) => {
 
   const status = (
     <StatusLine
-      cwd={DEMO_STATUS.cwd}
+      cwd={formatPath(cwdForHost(getSiteHost()))}
       branch={DEMO_STATUS.branch}
       modified={DEMO_STATUS.modified}
       added={years}

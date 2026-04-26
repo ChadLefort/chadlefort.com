@@ -24,7 +24,7 @@ type Props = {
 };
 
 const tabClass =
-  'project-tab cursor-pointer text-fg-muted hover:text-fg focus-visible:ring-accent data-[selected]:border-accent data-[selected]:text-fg inline-flex items-center gap-2 border-b-2 border-transparent px-5 py-3 text-sm font-semibold tracking-wide transition focus-visible:ring-2 focus-visible:outline-none outline-none';
+  'cursor-pointer text-fg-muted hover:text-fg focus-visible:ring-accent data-[selected]:border-accent data-[selected]:text-fg inline-flex items-center gap-2 border-b-2 border-transparent px-5 py-3 text-sm font-semibold tracking-wide transition focus-visible:ring-2 focus-visible:outline-none outline-none';
 
 export const ProjectTabsIsland: FC<Props> = ({ hasGallery, galleryImages, title, description }) => (
   <Tabs>

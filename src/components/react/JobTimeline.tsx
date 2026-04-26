@@ -10,9 +10,7 @@ const TimelineItem: FC<ItemProps> = ({ job, isLeft }) => {
   const [ref, inView] = useInView<HTMLLIElement>({ threshold: 0.3, rootMargin: '0px 0px -80px 0px' });
 
   const card = (
-    <div
-      className={`timeline-card ${isLeft ? 'timeline-card-left' : 'timeline-card-right'} card card-hover p-6 md:p-8`}
-    >
+    <div className={`timeline-card ${isLeft ? 'timeline-card-left' : ''} card card-hover p-6 md:p-8`}>
       <header className={`flex flex-col gap-1 ${isLeft ? 'md:items-end' : ''}`}>
         <h3 className="font-display text-fg text-xl md:text-2xl">{job.company}</h3>
         <p className="text-accent text-sm font-semibold md:text-base">{job.role}</p>

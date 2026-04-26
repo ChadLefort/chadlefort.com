@@ -72,7 +72,7 @@ export const aboutBody = (years: number) =>
     ...aboutQuotes.flatMap((q, i) => (i === 0 ? [`> ${q}`] : ['', `> ${q}`]))
   ].join('\n');
 
-export const buildFs = (): FsDir => {
+export const buildFs = (host = 'chadlefort.com'): FsDir => {
   const years = yearsOfExperience();
   const projectsDir = dir(
     'projects',
@@ -89,7 +89,7 @@ export const buildFs = (): FsDir => {
   );
 
   const repoDir = dir(
-    'chadlefort.com',
+    host,
     {
       'README.md': file(
         'README.md',
@@ -156,11 +156,13 @@ export const buildFs = (): FsDir => {
   );
 
   return dir('~', {
-    development: dir('development', { 'chadlefort.com': repoDir }, '--')
+    development: dir('development', { [host]: repoDir }, '--')
   });
 };
 
 export const INITIAL_CWD = ['development', 'chadlefort.com'];
+
+export const cwdForHost = (host: string): string[] => ['development', host];
 
 export type IconSpec = { icon: IconifyIcon; color: string };
 

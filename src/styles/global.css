@@ -51,7 +51,6 @@
 
   --header-font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
   --default-font-family: 'Roboto Variable', 'Roboto', system-ui, sans-serif;
-  --mono-font-family: 'JetBrains Mono Variable', ui-monospace, monospace;
 
   --default-border-radius: 0.75rem;
 
@@ -70,7 +69,6 @@
   --card-grad-from: rgba(157, 163, 173, 0.55);
   --card-grad-to: rgba(157, 163, 173, 0.55);
   --card-backdrop: blur(24px) saturate(160%);
-  --card-shadow: none;
   --card-border: rgba(35, 37, 41, 0.12);
   --card-border-hover: rgba(10, 93, 165, 0.55);
   --glass-bg: rgba(157, 163, 173, 0.55);
@@ -117,7 +115,6 @@
   --card-grad-from: rgba(64, 70, 81, 0.85);
   --card-grad-to: rgba(48, 51, 58, 0.75);
   --card-backdrop: none;
-  --card-shadow: none;
   --card-border: rgba(255, 255, 255, 0.06);
   --card-border-hover: rgba(86, 156, 214, 0.55);
   --glass-bg: rgba(48, 51, 58, 0.55);
@@ -153,20 +150,11 @@
   --container-shell: 1480px;
   --container-section: 1352px;
 
-  --color-ink-50: #fafafa;
   --color-ink-100: var(--color-12);
-  --color-ink-200: var(--color-11);
   --color-ink-300: var(--color-9);
-  --color-ink-400: var(--color-8);
   --color-ink-500: var(--color-7);
-  --color-ink-600: var(--color-6);
-  --color-ink-700: var(--color-5);
   --color-ink-800: var(--color-3);
-  --color-ink-900: var(--color-2);
   --color-ink-950: var(--color-1);
-
-  --color-brand: #569cd6;
-  --color-brand-strong: #0a7aca;
 
   --color-accent: var(--accent);
   --color-accent-strong: var(--accent-strong);
@@ -452,12 +440,6 @@ html {
   }
 }
 
-@utility glass-strong {
-  background: var(--glass-bg-strong);
-  backdrop-filter: blur(28px) saturate(160%);
-  border: 1px solid var(--glass-border-strong);
-}
-
 @utility glass-nav {
   background: var(--nav-bg);
   backdrop-filter: blur(32px) saturate(180%);
@@ -470,7 +452,6 @@ html {
   backdrop-filter: var(--card-backdrop, none);
   border: 1px solid var(--card-border);
   border-radius: 1rem;
-  box-shadow: var(--card-shadow, none);
   transition:
     border-color 250ms ease,
     box-shadow 250ms ease;
