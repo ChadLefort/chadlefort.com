@@ -42,7 +42,7 @@ export const ProjectTabsIsland: FC<Props> = ({ hasGallery, galleryImages, title,
     </TabList>
 
     <TabPanel id="description" className="outline-none">
-      <div className="card p-8 md:p-16">
+      <div className="tile bg-tile-alt border-glass-border rounded-3xl border p-8 md:p-16">
         <div className="project-prose">{description}</div>
       </div>
     </TabPanel>
