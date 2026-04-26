@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 import { Icon } from '@iconify/react';
+import { Link } from 'react-aria-components';
 import { tv } from 'tailwind-variants';
 
 import type { TabProps } from './types';
@@ -55,9 +56,9 @@ export const Tab: FC<TabProps> = ({ idx, mobileIdx, icon, label, active, href, h
     const external = href.startsWith('http');
 
     return (
-      <a href={href} className={className} {...(external ? { target: '_blank', rel: 'noopener' } : {})}>
+      <Link href={href} className={className} {...(external ? { target: '_blank', rel: 'noopener' } : {})}>
         {inner}
-      </a>
+      </Link>
     );
   }
 

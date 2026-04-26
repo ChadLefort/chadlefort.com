@@ -7,6 +7,7 @@ import gnubash from '@iconify-icons/simple-icons/gnubash';
 import tmux from '@iconify-icons/simple-icons/tmux';
 import folder from '@iconify-icons/lucide/folder';
 import folderGit2 from '@iconify-icons/lucide/folder-git-2';
+import { NavigationProvider } from '~/components/react/NavigationProvider';
 import { DemoBody } from './DemoBody';
 import { Tab } from './Tab';
 import { getSessionLabel, getSiteHost } from './utils';
@@ -189,38 +190,19 @@ export const Terminal: FC = () => {
   };
 
   return (
-    <div className={wrapper({ maximized })} data-no-print>
-      <div
-        className={container({ maximized, closing })}
-        style={{ viewTransitionName: 'terminal' }}
-        aria-label="Terminal"
-      >
-        <div className={titlebar()}>
-          <TrafficLights onClose={onClose} onMinimize={onMinimize} onMaximize={onMaximize} maximized={maximized} />
-        </div>
-
-        {maximized ? (
-          <div className="flex min-h-0 flex-1 flex-col">
-            <div className={tabsBar()}>
-              <Tab tone="session" icon={tmux} label={getSessionLabel(getSiteHost())} />
-              <Tab idx={1} icon={gnubash} label="zsh" active />
-              <Tab idx={2} icon={neovim} label="nvim" href="/#skills" hideOnMobile />
-              <Tab idx={3} icon={folderGit2} label="~/dotfiles" href="https://github.com/ChadLefort" hideOnMobile />
-              <Tab idx={4} mobileIdx={2} icon={folder} label="~/projects" href="/projects" />
-            </div>
-            <div className={slot({ maximized: true })}>
-              {interactive ? (
-                <Suspense fallback={null}>
-                  <Shell />
-                </Suspense>
-              ) : (
-                <DemoBody paused={interactive} />
-              )}
-            </div>
+    <NavigationProvider>
+      <div className={wrapper({ maximized })} data-no-print>
+        <div
+          className={container({ maximized, closing })}
+          style={{ viewTransitionName: 'terminal' }}
+          aria-label="Terminal"
+        >
+          <div className={titlebar()}>
+            <TrafficLights onClose={onClose} onMinimize={onMinimize} onMaximize={onMaximize} maximized={maximized} />
           </div>
-        ) : (
-          <div aria-hidden={minimized} className={collapse({ minimized })}>
-            <div className="min-h-0 overflow-hidden">
+
+          {maximized ? (
+            <div className="flex min-h-0 flex-1 flex-col">
               <div className={tabsBar()}>
                 <Tab tone="session" icon={tmux} label={getSessionLabel(getSiteHost())} />
                 <Tab idx={1} icon={gnubash} label="zsh" active />
@@ -228,7 +210,7 @@ export const Terminal: FC = () => {
                 <Tab idx={3} icon={folderGit2} label="~/dotfiles" href="https://github.com/ChadLefort" hideOnMobile />
                 <Tab idx={4} mobileIdx={2} icon={folder} label="~/projects" href="/projects" />
               </div>
-              <div className={slot({ maximized: false })}>
+              <div className={slot({ maximized: true })}>
                 {interactive ? (
                   <Suspense fallback={null}>
                     <Shell />
@@ -238,9 +220,30 @@ export const Terminal: FC = () => {
                 )}
               </div>
             </div>
-          </div>
-        )}
+          ) : (
+            <div aria-hidden={minimized} className={collapse({ minimized })}>
+              <div className="min-h-0 overflow-hidden">
+                <div className={tabsBar()}>
+                  <Tab tone="session" icon={tmux} label={getSessionLabel(getSiteHost())} />
+                  <Tab idx={1} icon={gnubash} label="zsh" active />
+                  <Tab idx={2} icon={neovim} label="nvim" href="/#skills" hideOnMobile />
+                  <Tab idx={3} icon={folderGit2} label="~/dotfiles" href="https://github.com/ChadLefort" hideOnMobile />
+                  <Tab idx={4} mobileIdx={2} icon={folder} label="~/projects" href="/projects" />
+                </div>
+                <div className={slot({ maximized: false })}>
+                  {interactive ? (
+                    <Suspense fallback={null}>
+                      <Shell />
+                    </Suspense>
+                  ) : (
+                    <DemoBody paused={interactive} />
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </NavigationProvider>
   );
 };
