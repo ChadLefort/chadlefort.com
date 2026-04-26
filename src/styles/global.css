@@ -443,14 +443,12 @@ html {
 @utility glass-strong {
   background: var(--glass-bg-strong);
   backdrop-filter: blur(28px) saturate(160%);
-  -webkit-backdrop-filter: blur(28px) saturate(160%);
   border: 1px solid var(--glass-border-strong);
 }
 
 @utility glass-nav {
   background: var(--nav-bg);
   backdrop-filter: blur(32px) saturate(180%);
-  -webkit-backdrop-filter: blur(32px) saturate(180%);
   border-bottom: 1px solid var(--glass-border);
 }
 
@@ -458,7 +456,6 @@ html {
   position: relative;
   background: linear-gradient(160deg, var(--card-grad-from), var(--card-grad-to));
   backdrop-filter: var(--card-backdrop, none);
-  -webkit-backdrop-filter: var(--card-backdrop, none);
   border: 1px solid var(--card-border);
   border-radius: 1rem;
   box-shadow: var(--card-shadow, none);
@@ -499,7 +496,6 @@ html {
 
 @utility tile {
   backdrop-filter: var(--tile-backdrop, none);
-  -webkit-backdrop-filter: var(--tile-backdrop, none);
 }
 
 [data-logo-text] {
