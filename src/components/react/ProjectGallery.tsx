@@ -2,7 +2,18 @@ import type { FC, ReactNode } from 'react';
 import { useEffect, useId, useState } from 'react';
 import { ChevronLeft, ChevronRight, Smartphone, Monitor, X } from 'lucide-react';
 import { Dialog, Heading, Modal, ModalOverlay } from 'react-aria-components';
+import { tv } from 'tailwind-variants';
 import { IconButton } from '~/components/react/ui/IconButton';
+
+const thumbImg = tv({
+  base: 'block h-full w-full object-cover transition duration-300 group-hover:scale-[1.01]',
+  variants: {
+    loaded: {
+      true: 'opacity-100',
+      false: 'opacity-0'
+    }
+  }
+});
 
 type GalleryImage = {
   src: string;
@@ -40,7 +51,7 @@ const Thumb: FC<{ image: GalleryImage; onOpen: () => void }> = ({ image, onOpen 
           loading="lazy"
           decoding="async"
           onLoad={() => setLoaded(true)}
-          className={`block h-full w-full object-cover transition duration-300 group-hover:scale-[1.01] ${loaded ? 'opacity-100' : 'opacity-0'}`}
+          className={thumbImg({ loaded })}
         />
       </picture>
     </button>
