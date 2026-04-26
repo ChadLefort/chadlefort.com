@@ -5,7 +5,7 @@ import { tv } from 'tailwind-variants';
 import type { TabProps } from './types';
 
 const tabStyles = tv({
-  base: 'inline-flex items-center gap-2 rounded-t-xl px-3 py-2 text-[12px] font-medium transition sm:px-4',
+  base: 'inline-flex h-9 items-center gap-2 rounded-t-xl px-3 text-[12px] font-medium whitespace-nowrap transition sm:px-4',
   variants: {
     tone: {
       default: '',

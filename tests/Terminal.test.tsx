@@ -22,11 +22,11 @@ describe('Terminal', () => {
     expect(screen.getAllByText('clefort').length).toBeGreaterThan(0);
   });
 
-  it('switches to the interactive shell when unlocked', () => {
+  it('switches to the interactive shell when unlocked', async () => {
     setInteractive(true);
     render(<Terminal />);
 
-    expect(screen.getByText(/chadlefort\.com shell ready/i)).toBeInTheDocument();
+    expect(await screen.findByText(/chadlefort\.com shell ready/i)).toBeInTheDocument();
   });
 
   it('minimize from maximized exits maximize', async () => {
@@ -57,17 +57,19 @@ describe('Terminal', () => {
     expect($minimized.get()).toBe(false);
   });
 
-  it('close while maximized restores body scroll', async () => {
+  it('close while maximized exits maximize without closing', async () => {
     const user = userEvent.setup();
 
     render(<Terminal />);
     await user.click(screen.getByRole('button', { name: /maximize terminal/i }));
 
+    expect($maximized.get()).toBe(true);
     expect(document.body.style.overflow).toBe('hidden');
 
     await user.click(screen.getByRole('button', { name: /close terminal/i }));
 
-    expect($closed.get()).toBe(true);
+    expect($maximized.get()).toBe(false);
+    expect($closed.get()).toBe(false);
     expect(document.body.style.overflow).toBe('');
   });
 
