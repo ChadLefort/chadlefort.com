@@ -11,8 +11,6 @@ import { NavigationProvider } from '~/components/react/NavigationProvider';
 import { Tab } from './Tab';
 import { TrafficLights } from './TrafficLights';
 import { getSessionLabel, getSiteHost } from './utils';
-
-const Shell = lazy(() => import('./Shell').then((m) => ({ default: m.Shell })));
 import {
   $closed,
   $maximized,
@@ -27,6 +25,8 @@ import {
   setWelcomeShown,
   WELCOME_LINES
 } from './store';
+
+const Shell = lazy(() => import('./Shell').then((m) => ({ default: m.Shell })));
 
 const KONAMI = [
   'ArrowUp',
