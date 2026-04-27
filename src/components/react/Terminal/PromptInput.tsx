@@ -50,6 +50,7 @@ export const PromptInput: FC<Props> = ({ value, onChange, onKey, inputRef }) => 
         onSelect={sync}
         spellCheck={false}
         autoComplete="off"
+        autoCorrect="off"
         autoCapitalize="none"
         className={hiddenInput()}
         aria-label="terminal input"
