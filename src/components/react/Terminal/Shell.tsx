@@ -152,11 +152,9 @@ export const Shell: FC = () => {
 
   useEffect(() => {
     if ($interactive.get()) return;
-    if (!inView) return;
-    if ($lines.get().length > 0) return;
 
     storeAppendLines([{ kind: 'status' }]);
-  }, [inView]);
+  }, []);
 
   useEffect(() => {
     if (interactive && demoPhase !== 'done') setDemoPhase('done');
