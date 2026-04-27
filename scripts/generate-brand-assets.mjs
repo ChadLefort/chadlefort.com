@@ -193,6 +193,7 @@ try {
         font-weight: 700;
         letter-spacing: -0.06em;
         fill: #eceef2;
+        letter-spacing: -0.08em;
       }
 
       .role {
@@ -249,7 +250,7 @@ try {
     <circle cx="788" cy="58" r="5" fill="#28c840" />
     <rect x="732" y="90" width="430" height="504" rx="22" fill="rgba(8,10,14,0.22)" />
 
-    <text x="300" y="176" class="name">Chad Lefort</text>
+    <text x="290" y="176" class="name">Chad Lefort</text>
     <text x="300" y="220" class="role">Senior Frontend Engineer</text>
 
     <text x="84" y="332" class="summary">

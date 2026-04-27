@@ -41,7 +41,7 @@
     line-height: 1.4;
     font-family: 'Roboto Variable', 'Roboto', system-ui, sans-serif;
     margin: 0 !important;
-    padding: 0 !important;
+    padding: 0.5in !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
@@ -169,10 +169,10 @@
       font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
       font-size: 28pt;
       line-height: 1;
-      margin: 0;
+      margin-left: -2px;
       color: #1a1a1a;
       font-weight: 700;
-      letter-spacing: -0.06em;
+      letter-spacing: -0.08em;
     }
 
     & p {
@@ -541,7 +541,7 @@
      page 2+. Horizontal margin still comes from body padding so it survives Chrome's
      "None" margin option for the first page. */
   @page {
-    margin: 0.5in;
+    margin: 0;
     size: letter;
   }
 
