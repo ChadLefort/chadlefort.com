@@ -2,7 +2,7 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { Shell } from '~/components/react/Terminal/Shell';
-import { resetShellStore } from '~/components/react/Terminal/store';
+import { WELCOME_LINES, appendLines, resetShellStore, setInteractive } from '~/components/react/Terminal/store';
 
 const typeAndEnter = async (user: ReturnType<typeof userEvent.setup>, text: string) => {
   const input = screen.getByLabelText('terminal input');
@@ -15,6 +15,8 @@ const typeAndEnter = async (user: ReturnType<typeof userEvent.setup>, text: stri
 describe('Shell', () => {
   beforeEach(() => {
     resetShellStore();
+    setInteractive(true);
+    appendLines(WELCOME_LINES);
   });
 
   it('mounts with the welcome banner', () => {

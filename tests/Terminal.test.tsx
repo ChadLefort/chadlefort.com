@@ -3,7 +3,15 @@ import userEvent from '@testing-library/user-event';
 import { axe } from 'vitest-axe';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { Terminal } from '~/components/react/Terminal';
-import { $closed, $maximized, $minimized, resetShellStore, setInteractive } from '~/components/react/Terminal/store';
+import {
+  $closed,
+  $maximized,
+  $minimized,
+  WELCOME_LINES,
+  appendLines,
+  resetShellStore,
+  setInteractive
+} from '~/components/react/Terminal/store';
 
 describe('Terminal', () => {
   beforeEach(() => {
@@ -24,6 +32,7 @@ describe('Terminal', () => {
 
   it('switches to the interactive shell when unlocked', async () => {
     setInteractive(true);
+    appendLines(WELCOME_LINES);
     render(<Terminal />);
 
     expect(await screen.findByText(/chadlefort\.com shell ready/i)).toBeInTheDocument();
