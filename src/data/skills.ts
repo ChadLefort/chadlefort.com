@@ -18,7 +18,7 @@ export const skills: Skill[] = [
   { name: 'Tailwind', icon: 'devicon:tailwindcss' },
   { name: 'Vite', icon: 'devicon:vitejs' },
   { name: 'Vitest', icon: 'devicon:vitest' },
-  { name: 'Testing Lib', icon: 'simple-icons:testinglibrary', color: '#E33332' },
+  { name: 'Testing Library', icon: 'simple-icons:testinglibrary', color: '#E33332' },
   { name: 'MSW', icon: 'simple-icons:mockserviceworker', color: '#FF6A33' },
   { name: 'Playwright', icon: 'devicon:playwright' },
   { name: 'Storybook', icon: 'devicon:storybook' },

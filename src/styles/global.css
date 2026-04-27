@@ -240,6 +240,7 @@ html {
     min-height: 100vh;
     margin: 0;
     line-height: 1.55;
+    word-spacing: 0.1em;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
@@ -247,6 +248,7 @@ html {
   :is(h1, h2, h3, h4, h5, h6) {
     font-family: var(--header-font-family);
     letter-spacing: -0.06em;
+    word-spacing: -0.2em;
     margin: 0;
     font-weight: 600;
   }

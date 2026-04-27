@@ -47,7 +47,7 @@ _November 2014 – July 2017_
 - Developed a custom reporting single page application using AngularJS for 6,000+ clients, enhancing their accounting and business insights.
 
 ## Skills
-TypeScript, JavaScript, React, React Aria, Zustand, TanStack Query, TanStack Router, Vue, Nuxt, Pinia, Tailwind, Vite, Vitest, Testing Lib, MSW, Playwright, Storybook, Node.js, Nx, GitHub Actions, Git, Docker, Zod, NestJS.
+TypeScript, JavaScript, React, React Aria, Zustand, TanStack Query, TanStack Router, Vue, Nuxt, Pinia, Tailwind, Vite, Vitest, Testing Library, MSW, Playwright, Storybook, Node.js, Nx, GitHub Actions, Git, Docker, Zod, NestJS.
 
 ## Education
 ### Nicholls State University — Bachelor of Science (B.S.)
