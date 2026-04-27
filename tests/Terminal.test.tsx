@@ -64,13 +64,15 @@ describe('Terminal', () => {
     await user.click(screen.getByRole('button', { name: /maximize terminal/i }));
 
     expect($maximized.get()).toBe(true);
-    expect(document.body.style.overflow).toBe('hidden');
+    expect(document.body.style.position).toBe('fixed');
+    expect(document.documentElement.style.overflow).toBe('hidden');
 
     await user.click(screen.getByRole('button', { name: /close terminal/i }));
 
     expect($maximized.get()).toBe(false);
     expect($closed.get()).toBe(false);
-    expect(document.body.style.overflow).toBe('');
+    expect(document.body.style.position).toBe('');
+    expect(document.documentElement.style.overflow).toBe('');
   });
 
   it('has no axe violations', async () => {

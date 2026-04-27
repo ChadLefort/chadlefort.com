@@ -85,7 +85,7 @@ const slot = tv({
   variants: {
     maximized: {
       true: 'flex-1 min-h-0',
-      false: 'h-[520px] sm:h-[480px]'
+      false: 'h-[640px] sm:h-[480px]'
     }
   }
 });
@@ -99,12 +99,25 @@ export const Terminal: FC = () => {
   useEffect(() => {
     if (closed || !maximized || minimized) return;
 
-    const prev = document.body.style.overflow;
+    const scrollY = window.scrollY;
+    const root = document.documentElement;
+    const body = document.body;
 
-    document.body.style.overflow = 'hidden';
+    root.style.overflow = 'hidden';
+    body.style.position = 'fixed';
+    body.style.top = `-${scrollY}px`;
+    body.style.left = '0';
+    body.style.right = '0';
+    body.style.width = '100%';
 
     return () => {
-      document.body.style.overflow = prev;
+      root.style.overflow = '';
+      body.style.position = '';
+      body.style.top = '';
+      body.style.left = '';
+      body.style.right = '';
+      body.style.width = '';
+      window.scrollTo(0, scrollY);
     };
   }, [maximized, minimized, closed]);
 

@@ -35,7 +35,7 @@ import { buildFs, cwdForHost, formatPath, nodeAt, type FsDir } from './vfs';
 
 const shellRoot = tv({
   base: [
-    'bg-term-bg text-term-fg break-words font-mono overflow-y-auto h-full',
+    'bg-term-bg text-term-fg break-words font-mono overflow-y-auto overscroll-contain h-full',
     'px-4 pt-4 pb-5 text-[12.5px] leading-6',
     'sm:px-5 sm:pt-5 sm:pb-6 sm:text-[15px] sm:leading-7'
   ]
@@ -96,7 +96,6 @@ const goTo = (route: string) => {
         setMaximized(false);
         setMinimized(false);
         window.history.replaceState(null, '', url.hash);
-        document.body.style.overflow = '';
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
             el.scrollIntoView({ behavior: 'smooth', block: 'start' });
