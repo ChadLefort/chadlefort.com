@@ -5,6 +5,8 @@ import { navigate } from 'astro:transitions/client';
 import { useStore } from '@nanostores/react';
 import { aboutQuotes } from '~/data/about';
 import { locationLong, site, yearsOfExperience } from '~/data/site';
+import { useInView } from '~/hooks/useInView';
+import { useMediaQuery } from '~/hooks/useMediaQuery';
 import { useReducedMotion } from '~/hooks/useReducedMotion';
 import { useTypewriter } from '~/hooks/useTypewriter';
 import { Cursor } from './Cursor';
@@ -121,6 +123,12 @@ export const Shell: FC = () => {
   const interactive = useStore($interactive);
   const reducedMotion = useReducedMotion();
   const reducedRef = useRef(reducedMotion);
+  const isMobile = useMediaQuery('(max-width: 640px)');
+  const [viewRef, inView] = useInView<HTMLDivElement>({
+    threshold: isMobile ? 0.4 : 0,
+    rootMargin: isMobile ? '0px 0px -20% 0px' : '0px',
+    once: true
+  });
   const [demoPhase, setDemoPhase] = useState<'cmd' | 'lines' | 'done'>(() => ($interactive.get() ? 'done' : 'cmd'));
   const aboutItems = useMemo(() => aboutLines(years), [years]);
   const [lineIndex, setLineIndex] = useState(0);
@@ -131,6 +139,11 @@ export const Shell: FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollerRef = useRef<HTMLDivElement>(null);
 
+  const setShellRef = (node: HTMLDivElement | null) => {
+    scrollerRef.current = node;
+    viewRef.current = node;
+  };
+
   useEffect(() => {
     if (demoPhase === 'done') {
       inputRef.current?.focus({ preventScroll: true });
@@ -139,9 +152,11 @@ export const Shell: FC = () => {
 
   useEffect(() => {
     if ($interactive.get()) return;
+    if (!inView) return;
+    if ($lines.get().length > 0) return;
 
     storeAppendLines([{ kind: 'status' }]);
-  }, []);
+  }, [inView]);
 
   useEffect(() => {
     if (interactive && demoPhase !== 'done') setDemoPhase('done');
@@ -149,7 +164,7 @@ export const Shell: FC = () => {
 
   const typedFromHook = useTypewriter(DEMO_COMMAND, {
     perChar: 80,
-    enabled: demoPhase === 'cmd' && !reducedRef.current,
+    enabled: demoPhase === 'cmd' && !reducedRef.current && inView,
     onComplete: () => {
       window.setTimeout(() => {
         storeAppendLines([{ kind: 'cmd', text: DEMO_COMMAND }]);
@@ -422,7 +437,7 @@ export const Shell: FC = () => {
   };
 
   return (
-    <div ref={scrollerRef} className={shellRoot()} role="log" aria-live="polite" data-no-print>
+    <div ref={setShellRef} className={shellRoot()} role="log" aria-live="polite" data-no-print>
       {lines.map(renderLine)}
 
       {demoPhase === 'cmd' && (
