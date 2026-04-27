@@ -20,7 +20,13 @@ const tabStyles = tv({
       true: 'hidden sm:inline-flex'
     },
     interactive: {
-      true: 'cursor-pointer hover:brightness-110'
+      true: 'cursor-pointer'
+    },
+    isHovered: {
+      true: 'brightness-110'
+    },
+    isFocusVisible: {
+      true: 'outline-accent outline-2 -outline-offset-2'
     }
   },
   compoundVariants: [{ tone: 'session', class: 'bg-term-tab-session text-term-tab-session-text' }],
@@ -31,8 +37,6 @@ const tabStyles = tv({
 });
 
 export const Tab: FC<TabProps> = ({ idx, mobileIdx, icon, label, active, href, hideOnMobile, tone }) => {
-  const className = tabStyles({ active, hideOnMobile, interactive: Boolean(href), tone });
-
   const inner = (
     <>
       {idx != null && (
@@ -52,15 +56,19 @@ export const Tab: FC<TabProps> = ({ idx, mobileIdx, icon, label, active, href, h
     </>
   );
 
-  if (href) {
-    const external = href.startsWith('http');
-
-    return (
-      <Link href={href} className={className} {...(external ? { target: '_blank', rel: 'noopener' } : {})}>
-        {inner}
-      </Link>
-    );
+  if (!href) {
+    return <span className={tabStyles({ active, hideOnMobile, tone, interactive: false })}>{inner}</span>;
   }
 
-  return <span className={className}>{inner}</span>;
+  const external = href.startsWith('http');
+
+  return (
+    <Link
+      href={href}
+      className={(rp) => tabStyles({ ...rp, active, hideOnMobile, tone, interactive: true })}
+      {...(external ? { target: '_blank', rel: 'noopener' } : {})}
+    >
+      {inner}
+    </Link>
+  );
 };

@@ -3,7 +3,12 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { tv } from 'tailwind-variants';
 import { navigate } from 'astro:transitions/client';
 import { useStore } from '@nanostores/react';
-import { yearsOfExperience } from '~/data/site';
+import { aboutQuotes } from '~/data/about';
+import { locationLong, site, yearsOfExperience } from '~/data/site';
+import { useReducedMotion } from '~/hooks/useReducedMotion';
+import { useTypewriter } from '~/hooks/useTypewriter';
+import { Cursor } from './Cursor';
+import { MdRow } from './MdRow';
 import { PromptInput } from './PromptInput';
 import { StatusLine } from './StatusLine';
 import { commands } from './commands';
@@ -12,16 +17,19 @@ import { COMMANDS, closestCommand, findCommonPrefix } from './complete';
 import {
   $cwd,
   $history,
+  $interactive,
   $lines,
   appendLines as storeAppendLines,
   pushHistory as storePushHistory,
   setCwd as storeSetCwd,
+  setInteractive,
   setLines as storeSetLines,
   setMaximized,
   setMinimized,
   type Line,
   type LineBody
 } from './store';
+import type { MdLine } from './types';
 import { formatTime, getSiteHost } from './utils';
 import { buildFs, cwdForHost, formatPath, nodeAt, type FsDir } from './vfs';
 
@@ -56,6 +64,24 @@ const completeFromCwd = (root: FsDir, cwd: string[], prefix: string): { matches:
   const matches = Object.keys(dirNode.children).filter((n) => n.toLowerCase().startsWith(prefix.toLowerCase()));
 
   return { matches, common: findCommonPrefix(matches) };
+};
+
+const DEMO_COMMAND = 'cat ABOUT.md';
+
+const aboutLines = (years: number): MdLine[] => {
+  const quoteLines = aboutQuotes.flatMap<MdLine>((text, i) =>
+    i === 0 ? [{ kind: 'bq', text }] : [{ kind: 'blank' }, { kind: 'bq', text }]
+  );
+
+  return [
+    { kind: 'h1', text: site.name },
+    { kind: 'blank' },
+    { kind: 'p', text: `${site.jobTitle} from ${locationLong} with ${years}+ years of experience.` },
+    { kind: 'blank' },
+    { kind: 'h2', text: 'About' },
+    { kind: 'blank' },
+    ...quoteLines
+  ];
 };
 
 const goTo = (route: string) => {
@@ -93,6 +119,13 @@ export const Shell: FC = () => {
   const cwd = useStore($cwd);
   const history = useStore($history);
 
+  const interactive = useStore($interactive);
+  const reducedMotion = useReducedMotion();
+  const reducedRef = useRef(reducedMotion);
+  const [demoPhase, setDemoPhase] = useState<'cmd' | 'lines' | 'done'>(() => ($interactive.get() ? 'done' : 'cmd'));
+  const aboutItems = useMemo(() => aboutLines(years), [years]);
+  const [lineIndex, setLineIndex] = useState(0);
+
   const [input, setInput] = useState('');
   const [histIdx, setHistIdx] = useState<number | null>(null);
   const [time, setTime] = useState<string | null>(null);
@@ -100,8 +133,79 @@ export const Shell: FC = () => {
   const scrollerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    inputRef.current?.focus();
+    if (demoPhase === 'done') {
+      inputRef.current?.focus({ preventScroll: true });
+    }
+  }, [demoPhase]);
+
+  useEffect(() => {
+    if ($interactive.get()) return;
+
+    storeAppendLines([{ kind: 'status' }]);
   }, []);
+
+  useEffect(() => {
+    if (interactive && demoPhase !== 'done') setDemoPhase('done');
+  }, [interactive, demoPhase]);
+
+  const typedFromHook = useTypewriter(DEMO_COMMAND, {
+    perChar: 80,
+    enabled: demoPhase === 'cmd' && !reducedRef.current,
+    onComplete: () => {
+      window.setTimeout(() => {
+        storeAppendLines([{ kind: 'cmd', text: DEMO_COMMAND }]);
+        setDemoPhase('lines');
+      }, 200);
+    }
+  });
+  const typed = reducedRef.current ? DEMO_COMMAND : typedFromHook;
+
+  useEffect(() => {
+    if (demoPhase !== 'lines') return;
+
+    if (reducedRef.current) {
+      storeAppendLines(
+        aboutItems.map<LineBody>((line, i) => ({
+          kind: 'node',
+          node: (
+            <div className={i === 0 ? 'mt-3' : ''}>
+              <MdRow line={line} />
+            </div>
+          )
+        }))
+      );
+      setLineIndex(aboutItems.length);
+      setDemoPhase('done');
+      setInteractive(true);
+
+      return;
+    }
+
+    if (lineIndex >= aboutItems.length) {
+      setDemoPhase('done');
+      setInteractive(true);
+
+      return;
+    }
+
+    const id = window.setTimeout(() => {
+      const next = aboutItems[lineIndex];
+
+      storeAppendLines([
+        {
+          kind: 'node',
+          node: (
+            <div className={`term-line ${lineIndex === 0 ? 'mt-3' : ''}`}>
+              <MdRow line={next} />
+            </div>
+          )
+        }
+      ]);
+      setLineIndex((v) => v + 1);
+    }, 35);
+
+    return () => window.clearTimeout(id);
+  }, [demoPhase, lineIndex, aboutItems]);
 
   useEffect(() => {
     const target = cwdForHost(host);
@@ -236,6 +340,8 @@ export const Shell: FC = () => {
 
   const onKey = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Tab') {
+      if (!input) return;
+
       e.preventDefault();
       tryComplete();
 
@@ -320,21 +426,39 @@ export const Shell: FC = () => {
     <div ref={scrollerRef} className={shellRoot()} role="log" aria-live="polite" data-no-print>
       {lines.map(renderLine)}
 
-      <div className="mt-4 mb-2">
-        <StatusLine cwd={formatPath(cwd)} branch="feat/redesign" modified={2} added={years} removed={0} time={time} />
-      </div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          run(input);
-          setInput('');
-          setHistIdx(null);
-        }}
-        className={promptRow()}
-      >
-        <span className={promptArrow()}>→</span>
-        <PromptInput value={input} onChange={setInput} onKey={onKey} inputRef={inputRef} />
-      </form>
+      {demoPhase === 'cmd' && (
+        <p className="m-0">
+          <span className={promptArrow()}>→</span> <span>{typed}</span>
+          <Cursor />
+        </p>
+      )}
+
+      {demoPhase === 'done' && (
+        <>
+          <div className="mt-4 mb-2">
+            <StatusLine
+              cwd={formatPath(cwd)}
+              branch="feat/redesign"
+              modified={2}
+              added={years}
+              removed={0}
+              time={time}
+            />
+          </div>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              run(input);
+              setInput('');
+              setHistIdx(null);
+            }}
+            className={promptRow()}
+          >
+            <span className={promptArrow()}>→</span>
+            <PromptInput value={input} onChange={setInput} onKey={onKey} inputRef={inputRef} />
+          </form>
+        </>
+      )}
     </div>
   );
 };

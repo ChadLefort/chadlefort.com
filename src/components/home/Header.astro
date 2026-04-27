@@ -2,6 +2,7 @@
 import { Picture } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import { Terminal } from '~/components/react/Terminal';
+import { cta } from '~/components/styles/cta';
 import me from '~/assets/me.png';
 ---
 
@@ -35,11 +36,7 @@ import me from '~/assets/me.png';
 
     <Terminal client:idle />
 
-    <a
-      href="/chad-lefort-resume.pdf"
-      download
-      class="group bg-accent-strong hover:bg-accent focus-visible:ring-accent focus-visible:ring-offset-surface inline-flex items-center gap-3 rounded-xl px-8 py-4 text-lg font-bold text-white transition-all duration-200 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.98] motion-reduce:hover:scale-100"
-    >
+    <a href="/chad-lefort-resume.pdf" download class={cta({ size: 'lg' })}>
       <Icon
         name="lucide:download"
         class="h-5 w-5 transition-transform group-hover:-translate-y-0.5"

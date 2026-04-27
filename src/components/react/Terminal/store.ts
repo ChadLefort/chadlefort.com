@@ -12,20 +12,21 @@ export type LineBody =
 
 export type Line = LineBody & { id: string };
 
-const initialLines = (): Line[] => [
-  { id: 'ln-init-1', kind: 'success', text: '✓ chadlefort.com shell ready' },
-  { id: 'ln-init-3', kind: 'out', text: "type 'help' for commands · 'ls' to look around · 'open <name>' to navigate" }
+export const WELCOME_LINES: LineBody[] = [
+  { kind: 'success', text: '✓ chadlefort.com shell ready' },
+  { kind: 'out', text: "type 'help' for commands · 'ls' to look around · 'open <name>' to navigate" }
 ];
 
-export const $lines = atom<Line[]>(initialLines());
+export const $lines = atom<Line[]>([]);
 export const $cwd = atom<string[]>([...INITIAL_CWD]);
 export const $history = atom<string[]>([]);
-export const $lineSeq = atom<number>(3);
+export const $lineSeq = atom<number>(0);
 export const $maximized = atom<boolean>(false);
 export const $minimized = atom<boolean>(false);
 export const $closed = atom<boolean>(false);
 // false → typewriter demo. Toggled true via maximize click or Konami.
 export const $interactive = atom<boolean>(false);
+export const $welcomeShown = atom<boolean>(false);
 
 export const appendLines = (newLines: LineBody[]) => {
   let seq = $lineSeq.get();
@@ -46,16 +47,18 @@ export const setMaximized = (next: boolean) => $maximized.set(next);
 export const setMinimized = (next: boolean) => $minimized.set(next);
 export const setClosed = (next: boolean) => $closed.set(next);
 export const setInteractive = (next: boolean) => $interactive.set(next);
+export const setWelcomeShown = (next: boolean) => $welcomeShown.set(next);
 
 export const $hasOutput = computed($lines, (lines) => lines.length > 0);
 
 export const resetShellStore = () => {
-  $lines.set(initialLines());
+  $lines.set([]);
   $cwd.set([...INITIAL_CWD]);
   $history.set([]);
-  $lineSeq.set(3);
+  $lineSeq.set(0);
   $maximized.set(false);
   $minimized.set(false);
   $closed.set(false);
   $interactive.set(false);
+  $welcomeShown.set(false);
 };

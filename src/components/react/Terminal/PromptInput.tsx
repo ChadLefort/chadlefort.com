@@ -5,7 +5,7 @@ import { Cursor } from './Cursor';
 
 const promptInputWrap = tv({ base: 'relative flex flex-1 cursor-text items-center' });
 const hiddenInput = tv({
-  base: 'absolute inset-0 w-full bg-transparent font-mono text-transparent caret-transparent outline-none'
+  base: 'absolute inset-0 w-full bg-transparent font-mono text-[16px] text-transparent caret-transparent outline-none'
 });
 
 type Props = {

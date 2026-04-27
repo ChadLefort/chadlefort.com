@@ -8,22 +8,24 @@ import tmux from '@iconify-icons/simple-icons/tmux';
 import folder from '@iconify-icons/lucide/folder';
 import folderGit2 from '@iconify-icons/lucide/folder-git-2';
 import { NavigationProvider } from '~/components/react/NavigationProvider';
-import { DemoBody } from './DemoBody';
 import { Tab } from './Tab';
+import { TrafficLights } from './TrafficLights';
 import { getSessionLabel, getSiteHost } from './utils';
 
 const Shell = lazy(() => import('./Shell').then((m) => ({ default: m.Shell })));
-import { TrafficLights } from './TrafficLights';
 import {
   $closed,
-  $interactive,
   $maximized,
   $minimized,
+  $welcomeShown,
   appendLines,
   setClosed,
   setInteractive,
+  setLines,
   setMaximized,
-  setMinimized
+  setMinimized,
+  setWelcomeShown,
+  WELCOME_LINES
 } from './store';
 
 const KONAMI = [
@@ -92,7 +94,6 @@ export const Terminal: FC = () => {
   const maximized = useStore($maximized);
   const minimized = useStore($minimized);
   const closed = useStore($closed);
-  const interactive = useStore($interactive);
   const [closing, setClosing] = useState(false);
 
   useEffect(() => {
@@ -114,20 +115,22 @@ export const Terminal: FC = () => {
       const expected = KONAMI[idx].toLowerCase();
       const got = e.key.toLowerCase();
 
-      if (got === expected) {
-        idx += 1;
-
-        if (idx === KONAMI.length) {
-          setClosed(false);
-          setMinimized(false);
-          setMaximized(true);
-          setInteractive(true);
-          appendLines([{ kind: 'success', text: '✓ konami unlocked — interactive shell + fullscreen' }]);
-          idx = 0;
-        }
-      } else {
+      if (got !== expected) {
         idx = got === KONAMI[0].toLowerCase() ? 1 : 0;
+        return;
       }
+
+      idx += 1;
+
+      if (idx !== KONAMI.length) return;
+
+      setClosed(false);
+      setMinimized(false);
+      setMaximized(true);
+      setInteractive(true);
+      resetWithWelcome();
+      appendLines([{ kind: 'success', text: '✓ konami unlocked — interactive shell + fullscreen' }]);
+      idx = 0;
     };
 
     window.addEventListener('keydown', onKey);
@@ -160,16 +163,26 @@ export const Terminal: FC = () => {
     }, 280);
   };
 
+  const resetWithWelcome = () => {
+    if ($welcomeShown.get()) return;
+
+    setLines([]);
+    appendLines(WELCOME_LINES);
+    setWelcomeShown(true);
+  };
+
   const onMaximize = () => {
     const next = !$maximized.get();
     const wasMinimized = $minimized.get();
 
     startTransition(() => {
       setMaximized(next);
-      if (next) {
-        setInteractive(true);
-        if (wasMinimized) setMinimized(false);
-      }
+
+      if (!next) return;
+
+      setInteractive(true);
+      if (wasMinimized) setMinimized(false);
+      resetWithWelcome();
     });
   };
 
@@ -211,13 +224,9 @@ export const Terminal: FC = () => {
                 <Tab idx={4} mobileIdx={2} icon={folder} label="~/projects" href="/projects" />
               </div>
               <div className={slot({ maximized: true })}>
-                {interactive ? (
-                  <Suspense fallback={null}>
-                    <Shell />
-                  </Suspense>
-                ) : (
-                  <DemoBody paused={interactive} />
-                )}
+                <Suspense fallback={null}>
+                  <Shell />
+                </Suspense>
               </div>
             </div>
           ) : (
@@ -231,13 +240,9 @@ export const Terminal: FC = () => {
                   <Tab idx={4} mobileIdx={2} icon={folder} label="~/projects" href="/projects" />
                 </div>
                 <div className={slot({ maximized: false })}>
-                  {interactive ? (
-                    <Suspense fallback={null}>
-                      <Shell />
-                    </Suspense>
-                  ) : (
-                    <DemoBody paused={interactive} />
-                  )}
+                  <Suspense fallback={null}>
+                    <Shell />
+                  </Suspense>
                 </div>
               </div>
             </div>

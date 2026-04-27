@@ -1,5 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
+import { tv } from 'tailwind-variants';
 import { ThemeToggle } from '~/components/react/ThemeToggle';
 import { MobileDrawer } from '~/components/react/MobileDrawer';
 import { homeNav, type NavLink } from '~/data/nav';
@@ -12,6 +13,14 @@ type Props = {
 };
 
 const { links = homeNav, showLogoOnDesktop = true, compactLogo = false } = Astro.props;
+
+const navLink = tv({
+  base: [
+    'inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold tracking-wide transition',
+    'text-nav-fg/85 hover:text-nav-fg hover:bg-black/10 dark:hover:bg-white/5',
+    'focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent'
+  ]
+});
 ---
 
 <a href="#main" class="skip-link">Skip to main content</a>
@@ -43,10 +52,7 @@ const { links = homeNav, showLogoOnDesktop = true, compactLogo = false } = Astro
     <nav aria-label="Primary" class="flex items-center justify-center gap-1">
       {
         links.map((link) => (
-          <a
-            href={link.href}
-            class="text-nav-fg/85 hover:text-nav-fg focus-visible:ring-accent inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold tracking-wide transition hover:bg-black/10 focus-visible:ring-2 focus-visible:outline-none dark:hover:bg-white/5"
-          >
+          <a href={link.href} class={navLink()}>
             <Icon name={link.icon} class="h-4 w-4 opacity-70" aria-hidden="true" />
             {link.label}
           </a>

@@ -489,6 +489,14 @@ html {
   opacity: var(--blob-opacity, 1);
 }
 
+@utility surface-vignette {
+  background: radial-gradient(ellipse at top, transparent 0%, var(--surface) 95%);
+
+  :where(.dark, .dark *) & {
+    background: radial-gradient(ellipse at top, transparent 0%, var(--surface) 70%);
+  }
+}
+
 @utility tile {
   backdrop-filter: var(--tile-backdrop, none);
 }

@@ -15,6 +15,22 @@ const thumbImg = tv({
   }
 });
 
+const thumbButton = tv({
+  base: [
+    'group relative block w-full cursor-pointer overflow-hidden rounded-xl border transition',
+    'border-glass-border bg-surface-raised hover:border-accent/60',
+    'focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent'
+  ]
+});
+
+const lightboxOverlay = tv({
+  base: [
+    'fixed inset-0 z-50 bg-black/90 backdrop-blur-sm',
+    'transition-opacity duration-200 ease-out',
+    'data-[entering]:opacity-0 data-[exiting]:opacity-0'
+  ]
+});
+
 type GalleryImage = {
   src: string;
   fullAvif: string;
@@ -38,7 +54,7 @@ const Thumb: FC<{ image: GalleryImage; onOpen: () => void }> = ({ image, onOpen 
       type="button"
       onClick={onOpen}
       style={{ aspectRatio: `${image.width} / ${image.height}` }}
-      className="group border-glass-border bg-surface-raised hover:border-accent/60 focus-visible:ring-accent relative block w-full cursor-pointer overflow-hidden rounded-xl border transition focus-visible:ring-2 focus-visible:outline-none"
+      className={thumbButton()}
       aria-label={`Open ${image.alt} in lightbox`}
     >
       {!loaded && <div className="bg-surface-alt absolute inset-0 animate-pulse" aria-hidden="true" />}
@@ -150,12 +166,7 @@ export const ProjectGallery: FC<Props> = ({ images, title }) => {
         )}
       </div>
 
-      <ModalOverlay
-        isOpen={open}
-        onOpenChange={setOpen}
-        isDismissable
-        className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm transition-opacity duration-200 ease-out data-[entering]:opacity-0 data-[exiting]:opacity-0"
-      >
+      <ModalOverlay isOpen={open} onOpenChange={setOpen} isDismissable className={lightboxOverlay()}>
         <Modal className="flex h-full w-full flex-col outline-none">
           <Dialog className="flex h-full flex-col outline-none">
             <div className="flex items-center justify-between px-4 py-3 text-white">

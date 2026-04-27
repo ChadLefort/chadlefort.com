@@ -4,6 +4,7 @@ import { type CollectionEntry, getCollection, render } from 'astro:content';
 import { Icon } from 'astro-icon/components';
 import Base from '~/layouts/Base.astro';
 import { ProjectTabsIsland } from '~/components/react/ProjectTabsIsland';
+import { cta, pillLink } from '~/components/styles/cta';
 import { site } from '~/data/site';
 
 type Props = { project: CollectionEntry<'projects'> };
@@ -106,15 +107,6 @@ const breadcrumbLd = {
     }
   ]
 };
-
-const backLinkClass =
-  'border-glass-border bg-glass text-fg hover:bg-glass-strong focus-visible:ring-accent inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-semibold transition focus-visible:ring-2 focus-visible:outline-none';
-
-const primaryCtaClass =
-  'bg-accent-strong hover:bg-accent focus-visible:ring-accent focus-visible:ring-offset-surface inline-flex items-center gap-2 rounded-xl px-6 py-3 font-semibold text-white transition-all duration-200 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.98] motion-reduce:hover:scale-100';
-
-const secondaryCtaClass =
-  'border-glass-border-strong bg-glass text-fg hover:border-accent focus-visible:ring-accent focus-visible:ring-offset-surface inline-flex items-center gap-2 rounded-xl border px-6 py-3 font-semibold transition-all duration-200 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.98] motion-reduce:hover:scale-100';
 ---
 
 <Base
@@ -127,7 +119,7 @@ const secondaryCtaClass =
   <article>
     <section class="relative px-4 pt-12 pb-16 sm:px-6 md:pt-20 md:pb-24">
       <div class="max-w-section mx-auto">
-        <a href="/projects" class={backLinkClass}>
+        <a href="/projects" class={pillLink()}>
           <Icon name="lucide:chevron-left" class="h-4 w-4" aria-hidden="true" />
           Back to projects
         </a>
@@ -151,7 +143,7 @@ const secondaryCtaClass =
             <div class="mt-10 flex flex-wrap gap-3">
               {
                 project.data.externalUrl && (
-                  <a href={project.data.externalUrl} target="_blank" rel="noopener" class={primaryCtaClass}>
+                  <a href={project.data.externalUrl} target="_blank" rel="noopener" class={cta({ intent: 'primary' })}>
                     <Icon name="lucide:external-link" class="h-4 w-4" aria-hidden="true" />
                     Visit live site
                   </a>
@@ -159,7 +151,7 @@ const secondaryCtaClass =
               }
               {
                 project.data.repoUrl && (
-                  <a href={project.data.repoUrl} target="_blank" rel="noopener" class={secondaryCtaClass}>
+                  <a href={project.data.repoUrl} target="_blank" rel="noopener" class={cta({ intent: 'secondary' })}>
                     <Icon name="lucide:github" class="h-4 w-4" aria-hidden="true" />
                     Repository
                   </a>

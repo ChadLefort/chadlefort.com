@@ -2,9 +2,44 @@ import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { Briefcase, Code2, GraduationCap, Home, LayoutDashboard, Mail, Menu, User, X } from 'lucide-react';
 import { Dialog, DialogTrigger, Heading, Link, Modal, ModalOverlay } from 'react-aria-components';
+import { tv } from 'tailwind-variants';
 import type { NavLink } from '~/data/nav';
 import { NavigationProvider } from '~/components/react/NavigationProvider';
 import { IconButton } from '~/components/react/ui/IconButton';
+
+const overlay = tv({
+  base: [
+    'fixed inset-0 z-50 flex justify-end',
+    'bg-black/30 backdrop-blur-sm dark:bg-black/60',
+    'transition-opacity duration-200 ease-out',
+    'data-[entering]:opacity-0 data-[exiting]:opacity-0'
+  ]
+});
+
+const modal = tv({
+  base: [
+    'h-full w-80 max-w-full transform-gpu',
+    'bg-nav-bg text-nav-fg border-glass-border border-l shadow-2xl',
+    'backdrop-blur-[32px] backdrop-saturate-[180%]',
+    'transition-transform duration-300 ease-out motion-reduce:transition-none',
+    'data-[entering]:translate-x-full data-[exiting]:translate-x-full'
+  ]
+});
+
+const drawerLink = tv({
+  base: [
+    'flex items-center gap-3 rounded-lg px-3 py-3 font-semibold transition',
+    'hover:bg-black/10 dark:hover:bg-white/5'
+  ],
+  variants: {
+    isFocusVisible: {
+      true: 'outline-accent outline-2 -outline-offset-2'
+    },
+    isHovered: {
+      true: 'bg-black/10 dark:bg-white/5'
+    }
+  }
+});
 
 type Props = { links: NavLink[] };
 
@@ -34,11 +69,8 @@ export const MobileDrawer: FC<Props> = ({ links }) => {
       <DialogTrigger isOpen={isOpen} onOpenChange={setOpen}>
         <IconButton label="Open navigation menu" icon={<Menu className="h-6 w-6" />} className="text-nav-fg" />
 
-        <ModalOverlay
-          isDismissable
-          className="fixed inset-0 z-50 flex justify-end bg-black/30 backdrop-blur-sm transition-opacity duration-200 ease-out data-[entering]:opacity-0 data-[exiting]:opacity-0 dark:bg-black/60"
-        >
-          <Modal className="bg-nav-bg text-nav-fg border-glass-border h-full w-80 max-w-full transform-gpu border-l shadow-2xl backdrop-blur-[32px] backdrop-saturate-[180%] transition-transform duration-300 ease-out data-[entering]:translate-x-full data-[exiting]:translate-x-full motion-reduce:transition-none">
+        <ModalOverlay isDismissable className={overlay()}>
+          <Modal className={modal()}>
             <Dialog className="flex h-full flex-col outline-none">
               <Heading slot="title" className="sr-only">
                 Menu
@@ -56,7 +88,7 @@ export const MobileDrawer: FC<Props> = ({ links }) => {
                       key={link.href}
                       href={link.href}
                       onPress={() => setOpen(false)}
-                      className="focus-visible:ring-accent flex items-center gap-3 rounded-lg px-3 py-3 font-semibold transition hover:bg-black/10 focus-visible:ring-2 focus-visible:outline-none dark:hover:bg-white/5"
+                      className={(rp) => drawerLink(rp)}
                     >
                       <Icon className="text-fg-muted h-5 w-5" aria-hidden="true" />
                       {link.label}
