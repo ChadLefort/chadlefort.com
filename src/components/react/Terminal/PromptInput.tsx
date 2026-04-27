@@ -1,5 +1,5 @@
 import type { FC, KeyboardEvent, RefObject, SyntheticEvent } from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { tv } from 'tailwind-variants';
 import { Cursor } from './Cursor';
 
@@ -22,13 +22,10 @@ export const PromptInput: FC<Props> = ({ value, onChange, onKey, inputRef }) => 
     setCaret(e.currentTarget.selectionStart ?? value.length);
   };
 
-  useEffect(() => {
-    if (caret > value.length) setCaret(value.length);
-  }, [value, caret]);
-
-  const before = value.slice(0, caret);
-  const at = value[caret] ?? '';
-  const after = at ? value.slice(caret + 1) : '';
+  const safeCaret = Math.min(caret, value.length);
+  const before = value.slice(0, safeCaret);
+  const at = value[safeCaret] ?? '';
+  const after = at ? value.slice(safeCaret + 1) : '';
 
   return (
     <label className={promptInputWrap()}>

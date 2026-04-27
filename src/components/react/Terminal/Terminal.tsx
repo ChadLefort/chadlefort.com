@@ -28,19 +28,6 @@ import {
 
 const Shell = lazy(() => import('./Shell').then((m) => ({ default: m.Shell })));
 
-const KONAMI = [
-  'ArrowUp',
-  'ArrowUp',
-  'ArrowDown',
-  'ArrowDown',
-  'ArrowLeft',
-  'ArrowRight',
-  'ArrowLeft',
-  'ArrowRight',
-  'b',
-  'a'
-] as const;
-
 const wrapper = tv({
   base: 'relative w-full',
   variants: {
@@ -99,57 +86,12 @@ export const Terminal: FC = () => {
   useEffect(() => {
     if (closed || !maximized || minimized) return;
 
-    const scrollY = window.scrollY;
-    const root = document.documentElement;
-    const body = document.body;
-
-    root.style.overflow = 'hidden';
-    body.style.position = 'fixed';
-    body.style.top = `-${scrollY}px`;
-    body.style.left = '0';
-    body.style.right = '0';
-    body.style.width = '100%';
+    document.documentElement.style.overflow = 'hidden';
 
     return () => {
-      root.style.overflow = '';
-      body.style.position = '';
-      body.style.top = '';
-      body.style.left = '';
-      body.style.right = '';
-      body.style.width = '';
-      window.scrollTo(0, scrollY);
+      document.documentElement.style.overflow = '';
     };
   }, [maximized, minimized, closed]);
-
-  useEffect(() => {
-    let idx = 0;
-
-    const onKey = (e: KeyboardEvent) => {
-      const expected = KONAMI[idx].toLowerCase();
-      const got = e.key.toLowerCase();
-
-      if (got !== expected) {
-        idx = got === KONAMI[0].toLowerCase() ? 1 : 0;
-        return;
-      }
-
-      idx += 1;
-
-      if (idx !== KONAMI.length) return;
-
-      setClosed(false);
-      setMinimized(false);
-      setMaximized(true);
-      setInteractive(true);
-      resetWithWelcome();
-      appendLines([{ kind: 'success', text: '✓ konami unlocked — interactive shell + fullscreen' }]);
-      idx = 0;
-    };
-
-    window.addEventListener('keydown', onKey);
-
-    return () => window.removeEventListener('keydown', onKey);
-  }, []);
 
   if (closed) return null;
 

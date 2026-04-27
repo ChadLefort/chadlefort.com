@@ -130,6 +130,7 @@ export const Shell: FC = () => {
     once: true
   });
   const [demoPhase, setDemoPhase] = useState<'cmd' | 'lines' | 'done'>(() => ($interactive.get() ? 'done' : 'cmd'));
+  const phase = interactive ? 'done' : demoPhase;
   const aboutItems = useMemo(() => aboutLines(years), [years]);
   const [lineIndex, setLineIndex] = useState(0);
 
@@ -145,10 +146,10 @@ export const Shell: FC = () => {
   };
 
   useEffect(() => {
-    if (demoPhase === 'done') {
+    if (phase === 'done') {
       inputRef.current?.focus({ preventScroll: true });
     }
-  }, [demoPhase]);
+  }, [phase]);
 
   useEffect(() => {
     if ($interactive.get()) return;
@@ -156,13 +157,9 @@ export const Shell: FC = () => {
     storeAppendLines([{ kind: 'status' }]);
   }, []);
 
-  useEffect(() => {
-    if (interactive && demoPhase !== 'done') setDemoPhase('done');
-  }, [interactive, demoPhase]);
-
   const typedFromHook = useTypewriter(DEMO_COMMAND, {
     perChar: 80,
-    enabled: demoPhase === 'cmd' && !reducedRef.current && inView,
+    enabled: phase === 'cmd' && !reducedRef.current && inView,
     onComplete: () => {
       window.setTimeout(() => {
         storeAppendLines([{ kind: 'cmd', text: DEMO_COMMAND }]);
@@ -173,7 +170,7 @@ export const Shell: FC = () => {
   const typed = reducedRef.current ? DEMO_COMMAND : typedFromHook;
 
   useEffect(() => {
-    if (demoPhase !== 'lines') return;
+    if (phase !== 'lines') return;
 
     if (reducedRef.current) {
       storeAppendLines(
@@ -217,7 +214,7 @@ export const Shell: FC = () => {
     }, 35);
 
     return () => window.clearTimeout(id);
-  }, [demoPhase, lineIndex, aboutItems]);
+  }, [phase, lineIndex, aboutItems]);
 
   useEffect(() => {
     const target = cwdForHost(host);
@@ -438,14 +435,14 @@ export const Shell: FC = () => {
     <div ref={setShellRef} className={shellRoot()} role="log" aria-live="polite" data-no-print>
       {lines.map(renderLine)}
 
-      {demoPhase === 'cmd' && (
+      {phase === 'cmd' && (
         <p className="m-0">
           <span className={promptArrow()}>→</span> <span>{typed}</span>
           <Cursor />
         </p>
       )}
 
-      {demoPhase === 'done' && (
+      {phase === 'done' && (
         <>
           <div className="mt-4 mb-2">
             <StatusLine

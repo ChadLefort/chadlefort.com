@@ -46,11 +46,9 @@ test.describe('terminal', () => {
     await waitForTerminalReady(page);
 
     await page.getByRole('button', { name: 'Maximize terminal (interactive shell)' }).click();
-    await expect.poll(() => page.evaluate(() => document.body.style.position)).toBe('fixed');
     await expect.poll(() => page.evaluate(() => document.documentElement.style.overflow)).toBe('hidden');
 
     await page.getByRole('button', { name: 'Minimize terminal' }).click();
-    await expect.poll(() => page.evaluate(() => document.body.style.position)).toBe('');
     await expect.poll(() => page.evaluate(() => document.documentElement.style.overflow)).toBe('');
   });
 
@@ -59,12 +57,10 @@ test.describe('terminal', () => {
     await waitForTerminalReady(page);
 
     await page.getByRole('button', { name: 'Maximize terminal (interactive shell)' }).click();
-    await expect.poll(() => page.evaluate(() => document.body.style.position)).toBe('fixed');
     await expect.poll(() => page.evaluate(() => document.documentElement.style.overflow)).toBe('hidden');
 
     await page.getByRole('button', { name: 'Close terminal' }).click();
 
-    await expect.poll(() => page.evaluate(() => document.body.style.position)).toBe('');
     await expect.poll(() => page.evaluate(() => document.documentElement.style.overflow)).toBe('');
     await expect(page.getByLabel('Terminal', { exact: true })).toBeVisible();
   });
