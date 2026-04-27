@@ -1,6 +1,12 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 
 test.describe.configure({ mode: 'serial' });
+
+const waitForTerminalReady = async (page: Page) => {
+  const terminal = page.getByLabel('Terminal', { exact: true });
+  await expect(terminal).toBeVisible();
+  await expect(terminal.getByText('clefort').first()).toBeVisible();
+};
 
 test.describe('terminal', () => {
   test('demo body renders with prompt arrow on home', async ({ page }) => {
@@ -13,6 +19,7 @@ test.describe('terminal', () => {
 
   test('maximize unlocks interactive shell + welcome banner', async ({ page }) => {
     await page.goto('/');
+    await waitForTerminalReady(page);
 
     await page.getByRole('button', { name: 'Maximize terminal (interactive shell)' }).click();
 
@@ -22,6 +29,7 @@ test.describe('terminal', () => {
 
   test('whoami prints chad with title', async ({ page }) => {
     await page.goto('/');
+    await waitForTerminalReady(page);
     await page.getByRole('button', { name: 'Maximize terminal (interactive shell)' }).click();
 
     const input = page.getByLabel('terminal input');
@@ -35,6 +43,7 @@ test.describe('terminal', () => {
 
   test('minimize from maximized restores body scroll', async ({ page }) => {
     await page.goto('/');
+    await waitForTerminalReady(page);
 
     await page.getByRole('button', { name: 'Maximize terminal (interactive shell)' }).click();
     await expect.poll(() => page.evaluate(() => document.body.style.position)).toBe('fixed');
@@ -47,6 +56,7 @@ test.describe('terminal', () => {
 
   test('close from maximized exits maximize, does not hide terminal', async ({ page }) => {
     await page.goto('/');
+    await waitForTerminalReady(page);
 
     await page.getByRole('button', { name: 'Maximize terminal (interactive shell)' }).click();
     await expect.poll(() => page.evaluate(() => document.body.style.position)).toBe('fixed');
@@ -96,6 +106,7 @@ test.describe('terminal · mobile viewport', () => {
 
   test('maximize still unlocks shell on mobile', async ({ page }) => {
     await page.goto('/');
+    await waitForTerminalReady(page);
 
     await page.getByRole('button', { name: 'Maximize terminal (interactive shell)' }).click();
 
