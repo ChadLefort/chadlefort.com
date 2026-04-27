@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'vitest-axe';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { Terminal } from '~/components/react/Terminal';
 import {
   $closed,
@@ -13,19 +13,45 @@ import {
   setInteractive
 } from '~/components/react/Terminal/store';
 
+const baseMatchMedia = window.matchMedia;
+
+const createMatchMedia = (reducedMotion: boolean) => (query: string) => ({
+  matches: reducedMotion && query === '(prefers-reduced-motion: reduce)',
+  media: query,
+  onchange: null,
+  addListener: () => {},
+  removeListener: () => {},
+  addEventListener: () => {},
+  removeEventListener: () => {},
+  dispatchEvent: () => false
+});
+
+const renderTerminal = async () => {
+  const rendered = render(<Terminal />);
+
+  await screen.findByText('clefort');
+
+  return rendered;
+};
+
 describe('Terminal', () => {
   beforeEach(() => {
     resetShellStore();
+    window.matchMedia = createMatchMedia(true);
   });
 
-  it('exposes a labelled region', () => {
-    render(<Terminal />);
+  afterEach(() => {
+    window.matchMedia = baseMatchMedia;
+  });
+
+  it('exposes a labelled region', async () => {
+    await renderTerminal();
 
     expect(screen.getByLabelText('Terminal')).toBeInTheDocument();
   });
 
-  it('renders the demo body by default', () => {
-    render(<Terminal />);
+  it('renders the demo body by default', async () => {
+    await renderTerminal();
 
     expect(screen.getAllByText('clefort').length).toBeGreaterThan(0);
   });
@@ -41,7 +67,7 @@ describe('Terminal', () => {
   it('minimize from maximized exits maximize', async () => {
     const user = userEvent.setup();
 
-    render(<Terminal />);
+    await renderTerminal();
     await user.click(screen.getByRole('button', { name: /maximize terminal/i }));
 
     expect($maximized.get()).toBe(true);
@@ -56,7 +82,7 @@ describe('Terminal', () => {
   it('maximize while minimized un-minimizes', async () => {
     const user = userEvent.setup();
 
-    render(<Terminal />);
+    await renderTerminal();
     await user.click(screen.getByRole('button', { name: /minimize terminal/i }));
     expect($minimized.get()).toBe(true);
 
@@ -69,7 +95,7 @@ describe('Terminal', () => {
   it('close while maximized exits maximize without closing', async () => {
     const user = userEvent.setup();
 
-    render(<Terminal />);
+    await renderTerminal();
     await user.click(screen.getByRole('button', { name: /maximize terminal/i }));
 
     expect($maximized.get()).toBe(true);
@@ -83,7 +109,7 @@ describe('Terminal', () => {
   });
 
   it('has no axe violations', async () => {
-    const { container } = render(<Terminal />);
+    const { container } = await renderTerminal();
 
     expect(await axe(container)).toHaveNoViolations();
   });
