@@ -2,6 +2,10 @@
 
 
 
+
+
+
+
 import { Icon } from 'astro-icon/components';
 import { tv } from 'tailwind-variants';
 import Section from '~/components/Section.astro';
@@ -15,7 +19,10 @@ const links = [
   { label: 'Bluesky', href: site.social.bluesky, icon: 'simple-icons:bluesky' },
   { label: 'Instagram', href: site.social.instagram, icon: 'simple-icons:instagram' },
   { label: 'YouTube', href: site.social.youtube, icon: 'simple-icons:youtube' }
-];
+].map((link) => ({
+  ...link,
+  external: link.href.startsWith('http')
+}));
 
 const socialButton = tv({
   base: [
@@ -39,45 +46,48 @@ const copyEmailButton = tv({
 <Section id="contact" eyebrow="Get in touch" title="Contact" tone="alt" hideFromPrint>
   <div class="mx-auto max-w-3xl text-center">
     <p class="text-fg-muted text-lg">Have questions or a job opportunity? Let's get in touch.</p>
-    <ul class="mt-10 flex flex-wrap items-center justify-center gap-3">
-      {
-        links.map((link) => (
-          <li>
-            <a
-              href={link.href}
-              rel={link.href.startsWith('http') ? 'noopener' : undefined}
-              target={link.href.startsWith('http') ? '_blank' : undefined}
-              aria-label={link.label}
-              class={socialButton()}
-            >
-              <Icon
-                name={link.icon}
-                class="h-6 w-6 transition-transform duration-300 group-hover:scale-110 motion-reduce:group-hover:scale-100"
-                aria-hidden="true"
-              />
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-    <div class="mt-8 flex justify-center">
-      <button
-        type="button"
-        data-copy-email
-        data-email={site.email}
-        class={copyEmailButton()}
-        aria-label={`Copy email ${site.email} to clipboard`}
-      >
-        <Icon name="lucide:mail" class="text-accent h-4 w-4" aria-hidden="true" />
-        <span data-copy-email-label>{site.email}</span>
-        <Icon
-          name="lucide:copy"
-          class="text-fg-muted group-hover:text-accent h-4 w-4 transition"
-          aria-hidden="true"
-          data-copy-email-icon
-        />
-      </button>
-    </div>
+    <address class="mt-10 flex flex-col items-center not-italic">
+      <ul class="flex flex-wrap items-center justify-center gap-3" aria-label="Social and contact links">
+        {
+          links.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                rel={link.external ? 'noopener' : undefined}
+                target={link.external ? '_blank' : undefined}
+                aria-label={link.external ? `${link.label} (opens in a new tab)` : link.label}
+                class={socialButton()}
+              >
+                <Icon
+                  name={link.icon}
+                  class="h-6 w-6 transition-transform duration-300 group-hover:scale-110 motion-reduce:group-hover:scale-100"
+                  aria-hidden="true"
+                />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="mt-8 flex justify-center">
+        <button
+          type="button"
+          data-copy-email
+          data-email={site.email}
+          class={copyEmailButton()}
+          aria-label={`Copy email ${site.email} to clipboard`}
+        >
+          <Icon name="lucide:mail" class="text-accent h-4 w-4" aria-hidden="true" />
+          <span data-copy-email-label>{site.email}</span>
+          <Icon
+            name="lucide:copy"
+            class="text-fg-muted group-hover:text-accent h-4 w-4 transition"
+            aria-hidden="true"
+            data-copy-email-icon
+          />
+        </button>
+      </div>
+      <p class="sr-only" data-copy-email-status aria-live="polite"></p>
+    </address>
   </div>
 </Section>
 
@@ -89,6 +99,7 @@ const copyEmailButton = tv({
       btn.dataset.copyEmailBound = 'true';
 
       const label = btn.querySelector<HTMLElement>('[data-copy-email-label]');
+      const status = btn.parentElement?.parentElement?.querySelector<HTMLElement>('[data-copy-email-status]');
       const original = label?.textContent ?? '';
 
       btn.addEventListener('click', async () => {
@@ -101,9 +112,11 @@ const copyEmailButton = tv({
         }
 
         if (label) label.textContent = 'Copied!';
+        if (status) status.textContent = 'Email copied to clipboard.';
 
         window.setTimeout(() => {
           if (label) label.textContent = original;
+          if (status) status.textContent = '';
         }, 1800);
       });
     });

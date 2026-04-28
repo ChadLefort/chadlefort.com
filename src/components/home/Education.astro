@@ -2,20 +2,30 @@
 
 
 
+
+
+
+
 import Nicholls from '~/assets/logos/nicholls.svg';
 import Section from '~/components/Section.astro';
 import { education } from '~/data/education';
+import { toYearMonth } from '~/utils/date';
+
+const startDateTime = toYearMonth(education.start);
+const endDateTime = toYearMonth(education.end);
 ---
 
 <Section id="education" eyebrow="Where I learned" title="Education" tone="alt">
   <article class="mx-auto w-full max-w-5xl">
     <header class="flex flex-col items-center gap-6 text-center md:grid md:grid-cols-[1fr_auto] md:gap-8 md:text-left">
-      <Nicholls aria-label="Nicholls State Colonels" class="h-16 w-auto md:order-2 md:h-20 print:h-10" />
+      <Nicholls aria-hidden="true" focusable="false" class="h-16 w-auto md:order-2 md:h-20 print:h-10" />
       <div class="md:order-1">
         <h3 class="font-display text-2xl md:text-3xl">{education.institution}</h3>
         <p class="text-accent mt-1 text-sm font-semibold md:text-base">{education.degree}</p>
         <p class="text-fg-muted mt-1 font-mono text-xs md:text-sm">
-          {education.start} &ndash; {education.end}
+          {startDateTime ? <time datetime={startDateTime}>{education.start}</time> : education.start} &ndash; {
+            endDateTime ? <time datetime={endDateTime}>{education.end}</time> : education.end
+          }
         </p>
       </div>
     </header>
@@ -33,28 +43,32 @@ import { education } from '~/data/education';
       </li>
     </ul>
 
-    <h4 class="font-display mt-10 text-lg md:text-xl">Awards</h4>
-    <ul class="text-fg-muted mt-3 space-y-2 text-sm md:text-base">
-      {
-        education.awards.map((award) => (
-          <li class="flex gap-3">
-            <span aria-hidden="true" class="bg-accent mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full" />
-            <span>{award}</span>
-          </li>
-        ))
-      }
-    </ul>
+    <section class="mt-10" aria-labelledby="education-awards-title">
+      <h4 id="education-awards-title" class="font-display text-lg md:text-xl">Awards</h4>
+      <ul class="text-fg-muted mt-3 space-y-2 text-sm md:text-base">
+        {
+          education.awards.map((award) => (
+            <li class="flex gap-3">
+              <span aria-hidden="true" class="bg-accent mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full" />
+              <span>{award}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
 
-    <h4 class="font-display mt-10 text-lg md:text-xl">Organizations</h4>
-    <ul class="text-fg-muted mt-3 space-y-2 text-sm md:text-base">
-      {
-        education.organizations.map((org) => (
-          <li class="flex gap-3">
-            <span aria-hidden="true" class="bg-accent mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full" />
-            <span>{org}</span>
-          </li>
-        ))
-      }
-    </ul>
+    <section class="mt-10" aria-labelledby="education-organizations-title">
+      <h4 id="education-organizations-title" class="font-display text-lg md:text-xl">Organizations</h4>
+      <ul class="text-fg-muted mt-3 space-y-2 text-sm md:text-base">
+        {
+          education.organizations.map((org) => (
+            <li class="flex gap-3">
+              <span aria-hidden="true" class="bg-accent mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full" />
+              <span>{org}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
   </article>
 </Section>

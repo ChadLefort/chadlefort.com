@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
+import { axe } from 'vitest-axe';
 import { JobTimeline } from '~/components/react/JobTimeline';
 import type { Job } from '~/data/jobs';
 
@@ -35,5 +36,11 @@ describe('JobTimeline', () => {
     expect(screen.getAllByText(/December 2020/i).length).toBeGreaterThan(0);
     expect(screen.getByText('Built assessment dashboards')).toBeInTheDocument();
     expect(screen.getByText('Improved release velocity')).toBeInTheDocument();
+  });
+
+  it('has no axe violations', async () => {
+    const { container } = render(<JobTimeline jobs={jobs} />);
+
+    expect(await axe(container)).toHaveNoViolations();
   });
 });

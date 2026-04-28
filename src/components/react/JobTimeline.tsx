@@ -2,6 +2,7 @@ import type { FC } from 'react';
 import { tv } from 'tailwind-variants';
 import type { Job } from '~/data/jobs';
 import { useInView } from '~/hooks/useInView';
+import { toYearMonth } from '~/utils/date';
 
 type Props = { jobs: Job[] };
 
@@ -51,14 +52,22 @@ const TimelineItem: FC<ItemProps> = ({ job, isLeft }) => {
   const [ref, inView] = useInView<HTMLLIElement>({ threshold: 0.3, rootMargin: '0px 0px -80px 0px' });
   const side = isLeft ? 'left' : 'right';
 
+  const startDateTime = toYearMonth(job.start);
+  const endDateTime = toYearMonth(job.end);
+  const dateRange = (
+    <>
+      {startDateTime ? <time dateTime={startDateTime}>{job.start}</time> : <span>{job.start}</span>}
+      <span aria-hidden="true"> &mdash; </span>
+      {endDateTime ? <time dateTime={endDateTime}>{job.end}</time> : <span>{job.end}</span>}
+    </>
+  );
+
   const cardEl = (
-    <div className={card({ side })}>
+    <article className={card({ side })}>
       <header className={cardHeader({ side })}>
         <h3 className="font-display text-fg text-xl md:text-2xl">{job.company}</h3>
         <p className="text-accent text-sm font-semibold md:text-base">{job.role}</p>
-        <p className="text-fg-muted font-mono text-xs md:hidden">
-          {job.start} &ndash; {job.end}
-        </p>
+        <p className="text-fg-muted font-mono text-xs md:hidden">{dateRange}</p>
       </header>
       <ul className={bullets({ side })}>
         {job.bullets.map((bullet) => (
@@ -68,14 +77,10 @@ const TimelineItem: FC<ItemProps> = ({ job, isLeft }) => {
           </li>
         ))}
       </ul>
-    </div>
+    </article>
   );
 
-  const dateBlock = (
-    <p className="timeline-date text-fg-muted font-mono text-sm tracking-wide">
-      <span className="text-accent">{job.start}</span> &mdash; {job.end}
-    </p>
-  );
+  const dateBlock = <p className="timeline-date text-fg-muted font-mono text-sm tracking-wide">{dateRange}</p>;
 
   return (
     <li ref={ref} className={item({ inView })}>
