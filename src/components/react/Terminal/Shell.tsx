@@ -1,5 +1,5 @@
 import { useStore } from '@nanostores/react';
-import type { FC } from 'react';
+import type { FC, FocusEvent } from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { tv } from 'tailwind-variants';
 import { yearsOfExperience } from '~/data/site';
@@ -15,6 +15,7 @@ import {
   $history,
   $interactive,
   $lines,
+  $maximized,
   type Line,
   type LineBody,
   appendLines as storeAppendLines,
@@ -27,10 +28,24 @@ import { buildFs, cwdForHost, formatPath } from './vfs';
 
 const shellRoot = tv({
   base: [
-    'bg-term-bg text-term-fg break-words font-mono overflow-y-auto overscroll-contain h-full',
+    'bg-term-bg text-term-fg break-words font-mono h-full',
     'px-4 pt-4 pb-5 text-[12.5px] leading-6',
     'sm:px-5 sm:pt-5 sm:pb-6 sm:text-[15px] sm:leading-7'
-  ]
+  ],
+  variants: {
+    maximized: {
+      true: 'overscroll-contain',
+      false: ''
+    },
+    engaged: {
+      true: 'overflow-y-auto',
+      false: 'overflow-hidden'
+    }
+  },
+  defaultVariants: {
+    maximized: false,
+    engaged: false
+  }
 });
 
 const outputRow = tv({
@@ -55,6 +70,7 @@ export const Shell: FC = () => {
   const cwd = useStore($cwd);
   const history = useStore($history);
   const interactive = useStore($interactive);
+  const maximized = useStore($maximized);
   const years = yearsOfExperience();
   const reducedMotion = useReducedMotion();
   const isMobile = useMediaQuery('(max-width: 640px)');
@@ -64,6 +80,7 @@ export const Shell: FC = () => {
     once: true
   });
   const [time, setTime] = useState<string | null>(null);
+  const [engaged, setEngaged] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollerRef = useRef<HTMLDivElement>(null);
   const append = useCallback((newLines: LineBody[]) => storeAppendLines(newLines), []);
@@ -94,10 +111,10 @@ export const Shell: FC = () => {
   });
 
   useEffect(() => {
-    if (phase === 'done') {
+    if (phase === 'done' && maximized) {
       inputRef.current?.focus({ preventScroll: true });
     }
-  }, [phase]);
+  }, [maximized, phase]);
 
   useEffect(() => {
     if (interactive) return;
@@ -153,6 +170,28 @@ export const Shell: FC = () => {
     return () => element.removeEventListener('mouseup', onMouseUp);
   }, []);
 
+  const shellIsEngaged = maximized || engaged;
+
+  const onFocusCapture = useCallback(() => {
+    if (maximized) return;
+
+    setEngaged(true);
+  }, [maximized]);
+
+  const onBlurCapture = useCallback(
+    (event: FocusEvent<HTMLDivElement>) => {
+      if (maximized) return;
+
+      const nextFocused = event.relatedTarget;
+
+      if (nextFocused instanceof Node && event.currentTarget.contains(nextFocused)) return;
+
+      setEngaged(false);
+      scrollerRef.current?.scrollTo({ top: scrollerRef.current.scrollHeight });
+    },
+    [maximized]
+  );
+
   const renderLine = (line: Line) => {
     if (line.kind === 'status') {
       return (
@@ -193,7 +232,15 @@ export const Shell: FC = () => {
   };
 
   return (
-    <div ref={setShellRef} className={shellRoot()} role="log" aria-live="polite" data-no-print>
+    <div
+      ref={setShellRef}
+      className={shellRoot({ maximized, engaged: shellIsEngaged })}
+      role="log"
+      aria-live="polite"
+      data-no-print
+      onFocusCapture={onFocusCapture}
+      onBlurCapture={onBlurCapture}
+    >
       {lines.map(renderLine)}
 
       {phase === 'cmd' && (

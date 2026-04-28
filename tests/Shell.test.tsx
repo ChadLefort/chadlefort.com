@@ -2,7 +2,13 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { Shell } from '~/components/react/Terminal/Shell';
-import { appendLines, resetShellStore, setInteractive, WELCOME_LINES } from '~/components/react/Terminal/store';
+import {
+  appendLines,
+  resetShellStore,
+  setInteractive,
+  setMaximized,
+  WELCOME_LINES
+} from '~/components/react/Terminal/store';
 
 const getTerminalInput = (): HTMLInputElement => {
   const input = screen.getByLabelText('terminal input');
@@ -240,6 +246,55 @@ describe('Shell', () => {
     await typeAndEnter(user, ':q!');
 
     expect(screen.getByText(/wrote 0 bytes\. you escaped/)).toBeInTheDocument();
+  });
+
+  it('keeps the embedded shell in page-scroll mode until focused', async () => {
+    const user = userEvent.setup();
+
+    render(<Shell />);
+
+    const log = screen.getByRole('log');
+    const input = getTerminalInput();
+
+    expect(log.className).toContain('overflow-hidden');
+    expect(input).not.toHaveFocus();
+
+    await user.click(input);
+
+    expect(log.className).toContain('overflow-y-auto');
+    expect(input).toHaveFocus();
+  });
+
+  it('returns the embedded shell to page-scroll mode when focus leaves', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <>
+        <Shell />
+        <button type="button">outside</button>
+      </>
+    );
+
+    const log = screen.getByRole('log');
+
+    await user.click(getTerminalInput());
+    expect(log.className).toContain('overflow-y-auto');
+
+    await user.click(screen.getByRole('button', { name: 'outside' }));
+
+    expect(log.className).toContain('overflow-hidden');
+  });
+
+  it('keeps the maximized shell scrollable and focused', () => {
+    setMaximized(true);
+
+    render(<Shell />);
+
+    const log = screen.getByRole('log');
+
+    expect(log.className).toContain('overflow-y-auto');
+    expect(log.className).toContain('overscroll-contain');
+    expect(getTerminalInput()).toHaveFocus();
   });
 
   it('history persists across remounts via the store', async () => {
