@@ -41,7 +41,7 @@
     line-height: 1.4;
     font-family: "Roboto Variable", "Roboto", system-ui, sans-serif;
     margin: 0 !important;
-    padding: 0.5in !important;
+    padding: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
@@ -542,11 +542,8 @@
     padding-left: 1rem;
   }
 
-  /* @page top/bottom margins repeat on every page so content doesn't bleed to edges on
-     page 2+. Horizontal margin still comes from body padding so it survives Chrome's
-     "None" margin option for the first page. */
   @page {
-    margin: 0;
+    margin: 0.5in;
     size: letter;
   }
 
