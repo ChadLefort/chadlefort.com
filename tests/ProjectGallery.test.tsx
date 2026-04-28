@@ -29,6 +29,18 @@ const images: GalleryImage[] = [
     height: 900
   },
   {
+    src: '/desktop-3.webp',
+    fullAvif: '/desktop-3.avif',
+    thumbSrc: '/desktop-3-thumb.webp',
+    thumbAvif: '/desktop-3-thumb.avif',
+    thumbWebp: '/desktop-3-thumb.webp',
+    thumbSizes: '50vw',
+    alt: 'Desktop contact panel',
+    orientation: 'landscape',
+    width: 1600,
+    height: 900
+  },
+  {
     src: '/mobile-1.webp',
     fullAvif: '/mobile-1.avif',
     thumbSrc: '/mobile-1-thumb.webp',
@@ -48,7 +60,16 @@ describe('ProjectGallery', () => {
 
     expect(screen.getByRole('heading', { name: 'Desktop', level: 3 })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Mobile', level: 3 })).toBeInTheDocument();
-    expect(screen.getAllByRole('button', { name: /open .* in lightbox/i })).toHaveLength(3);
+    expect(screen.getAllByRole('button', { name: /open .* in lightbox/i })).toHaveLength(4);
+  });
+
+  it('eager-loads the first and second thumbnail in each gallery section', () => {
+    render(<ProjectGallery images={images} title="Spear Dashboard" />);
+
+    expect(screen.getByAltText('Desktop dashboard overview')).toHaveAttribute('loading', 'eager');
+    expect(screen.getByAltText('Desktop analytics panel')).toHaveAttribute('loading', 'eager');
+    expect(screen.getByAltText('Desktop contact panel')).toHaveAttribute('loading', 'lazy');
+    expect(screen.getByAltText('Mobile course flow')).toHaveAttribute('loading', 'eager');
   });
 
   it('opens the lightbox and supports button + keyboard navigation', async () => {

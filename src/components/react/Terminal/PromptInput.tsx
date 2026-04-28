@@ -28,13 +28,15 @@ export const PromptInput: FC<Props> = ({ value, onChange, onKey, inputRef }) => 
   const after = at ? value.slice(safeCaret + 1) : '';
 
   return (
-    <label className={promptInputWrap()}>
+    <label htmlFor="terminal-input" className={promptInputWrap()}>
+      <span className="sr-only">Interactive Terminal Prompt</span>
       <span className="font-mono whitespace-pre">
         <span>{before}</span>
         <Cursor char={at} />
         <span>{after}</span>
       </span>
       <input
+        id="terminal-input"
         ref={inputRef}
         value={value}
         onChange={(e) => {

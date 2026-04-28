@@ -7,7 +7,7 @@ import { Button } from '~/components/react/ui/Button/Button';
 import { IconButton } from '~/components/react/ui/IconButton/IconButton';
 
 const thumbImg = tv({
-  base: 'block h-full w-full object-cover transition duration-300 group-hover:scale-[1.01]',
+  base: 'block rounded-lg h-full w-full object-cover transition duration-300 group-hover:scale-[1.01]',
   variants: {
     loaded: {
       true: 'opacity-100',
@@ -19,7 +19,7 @@ const thumbImg = tv({
 const thumbButton = tv({
   base: [
     'group relative block w-full cursor-pointer overflow-hidden rounded-xl border transition',
-    'border-glass-border bg-surface-raised hover:border-accent/60',
+    'border-glass-border bg-surface-raised hover:border-accent/60 p-5',
     'focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent'
   ]
 });
@@ -48,7 +48,7 @@ export type GalleryImage = {
 type IndexedImage = GalleryImage & { index: number };
 type Props = { images: GalleryImage[]; title: string };
 
-const Thumb: FC<{ image: GalleryImage; onOpen: () => void }> = ({ image, onOpen }) => {
+const Thumb: FC<{ image: GalleryImage; onOpen: () => void; eager?: boolean }> = ({ image, onOpen, eager = false }) => {
   const [loaded, setLoaded] = useState(false);
 
   return (
@@ -66,7 +66,7 @@ const Thumb: FC<{ image: GalleryImage; onOpen: () => void }> = ({ image, onOpen 
         <img
           src={image.thumbSrc}
           alt={image.alt}
-          loading="lazy"
+          loading={eager ? 'eager' : 'lazy'}
           decoding="async"
           onLoad={() => setLoaded(true)}
           className={thumbImg({ loaded })}
@@ -94,14 +94,14 @@ const GallerySection: FC<{
       {label}
     </h3>
     <div className={gridClass}>
-      {images.map((image) =>
+      {images.map((image, index) =>
         wrapThumb ? (
           <div key={image.src} className="mx-auto w-full max-w-65">
-            <Thumb image={image} onOpen={() => onOpen(image.index)} />
+            <Thumb image={image} onOpen={() => onOpen(image.index)} eager={index === 0 || index === 1} />
           </div>
         ) : (
           <div key={image.src}>
-            <Thumb image={image} onOpen={() => onOpen(image.index)} />
+            <Thumb image={image} onOpen={() => onOpen(image.index)} eager={index === 0 || index === 1} />
           </div>
         )
       )}

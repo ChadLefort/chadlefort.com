@@ -2,6 +2,18 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 import '~/styles/global.css';
 import { ClientRouter } from 'astro:transitions';
 import { pwaInfo } from 'virtual:pwa-info';
@@ -76,7 +88,7 @@ const {
 
     <Nav links={navLinks} showLogoOnDesktop={showLogoOnDesktop} compactLogo={compactLogo} />
 
-    <main id="main" tabindex="-1">
+    <main id="main">
       <slot />
     </main>
 
