@@ -12,6 +12,7 @@ const images: GalleryImage[] = [
     thumbWebp: '/desktop-1-thumb.webp',
     thumbSizes: '50vw',
     alt: 'Desktop dashboard overview',
+    device: 'desktop',
     orientation: 'landscape',
     width: 1600,
     height: 900
@@ -24,6 +25,7 @@ const images: GalleryImage[] = [
     thumbWebp: '/desktop-2-thumb.webp',
     thumbSizes: '50vw',
     alt: 'Desktop analytics panel',
+    device: 'desktop',
     orientation: 'landscape',
     width: 1600,
     height: 900
@@ -36,6 +38,7 @@ const images: GalleryImage[] = [
     thumbWebp: '/desktop-3-thumb.webp',
     thumbSizes: '50vw',
     alt: 'Desktop contact panel',
+    device: 'desktop',
     orientation: 'landscape',
     width: 1600,
     height: 900
@@ -48,6 +51,8 @@ const images: GalleryImage[] = [
     thumbWebp: '/mobile-1-thumb.webp',
     thumbSizes: '33vw',
     alt: 'Mobile course flow',
+    device: 'mobile',
+    initialZoom: 10,
     orientation: 'portrait',
     width: 800,
     height: 1200
@@ -55,7 +60,7 @@ const images: GalleryImage[] = [
 ];
 
 describe('ProjectGallery', () => {
-  it('renders desktop and mobile sections when both orientations are present', () => {
+  it('renders desktop and mobile sections when both device groups are present', () => {
     render(<ProjectGallery images={images} title="Spear Dashboard" />);
 
     expect(screen.getByRole('heading', { name: 'Desktop', level: 3 })).toBeInTheDocument();
@@ -63,12 +68,64 @@ describe('ProjectGallery', () => {
     expect(screen.getAllByRole('button', { name: /open .* in lightbox/i })).toHaveLength(4);
   });
 
-  it('eager-loads the first and second thumbnail in each gallery section', () => {
+  it('groups images by explicit device instead of raw aspect ratio', () => {
+    render(
+      <ProjectGallery
+        images={[
+          {
+            src: '/desktop-tall.webp',
+            fullAvif: '/desktop-tall.avif',
+            thumbSrc: '/desktop-tall-thumb.webp',
+            thumbAvif: '/desktop-tall-thumb.avif',
+            thumbWebp: '/desktop-tall-thumb.webp',
+            thumbSizes: '50vw',
+            alt: 'Tall desktop dashboard',
+            device: 'desktop',
+            orientation: 'portrait',
+            width: 900,
+            height: 1800
+          },
+          {
+            src: '/mobile-tall.webp',
+            fullAvif: '/mobile-tall.avif',
+            thumbSrc: '/mobile-tall-thumb.webp',
+            thumbAvif: '/mobile-tall-thumb.avif',
+            thumbWebp: '/mobile-tall-thumb.webp',
+            thumbSizes: '33vw',
+            alt: 'Tall mobile dashboard',
+            device: 'mobile',
+            orientation: 'portrait',
+            width: 900,
+            height: 1800
+          }
+        ]}
+        title="Spear Dashboard"
+      />
+    );
+
+    const desktopSection = screen.getByRole('heading', { name: 'Desktop', level: 3 }).closest('section');
+    const mobileSection = screen.getByRole('heading', { name: 'Mobile', level: 3 }).closest('section');
+
+    expect(desktopSection).toContainElement(
+      screen.getByRole('button', { name: /open tall desktop dashboard in lightbox/i })
+    );
+    expect(mobileSection).toContainElement(
+      screen.getByRole('button', { name: /open tall mobile dashboard in lightbox/i })
+    );
+  });
+
+  it('only eager-loads thumbnails in the first rendered gallery section', () => {
     render(<ProjectGallery images={images} title="Spear Dashboard" />);
 
     expect(screen.getByAltText('Desktop dashboard overview')).toHaveAttribute('loading', 'eager');
     expect(screen.getByAltText('Desktop analytics panel')).toHaveAttribute('loading', 'eager');
     expect(screen.getByAltText('Desktop contact panel')).toHaveAttribute('loading', 'lazy');
+    expect(screen.getByAltText('Mobile course flow')).toHaveAttribute('loading', 'lazy');
+  });
+
+  it('eager-loads the first gallery section even when only mobile images exist', () => {
+    render(<ProjectGallery images={images.slice(3)} title="Spear Dashboard" />);
+
     expect(screen.getByAltText('Mobile course flow')).toHaveAttribute('loading', 'eager');
   });
 
@@ -90,6 +147,38 @@ describe('ProjectGallery', () => {
 
     await user.click(screen.getAllByRole('button', { name: /close gallery/i })[0]);
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  });
+
+  it('supports stepped zoom controls from buttons, keyboard, and image click', async () => {
+    const user = userEvent.setup();
+
+    render(<ProjectGallery images={images.slice(0, 1)} title="Spear Dashboard" />);
+
+    await user.click(screen.getByRole('button', { name: /open desktop dashboard overview in lightbox/i }));
+
+    expect(screen.getAllByText('100%')[0]).toBeInTheDocument();
+
+    await user.click(screen.getAllByRole('button', { name: /^zoom in$/i })[1]);
+    expect(screen.getAllByText('125%')[0]).toBeInTheDocument();
+
+    fireEvent.keyDown(document, { key: 'z' });
+    expect(screen.getAllByText('150%')[0]).toBeInTheDocument();
+
+    fireEvent.keyDown(document, { key: 'Z', shiftKey: true });
+    expect(screen.getAllByText('125%')[0]).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: /reset image zoom/i }));
+    expect(screen.getAllByText('100%')[0]).toBeInTheDocument();
+  });
+
+  it('respects per-image initial zoom when opening a tall mobile screenshot', async () => {
+    const user = userEvent.setup();
+
+    render(<ProjectGallery images={images.slice(3)} title="Spear Dashboard" />);
+
+    await user.click(screen.getByRole('button', { name: /open mobile course flow in lightbox/i }));
+
+    expect(screen.getAllByText('1000%')[0]).toBeInTheDocument();
   });
 
   it('renders nothing when there are no images', () => {

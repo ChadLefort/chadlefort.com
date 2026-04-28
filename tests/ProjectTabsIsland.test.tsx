@@ -13,6 +13,7 @@ const galleryImages: GalleryImage[] = [
     thumbWebp: '/desktop-1-thumb.webp',
     thumbSizes: '50vw',
     alt: 'Desktop dashboard overview',
+    device: 'desktop',
     orientation: 'landscape',
     width: 1600,
     height: 900

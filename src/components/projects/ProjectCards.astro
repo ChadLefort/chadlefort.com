@@ -28,14 +28,6 @@ const cardLink = tv({
     'focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent'
   ]
 });
-
-const cornerBadge = tv({
-  base: [
-    'absolute top-4 right-4 inline-flex h-10 w-10 items-center justify-center rounded-full',
-    'border border-white/20 bg-black/40 text-white backdrop-blur transition',
-    'group-hover:border-white/40 group-hover:bg-black/60'
-  ]
-});
 ---
 
 <ul class="grid grid-cols-1 gap-8 md:grid-cols-2">
@@ -59,7 +51,7 @@ const cornerBadge = tv({
                   quality={82}
                   loading={index < 2 ? 'eager' : 'lazy'}
                   pictureAttributes={{ class: 'block aspect-video w-full overflow-hidden rounded-2xl' }}
-                  class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                  class="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]"
                 />
               ) : (
                 <div class={`flex aspect-video w-full items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br ${project.data.accent}`}>
@@ -77,13 +69,6 @@ const cornerBadge = tv({
                   )}
                 </div>
               )}
-              <span aria-hidden="true" class={cornerBadge()}>
-                <Icon
-                  name="lucide:arrow-up-right"
-                  class="h-4 w-4 transition-transform duration-300 group-hover:rotate-12 motion-reduce:group-hover:rotate-0"
-                  aria-hidden="true"
-                />
-              </span>
             </div>
 
             <div class="flex flex-1 flex-col gap-3 px-1 pt-4 pb-1 md:px-2 md:pt-5 md:pb-2">

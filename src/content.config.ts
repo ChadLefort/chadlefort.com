@@ -12,7 +12,16 @@ const projects = defineCollection({
       coverAlt: z.string().optional(),
       icon: z.string().optional(),
       iconColor: z.string().optional(),
-      gallery: z.array(z.object({ src: image(), alt: z.string() })).optional(),
+      gallery: z
+        .array(
+          z.object({
+            src: image(),
+            alt: z.string(),
+            device: z.enum(['desktop', 'mobile']).optional(),
+            initialZoom: z.number().min(1).max(12).optional()
+          })
+        )
+        .optional(),
       externalUrl: z.string().url().optional(),
       repoUrl: z.string().url().optional(),
       tech: z.array(z.string()),

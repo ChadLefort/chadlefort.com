@@ -27,11 +27,34 @@ const landscapeWidths = [640, 960, 1200];
 const portraitWidths = [260, 400, 520];
 const landscapeSizes = '(min-width: 768px) 600px, 100vw';
 const portraitSizes = '260px';
+const thumbAspectByDevice = {
+  desktop: 16 / 9,
+  mobile: 9 / 16
+} as const;
 
-const toThumbSrcSet = async (src: GalleryItem['src'], widths: number[], format: 'avif' | 'webp') => {
+const getClampedWidths = (widths: number[], maxWidth: number) => {
+  const clamped = [...new Set(widths.map((width) => Math.min(width, maxWidth)).filter((width) => width > 0))];
+
+  return clamped.length > 0 ? clamped : [maxWidth];
+};
+
+const toThumbSrcSet = async (
+  src: GalleryItem['src'],
+  widths: number[],
+  aspectRatio: number,
+  format: 'avif' | 'webp'
+) => {
   const variants = await Promise.all(
     widths.map(async (w) => {
-      const img = await getImage({ src, width: w, format, quality: 82 });
+      const img = await getImage({
+        src,
+        width: w,
+        height: Math.round(w / aspectRatio),
+        fit: 'cover',
+        position: 'top',
+        format,
+        quality: 82
+      });
       return `${img.src} ${w}w`;
     })
   );
@@ -41,33 +64,46 @@ const toThumbSrcSet = async (src: GalleryItem['src'], widths: number[], format: 
 
 const gallery = await Promise.all(
   (project.data.gallery ?? []).map(async (item: GalleryItem) => {
-    const probe = await getImage({ src: item.src, width: 1600, format: 'webp', quality: 82 });
-    const aspect =
-      probe.attributes.width && probe.attributes.height
-        ? Number(probe.attributes.width) / Number(probe.attributes.height)
-        : 1;
+    const width = item.src.width;
+    const height = item.src.height;
+    const aspect = width && height ? width / height : 1;
     const orientation: 'portrait' | 'landscape' = aspect < 0.85 ? 'portrait' : 'landscape';
-    const widths = orientation === 'portrait' ? portraitWidths : landscapeWidths;
-    const sizes = orientation === 'portrait' ? portraitSizes : landscapeSizes;
+    const device: 'desktop' | 'mobile' = item.device ?? (orientation === 'portrait' ? 'mobile' : 'desktop');
+    const requestedWidths = device === 'mobile' ? portraitWidths : landscapeWidths;
+    const thumbWidths = getClampedWidths(requestedWidths, width);
+    const sizes = device === 'mobile' ? portraitSizes : landscapeSizes;
+    const thumbAspect = thumbAspectByDevice[device];
+    const fullWidth = Math.min(width, 1600);
 
-    const [thumbAvif, thumbWebp, thumbFallback, fullAvif] = await Promise.all([
-      toThumbSrcSet(item.src, widths, 'avif'),
-      toThumbSrcSet(item.src, widths, 'webp'),
-      getImage({ src: item.src, width: widths[widths.length - 1], format: 'webp', quality: 82 }),
-      getImage({ src: item.src, width: 1600, format: 'avif', quality: 72 })
+    const [thumbAvif, thumbWebp, thumbFallback, fullAvif, fullWebp] = await Promise.all([
+      toThumbSrcSet(item.src, thumbWidths, thumbAspect, 'avif'),
+      toThumbSrcSet(item.src, thumbWidths, thumbAspect, 'webp'),
+      getImage({
+        src: item.src,
+        width: thumbWidths[thumbWidths.length - 1],
+        height: Math.round(thumbWidths[thumbWidths.length - 1] / thumbAspect),
+        fit: 'cover',
+        position: 'top',
+        format: 'webp',
+        quality: 82
+      }),
+      getImage({ src: item.src, width: fullWidth, format: 'avif', quality: 72 }),
+      getImage({ src: item.src, width: fullWidth, format: 'webp', quality: 82 })
     ]);
 
     return {
-      src: probe.src,
+      src: fullWebp.src,
       fullAvif: fullAvif.src,
       thumbSrc: thumbFallback.src,
       thumbAvif,
       thumbWebp,
       thumbSizes: sizes,
       alt: item.alt,
+      device,
+      initialZoom: item.initialZoom,
       orientation,
-      width: Number(probe.attributes.width ?? 1),
-      height: Number(probe.attributes.height ?? 1)
+      width,
+      height
     };
   })
 );
@@ -173,7 +209,7 @@ const breadcrumbLd = {
                 loading="eager"
                 fetchpriority="high"
                 pictureAttributes={{ class: 'block aspect-video w-full overflow-hidden rounded-2xl' }}
-                class="h-full w-full object-cover"
+                class="h-full w-full object-cover object-top"
               />
             )
           }
