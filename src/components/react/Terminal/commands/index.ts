@@ -4,18 +4,18 @@ import { clear } from './clear';
 import { contact } from './contact';
 import { date } from './date';
 import { echo } from './echo';
-import { editor, exit, forkBomb, rm, sandwich, sudo } from './jokes';
 import { git } from './git';
 import { help } from './help';
 import { history } from './history';
+import { editor, exit, forkBomb, rm, sandwich, sudo } from './jokes';
 import { ls } from './ls';
 import { neofetch } from './neofetch';
 import { open } from './open';
 import { pwd } from './pwd';
 import { socials } from './socials';
 import { tree } from './tree';
-import { whoami } from './whoami';
 import type { Command } from './types';
+import { whoami } from './whoami';
 
 export const commands: Record<string, Command> = {
   ls,
@@ -60,5 +60,4 @@ export const commands: Record<string, Command> = {
   ZQ: exit
 };
 
-export type { Command, CommandCtx } from './types';
-export { HELP_LINES } from './help';
+export type { CommandCtx } from './types';

@@ -1,5 +1,5 @@
-import type { FC } from 'react';
 import { Icon } from '@iconify/react';
+import type { FC } from 'react';
 import { Link } from 'react-aria-components';
 import { tv } from 'tailwind-variants';
 

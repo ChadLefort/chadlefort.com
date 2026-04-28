@@ -1,20 +1,8 @@
-import type { FC, ReactNode } from 'react';
 import { FileText, Images } from 'lucide-react';
+import type { FC, ReactNode } from 'react';
 import { Tab, TabList, TabPanel, Tabs } from 'react-aria-components';
+import type { GalleryImage } from '~/components/react/ProjectGallery';
 import { ProjectGallery } from '~/components/react/ProjectGallery';
-
-type GalleryImage = {
-  src: string;
-  fullAvif: string;
-  thumbSrc: string;
-  thumbAvif: string;
-  thumbWebp: string;
-  thumbSizes: string;
-  alt: string;
-  orientation: 'portrait' | 'landscape';
-  width: number;
-  height: number;
-};
 
 type Props = {
   hasGallery: boolean;

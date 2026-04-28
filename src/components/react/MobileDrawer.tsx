@@ -1,11 +1,11 @@
+import { Briefcase, Code2, GraduationCap, Home, LayoutDashboard, Mail, Menu, User, X } from 'lucide-react';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import { Briefcase, Code2, GraduationCap, Home, LayoutDashboard, Mail, Menu, User, X } from 'lucide-react';
 import { Dialog, DialogTrigger, Heading, Link, Modal, ModalOverlay } from 'react-aria-components';
 import { tv } from 'tailwind-variants';
-import type { NavLink } from '~/data/nav';
 import { NavigationProvider } from '~/components/react/NavigationProvider';
-import { IconButton } from '~/components/react/ui/IconButton';
+import { IconButton } from '~/components/react/ui/IconButton/IconButton';
+import type { NavLink } from '~/data/nav';
 
 const overlay = tv({
   base: [

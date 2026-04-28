@@ -1,5 +1,5 @@
-import type { FsDir } from './vfs';
 import type { MdLine } from './types';
+import type { FsDir } from './vfs';
 
 export const parseMd = (content: string): MdLine[] =>
   content.split('\n').map((line): MdLine => {

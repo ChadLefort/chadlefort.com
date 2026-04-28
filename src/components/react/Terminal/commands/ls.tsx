@@ -1,8 +1,8 @@
-import type { FC } from 'react';
 import { Icon } from '@iconify/react';
+import type { FC } from 'react';
 import { tv } from 'tailwind-variants';
+import { type FsNode, iconForNode, nodeAt, resolvePath } from '../vfs';
 import type { Command } from './types';
-import { iconForNode, nodeAt, resolvePath, type FsNode } from '../vfs';
 
 const lsRow = tv({ base: 'flex items-center gap-2' });
 const lsName = tv({ base: 'text-term-fg flex-1' });
@@ -19,7 +19,7 @@ const lsGit = tv({
   defaultVariants: { status: '--' }
 });
 
-export const LsRow: FC<{ entry: FsNode }> = ({ entry }) => {
+const LsRow: FC<{ entry: FsNode }> = ({ entry }) => {
   const { icon, color } = iconForNode(entry);
   const dirSlash = entry.type === 'dir' ? '/' : '';
 

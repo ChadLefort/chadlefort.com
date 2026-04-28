@@ -1,5 +1,5 @@
 import type { FC, ReactNode } from 'react';
-import { Button as RACButton, composeRenderProps, type ButtonProps } from 'react-aria-components';
+import { type ButtonProps, composeRenderProps, Button as RACButton } from 'react-aria-components';
 
 import { buttonStyles } from '../Button/Button';
 import type { IconButtonStyleProps } from './types';

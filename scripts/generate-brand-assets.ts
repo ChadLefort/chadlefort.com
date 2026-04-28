@@ -1,10 +1,24 @@
-import { execFileSync, spawn } from 'node:child_process';
-import { readFile, mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, rm } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from '@playwright/test';
+import { $ } from 'bun';
 import sharp from 'sharp';
+
+type ExtractRegion = {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+};
+
+type RoundedCropOptions = {
+  width: number;
+  height: number;
+  radius: number;
+  extract?: ExtractRegion;
+};
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
@@ -19,16 +33,14 @@ const sansFontPath = path.join(publicDir, 'fonts', 'roboto-latin-wght-normal.wof
 const resumePreviewBase = path.join(tempDir, 'resume-preview');
 const resumePreviewPath = `${resumePreviewBase}.png`;
 
-const run = (command, args) => {
-  execFileSync(command, args, { stdio: 'inherit' });
-};
+const loadBinary = async (filePath: string): Promise<Buffer> => Buffer.from(await Bun.file(filePath).arrayBuffer());
 
 const previewHost = '127.0.0.1';
 const previewPort = 4326;
 const previewUrl = `http://${previewHost}:${previewPort}/`;
 
 // fallow-ignore-next-line complexity
-const waitForServer = async (url, timeoutMs = 30_000) => {
+const waitForServer = async (url: string, timeoutMs = 30_000): Promise<void> => {
   const start = Date.now();
 
   while (Date.now() - start < timeoutMs) {
@@ -40,79 +52,90 @@ const waitForServer = async (url, timeoutMs = 30_000) => {
     } catch {
       // keep polling
     }
+
     // eslint-disable-next-line no-await-in-loop
-    await new Promise((resolve) => setTimeout(resolve, 250));
+    await new Promise<void>((resolve) => {
+      setTimeout(resolve, 250);
+    });
   }
 
   throw new Error(`Preview server did not respond at ${url} within ${timeoutMs}ms`);
 };
 
-const generateResumePdf = async () => {
+const generateResumePdf = async (): Promise<void> => {
   const astroBin = path.join(rootDir, 'node_modules', '.bin', 'astro');
 
-  run(astroBin, ['build']);
+  await $`${astroBin} build`.cwd(rootDir);
 
-  const preview = spawn(astroBin, ['preview', '--host', previewHost, '--port', String(previewPort)], {
+  const preview = Bun.spawn({
+    cmd: [astroBin, 'preview', '--host', previewHost, '--port', String(previewPort)],
     cwd: rootDir,
-    stdio: ['ignore', 'inherit', 'inherit'],
-    detached: false
+    stdin: 'ignore',
+    stdout: 'inherit',
+    stderr: 'inherit'
   });
 
   try {
     await waitForServer(previewUrl);
 
     const browser = await chromium.launch();
-    const page = await browser.newPage();
 
-    await page.goto(previewUrl, { waitUntil: 'networkidle' });
-    await page.emulateMedia({ media: 'print' });
-    await page
-      .locator('.print-avatar')
-      .evaluate(
-        (img) =>
-          img.complete && img.naturalWidth > 0
-            ? null
-            : new Promise((resolve) => {
-                img.addEventListener('load', resolve, { once: true });
-                img.addEventListener('error', resolve, { once: true });
-              }),
-        { timeout: 5000 }
-      )
-      .catch(() => undefined);
-    await page.pdf({
-      path: resumePdfPath,
-      format: 'Letter',
-      margin: { top: '0', right: '0', bottom: '0', left: '0' },
-      printBackground: true,
-      preferCSSPageSize: true
-    });
+    try {
+      const page = await browser.newPage();
 
-    const mdResponse = await fetch(`${previewUrl}resume.md`);
+      await page.goto(previewUrl, { waitUntil: 'networkidle' });
+      await page.emulateMedia({ media: 'print' });
+      await page
+        .locator('.print-avatar')
+        .evaluate(
+          (img: HTMLImageElement) =>
+            img.complete && img.naturalWidth > 0
+              ? null
+              : new Promise<void>((resolve) => {
+                  img.addEventListener('load', () => resolve(), { once: true });
+                  img.addEventListener('error', () => resolve(), { once: true });
+                }),
+          { timeout: 5000 }
+        )
+        .catch(() => undefined);
+      await page.pdf({
+        path: resumePdfPath,
+        format: 'Letter',
+        margin: { top: '0', right: '0', bottom: '0', left: '0' },
+        printBackground: true,
+        preferCSSPageSize: true
+      });
 
-    if (mdResponse.ok) {
-      await writeFile(resumeMdPath, await mdResponse.text(), 'utf8');
+      const mdResponse = await fetch(`${previewUrl}resume.md`);
+
+      if (mdResponse.ok) {
+        await Bun.write(resumeMdPath, await mdResponse.text());
+      }
+    } finally {
+      await browser.close();
+    }
+  } finally {
+    if (preview.exitCode === null && !preview.killed) {
+      preview.kill('SIGTERM');
     }
 
-    await browser.close();
-  } finally {
-    preview.kill('SIGTERM');
-    await new Promise((resolve) => preview.once('exit', resolve));
+    await preview.exited;
   }
 };
 
-const toDataUrl = (mimeType, buffer) => `data:${mimeType};base64,${buffer.toString('base64')}`;
+const toDataUrl = (mimeType: string, buffer: Buffer): string => `data:${mimeType};base64,${buffer.toString('base64')}`;
 
-const roundedMask = (width, height, radius) =>
+const roundedMask = (width: number, height: number, radius: number): Buffer =>
   Buffer.from(
     `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"><rect width="${width}" height="${height}" rx="${radius}" fill="#fff"/></svg>`
   );
 
-const circleMask = (size) =>
+const circleMask = (size: number): Buffer =>
   Buffer.from(
     `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}"><circle cx="${size / 2}" cy="${size / 2}" r="${size / 2}" fill="#fff"/></svg>`
   );
 
-const roundedCrop = async (input, options) => {
+const roundedCrop = async (input: Buffer, options: RoundedCropOptions): Promise<Buffer> => {
   const { width, height, radius, extract } = options;
 
   const image = sharp(input);
@@ -125,7 +148,7 @@ const roundedCrop = async (input, options) => {
     .toBuffer();
 };
 
-const circleCrop = async (input, size) => {
+const circleCrop = async (input: Buffer, size: number): Promise<Buffer> => {
   const resized = await sharp(input)
     .resize({ width: size, height: size, fit: 'cover', position: 'top' })
     .png()
@@ -139,13 +162,13 @@ const circleCrop = async (input, size) => {
 
 try {
   await generateResumePdf();
-  run('pdftoppm', ['-f', '1', '-singlefile', '-png', resumePdfPath, resumePreviewBase]);
+  await $`pdftoppm -f 1 -singlefile -png ${resumePdfPath} ${resumePreviewBase}`.cwd(rootDir);
 
   const [portrait, resumePreview, displayFont, sansFont] = await Promise.all([
-    readFile(portraitPath),
-    readFile(resumePreviewPath),
-    readFile(displayFontPath),
-    readFile(sansFontPath)
+    loadBinary(portraitPath),
+    loadBinary(resumePreviewPath),
+    loadBinary(displayFontPath),
+    loadBinary(sansFontPath)
   ]);
 
   const resumeMeta = await sharp(resumePreview).metadata();

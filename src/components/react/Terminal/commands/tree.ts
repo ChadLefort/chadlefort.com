@@ -1,6 +1,6 @@
-import type { Command } from './types';
 import { buildTree } from '../markdown';
 import { nodeAt, resolvePath } from '../vfs';
+import type { Command } from './types';
 
 export const tree: Command = (args, ctx) => {
   const target = args[0];

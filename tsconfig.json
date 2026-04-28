@@ -6,7 +6,7 @@
     "paths": {
       "~/*": ["./src/*"]
     },
-    "types": ["vitest/globals", "@testing-library/jest-dom", "astro/client"]
+    "types": ["node", "vitest/globals", "@testing-library/jest-dom", "astro/client"]
   },
   "include": ["src", ".astro/types.d.ts", "tests", "vitest.config.ts"],
   "exclude": ["dist", "node_modules", ".astro"]

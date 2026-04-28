@@ -1,6 +1,6 @@
 import type { Command } from './types';
 
-export const HELP_LINES = [
+const HELP_LINES = [
   'available commands:',
   '  ls [-la] [path]    list directory',
   '  cd <path>          change directory',

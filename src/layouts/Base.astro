@@ -1,13 +1,16 @@
 ---
+
+
+
+import '~/styles/global.css';
 import { ClientRouter } from 'astro:transitions';
 import { pwaInfo } from 'virtual:pwa-info';
-import SEO from '~/components/SEO.astro';
-import ThemeScript from '~/components/ThemeScript.astro';
 import Nav from '~/components/Nav.astro';
 import PWARegister from '~/components/PWARegister.astro';
 import { ScrollToTop } from '~/components/react/ScrollToTop';
+import SEO from '~/components/SEO.astro';
+import ThemeScript from '~/components/ThemeScript.astro';
 import { homeNav, type NavLink } from '~/data/nav';
-import '~/styles/global.css';
 
 type Props = {
   title?: string;

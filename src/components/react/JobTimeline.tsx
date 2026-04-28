@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { tv } from 'tailwind-variants';
-import { useInView } from '~/hooks/useInView';
 import type { Job } from '~/data/jobs';
+import { useInView } from '~/hooks/useInView';
 
 type Props = { jobs: Job[] };
 

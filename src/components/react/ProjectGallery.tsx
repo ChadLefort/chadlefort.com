@@ -1,9 +1,10 @@
+import { ChevronLeft, ChevronRight, Monitor, Smartphone, X } from 'lucide-react';
 import type { FC, ReactNode } from 'react';
 import { useEffect, useId, useState } from 'react';
-import { ChevronLeft, ChevronRight, Smartphone, Monitor, X } from 'lucide-react';
 import { Dialog, Heading, Modal, ModalOverlay } from 'react-aria-components';
 import { tv } from 'tailwind-variants';
-import { IconButton } from '~/components/react/ui/IconButton';
+import { Button } from '~/components/react/ui/Button/Button';
+import { IconButton } from '~/components/react/ui/IconButton/IconButton';
 
 const thumbImg = tv({
   base: 'block h-full w-full object-cover transition duration-300 group-hover:scale-[1.01]',
@@ -31,7 +32,7 @@ const lightboxOverlay = tv({
   ]
 });
 
-type GalleryImage = {
+export type GalleryImage = {
   src: string;
   fullAvif: string;
   thumbSrc: string;
@@ -43,6 +44,7 @@ type GalleryImage = {
   width: number;
   height: number;
 };
+
 type IndexedImage = GalleryImage & { index: number };
 type Props = { images: GalleryImage[]; title: string };
 
@@ -50,9 +52,9 @@ const Thumb: FC<{ image: GalleryImage; onOpen: () => void }> = ({ image, onOpen 
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <button
-      type="button"
-      onClick={onOpen}
+    <Button
+      variant="unstyled"
+      onPress={onOpen}
       style={{ aspectRatio: `${image.width} / ${image.height}` }}
       className={thumbButton()}
       aria-label={`Open ${image.alt} in lightbox`}
@@ -70,7 +72,7 @@ const Thumb: FC<{ image: GalleryImage; onOpen: () => void }> = ({ image, onOpen 
           className={thumbImg({ loaded })}
         />
       </picture>
-    </button>
+    </Button>
   );
 };
 
@@ -92,17 +94,17 @@ const GallerySection: FC<{
       {label}
     </h3>
     <div className={gridClass}>
-      {images.map((image) => {
-        const thumb = <Thumb image={image} onOpen={() => onOpen(image.index)} />;
-
-        return wrapThumb ? (
+      {images.map((image) =>
+        wrapThumb ? (
           <div key={image.src} className="mx-auto w-full max-w-65">
-            {thumb}
+            <Thumb image={image} onOpen={() => onOpen(image.index)} />
           </div>
         ) : (
-          <div key={image.src}>{thumb}</div>
-        );
-      })}
+          <div key={image.src}>
+            <Thumb image={image} onOpen={() => onOpen(image.index)} />
+          </div>
+        )
+      )}
     </div>
   </section>
 );
@@ -135,7 +137,10 @@ export const ProjectGallery: FC<Props> = ({ images, title }) => {
 
   if (!images.length) return null;
 
-  const indexed: IndexedImage[] = images.map((img, index) => ({ ...img, index }));
+  const indexed: IndexedImage[] = images.map((img, index) => ({
+    ...img,
+    index
+  }));
   const desktopShots = indexed.filter((img) => img.orientation === 'landscape');
   const mobileShots = indexed.filter((img) => img.orientation === 'portrait');
 

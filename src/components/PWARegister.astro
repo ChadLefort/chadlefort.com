@@ -7,14 +7,22 @@
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker
         .getRegistrations()
-        .then((regs) => regs.forEach((r) => r.unregister()))
+        .then((regs) => {
+          regs.forEach((registration) => {
+            void registration.unregister();
+          });
+        })
         .catch(() => undefined);
     }
 
     if (typeof caches !== 'undefined') {
       caches
         .keys()
-        .then((keys) => keys.forEach((k) => caches.delete(k)))
+        .then((keys) => {
+          keys.forEach((key) => {
+            void caches.delete(key);
+          });
+        })
         .catch(() => undefined);
     }
   } else {

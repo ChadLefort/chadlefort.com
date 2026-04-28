@@ -1,5 +1,5 @@
-import type { FC } from 'react';
 import { ChevronRight } from 'lucide-react';
+import type { FC } from 'react';
 import { tv } from 'tailwind-variants';
 
 import type { SepProps } from './types';

@@ -1,39 +1,47 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, type Page, test } from '@playwright/test';
 
 test.describe.configure({ mode: 'serial' });
 
+const terminalLocator = (page: Page) => page.getByLabel('Terminal', { exact: true });
+
 const waitForTerminalReady = async (page: Page) => {
-  const terminal = page.getByLabel('Terminal', { exact: true });
+  await page.goto('/');
+
+  const terminal = terminalLocator(page);
   await expect(terminal).toBeVisible();
   await expect(terminal.getByText('clefort').first()).toBeVisible();
+
+  return terminal;
+};
+
+const maximizeTerminal = async (page: Page) => {
+  await waitForTerminalReady(page);
+  await page.getByRole('button', { name: 'Maximize terminal (interactive shell)' }).click();
+
+  await expect(page.getByText(/chadlefort\.com shell ready/i)).toBeVisible();
+
+  const input = page.getByLabel('terminal input');
+  await expect(input).toBeVisible();
+
+  return input;
+};
+
+const expectScrollLocked = async (page: Page) => {
+  await expect.poll(() => page.evaluate(() => document.documentElement.style.overflow)).toBe('hidden');
 };
 
 test.describe('terminal', () => {
   test('demo body renders with prompt arrow on home', async ({ page }) => {
-    await page.goto('/');
-
-    const terminal = page.getByLabel('Terminal', { exact: true });
-    await expect(terminal).toBeVisible();
-    await expect(terminal.getByText('clefort').first()).toBeVisible();
+    await waitForTerminalReady(page);
   });
 
   test('maximize unlocks interactive shell + welcome banner', async ({ page }) => {
-    await page.goto('/');
-    await waitForTerminalReady(page);
-
-    await page.getByRole('button', { name: 'Maximize terminal (interactive shell)' }).click();
-
-    await expect(page.getByText(/chadlefort\.com shell ready/i)).toBeVisible();
-    await expect(page.getByLabel('terminal input')).toBeVisible();
+    await maximizeTerminal(page);
   });
 
   test('whoami prints chad with title', async ({ page }) => {
-    await page.goto('/');
-    await waitForTerminalReady(page);
-    await page.getByRole('button', { name: 'Maximize terminal (interactive shell)' }).click();
+    const input = await maximizeTerminal(page);
 
-    const input = page.getByLabel('terminal input');
-    await expect(input).toBeVisible();
     await input.click();
     await input.fill('whoami');
     await page.keyboard.press('Enter');
@@ -42,27 +50,21 @@ test.describe('terminal', () => {
   });
 
   test('minimize from maximized restores body scroll', async ({ page }) => {
-    await page.goto('/');
-    await waitForTerminalReady(page);
-
-    await page.getByRole('button', { name: 'Maximize terminal (interactive shell)' }).click();
-    await expect.poll(() => page.evaluate(() => document.documentElement.style.overflow)).toBe('hidden');
+    await maximizeTerminal(page);
+    await expectScrollLocked(page);
 
     await page.getByRole('button', { name: 'Minimize terminal' }).click();
     await expect.poll(() => page.evaluate(() => document.documentElement.style.overflow)).toBe('');
   });
 
   test('close from maximized exits maximize, does not hide terminal', async ({ page }) => {
-    await page.goto('/');
-    await waitForTerminalReady(page);
-
-    await page.getByRole('button', { name: 'Maximize terminal (interactive shell)' }).click();
-    await expect.poll(() => page.evaluate(() => document.documentElement.style.overflow)).toBe('hidden');
+    await maximizeTerminal(page);
+    await expectScrollLocked(page);
 
     await page.getByRole('button', { name: 'Close terminal' }).click();
 
     await expect.poll(() => page.evaluate(() => document.documentElement.style.overflow)).toBe('');
-    await expect(page.getByLabel('Terminal', { exact: true })).toBeVisible();
+    await expect(terminalLocator(page)).toBeVisible();
   });
 });
 
@@ -70,10 +72,7 @@ test.describe('terminal · mobile viewport', () => {
   test.use({ viewport: { width: 375, height: 667 } });
 
   test('renders without horizontal overflow', async ({ page }) => {
-    await page.goto('/');
-
-    const terminal = page.getByLabel('Terminal', { exact: true });
-    await expect(terminal).toBeVisible();
+    await waitForTerminalReady(page);
 
     const overflow = await page.evaluate(() => ({
       doc: document.documentElement.scrollWidth,
@@ -87,8 +86,8 @@ test.describe('terminal · mobile viewport', () => {
     await page.goto('/');
 
     const tabHeights = await page.evaluate(() =>
-      [...document.querySelectorAll('[aria-label="Terminal" i] [class*="rounded-t-xl"]')]
-        .map((el) => (el as HTMLElement).getBoundingClientRect().height)
+      [...document.querySelectorAll<HTMLElement>('[aria-label="Terminal" i] [class*="rounded-t-xl"]')]
+        .map((el) => el.getBoundingClientRect().height)
         .filter((h) => h > 0)
     );
 
@@ -101,12 +100,6 @@ test.describe('terminal · mobile viewport', () => {
   });
 
   test('maximize still unlocks shell on mobile', async ({ page }) => {
-    await page.goto('/');
-    await waitForTerminalReady(page);
-
-    await page.getByRole('button', { name: 'Maximize terminal (interactive shell)' }).click();
-
-    await expect(page.getByText(/chadlefort\.com shell ready/i)).toBeVisible();
-    await expect(page.getByLabel('terminal input')).toBeVisible();
+    await maximizeTerminal(page);
   });
 });

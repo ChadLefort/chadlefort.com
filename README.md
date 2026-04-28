@@ -16,18 +16,20 @@ My personal website.
 
 ## Scripts
 
-| Command                | Purpose                                       |
-| ---------------------- | --------------------------------------------- |
-| `bun run dev`          | dev server                                    |
-| `bun run build`        | production build → `dist/`                    |
-| `bun run preview`      | serve `dist/` locally                         |
-| `bun run typecheck`    | `astro check` + `tsgo --noEmit`               |
-| `bun run lint`         | oxlint                                        |
-| `bun run format`       | prettier                                      |
-| `bun run test`         | vitest                                        |
-| `bun run test:e2e`     | playwright                                    |
-| `bun run assets:brand` | regenerate `card.png` + resume PDF            |
-| `bun run audit`        | fallow dead-code + complexity + duplication   |
-| `bun run health`       | fallow complexity only                        |
-| `bun run dupes`        | fallow duplication only                       |
-| `bun run fallow:fix`   | fallow auto-fix (removes unused exports/deps) |
+| Command                     | Purpose                                       |
+| --------------------------- | --------------------------------------------- |
+| `bun run dev`               | dev server                                    |
+| `bun run build`             | production build → `dist/`                    |
+| `bun run preview`           | serve `dist/` locally                         |
+| `bun run typecheck`         | app + test TS checks plus Bun script checks   |
+| `bun run typecheck:scripts` | standalone Bun tooling scripts only           |
+| `bun run lint`              | biome check                                   |
+| `bun run format`            | biome format                                  |
+| `bun run hooks:install`     | install native Git 2.54 config-based hooks    |
+| `bun run test`              | vitest                                        |
+| `bun run test:e2e`          | playwright                                    |
+| `bun run assets:brand`      | regenerate `card.png` + resume PDF            |
+| `bun run audit`             | fallow dead-code + complexity + duplication   |
+| `bun run health`            | fallow complexity only                        |
+| `bun run dupes`             | fallow duplication only                       |
+| `bun run fallow:fix`        | fallow auto-fix (removes unused exports/deps) |

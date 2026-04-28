@@ -1,23 +1,23 @@
-@import 'tailwindcss';
-@import './print.css';
+@import "tailwindcss";
+@import "./print.css";
 
 @font-face {
-  font-family: 'Roboto Variable';
+  font-family: "Roboto Variable";
   font-style: normal;
   font-display: swap;
   font-weight: 100 900;
-  src: url('/fonts/roboto-latin-wght-normal.woff2') format('woff2-variations');
+  src: url("/fonts/roboto-latin-wght-normal.woff2") format("woff2-variations");
   unicode-range:
     U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC,
     U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @font-face {
-  font-family: 'JetBrains Mono Variable';
+  font-family: "JetBrains Mono Variable";
   font-style: normal;
   font-display: swap;
   font-weight: 100 900;
-  src: url('/fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2-variations');
+  src: url("/fonts/jetbrains-mono-latin-wght-normal.woff2") format("woff2-variations");
   unicode-range:
     U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074,
     U+20AC, U+2122, U+2212, U+2215, U+FEFF, U+FFFD;
@@ -49,8 +49,8 @@
   --terminal-blue: #569cd6;
   --terminal-green: #4ec9b0;
 
-  --header-font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
-  --default-font-family: 'Roboto Variable', 'Roboto', system-ui, sans-serif;
+  --header-font-family: "JetBrains Mono Variable", "JetBrains Mono", monospace;
+  --default-font-family: "Roboto Variable", "Roboto", system-ui, sans-serif;
 
   --default-border-radius: 0.75rem;
 
@@ -143,9 +143,9 @@
 }
 
 @theme inline {
-  --font-sans: 'Roboto Variable', 'Roboto', system-ui, sans-serif;
-  --font-display: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
-  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
+  --font-sans: "Roboto Variable", "Roboto", system-ui, sans-serif;
+  --font-display: "JetBrains Mono Variable", "JetBrains Mono", monospace;
+  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", monospace;
 
   --container-shell: 1480px;
   --container-section: 1352px;
@@ -340,7 +340,7 @@ html {
       padding-left: 1rem;
 
       &::before {
-        content: '';
+        content: "";
         position: absolute;
         left: 0;
         top: 0.55rem;
@@ -461,7 +461,7 @@ html {
     box-shadow 250ms ease;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     border-radius: inherit;
@@ -514,7 +514,7 @@ html {
     opacity 250ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-[data-nav-compact='true'] [data-logo-text] {
+[data-nav-compact="true"] [data-logo-text] {
   max-width: 0;
   opacity: 0;
 }

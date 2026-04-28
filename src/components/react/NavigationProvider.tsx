@@ -1,5 +1,5 @@
-import type { FC, ReactNode } from 'react';
 import { navigate } from 'astro:transitions/client';
+import type { FC, ReactNode } from 'react';
 import { RouterProvider } from 'react-aria-components';
 
 type Props = { children: ReactNode };

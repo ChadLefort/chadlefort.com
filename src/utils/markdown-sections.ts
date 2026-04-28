@@ -1,8 +1,8 @@
 import { getCollection } from 'astro:content';
 import { education } from '~/data/education';
 import { jobs } from '~/data/jobs';
-import { skills } from '~/data/skills';
 import { locationLong, site, yearsOfExperience } from '~/data/site';
+import { skills } from '~/data/skills';
 
 export const sortedProjects = async () =>
   (await getCollection('projects')).sort(

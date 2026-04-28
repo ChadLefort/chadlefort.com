@@ -1,5 +1,5 @@
-import type { Command } from './types';
 import { nodeAt, resolvePath } from '../vfs';
+import type { Command } from './types';
 
 export const cd: Command = (args, ctx) => {
   const target = args[0] ?? '~';

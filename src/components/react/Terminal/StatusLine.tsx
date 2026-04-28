@@ -1,12 +1,12 @@
-import type { FC } from 'react';
-import { tv } from 'tailwind-variants';
-import apple from '@iconify-icons/simple-icons/apple';
-import nodedotjs from '@iconify-icons/simple-icons/nodedotjs';
 import clock from '@iconify-icons/lucide/clock';
 import gitBranch from '@iconify-icons/lucide/git-branch';
 import minus from '@iconify-icons/lucide/minus';
 import pencilLine from '@iconify-icons/lucide/pencil-line';
 import plus from '@iconify-icons/lucide/plus';
+import apple from '@iconify-icons/simple-icons/apple';
+import nodedotjs from '@iconify-icons/simple-icons/nodedotjs';
+import type { FC } from 'react';
+import { tv } from 'tailwind-variants';
 import { Segment } from './Segment';
 import { Sep } from './Sep';
 

@@ -1,6 +1,6 @@
-import type { Command } from './types';
 import { homeNav } from '~/data/nav';
 import { nodeAt, projects, resolvePath } from '../vfs';
+import type { Command } from './types';
 
 const slug = (s: string) => s.toLowerCase().replace(/\s+/g, '-');
 

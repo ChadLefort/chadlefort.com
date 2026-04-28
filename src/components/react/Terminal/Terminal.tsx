@@ -1,16 +1,13 @@
-import type { FC } from 'react';
-import { Suspense, lazy, useEffect, useState } from 'react';
-import { tv } from 'tailwind-variants';
-import { useStore } from '@nanostores/react';
-import neovim from '@iconify-icons/simple-icons/neovim';
-import gnubash from '@iconify-icons/simple-icons/gnubash';
-import tmux from '@iconify-icons/simple-icons/tmux';
 import folder from '@iconify-icons/lucide/folder';
 import folderGit2 from '@iconify-icons/lucide/folder-git-2';
+import gnubash from '@iconify-icons/simple-icons/gnubash';
+import neovim from '@iconify-icons/simple-icons/neovim';
+import tmux from '@iconify-icons/simple-icons/tmux';
+import { useStore } from '@nanostores/react';
+import type { FC } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
+import { tv } from 'tailwind-variants';
 import { NavigationProvider } from '~/components/react/NavigationProvider';
-import { Tab } from './Tab';
-import { TrafficLights } from './TrafficLights';
-import { getSessionLabel, getSiteHost } from './utils';
 import {
   $closed,
   $maximized,
@@ -25,8 +22,11 @@ import {
   setWelcomeShown,
   WELCOME_LINES
 } from './store';
+import { Tab } from './Tab';
+import { TrafficLights } from './TrafficLights';
+import { getSessionLabel, getSiteHost } from './utils';
 
-const Shell = lazy(() => import('./Shell').then((m) => ({ default: m.Shell })));
+const Shell = lazy(() => import('./Shell').then((module) => ({ default: module.Shell })));
 
 const wrapper = tv({
   base: 'relative w-full',
@@ -77,10 +77,54 @@ const slot = tv({
   }
 });
 
+const SessionTabs: FC<{ sessionLabel: string }> = ({ sessionLabel }) => (
+  <div className={tabsBar()}>
+    <Tab tone="session" icon={tmux} label={sessionLabel} />
+    <Tab idx={1} icon={gnubash} label="zsh" active />
+    <Tab idx={2} icon={neovim} label="nvim" href="/#skills" hideOnMobile />
+    <Tab idx={3} icon={folderGit2} label="~/dotfiles" href="https://github.com/ChadLefort" hideOnMobile />
+    <Tab idx={4} mobileIdx={2} icon={folder} label="~/projects" href="/projects" />
+  </div>
+);
+
+const ShellViewport: FC<{ maximized: boolean; minimized?: boolean; sessionLabel: string }> = ({
+  maximized,
+  minimized = false,
+  sessionLabel
+}) => {
+  const shell = (
+    <div className={slot({ maximized })}>
+      <Suspense fallback={null}>
+        <Shell />
+      </Suspense>
+    </div>
+  );
+
+  if (maximized) {
+    return (
+      <div className="flex min-h-0 flex-1 flex-col">
+        <SessionTabs sessionLabel={sessionLabel} />
+        {shell}
+      </div>
+    );
+  }
+
+  return (
+    <div aria-hidden={minimized} className={collapse({ minimized })}>
+      <div className="min-h-0 overflow-hidden">
+        <SessionTabs sessionLabel={sessionLabel} />
+        {shell}
+      </div>
+    </div>
+  );
+};
+
 export const Terminal: FC = () => {
   const maximized = useStore($maximized);
   const minimized = useStore($minimized);
   const closed = useStore($closed);
+  const host = getSiteHost();
+  const sessionLabel = getSessionLabel(host);
   const [closing, setClosing] = useState(false);
 
   useEffect(() => {
@@ -170,37 +214,9 @@ export const Terminal: FC = () => {
           </div>
 
           {maximized ? (
-            <div className="flex min-h-0 flex-1 flex-col">
-              <div className={tabsBar()}>
-                <Tab tone="session" icon={tmux} label={getSessionLabel(getSiteHost())} />
-                <Tab idx={1} icon={gnubash} label="zsh" active />
-                <Tab idx={2} icon={neovim} label="nvim" href="/#skills" hideOnMobile />
-                <Tab idx={3} icon={folderGit2} label="~/dotfiles" href="https://github.com/ChadLefort" hideOnMobile />
-                <Tab idx={4} mobileIdx={2} icon={folder} label="~/projects" href="/projects" />
-              </div>
-              <div className={slot({ maximized: true })}>
-                <Suspense fallback={null}>
-                  <Shell />
-                </Suspense>
-              </div>
-            </div>
+            <ShellViewport maximized sessionLabel={sessionLabel} />
           ) : (
-            <div aria-hidden={minimized} className={collapse({ minimized })}>
-              <div className="min-h-0 overflow-hidden">
-                <div className={tabsBar()}>
-                  <Tab tone="session" icon={tmux} label={getSessionLabel(getSiteHost())} />
-                  <Tab idx={1} icon={gnubash} label="zsh" active />
-                  <Tab idx={2} icon={neovim} label="nvim" href="/#skills" hideOnMobile />
-                  <Tab idx={3} icon={folderGit2} label="~/dotfiles" href="https://github.com/ChadLefort" hideOnMobile />
-                  <Tab idx={4} mobileIdx={2} icon={folder} label="~/projects" href="/projects" />
-                </div>
-                <div className={slot({ maximized: false })}>
-                  <Suspense fallback={null}>
-                    <Shell />
-                  </Suspense>
-                </div>
-              </div>
-            </div>
+            <ShellViewport maximized={false} minimized={minimized} sessionLabel={sessionLabel} />
           )}
         </div>
       </div>

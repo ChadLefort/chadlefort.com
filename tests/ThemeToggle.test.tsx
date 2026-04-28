@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { axe } from 'vitest-axe';
-import { describe, expect, it, beforeEach } from 'vitest';
 import { ThemeToggle } from '~/components/react/ThemeToggle';
 
 describe('ThemeToggle', () => {

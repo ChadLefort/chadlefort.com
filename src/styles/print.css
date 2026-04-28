@@ -39,7 +39,7 @@
     color: #1a1a1a !important;
     font-size: 9.5pt;
     line-height: 1.4;
-    font-family: 'Roboto Variable', 'Roboto', system-ui, sans-serif;
+    font-family: "Roboto Variable", "Roboto", system-ui, sans-serif;
     margin: 0 !important;
     padding: 0.5in !important;
     width: 100% !important;
@@ -76,7 +76,7 @@
     }
   }
 
-  body > div[aria-hidden='true'] {
+  body > div[aria-hidden="true"] {
     display: none !important;
   }
 
@@ -101,7 +101,7 @@
 
     /* big centered section titles */
     & h2 {
-      font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
+      font-family: "JetBrains Mono Variable", "JetBrains Mono", monospace;
       font-size: 17pt;
       color: #1a1a1a;
       margin: 0 0 0.12in 0 !important;
@@ -167,7 +167,7 @@
 
   .print-name-block {
     & h1 {
-      font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
+      font-family: "JetBrains Mono Variable", "JetBrains Mono", monospace;
       font-size: 28pt;
       line-height: 1;
       margin-left: -2px;
@@ -250,7 +250,7 @@
 
       /* timeline dot */
       &::before {
-        content: '';
+        content: "";
         position: absolute;
         left: -0.15in;
         top: 0.155in;
@@ -263,7 +263,7 @@
 
       /* per-li line segment so it repeats on every page */
       &::after {
-        content: '';
+        content: "";
         position: absolute;
         left: -0.112in;
         top: 0;
@@ -295,7 +295,7 @@
         align-items: flex-start !important;
 
         & h3 {
-          font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
+          font-family: "JetBrains Mono Variable", "JetBrains Mono", monospace;
           font-size: 12pt;
           color: #1a1a1a !important;
           margin: 0 !important;
@@ -316,7 +316,7 @@
         /* mobile-only date <p> needs to show in print */
         & p:nth-of-type(2) {
           display: block !important;
-          font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
+          font-family: "JetBrains Mono Variable", "JetBrains Mono", monospace;
           font-size: 9pt;
           color: #555 !important;
           margin: 0.02in 0 0 0 !important;
@@ -337,7 +337,7 @@
       }
 
       /* timeline dot indicator from screen */
-      & > span[aria-hidden='true'] {
+      & > span[aria-hidden="true"] {
         display: none !important;
       }
 
@@ -386,7 +386,7 @@
   }
 
   /* skills as labeled icon tile grid */
-  #skills [aria-label='Skills'] {
+  #skills [aria-label="Skills"] {
     display: grid !important;
     grid-template-columns: repeat(8, 1fr) !important;
     gap: 0.06in !important;
@@ -457,7 +457,7 @@
         }
 
         & p:nth-of-type(2) {
-          font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
+          font-family: "JetBrains Mono Variable", "JetBrains Mono", monospace;
           font-size: 9pt;
           color: #555 !important;
           margin: 0.02in 0 0 0 !important;
@@ -467,7 +467,7 @@
     }
 
     & h3 {
-      font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
+      font-family: "JetBrains Mono Variable", "JetBrains Mono", monospace;
       font-size: 13pt;
       color: #1a1a1a;
       font-weight: 700;
@@ -477,7 +477,7 @@
     }
 
     & h4 {
-      font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
+      font-family: "JetBrains Mono Variable", "JetBrains Mono", monospace;
       font-size: 11pt;
       color: #1a1a1a;
       margin-top: 0.1in;
@@ -531,9 +531,9 @@
     color: #0a7aca !important;
     text-decoration: none !important;
 
-    &[href^='http']::after,
-    &[href^='mailto']::after {
-      content: '';
+    &[href^="http"]::after,
+    &[href^="mailto"]::after {
+      content: "";
     }
   }
 

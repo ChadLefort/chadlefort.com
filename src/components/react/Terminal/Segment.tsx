@@ -1,5 +1,5 @@
-import type { FC } from 'react';
 import { Icon } from '@iconify/react';
+import type { FC } from 'react';
 import { tv } from 'tailwind-variants';
 
 import type { SegmentProps } from './types';

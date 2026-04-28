@@ -25,7 +25,7 @@ type InfoRow = { label?: string; value: string; rule?: boolean };
 
 const HEADER = 'chad@chadlefort.com';
 
-const renderInfo = (info: InfoRow[]) =>
+const formatInfoRows = (info: InfoRow[]) =>
   info
     .map((row) => {
       if (row.rule) return '-'.repeat(HEADER.length);
@@ -57,7 +57,7 @@ export const neofetch: Command = (_args, ctx) => {
             {ART}
           </pre>
           <div>
-            <pre className="text-term-fg font-mono whitespace-pre">{renderInfo(info)}</pre>
+            <pre className="text-term-fg font-mono whitespace-pre">{formatInfoRows(info)}</pre>
             <PaletteRow />
           </div>
         </div>

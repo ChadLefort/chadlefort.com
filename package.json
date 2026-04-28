@@ -5,6 +5,7 @@
   "version": "2.0.0",
   "license": "MIT",
   "type": "module",
+  "packageManager": "bun@1.3.10",
   "repository": {
     "type": "git",
     "url": "https://github.com/ChadLefort/chadlefort.com.git"
@@ -13,16 +14,20 @@
     "dev": "astro dev --host",
     "start": "astro dev --host",
     "build": "astro build",
-    "assets:brand": "node scripts/generate-brand-assets.mjs",
-    "assets:favicon": "node scripts/generate-favicon.mjs",
+    "assets:brand": "bun scripts/generate-brand-assets.ts",
+    "assets:favicon": "bun scripts/generate-favicon.ts",
+    "hooks:install": "bun scripts/install-git-hooks.ts",
+    "hooks:list": "git hook list pre-commit",
+    "hooks:uninstall": "bun scripts/uninstall-git-hooks.ts",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "oxlint",
-    "lint:fix": "oxlint --fix",
-    "format": "prettier --write \"**/*.{astro,ts,tsx,js,jsx,mjs,cjs,json,md,mdx,css}\"",
-    "format:check": "prettier --check \"**/*.{astro,ts,tsx,js,jsx,mjs,cjs,json,md,mdx,css}\"",
-    "typecheck": "astro check && tsgo --noEmit",
-    "typecheck:tsc": "astro check && tsc --noEmit",
+    "lint": "biome check . --files-ignore-unknown=true",
+    "lint:write": "biome check . --write --files-ignore-unknown=true",
+    "format": "biome format . --write --files-ignore-unknown=true",
+    "format:check": "biome format . --files-ignore-unknown=true",
+    "typecheck": "astro check && tsgo --noEmit && bun run typecheck:scripts",
+    "typecheck:tsc": "astro check && tsc --noEmit && bun run typecheck:scripts",
+    "typecheck:scripts": "tsc -p tsconfig.scripts.json --noEmit",
     "test": "vitest --run",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
@@ -35,7 +40,7 @@
     "health": "fallow health",
     "fallow:fix": "fallow fix --yes",
     "fallow:fix:preview": "fallow fix --dry-run",
-    "prepare": "husky"
+    "prepare": "bun run hooks:install"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.0",
@@ -62,6 +67,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
+    "@biomejs/biome": "^2.4.12",
     "@iconify-icons/lucide": "^1.2.135",
     "@iconify-icons/simple-icons": "^1.2.74",
     "@iconify-json/devicon": "^1.2.62",
@@ -70,6 +76,7 @@
     "@testing-library/jest-dom": "^6.6.4",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.5.2",
+    "@types/bun": "^1.3.12",
     "@types/node": "^22.15.0",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
@@ -80,21 +87,14 @@
     "@vitest/ui": "^3.2.3",
     "axe-core": "^4.11.0",
     "fallow": "^2.48.4",
-    "husky": "^9.1.7",
     "jsdom": "^27.0.0",
     "lint-staged": "^16.2.0",
-    "oxlint": "^1.23.0",
-    "oxlint-tsgolint": "^0.21.1",
-    "prettier": "^3.6.2",
-    "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-tailwindcss": "^0.6.14",
     "sharp-ico": "^0.1.5",
     "typescript": "^5.9.3",
     "vitest": "^3.2.3",
     "vitest-axe": "^0.1.0"
   },
   "lint-staged": {
-    "*.{ts,tsx,js,jsx,astro,mjs,cjs}": "oxlint --fix",
-    "*.{ts,tsx,js,jsx,astro,mjs,cjs,json,md,mdx,css}": "prettier --write"
+    "*": "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true"
   }
 }

@@ -2,10 +2,20 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { Shell } from '~/components/react/Terminal/Shell';
-import { WELCOME_LINES, appendLines, resetShellStore, setInteractive } from '~/components/react/Terminal/store';
+import { appendLines, resetShellStore, setInteractive, WELCOME_LINES } from '~/components/react/Terminal/store';
+
+const getTerminalInput = (): HTMLInputElement => {
+  const input = screen.getByLabelText('terminal input');
+
+  if (!(input instanceof HTMLInputElement)) {
+    throw new TypeError('Expected terminal input to be an HTMLInputElement');
+  }
+
+  return input;
+};
 
 const typeAndEnter = async (user: ReturnType<typeof userEvent.setup>, text: string) => {
-  const input = screen.getByLabelText('terminal input');
+  const input = getTerminalInput();
 
   await user.click(input);
   await user.type(input, text);
@@ -114,13 +124,27 @@ describe('Shell', () => {
 
     render(<Shell />);
 
-    const input = screen.getByLabelText('terminal input') as HTMLInputElement;
+    const input = getTerminalInput();
 
     await user.click(input);
     await user.type(input, 'ec');
     await user.keyboard('{Tab}');
 
     expect(input.value).toBe('echo ');
+  });
+
+  it('tab completes a directory from the current working directory', async () => {
+    const user = userEvent.setup();
+
+    render(<Shell />);
+
+    const input = getTerminalInput();
+
+    await user.click(input);
+    await user.type(input, 'cd pr');
+    await user.keyboard('{Tab}');
+
+    expect(input.value).toBe('cd projects/');
   });
 
   it('arrow-up recalls the previous command', async () => {
@@ -130,7 +154,7 @@ describe('Shell', () => {
 
     await typeAndEnter(user, 'whoami');
 
-    const input = screen.getByLabelText('terminal input') as HTMLInputElement;
+    const input = getTerminalInput();
 
     await user.click(input);
     await user.keyboard('{ArrowUp}');
@@ -148,6 +172,19 @@ describe('Shell', () => {
     expect(screen.getByText(/modified:\s+ABOUT\.md/)).toBeInTheDocument();
     expect(screen.getByText(/modified:\s+skills\.json/)).toBeInTheDocument();
     expect(screen.getByText(/2 files changed, \d+ insertions\(\+\), 0 deletions\(-\)/)).toBeInTheDocument();
+  });
+
+  it('history includes the current command entry', async () => {
+    const user = userEvent.setup();
+
+    render(<Shell />);
+    await typeAndEnter(user, 'echo persisted');
+    await typeAndEnter(user, 'history');
+
+    expect(
+      screen.getByText((content) => content.replace(/\s+/g, ' ').trim() === '1 echo persisted')
+    ).toBeInTheDocument();
+    expect(screen.getByText((content) => content.replace(/\s+/g, ' ').trim() === '2 history')).toBeInTheDocument();
   });
 
   it('ctrl+l clears the output', async () => {

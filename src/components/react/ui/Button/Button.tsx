@@ -1,5 +1,5 @@
 import type { FC, ReactNode } from 'react';
-import { Button as RACButton, composeRenderProps, type ButtonProps as RACButtonProps } from 'react-aria-components';
+import { composeRenderProps, Button as RACButton, type ButtonProps as RACButtonProps } from 'react-aria-components';
 import { tv, type VariantProps } from 'tailwind-variants';
 
 const focusRing = tv({
@@ -148,7 +148,7 @@ export const Button: FC<Props> = ({
     )}
   >
     {startIcon ? <span aria-hidden="true">{startIcon}</span> : null}
-    {children ? <span>{children}</span> : null}
+    {children}
     {endIcon ? <span aria-hidden="true">{endIcon}</span> : null}
   </RACButton>
 );

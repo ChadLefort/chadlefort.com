@@ -1,5 +1,5 @@
+import type { nodeAt } from '../vfs';
 import type { Command } from './types';
-import { nodeAt } from '../vfs';
 
 const collectModified = (root: ReturnType<typeof nodeAt>, prefix = '~'): string[] => {
   if (!root || root.type !== 'dir') return [];

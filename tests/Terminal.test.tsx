@@ -1,30 +1,18 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { axe } from 'vitest-axe';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { Terminal } from '~/components/react/Terminal';
+import { axe } from 'vitest-axe';
 import {
   $closed,
   $maximized,
   $minimized,
-  WELCOME_LINES,
   appendLines,
   resetShellStore,
-  setInteractive
+  setInteractive,
+  WELCOME_LINES
 } from '~/components/react/Terminal/store';
-
-const baseMatchMedia = window.matchMedia;
-
-const createMatchMedia = (reducedMotion: boolean) => (query: string) => ({
-  matches: reducedMotion && query === '(prefers-reduced-motion: reduce)',
-  media: query,
-  onchange: null,
-  addListener: () => {},
-  removeListener: () => {},
-  addEventListener: () => {},
-  removeEventListener: () => {},
-  dispatchEvent: () => false
-});
+import { Terminal } from '~/components/react/Terminal/Terminal';
+import { createMatchMedia, restoreMatchMedia } from '~/test/matchMedia';
 
 const renderTerminal = async () => {
   const rendered = render(<Terminal />);
@@ -34,6 +22,22 @@ const renderTerminal = async () => {
   return rendered;
 };
 
+const renderUnlockedTerminal = () => {
+  setInteractive(true);
+  appendLines(WELCOME_LINES);
+
+  return render(<Terminal />);
+};
+
+const maximizeTerminal = async (user: ReturnType<typeof userEvent.setup>) => {
+  await user.click(screen.getByRole('button', { name: /maximize terminal/i }));
+};
+
+const expectMaximizedState = () => {
+  expect($maximized.get()).toBe(true);
+  expect($minimized.get()).toBe(false);
+};
+
 describe('Terminal', () => {
   beforeEach(() => {
     resetShellStore();
@@ -41,7 +45,7 @@ describe('Terminal', () => {
   });
 
   afterEach(() => {
-    window.matchMedia = baseMatchMedia;
+    restoreMatchMedia();
   });
 
   it('exposes a labelled region', async () => {
@@ -57,9 +61,7 @@ describe('Terminal', () => {
   });
 
   it('switches to the interactive shell when unlocked', async () => {
-    setInteractive(true);
-    appendLines(WELCOME_LINES);
-    render(<Terminal />);
+    renderUnlockedTerminal();
 
     expect(await screen.findByText(/chadlefort\.com shell ready/i)).toBeInTheDocument();
   });
@@ -68,10 +70,9 @@ describe('Terminal', () => {
     const user = userEvent.setup();
 
     await renderTerminal();
-    await user.click(screen.getByRole('button', { name: /maximize terminal/i }));
+    await maximizeTerminal(user);
 
-    expect($maximized.get()).toBe(true);
-    expect($minimized.get()).toBe(false);
+    expectMaximizedState();
 
     await user.click(screen.getByRole('button', { name: /minimize terminal/i }));
 
@@ -86,17 +87,16 @@ describe('Terminal', () => {
     await user.click(screen.getByRole('button', { name: /minimize terminal/i }));
     expect($minimized.get()).toBe(true);
 
-    await user.click(screen.getByRole('button', { name: /maximize terminal/i }));
+    await maximizeTerminal(user);
 
-    expect($maximized.get()).toBe(true);
-    expect($minimized.get()).toBe(false);
+    expectMaximizedState();
   });
 
   it('close while maximized exits maximize without closing', async () => {
     const user = userEvent.setup();
 
     await renderTerminal();
-    await user.click(screen.getByRole('button', { name: /maximize terminal/i }));
+    await maximizeTerminal(user);
 
     expect($maximized.get()).toBe(true);
     expect(document.documentElement.style.overflow).toBe('hidden');

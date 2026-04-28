@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import { ToggleButton, composeRenderProps } from 'react-aria-components';
-import { buttonStyles } from './ui/Button/Button';
+import { composeRenderProps, ToggleButton } from 'react-aria-components';
+import { buttonStyles } from '~/components/react/ui/Button/Button';
 
 type Theme = 'light' | 'dark';
 

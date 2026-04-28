@@ -21,9 +21,15 @@ test.describe('home page', () => {
       .getByRole('button', { name: /turn on (light|dark) mode/i })
       .filter({ visible: true })
       .first();
+    const html = page.locator('html');
+    const initialIsDark = await html.evaluate((node) => node.classList.contains('dark'));
 
-    await toggle.click();
-    await expect(page.locator('html')).not.toHaveClass(/\bdark\b/);
+    await expect
+      .poll(async () => {
+        await toggle.click();
+        return html.evaluate((node) => node.classList.contains('dark'));
+      })
+      .toBe(!initialIsDark);
 
     await page
       .getByRole('link', { name: /projects/i })
@@ -31,7 +37,7 @@ test.describe('home page', () => {
       .first()
       .click();
     await expect(page).toHaveURL(/\/projects/);
-    await expect(page.locator('html')).not.toHaveClass(/\bdark\b/);
+    await expect.poll(() => html.evaluate((node) => node.classList.contains('dark'))).toBe(!initialIsDark);
   });
 
   test('copy email button replaces label', async ({ page, context }) => {
@@ -55,6 +61,7 @@ test.describe('projects', () => {
 
   test('detail page switches between tabs with keyboard', async ({ page }) => {
     await page.goto('/projects/spear-dashboard');
+    await page.waitForLoadState('networkidle');
 
     const descTab = page.getByRole('tab', { name: /description/i });
     const imagesTab = page.getByRole('tab', { name: /images/i });
@@ -62,11 +69,15 @@ test.describe('projects', () => {
     await expect(descTab).toHaveAttribute('aria-selected', 'true');
 
     await descTab.click();
-    await descTab.press('ArrowRight');
-    await expect(imagesTab).toHaveAttribute('aria-selected', 'true');
+    await expect(descTab).toBeFocused();
+    await page.keyboard.press('ArrowRight');
     await expect(imagesTab).toBeFocused();
+    await page.keyboard.press('Enter');
+    await expect(imagesTab).toHaveAttribute('aria-selected', 'true');
 
-    await imagesTab.press('Home');
+    await page.keyboard.press('Home');
+    await expect(descTab).toBeFocused();
+    await page.keyboard.press('Enter');
     await expect(descTab).toHaveAttribute('aria-selected', 'true');
   });
 

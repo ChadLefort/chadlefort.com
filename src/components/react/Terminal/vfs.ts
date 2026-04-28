@@ -1,20 +1,20 @@
 import type { IconifyIcon } from '@iconify/react';
-import folderIcon from '@iconify-icons/lucide/folder';
-import fileTextIcon from '@iconify-icons/lucide/file-text';
-import fileCodeIcon from '@iconify-icons/lucide/file-code';
 import bracesIcon from '@iconify-icons/lucide/braces';
+import fileIcon from '@iconify-icons/lucide/file';
+import fileCodeIcon from '@iconify-icons/lucide/file-code';
+import fileTextIcon from '@iconify-icons/lucide/file-text';
+import folderIcon from '@iconify-icons/lucide/folder';
 import scrollTextIcon from '@iconify-icons/lucide/scroll-text';
 import terminalIcon from '@iconify-icons/lucide/terminal';
-import fileIcon from '@iconify-icons/lucide/file';
 import { aboutQuotes } from '~/data/about';
 import { education } from '~/data/education';
 import { jobs } from '~/data/jobs';
-import { skills } from '~/data/skills';
 import { locationLong, site, yearsOfExperience } from '~/data/site';
+import { skills } from '~/data/skills';
 
-export type GitStatus = '--' | 'N' | 'M' | 'I';
+type GitStatus = '--' | 'N' | 'M' | 'I';
 
-export type FsFile = {
+type FsFile = {
   type: 'file';
   name: string;
   route?: string;
@@ -61,7 +61,7 @@ export const isMdFile = (name: string): boolean => {
   return lower.endsWith('.md') || lower.endsWith('.mdx');
 };
 
-export const aboutBody = (years: number) =>
+const aboutBody = (years: number) =>
   [
     `# ${site.name}`,
     '',
@@ -164,7 +164,7 @@ export const INITIAL_CWD = ['development', 'chadlefort.com'];
 
 export const cwdForHost = (host: string): string[] => ['development', host];
 
-export type IconSpec = { icon: IconifyIcon; color: string };
+type IconSpec = { icon: IconifyIcon; color: string };
 
 export const iconForNode = (node: FsNode): IconSpec => {
   if (node.type === 'dir') return { icon: folderIcon, color: 'text-term-info' };
@@ -197,7 +197,7 @@ export const resolvePath = (cwd: string[], target: string): string[] | null => {
   return start;
 };
 
-export const lookupChild = (d: FsDir, name: string): FsNode | null => {
+const lookupChild = (d: FsDir, name: string): FsNode | null => {
   const direct = d.children[name];
 
   if (direct) return direct;

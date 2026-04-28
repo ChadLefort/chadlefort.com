@@ -1,5 +1,5 @@
+import { atom } from 'nanostores';
 import type { ReactNode } from 'react';
-import { atom, computed } from 'nanostores';
 import { INITIAL_CWD } from './vfs';
 
 export type LineBody =
@@ -20,7 +20,7 @@ export const WELCOME_LINES: LineBody[] = [
 export const $lines = atom<Line[]>([]);
 export const $cwd = atom<string[]>([...INITIAL_CWD]);
 export const $history = atom<string[]>([]);
-export const $lineSeq = atom<number>(0);
+const $lineSeq = atom<number>(0);
 export const $maximized = atom<boolean>(false);
 export const $minimized = atom<boolean>(false);
 export const $closed = atom<boolean>(false);
@@ -48,8 +48,6 @@ export const setMinimized = (next: boolean) => $minimized.set(next);
 export const setClosed = (next: boolean) => $closed.set(next);
 export const setInteractive = (next: boolean) => $interactive.set(next);
 export const setWelcomeShown = (next: boolean) => $welcomeShown.set(next);
-
-export const $hasOutput = computed($lines, (lines) => lines.length > 0);
 
 export const resetShellStore = () => {
   $lines.set([]);

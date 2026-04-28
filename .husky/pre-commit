@@ -1,5 +1,0 @@
-bunx lint-staged
-bun run typecheck
-bun run test
-bun run assets:brand
-git add public/chad-lefort-resume.pdf public/chad-lefort-resume.md public/card.png

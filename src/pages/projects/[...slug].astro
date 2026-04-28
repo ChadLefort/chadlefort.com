@@ -1,11 +1,14 @@
 ---
-import { Picture, getImage } from 'astro:assets';
+
+
+
+import { getImage, Picture } from 'astro:assets';
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import { Icon } from 'astro-icon/components';
-import Base from '~/layouts/Base.astro';
 import { ProjectTabsIsland } from '~/components/react/ProjectTabsIsland';
 import { cta, pillLink } from '~/components/styles/cta';
 import { site } from '~/data/site';
+import Base from '~/layouts/Base.astro';
 
 type Props = { project: CollectionEntry<'projects'> };
 
