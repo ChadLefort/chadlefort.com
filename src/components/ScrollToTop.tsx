@@ -1,7 +1,7 @@
 import { ArrowUp } from 'lucide-react';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import { IconButton } from '~/components/react/ui/IconButton/IconButton';
+import { IconButton } from '~/components/IconButton';
 import { useReducedMotion } from '~/hooks/useReducedMotion';
 import { cn } from '~/utils/cn';
 

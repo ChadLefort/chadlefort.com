@@ -1,8 +1,8 @@
 import { FileText, Images } from 'lucide-react';
 import type { FC, ReactNode } from 'react';
 import { Tab, TabList, TabPanel, Tabs } from 'react-aria-components';
-import type { GalleryImage } from '~/components/react/ProjectGallery';
-import { ProjectGallery } from '~/components/react/ProjectGallery';
+import type { GalleryImage } from '~/components/ProjectGallery';
+import { ProjectGallery } from '~/components/ProjectGallery';
 
 type Props = {
   hasGallery: boolean;

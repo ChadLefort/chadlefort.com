@@ -8,6 +8,6 @@
     },
     "types": ["node", "vitest/globals", "@testing-library/jest-dom", "astro/client"]
   },
-  "include": ["src", ".astro/types.d.ts", "tests", "vitest.config.ts"],
+  "include": ["src", "e2e", ".astro/types.d.ts", "vitest.config.ts", "playwright.config.ts"],
   "exclude": ["dist", "node_modules", ".astro"]
 }

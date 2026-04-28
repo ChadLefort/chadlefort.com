@@ -3,8 +3,8 @@ import type { CSSProperties, FC, ReactNode } from 'react';
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Dialog, Heading, Modal, ModalOverlay } from 'react-aria-components';
 import { tv } from 'tailwind-variants';
-import { Button } from '~/components/react/ui/Button/Button';
-import { IconButton } from '~/components/react/ui/IconButton/IconButton';
+import { Button } from '~/components/Button';
+import { IconButton } from '~/components/IconButton';
 
 const thumbImg = tv({
   base: 'block h-full w-full rounded-2xl object-cover object-top transition duration-300 group-hover:scale-[1.01]',
@@ -355,7 +355,7 @@ export const ProjectGallery: FC<Props> = ({ images, title }) => {
             id={`${dialogId}-desktop`}
             label="Desktop"
             icon={<Monitor className="h-3.5 w-3.5" aria-hidden="true" />}
-            gridClass="grid gap-8 md:grid-cols-2"
+            gridClass="grid gap-4 sm:gap-8 md:grid-cols-2"
             images={desktopShots}
             onOpen={openAt}
             eagerCount={firstGalleryEagerCount}
@@ -367,7 +367,7 @@ export const ProjectGallery: FC<Props> = ({ images, title }) => {
             id={`${dialogId}-mobile`}
             label="Mobile"
             icon={<Smartphone className="h-3.5 w-3.5" aria-hidden="true" />}
-            gridClass="grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4"
+            gridClass="grid grid-cols-2 gap-4 sm:gap-8 sm:grid-cols-3 md:grid-cols-4"
             images={mobileShots}
             onOpen={openAt}
             wrapThumb

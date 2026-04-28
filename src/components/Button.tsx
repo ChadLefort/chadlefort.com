@@ -2,7 +2,7 @@ import type { FC, ReactNode } from 'react';
 import { composeRenderProps, Button as RACButton, type ButtonProps as RACButtonProps } from 'react-aria-components';
 import { tv, type VariantProps } from 'tailwind-variants';
 
-const focusRing = tv({
+export const focusRing = tv({
   base: 'outline outline-accent outline-offset-[3px] forced-colors:outline-[Highlight]',
   variants: {
     isFocusVisible: {

@@ -7,7 +7,7 @@ import { useStore } from '@nanostores/react';
 import type { FC } from 'react';
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { tv } from 'tailwind-variants';
-import { NavigationProvider } from '~/components/react/NavigationProvider';
+import { NavigationProvider } from '~/components/NavigationProvider';
 import {
   $closed,
   $maximized,

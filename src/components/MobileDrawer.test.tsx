@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 import { axe } from 'vitest-axe';
-import { MobileDrawer } from '~/components/react/MobileDrawer';
+import { MobileDrawer } from '~/components/MobileDrawer';
 import { homeNav } from '~/data/nav';
 
 describe('MobileDrawer', () => {

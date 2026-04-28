@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildFs, formatPath, isMdFile, nodeAt, resolvePath } from '~/components/react/Terminal/vfs';
+import { buildFs, formatPath, isMdFile, nodeAt, resolvePath } from '~/components/Terminal/vfs';
 
 describe('formatPath', () => {
   it('formats empty cwd as ~', () => {

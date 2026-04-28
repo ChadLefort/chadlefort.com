@@ -2,8 +2,8 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import { axe } from 'vitest-axe';
-import { Button } from '~/components/react/ui/Button/Button';
-import { IconButton } from '~/components/react/ui/IconButton/IconButton';
+import { Button } from '~/components/Button';
+import { IconButton } from '~/components/IconButton';
 
 describe('Button', () => {
   it('triggers onPress when clicked', async () => {

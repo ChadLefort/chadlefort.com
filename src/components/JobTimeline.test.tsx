@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { axe } from 'vitest-axe';
-import { JobTimeline } from '~/components/react/JobTimeline';
+import { JobTimeline } from '~/components/JobTimeline';
 import type { Job } from '~/data/jobs';
 
 const jobs: Job[] = [

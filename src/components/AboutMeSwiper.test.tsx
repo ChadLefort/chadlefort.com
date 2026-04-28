@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import { AboutMeSwiper } from '~/components/react/AboutMeSwiper';
+import { AboutMeSwiper } from '~/components/AboutMeSwiper';
 
 const images = [
   { src: '/a.webp', avif: '/a.avif 260w', webp: '/a.webp 260w', alt: 'About 1' },

@@ -10,8 +10,8 @@ import {
   resetShellStore,
   setInteractive,
   WELCOME_LINES
-} from '~/components/react/Terminal/store';
-import { Terminal } from '~/components/react/Terminal/Terminal';
+} from '~/components/Terminal/store';
+import { Terminal } from '~/components/Terminal/Terminal';
 import { createMatchMedia, restoreMatchMedia } from '~/test/matchMedia';
 
 const renderTerminal = async () => {

@@ -1,8 +1,9 @@
 import type { FC, ReactNode } from 'react';
 import { type ButtonProps, composeRenderProps, Button as RACButton } from 'react-aria-components';
 
-import { buttonStyles } from '../Button/Button';
-import type { IconButtonStyleProps } from './types';
+import { type ButtonStyleProps, buttonStyles } from './Button';
+
+type IconButtonStyleProps = Pick<ButtonStyleProps, 'variant' | 'color' | 'size'>;
 
 type Props = Omit<ButtonProps, 'className' | 'children'> &
   IconButtonStyleProps & {

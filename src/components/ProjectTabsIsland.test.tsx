@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
-import type { GalleryImage } from '~/components/react/ProjectGallery';
-import { ProjectTabsIsland } from '~/components/react/ProjectTabsIsland';
+import type { GalleryImage } from '~/components/ProjectGallery';
+import { ProjectTabsIsland } from '~/components/ProjectTabsIsland';
 
 const galleryImages: GalleryImage[] = [
   {
