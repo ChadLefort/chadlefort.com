@@ -100,6 +100,11 @@ const navLink = tv({
 
   let io: IntersectionObserver | undefined;
 
+  const setStaticText = (el: HTMLElement) => {
+    el.textContent = TEXT;
+    el.dataset.typed = 'true';
+  };
+
   const typeInto = (el: HTMLElement) => {
     if (el.dataset.typed === 'true') return;
 
@@ -114,13 +119,15 @@ const navLink = tv({
 
     if (!nav) return;
 
+    const isHomePage = window.location.pathname === '/';
     const trigger = document.querySelector<HTMLElement>('[data-hero-name]');
     const texts = nav.querySelectorAll<HTMLElement>('[data-logo-text]');
 
     if (!texts.length) return;
 
-    if (!trigger) {
-      texts.forEach(typeInto);
+    if (!isHomePage || !trigger) {
+      nav.dataset.navCompact = 'false';
+      texts.forEach(setStaticText);
       return;
     }
 
@@ -139,7 +146,9 @@ const navLink = tv({
 
         nav.dataset.navCompact = past ? 'false' : 'true';
 
-        if (past) texts.forEach(typeInto);
+        if (!past) return;
+
+        texts.forEach(typeInto);
       },
       { rootMargin: `-${NAV_HEIGHT}px 0px 0px 0px` }
     );
