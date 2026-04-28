@@ -1,7 +1,4 @@
 ---
-
-
-
 import { getImage, Picture } from 'astro:assets';
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import { Icon } from 'astro-icon/components';
@@ -127,13 +124,13 @@ const breadcrumbLd = {
           Back to projects
         </a>
 
-        <div class="mt-10 grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-center md:gap-14">
+        <div class="mt-8 grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-center md:gap-12">
           <div>
             <p class="text-accent font-mono text-xs tracking-[0.3em] uppercase">{project.data.subtitle}</p>
             <h1 class="font-display mt-3 text-5xl md:text-6xl">{project.data.title}</h1>
-            <p class="text-fg-muted mt-6 text-lg leading-relaxed md:text-xl">{project.data.summary}</p>
+            <p class="text-fg-muted mt-5 text-lg leading-relaxed md:text-xl">{project.data.summary}</p>
 
-            <ul class="mt-8 flex flex-wrap gap-2">
+            <ul class="mt-6 flex flex-wrap gap-2">
               {
                 project.data.tech.map((tag: string) => (
                   <li class="border-glass-border bg-glass text-fg rounded-full border px-3 py-1 text-xs font-semibold tracking-wide">
@@ -143,7 +140,7 @@ const breadcrumbLd = {
               }
             </ul>
 
-            <div class="mt-10 flex flex-wrap gap-3">
+            <div class="mt-8 flex flex-wrap gap-3">
               {
                 project.data.externalUrl && (
                   <a href={project.data.externalUrl} target="_blank" rel="noopener" class={cta({ intent: 'primary' })}>
@@ -165,21 +162,19 @@ const breadcrumbLd = {
 
           {
             project.data.cover && (
-              <div class="border-glass-border bg-surface-raised aspect-video overflow-hidden rounded-2xl border">
-                <Picture
-                  src={project.data.cover}
-                  alt={project.data.title}
-                  widths={[640, 960, 1280, 1600]}
-                  sizes="(min-width: 768px) 640px, 100vw"
-                  formats={['avif', 'webp']}
-                  fallbackFormat="webp"
-                  quality={82}
-                  loading="eager"
-                  fetchpriority="high"
-                  pictureAttributes={{ class: 'block h-full w-full' }}
-                  class="h-full w-full object-cover"
-                />
-              </div>
+              <Picture
+                src={project.data.cover}
+                alt={project.data.title}
+                widths={[640, 960, 1280, 1600]}
+                sizes="(min-width: 768px) 640px, 100vw"
+                formats={['avif', 'webp']}
+                fallbackFormat="webp"
+                quality={82}
+                loading="eager"
+                fetchpriority="high"
+                pictureAttributes={{ class: 'block aspect-video w-full overflow-hidden rounded-2xl' }}
+                class="h-full w-full object-cover"
+              />
             )
           }
         </div>

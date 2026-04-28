@@ -82,13 +82,13 @@ describe('ProjectGallery', () => {
     expect(screen.getByRole('dialog')).toBeInTheDocument();
     expect(screen.getByText('1 / 2')).toBeInTheDocument();
 
-    await user.click(screen.getByRole('button', { name: /next image/i }));
+    await user.click(screen.getAllByRole('button', { name: /next image/i })[0]);
     expect(screen.getByText('2 / 2')).toBeInTheDocument();
 
     fireEvent.keyDown(document, { key: 'ArrowLeft' });
     expect(screen.getByText('1 / 2')).toBeInTheDocument();
 
-    await user.click(screen.getByRole('button', { name: /close gallery/i }));
+    await user.click(screen.getAllByRole('button', { name: /close gallery/i })[0]);
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 

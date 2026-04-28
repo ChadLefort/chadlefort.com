@@ -1,7 +1,4 @@
 ---
-
-
-
 import { getImage } from 'astro:assets';
 import about1 from '~/assets/about/about-1.png';
 import about2 from '~/assets/about/about-2.png';
@@ -42,7 +39,7 @@ const processed = await Promise.all(
 );
 ---
 
-<Section id="about-me" eyebrow="A bit about Chad" title="About me" tone="alt" hideFromPrint>
+<Section id="about-me" title="About me" tone="alt" hideFromPrint>
   <div class="mx-auto grid max-w-5xl items-center gap-12 md:grid-cols-[minmax(0,300px)_1fr]">
     <AboutMeSwiper client:visible images={processed} />
     <div class="text-fg-muted space-y-5 text-base leading-relaxed md:text-lg">

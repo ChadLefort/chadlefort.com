@@ -457,6 +457,7 @@ html {
   border: 1px solid var(--card-border);
   border-radius: 1rem;
   transition:
+    transform 250ms ease,
     border-color 250ms ease,
     box-shadow 250ms ease;
 
@@ -604,6 +605,7 @@ html {
 
 .timeline-card {
   transform: translate3d(28px, 16px, 0);
+  transition-property: opacity, transform, border-color, box-shadow;
 }
 
 .timeline-date {
@@ -630,6 +632,15 @@ html {
 .timeline-item.is-visible .timeline-date {
   opacity: 1;
   transform: translate3d(0, 0, 0);
+  transition-property: opacity, transform, border-color, box-shadow;
+  transition-duration: 700ms, 700ms, 250ms, 250ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1), cubic-bezier(0.22, 1, 0.36, 1), ease, ease;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .timeline-item.is-visible .timeline-card:hover {
+    transform: translate3d(0, -2px, 0) scale(1.01);
+  }
 }
 
 .timeline-item.is-visible .timeline-dot {

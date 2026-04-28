@@ -1,12 +1,9 @@
 ---
-
-
-
 import { JobTimeline } from '~/components/react/JobTimeline';
 import Section from '~/components/Section.astro';
 import { jobs } from '~/data/jobs';
 ---
 
-<Section id="job-experience" eyebrow="Where I've worked" title="Job Experience" tone="alt">
+<Section id="job-experience" title="Job Experience" tone="alt">
   <JobTimeline client:visible jobs={jobs} />
 </Section>

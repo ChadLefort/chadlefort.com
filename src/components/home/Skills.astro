@@ -1,14 +1,11 @@
 ---
-
-
-
 import { Icon } from 'astro-icon/components';
 import Reveal from '~/components/Reveal.astro';
 import Section from '~/components/Section.astro';
 import { skills } from '~/data/skills';
 ---
 
-<Section id="skills" eyebrow="What I work in" title="Skills" tone="alt">
+<Section id="skills" title="Skills" tone="alt">
   <ul class="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8" aria-label="Skills">
     {
       skills.map((skill, index) => (

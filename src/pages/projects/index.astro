@@ -1,10 +1,6 @@
 ---
-
-
-
 import { type CollectionEntry, getCollection } from 'astro:content';
 import ProjectCards from '~/components/projects/ProjectCards.astro';
-import Section from '~/components/Section.astro';
 import { site } from '~/data/site';
 import Base from '~/layouts/Base.astro';
 
@@ -50,16 +46,16 @@ const breadcrumbLd = {
 >
   <section class="px-4 pt-20 pb-8 sm:px-6 md:pt-28">
     <div class="max-w-section mx-auto">
-      <p class="text-accent font-mono text-xs tracking-[0.3em] uppercase">Some things I've shipped</p>
       <h1 class="font-display mt-3 text-4xl md:text-6xl">Projects</h1>
       <p class="text-fg-muted mt-4 max-w-2xl text-lg">
-        A tour through shipped products, platform migrations, and frontend architecture bets. Each card opens a deeper
-        write-up with screenshots, stack choices, and outcomes.
+        A couple of shipped products, platform migrations, and frontend architecture bets. Each card opens more details with screenshots, stack choices, and outcomes.
       </p>
     </div>
   </section>
 
-  <Section id="all-projects" tone="alt">
-    <ProjectCards projects={projects} />
-  </Section>
+  <section id="all-projects" class="px-4 pt-5 pb-20 sm:px-6 md:pt-8 md:pb-28">
+    <div class="max-w-section mx-auto">
+      <ProjectCards projects={projects} />
+    </div>
+  </section>
 </Base>

@@ -7,7 +7,7 @@ import { Button } from '~/components/react/ui/Button/Button';
 import { IconButton } from '~/components/react/ui/IconButton/IconButton';
 
 const thumbImg = tv({
-  base: 'block rounded-lg h-full w-full object-cover transition duration-300 group-hover:scale-[1.01]',
+  base: 'block h-full w-full object-cover transition duration-300 group-hover:scale-[1.01]',
   variants: {
     loaded: {
       true: 'opacity-100',
@@ -18,8 +18,7 @@ const thumbImg = tv({
 
 const thumbButton = tv({
   base: [
-    'group relative block w-full cursor-pointer overflow-hidden rounded-xl border transition',
-    'border-glass-border bg-surface-raised hover:border-accent/60 p-5',
+    'group relative block w-full cursor-pointer rounded-lg transition',
     'focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent'
   ]
 });
@@ -52,26 +51,22 @@ const Thumb: FC<{ image: GalleryImage; onOpen: () => void; eager?: boolean }> = 
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <Button
-      variant="unstyled"
-      onPress={onOpen}
-      style={{ aspectRatio: `${image.width} / ${image.height}` }}
-      className={thumbButton()}
-      aria-label={`Open ${image.alt} in lightbox`}
-    >
-      {!loaded && <div className="bg-surface-alt absolute inset-0 animate-pulse" aria-hidden="true" />}
-      <picture>
-        <source type="image/avif" srcSet={image.thumbAvif} sizes={image.thumbSizes} />
-        <source type="image/webp" srcSet={image.thumbWebp} sizes={image.thumbSizes} />
-        <img
-          src={image.thumbSrc}
-          alt={image.alt}
-          loading={eager ? 'eager' : 'lazy'}
-          decoding="async"
-          onLoad={() => setLoaded(true)}
-          className={thumbImg({ loaded })}
-        />
-      </picture>
+    <Button variant="unstyled" onPress={onOpen} className={thumbButton()} aria-label={`Open ${image.alt} in lightbox`}>
+      <div className="relative overflow-hidden rounded-lg" style={{ aspectRatio: `${image.width} / ${image.height}` }}>
+        {!loaded && <div className="absolute inset-0 animate-pulse bg-surface-alt" aria-hidden="true" />}
+        <picture>
+          <source type="image/avif" srcSet={image.thumbAvif} sizes={image.thumbSizes} />
+          <source type="image/webp" srcSet={image.thumbWebp} sizes={image.thumbSizes} />
+          <img
+            src={image.thumbSrc}
+            alt={image.alt}
+            loading={eager ? 'eager' : 'lazy'}
+            decoding="async"
+            onLoad={() => setLoaded(true)}
+            className={thumbImg({ loaded })}
+          />
+        </picture>
+      </div>
     </Button>
   );
 };
@@ -181,13 +176,13 @@ export const ProjectGallery: FC<Props> = ({ images, title }) => {
               <IconButton slot="close" label="Close gallery" icon={<X className="h-5 w-5" />} />
             </div>
 
-            <div className="relative flex flex-1 items-center justify-center overflow-hidden px-4 pb-8">
+            <div className="relative flex flex-1 items-center justify-center overflow-hidden px-4 pb-4">
               {images.length > 1 && (
                 <IconButton
                   label="Previous image"
                   onPress={prev}
                   icon={<ChevronLeft className="h-6 w-6" />}
-                  className="absolute top-1/2 left-4 z-10 -translate-y-1/2"
+                  className="absolute top-1/2 left-4 z-10 -translate-y-1/2 hidden sm:flex"
                 />
               )}
 
@@ -205,13 +200,31 @@ export const ProjectGallery: FC<Props> = ({ images, title }) => {
                   label="Next image"
                   onPress={next}
                   icon={<ChevronRight className="h-6 w-6" />}
-                  className="absolute top-1/2 right-4 z-10 -translate-y-1/2"
+                  className="absolute top-1/2 right-4 z-10 -translate-y-1/2 hidden sm:flex"
                 />
               )}
             </div>
 
-            <div className="flex justify-center pb-6 font-mono text-xs text-white/70">
-              {active + 1} / {images.length}
+            <div className="flex items-center justify-center gap-4 px-4 pb-6">
+              {images.length > 1 && (
+                <IconButton
+                  label="Previous image"
+                  onPress={prev}
+                  icon={<ChevronLeft className="h-5 w-5" />}
+                  className="sm:hidden"
+                />
+              )}
+              <span className="font-mono text-xs text-white/70">
+                {active + 1} / {images.length}
+              </span>
+              {images.length > 1 && (
+                <IconButton
+                  label="Next image"
+                  onPress={next}
+                  icon={<ChevronRight className="h-5 w-5" />}
+                  className="sm:hidden"
+                />
+              )}
             </div>
           </Dialog>
         </Modal>

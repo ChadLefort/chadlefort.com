@@ -1,7 +1,4 @@
 ---
-
-
-
 import { tv } from 'tailwind-variants';
 
 type Props = {
@@ -9,7 +6,6 @@ type Props = {
   tone?: 'base' | 'alt' | 'hero' | 'plain';
   class?: string;
   title?: string;
-  eyebrow?: string;
   as?: 'section' | 'div';
   hideFromPrint?: boolean;
   printOnly?: boolean;
@@ -23,7 +19,6 @@ const {
   tone = 'base',
   class: className,
   title,
-  eyebrow,
   as: Tag = 'section',
   hideFromPrint = false,
   printOnly = false,
@@ -77,10 +72,9 @@ const tileOff = !tile || tone === 'plain';
 >
   <div class={tile$({ width, tone, tileOff })}>
     {
-      (title || eyebrow) && (
+      title && (
         <header class={header({ align: titleAlign })}>
-          {eyebrow && <p class="text-accent font-mono text-xs tracking-[0.3em] uppercase">{eyebrow}</p>}
-          {title && <h2 class="font-display text-4xl md:text-6xl">{title}</h2>}
+          <h2 class="font-display text-4xl md:text-6xl">{title}</h2>
         </header>
       )
     }

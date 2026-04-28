@@ -22,9 +22,9 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "biome check . --files-ignore-unknown=true",
-    "lint:write": "biome check . --write --files-ignore-unknown=true",
-    "format": "biome format . --write --files-ignore-unknown=true",
-    "format:check": "biome format . --files-ignore-unknown=true",
+    "lint:fix": "biome check . --write --files-ignore-unknown=true --config-path biome.write.jsonc",
+    "format": "biome format . --write --files-ignore-unknown=true --config-path biome.write.jsonc",
+    "format:check": "biome format . --files-ignore-unknown=true --config-path biome.write.jsonc",
     "typecheck": "astro check && tsgo --noEmit && bun run typecheck:scripts",
     "typecheck:tsc": "astro check && tsc --noEmit && bun run typecheck:scripts",
     "typecheck:scripts": "tsc -p tsconfig.scripts.json --noEmit",
@@ -93,8 +93,5 @@
     "typescript": "^5.9.3",
     "vitest": "^3.2.3",
     "vitest-axe": "^0.1.0"
-  },
-  "lint-staged": {
-    "*": "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true"
   }
 }

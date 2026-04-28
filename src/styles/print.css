@@ -114,14 +114,9 @@
       font-weight: 700;
     }
 
-    /* eyebrow above section title - hide */
     & section header {
       margin-bottom: 0.1in !important;
       align-items: center !important;
-
-      & > p {
-        display: none;
-      }
     }
   }
 
