@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import dedent from 'dedent';
 import { jobs } from '~/data/jobs';
 import { site } from '~/data/site';
 import { introLines, skillsSection, sortedProjects } from '~/utils/markdown-sections';
@@ -9,15 +10,16 @@ export const GET: APIRoute = async () => {
 
   out.push(...introLines());
   out.push(
-    'This is the canonical reading list for agents. Every HTML page has a companion markdown target listed below. For the full aggregated content, fetch llms-full.txt.'
-  );
-  out.push('');
+    ...dedent`
+      This is the canonical reading list for agents. Every HTML page has a companion markdown target listed below. For the full aggregated content, fetch llms-full.txt.
 
-  out.push('## About');
-  out.push(`- [Home](${site.siteUrl}/): Portrait, summary, terminal, resume download.`);
-  out.push(`- [Resume (Markdown)](${site.siteUrl}/resume.md): Clean plain-text resume.`);
-  out.push(`- [Resume (PDF)](${site.siteUrl}/chad-lefort-resume.pdf): Printable PDF resume.`);
-  out.push(`- [llms-full.txt](${site.siteUrl}/llms-full.txt): Full site content in one file.`);
+      ## About
+      - [Home](${site.siteUrl}/): Portrait, summary, terminal, resume download.
+      - [Resume (Markdown)](${site.siteUrl}/resume.md): Clean plain-text resume.
+      - [Resume (PDF)](${site.siteUrl}/chad-lefort-resume.pdf): Printable PDF resume.
+      - [llms-full.txt](${site.siteUrl}/llms-full.txt): Full site content in one file.
+    `.split('\n')
+  );
   out.push('');
 
   out.push('## Experience');
@@ -34,15 +36,18 @@ export const GET: APIRoute = async () => {
 
   out.push(...skillsSection());
 
-  out.push('## Contact');
-  out.push(`- Email: ${site.email}`);
-  out.push(`- [GitHub](${site.social.github})`);
-  out.push(`- [LinkedIn](${site.social.linkedin})`);
-  out.push('');
+  out.push(
+    ...dedent`
+      ## Contact
+      - Email: ${site.email}
+      - [GitHub](${site.social.github})
+      - [LinkedIn](${site.social.linkedin})
 
-  out.push('## Optional');
-  out.push(`- [Sitemap](${site.siteUrl}/sitemap-index.xml)`);
-  out.push(`- [Projects index](${site.siteUrl}/projects)`);
+      ## Optional
+      - [Sitemap](${site.siteUrl}/sitemap-index.xml)
+      - [Projects index](${site.siteUrl}/projects)
+    `.split('\n')
+  );
   out.push('');
 
   return new Response(out.join('\n'), {

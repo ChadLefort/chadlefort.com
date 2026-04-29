@@ -6,6 +6,7 @@ import fileTextIcon from '@iconify-icons/lucide/file-text';
 import folderIcon from '@iconify-icons/lucide/folder';
 import scrollTextIcon from '@iconify-icons/lucide/scroll-text';
 import terminalIcon from '@iconify-icons/lucide/terminal';
+import dedent from 'dedent';
 import { aboutQuotes } from '~/data/about';
 import { education } from '~/data/education';
 import { jobs } from '~/data/jobs';
@@ -61,16 +62,19 @@ export const isMdFile = (name: string): boolean => {
   return lower.endsWith('.md') || lower.endsWith('.mdx');
 };
 
-const aboutBody = (years: number) =>
-  [
-    `# ${site.name}`,
-    '',
-    `${site.jobTitle} from ${locationLong} with ${years}+ years of experience.`,
-    '',
-    '## About',
-    '',
-    ...aboutQuotes.flatMap((q, i) => (i === 0 ? [`> ${q}`] : ['', `> ${q}`]))
-  ].join('\n');
+const aboutBody = (years: number) => {
+  const quotes = aboutQuotes.map((quote) => `> ${quote}`).join('\n\n');
+
+  return dedent`
+    # ${site.name}
+
+    ${site.jobTitle} from ${locationLong} with ${years}+ years of experience.
+
+    ## About
+
+    ${quotes}
+  `;
+};
 
 export const buildFs = (host = 'chadlefort.com'): FsDir => {
   const years = yearsOfExperience();
@@ -79,10 +83,20 @@ export const buildFs = (host = 'chadlefort.com'): FsDir => {
     Object.fromEntries(
       projects.map((p) => [
         `${p.id}.mdx`,
-        file(`${p.id}.mdx`, () => `# ${p.id}\n\n${p.summary}\n\nopen ${p.id} to view full project.`, {
-          route: `/projects/${p.id}`,
-          git: '--'
-        })
+        file(
+          `${p.id}.mdx`,
+          () => dedent`
+            # ${p.id}
+
+            ${p.summary}
+
+            open ${p.id} to view full project.
+          `,
+          {
+            route: `/projects/${p.id}`,
+            git: '--'
+          }
+        )
       ])
     ),
     '--'
@@ -93,14 +107,13 @@ export const buildFs = (host = 'chadlefort.com'): FsDir => {
     {
       'README.md': file(
         'README.md',
-        () =>
-          [
-            '# chadlefort.com',
-            '',
-            'Welcome. Type `help` for commands or `ls` to look around.',
-            '',
-            'Try: cat ABOUT.md, cd projects, ls -la, open spear-cart, tree'
-          ].join('\n'),
+        () => dedent`
+          # chadlefort.com
+
+          Welcome. Type \`help\` for commands or \`ls\` to look around.
+
+          Try: cat ABOUT.md, cd projects, ls -la, open spear-cart, tree
+        `,
         { git: '--' }
       ),
       'ABOUT.md': file('ABOUT.md', () => aboutBody(years), { route: '/#about-me', git: 'M' }),
@@ -125,14 +138,13 @@ export const buildFs = (host = 'chadlefort.com'): FsDir => {
       }),
       'EDUCATION.md': file(
         'EDUCATION.md',
-        () =>
-          [
-            '# Education',
-            '',
-            education.institution,
-            `${education.degree} · ${education.major}`,
-            `${education.start} – ${education.end} · GPA ${education.gpa}`
-          ].join('\n'),
+        () => dedent`
+          # Education
+
+          ${education.institution}
+          ${education.degree} · ${education.major}
+          ${education.start} – ${education.end} · GPA ${education.gpa}
+        `,
         { route: '/#education', git: '--' }
       ),
       'CONTACT.md': file(

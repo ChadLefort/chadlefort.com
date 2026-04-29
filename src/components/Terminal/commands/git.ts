@@ -1,3 +1,4 @@
+import dedent from 'dedent';
 import type { nodeAt } from '../vfs';
 import type { Command } from './types';
 
@@ -24,14 +25,13 @@ export const git: Command = (args, ctx) => {
   const modified = collectModified(ctx.root);
 
   if (sub === 'status') {
-    const lines = [
-      'On branch feat/redesign',
-      "Your branch is up to date with 'origin/feat/redesign'.",
-      '',
-      'Changes not staged for commit:',
-      '  (use "git add <file>..." to update what will be committed)',
-      ''
-    ];
+    const lines = dedent`
+      On branch feat/redesign
+      Your branch is up to date with 'origin/feat/redesign'.
+
+      Changes not staged for commit:
+        (use "git add <file>..." to update what will be committed)
+    `.split('\n');
 
     for (const file of modified) {
       lines.push(`\tmodified:   ${file}`);

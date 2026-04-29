@@ -1,6 +1,5 @@
 # Chad Lefort
 Senior Frontend Engineer · Mandeville, Louisiana
-
 - Email: chad@chadlefort.com
 - Web: https://chadlefort.com
 - GitHub: https://github.com/ChadLefort

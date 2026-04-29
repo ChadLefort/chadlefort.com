@@ -1,5 +1,6 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import dedent from 'dedent';
 import sharp from 'sharp';
 import ico from 'sharp-ico';
 
@@ -27,7 +28,7 @@ const glyphSize = size * glyphRatio;
 const scale = glyphSize / 24;
 const offset = (size - glyphSize) / 2;
 
-const sourceSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+const sourceSvg = dedent`<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
   <rect width="${size}" height="${size}" rx="${radius}" ry="${radius}" fill="${bg}"/>
   <g transform="translate(${offset} ${offset}) scale(${scale})" fill="none" stroke="${stroke}" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
     <path d="M12 19h8"/>

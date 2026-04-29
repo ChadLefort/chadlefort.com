@@ -1,4 +1,5 @@
 import { getCollection } from 'astro:content';
+import dedent from 'dedent';
 import { education } from '~/data/education';
 import { jobs } from '~/data/jobs';
 import { locationLong, site, yearsOfExperience } from '~/data/site';
@@ -9,12 +10,12 @@ export const sortedProjects = async () =>
     (a: { data: { order?: number } }, b: { data: { order?: number } }) => (a.data.order ?? 99) - (b.data.order ?? 99)
   );
 
-export const introLines = (): string[] => [
-  `# ${site.name}`,
-  '',
-  `> ${site.jobTitle} from ${locationLong} with ${yearsOfExperience()}+ years shipping accessible, maintainable, performant web apps.`,
-  ''
-];
+export const introLines = (): string[] =>
+  dedent`
+    # ${site.name}
+
+    > ${site.jobTitle} from ${locationLong} with ${yearsOfExperience()}+ years shipping accessible, maintainable, performant web apps.
+  `.split('\n');
 
 export const contactBullets = (): string[] => [
   `- Email: ${site.email}`,
@@ -80,12 +81,14 @@ export const projectDetailLines = (project: ProjectEntry): string[] => [
 ];
 
 export const educationSection = (): string[] => [
-  '## Education',
-  `### ${education.institution} — ${education.degree}`,
-  `_${education.start} – ${education.end}_`,
-  '',
-  `- Majored in ${education.major}`,
-  `- GPA: ${education.gpa}`,
+  ...dedent`
+    ## Education
+    ### ${education.institution} — ${education.degree}
+    _${education.start} – ${education.end}_
+
+    - Majored in ${education.major}
+    - GPA: ${education.gpa}
+  `.split('\n'),
   ...education.awards.map((a) => `- ${a}`),
   ...education.organizations.map((o) => `- ${o}`),
   ''

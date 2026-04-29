@@ -4,6 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from '@playwright/test';
 import { $ } from 'bun';
+import dedent from 'dedent';
 import sharp from 'sharp';
 
 type ExtractRegion = {
@@ -195,98 +196,98 @@ try {
   });
 
   const portraitCircle = await circleCrop(portrait, 224);
-  const backgroundSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-  <defs>
-    <style>
-      @font-face {
-        font-family: "JetBrains Mono Variable";
-        src: url("${displayFontDataUrl}") format("woff2");
-        font-weight: 100 900;
-      }
+  const backgroundSvg = dedent`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+    <defs>
+      <style>
+        @font-face {
+          font-family: "JetBrains Mono Variable";
+          src: url("${displayFontDataUrl}") format("woff2");
+          font-weight: 100 900;
+        }
 
-      @font-face {
-        font-family: "Roboto Variable";
-        src: url("${sansFontDataUrl}") format("woff2");
-        font-weight: 100 900;
-      }
+        @font-face {
+          font-family: "Roboto Variable";
+          src: url("${sansFontDataUrl}") format("woff2");
+          font-weight: 100 900;
+        }
 
-      .name {
-        font-family: "JetBrains Mono Variable", monospace;
-        font-size: 64px;
-        font-weight: 700;
-        letter-spacing: -0.06em;
-        fill: #eceef2;
-        letter-spacing: -0.08em;
-      }
+        .name {
+          font-family: "JetBrains Mono Variable", monospace;
+          font-size: 64px;
+          font-weight: 700;
+          letter-spacing: -0.06em;
+          fill: #eceef2;
+          letter-spacing: -0.08em;
+        }
 
-      .role {
-        font-family: "Roboto Variable", sans-serif;
-        font-size: 28px;
-        font-weight: 560;
-        fill: #afb6c5;
-      }
+        .role {
+          font-family: "Roboto Variable", sans-serif;
+          font-size: 28px;
+          font-weight: 560;
+          fill: #afb6c5;
+        }
 
-      .summary {
-        font-family: "Roboto Variable", sans-serif;
-        font-size: 28px;
-        line-height: 1.4;
-        fill: #cfd6e3;
-      }
+        .summary {
+          font-family: "Roboto Variable", sans-serif;
+          font-size: 28px;
+          line-height: 1.4;
+          fill: #cfd6e3;
+        }
 
-      .panel-label {
-        font-family: "JetBrains Mono Variable", monospace;
-        font-size: 13px;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        fill: rgba(236, 238, 242, 0.78);
-      }
-    </style>
-    <linearGradient id="bg" x1="120" y1="80" x2="1080" y2="560" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#21252b" />
-      <stop offset="0.62" stop-color="#252a31" />
-      <stop offset="1" stop-color="#1d2127" />
-    </linearGradient>
-    <radialGradient id="blueGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(178 168) rotate(22) scale(240 184)">
-      <stop offset="0" stop-color="#569cd6" stop-opacity="0.22" />
-      <stop offset="1" stop-color="#569cd6" stop-opacity="0" />
-    </radialGradient>
-    <radialGradient id="greenGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1030 132) rotate(-16) scale(230 160)">
-      <stop offset="0" stop-color="#4ec9b0" stop-opacity="0.14" />
-      <stop offset="1" stop-color="#4ec9b0" stop-opacity="0" />
-    </radialGradient>
-    <clipPath id="cardClip">
-      <rect x="18" y="18" width="1164" height="594" rx="24" />
-    </clipPath>
-  </defs>
-  <g clip-path="url(#cardClip)">
-    <rect x="18" y="18" width="1164" height="594" rx="24" fill="url(#bg)" />
-    <circle cx="176" cy="176" r="220" fill="url(#blueGlow)" />
-    <circle cx="1030" cy="132" r="220" fill="url(#greenGlow)" />
+        .panel-label {
+          font-family: "JetBrains Mono Variable", monospace;
+          font-size: 13px;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          fill: rgba(236, 238, 242, 0.78);
+        }
+      </style>
+      <linearGradient id="bg" x1="120" y1="80" x2="1080" y2="560" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#21252b" />
+        <stop offset="0.62" stop-color="#252a31" />
+        <stop offset="1" stop-color="#1d2127" />
+      </linearGradient>
+      <radialGradient id="blueGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(178 168) rotate(22) scale(240 184)">
+        <stop offset="0" stop-color="#569cd6" stop-opacity="0.22" />
+        <stop offset="1" stop-color="#569cd6" stop-opacity="0" />
+      </radialGradient>
+      <radialGradient id="greenGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1030 132) rotate(-16) scale(230 160)">
+        <stop offset="0" stop-color="#4ec9b0" stop-opacity="0.14" />
+        <stop offset="1" stop-color="#4ec9b0" stop-opacity="0" />
+      </radialGradient>
+      <clipPath id="cardClip">
+        <rect x="18" y="18" width="1164" height="594" rx="24" />
+      </clipPath>
+    </defs>
+    <g clip-path="url(#cardClip)">
+      <rect x="18" y="18" width="1164" height="594" rx="24" fill="url(#bg)" />
+      <circle cx="176" cy="176" r="220" fill="url(#blueGlow)" />
+      <circle cx="1030" cy="132" r="220" fill="url(#greenGlow)" />
 
-    <circle cx="164" cy="176" r="120" fill="rgba(255,255,255,0.03)" />
-    <circle cx="164" cy="176" r="116" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2" />
+      <circle cx="164" cy="176" r="120" fill="rgba(255,255,255,0.03)" />
+      <circle cx="164" cy="176" r="116" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2" />
 
-    <rect x="712" y="18" width="470" height="594" rx="30" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" />
-    <rect x="732" y="40" width="430" height="36" rx="18" fill="rgba(10,13,18,0.32)" />
-    <circle cx="756" cy="58" r="5" fill="#ff5f57" />
-    <circle cx="772" cy="58" r="5" fill="#ffbd2e" />
-    <circle cx="788" cy="58" r="5" fill="#28c840" />
-    <rect x="732" y="90" width="430" height="504" rx="22" fill="rgba(8,10,14,0.22)" />
+      <rect x="712" y="18" width="470" height="594" rx="30" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" />
+      <rect x="732" y="40" width="430" height="36" rx="18" fill="rgba(10,13,18,0.32)" />
+      <circle cx="756" cy="58" r="5" fill="#ff5f57" />
+      <circle cx="772" cy="58" r="5" fill="#ffbd2e" />
+      <circle cx="788" cy="58" r="5" fill="#28c840" />
+      <rect x="732" y="90" width="430" height="504" rx="22" fill="rgba(8,10,14,0.22)" />
 
-    <text x="290" y="176" class="name">Chad Lefort</text>
-    <text x="300" y="220" class="role">Senior Frontend Engineer</text>
+      <text x="290" y="176" class="name">Chad Lefort</text>
+      <text x="300" y="220" class="role">Senior Frontend Engineer</text>
 
-    <text x="84" y="332" class="summary">
-      <tspan x="84" dy="0">Frontend engineer from Louisiana with</tspan>
-      <tspan x="84" dy="38">${years}+ years shipping maintainable,</tspan>
-      <tspan x="84" dy="38">accessible, production-ready systems.</tspan>
-      <tspan x="84" dy="38">Obsessive about design systems,</tspan>
-      <tspan x="84" dy="38">consistency, and interfaces that feel</tspan>
-      <tspan x="84" dy="38">polished for all users.</tspan>
-    </text>
-  </g>
-  <rect x="18" y="18" width="1164" height="594" rx="24" fill="none" stroke="#fff" stroke-opacity="0.06" />
-</svg>`;
+      <text x="84" y="332" class="summary">
+        <tspan x="84" dy="0">Frontend engineer from Louisiana with</tspan>
+        <tspan x="84" dy="38">${years}+ years shipping maintainable,</tspan>
+        <tspan x="84" dy="38">accessible, production-ready systems.</tspan>
+        <tspan x="84" dy="38">Obsessive about design systems,</tspan>
+        <tspan x="84" dy="38">consistency, and interfaces that feel</tspan>
+        <tspan x="84" dy="38">polished for all users.</tspan>
+      </text>
+    </g>
+    <rect x="18" y="18" width="1164" height="594" rx="24" fill="none" stroke="#fff" stroke-opacity="0.06" />
+  </svg>`;
 
   const baseCard = sharp(Buffer.from(backgroundSvg));
 
