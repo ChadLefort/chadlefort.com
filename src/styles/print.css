@@ -32,6 +32,7 @@
     background-color: #ffffff !important;
     margin: 0 !important;
     padding: 0 !important;
+    overflow: visible !important;
   }
 
   body {
@@ -45,6 +46,7 @@
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
+    overflow: visible !important;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
   }
@@ -93,6 +95,7 @@
   main {
     padding: 0 !important;
     margin: 0 !important;
+    overflow: visible !important;
 
     & > * {
       padding: 0 !important;
@@ -127,6 +130,9 @@
 
     & > div,
     & > div > div,
+    & > div > article,
+    & > div > ol,
+    & > div > ul,
     & > div > div > div {
       padding: 0 !important;
       margin: 0 !important;
@@ -342,8 +348,10 @@
         text-align: left !important;
       }
 
-      & > div > div,
-      & [data-reveal] {
+      & > article,
+      & > div > article,
+      & [data-reveal],
+      & [data-reveal] > article {
         display: block !important;
         background: #ffffff !important;
         padding: 0.1in 0.14in !important;
@@ -383,15 +391,20 @@
   /* skills as labeled icon tile grid */
   #skills [aria-label="Skills"] {
     display: grid !important;
-    grid-template-columns: repeat(8, 1fr) !important;
+    grid-template-columns: repeat(8, minmax(0, 1fr)) !important;
     gap: 0.06in !important;
     list-style: none !important;
-    padding: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 0 0.04in !important;
+    padding-inline: 0.04in !important;
     margin: 0 !important;
+    margin-inline: 0 !important;
 
     & li {
       display: block !important;
       break-inside: avoid;
+      min-width: 0 !important;
       margin: 0 !important;
       padding: 0 !important;
 
@@ -400,6 +413,8 @@
         flex-direction: column;
         align-items: center;
         gap: 0.04in;
+        width: 100% !important;
+        box-sizing: border-box !important;
         padding: 0.06in 0.04in !important;
         border: 0.5pt solid #888 !important;
         border-radius: 3pt !important;
