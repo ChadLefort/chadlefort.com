@@ -34,7 +34,6 @@
     "test:coverage": "vitest --run --coverage",
     "test:e2e": "playwright test",
     "test:e2e:update": "playwright test --update-snapshots",
-    "test:e2e:update:linux": "docker compose -f docker-compose.e2e.yml up",
     "test:e2e:ui": "playwright test --ui",
     "audit": "fallow audit",
     "dead-code": "fallow dead-code",
