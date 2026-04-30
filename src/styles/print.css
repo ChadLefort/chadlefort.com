@@ -554,7 +554,7 @@
 
   @page {
     margin: 0.5in;
-    size: letter;
+    size: A4;
   }
 
   /* Force motion-animated elements into their final state for print */

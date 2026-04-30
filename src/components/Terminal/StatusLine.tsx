@@ -64,6 +64,6 @@ export const StatusLine: FC<Props> = ({
     <Sep hideOnMobile />
     <Segment icon={nodedotjs} text={nodeVersion} tone="add" hideOnMobile />
     <Sep hideOnMobile />
-    <Segment icon={clock} text={time ?? '—:—'} />
+    <Segment icon={clock} text={time ?? '—:—'} data-testid="status-time" />
   </div>
 );

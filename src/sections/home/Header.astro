@@ -3,12 +3,12 @@ import { Picture } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import me from '~/assets/me.png';
 import { Terminal } from '~/components/Terminal/Terminal';
-import { cta } from '~/components/cta';
+import { CTALink } from '~/components/CTALink';
 ---
 
 <header class="relative px-4 pt-8 pb-0 sm:px-6 sm:pt-10 md:pt-20" data-no-print data-hero>
   <div class="max-w-section mx-auto flex w-full flex-col items-center gap-6 md:gap-14">
-    <div class="flex flex-col items-center gap-6 text-center md:flex-row md:gap-12 md:text-left">
+    <div class="flex flex-col items-center gap-6 text-center md:flex-row md:gap-12 md:text-left" data-testid="hero-intro">
       <figure class="ring-glass-border-strong relative m-0 h-36 w-36 overflow-hidden rounded-full ring-1 md:h-44 md:w-44">
         <Picture
           src={me}
@@ -38,13 +38,13 @@ import { cta } from '~/components/cta';
 
     <Terminal client:idle />
 
-    <a href="/chad-lefort-resume.pdf" download class={cta({ size: 'lg' })}>
+    <CTALink href="/chad-lefort-resume.pdf" download size="lg" client:idle>
       <Icon
         name="lucide:download"
         class="h-5 w-5 transition-transform group-hover:-translate-y-0.5"
         aria-hidden="true"
       />
       Download Resume
-    </a>
+    </CTALink>
   </div>
 </header>

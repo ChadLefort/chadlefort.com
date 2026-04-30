@@ -2,9 +2,9 @@ import { navigate } from 'astro:transitions/client';
 import { aboutQuotes } from '~/data/about';
 import { locationLong, site } from '~/data/site';
 import { closestCommand, findCommonPrefix } from './complete';
+import type { MdLine } from './MdRow';
 import { MdRow } from './MdRow';
 import { type LineBody, setMaximized, setMinimized } from './store';
-import type { MdLine } from './types';
 import { type FsDir, nodeAt } from './vfs';
 
 export const DEMO_COMMAND = 'cat ABOUT.md';

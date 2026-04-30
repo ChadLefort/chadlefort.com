@@ -1,9 +1,7 @@
-import { Icon } from '@iconify/react';
+import { Icon, type IconifyIcon } from '@iconify/react';
 import type { FC } from 'react';
 import { Link } from 'react-aria-components';
 import { tv } from 'tailwind-variants';
-
-import type { TabProps } from './types';
 
 const tabStyles = tv({
   base: 'inline-flex h-9 items-center gap-2 rounded-t-xl px-3 text-[12px] font-medium whitespace-nowrap transition sm:px-4',
@@ -35,6 +33,17 @@ const tabStyles = tv({
     tone: 'default'
   }
 });
+
+type TabProps = {
+  idx?: number;
+  mobileIdx?: number;
+  icon: IconifyIcon;
+  label: string;
+  active?: boolean;
+  href?: string;
+  hideOnMobile?: boolean;
+  tone?: 'default' | 'session';
+};
 
 export const Tab: FC<TabProps> = ({ idx, mobileIdx, icon, label, active, href, hideOnMobile, tone }) => {
   const inner = (

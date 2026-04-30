@@ -60,7 +60,7 @@ export const useShellDemo = ({ years, interactive, reducedMotion, inView, append
 
   const typedFromHook = useTypewriter(DEMO_COMMAND, {
     perChar: 80,
-    enabled: phase === 'cmd' && !reducedMotion && inView,
+    enabled: phase === 'cmd' && inView,
     onComplete: () => {
       completionTimeoutRef.current = window.setTimeout(() => {
         completionTimeoutRef.current = null;

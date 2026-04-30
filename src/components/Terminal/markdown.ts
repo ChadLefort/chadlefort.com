@@ -1,4 +1,4 @@
-import type { MdLine } from './types';
+import type { MdLine } from './MdRow';
 import type { FsDir } from './vfs';
 
 export const parseMd = (content: string): MdLine[] =>

@@ -3,7 +3,8 @@ import { getImage, Picture } from 'astro:assets';
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import { Icon } from 'astro-icon/components';
 import { ProjectTabsIsland } from '~/components/ProjectTabsIsland';
-import { cta, pillLink } from '~/components/cta';
+import { CTALink } from '~/components/CTALink';
+import { PillLink } from '~/components/PillLink';
 import { site } from '~/data/site';
 import Base from '~/layouts/Base.astro';
 
@@ -153,12 +154,12 @@ const breadcrumbLd = {
   structuredData={[projectLd, breadcrumbLd]}
 >
   <article>
-    <section class="relative px-4 pt-12 pb-16 sm:px-6 md:pt-20 md:pb-24">
+    <section class="relative px-4 pt-12 pb-16 sm:px-6 md:pt-20 md:pb-24" data-testid="project-hero">
       <div class="max-w-section mx-auto">
-        <a href="/projects" class={pillLink()}>
+        <PillLink href="/projects" client:idle>
           <Icon name="lucide:chevron-left" class="h-4 w-4" aria-hidden="true" />
           Back to projects
-        </a>
+        </PillLink>
 
         <div class="mt-8 grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-center md:gap-12">
           <div>
@@ -179,18 +180,18 @@ const breadcrumbLd = {
             <div class="mt-8 flex flex-wrap gap-3">
               {
                 project.data.externalUrl && (
-                  <a href={project.data.externalUrl} target="_blank" rel="noopener" class={cta({ intent: 'primary' })}>
+                  <CTALink href={project.data.externalUrl} target="_blank" rel="noopener" intent="primary" client:idle>
                     <Icon name="lucide:external-link" class="h-4 w-4" aria-hidden="true" />
                     Visit live site
-                  </a>
+                  </CTALink>
                 )
               }
               {
                 project.data.repoUrl && (
-                  <a href={project.data.repoUrl} target="_blank" rel="noopener" class={cta({ intent: 'secondary' })}>
+                  <CTALink href={project.data.repoUrl} target="_blank" rel="noopener" intent="secondary" client:idle>
                     <Icon name="lucide:github" class="h-4 w-4" aria-hidden="true" />
                     Repository
-                  </a>
+                  </CTALink>
                 )
               }
             </div>
