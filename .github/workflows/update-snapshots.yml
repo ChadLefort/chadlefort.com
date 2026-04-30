@@ -32,6 +32,13 @@ jobs:
       - name: Update snapshots
         run: bun run test:e2e:update
 
+      - name: Upload snapshot artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-snapshots
+          path: e2e/**/*.png
+          retention-days: 7
+
       - name: Commit updated snapshots
         run: |
           git config user.name "github-actions[bot]"
@@ -40,6 +47,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No snapshot changes to commit"
           else
-            git commit -m "Update Playwright Linux snapshots"
+            git commit -m "Update linux visual snapshots"
             git push
           fi
