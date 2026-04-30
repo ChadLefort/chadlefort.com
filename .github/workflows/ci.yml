@@ -6,8 +6,24 @@ env:
 on:
   push:
     branches: [master]
+    paths:
+      - "src/**"
+      - "e2e/**"
+      - "public/**"
+      - "playwright.config.ts"
+      - "package.json"
+      - "bun.lock"
+      - ".github/workflows/ci.yml"
   pull_request:
     branches: [master]
+    paths:
+      - "src/**"
+      - "e2e/**"
+      - "public/**"
+      - "playwright.config.ts"
+      - "package.json"
+      - "bun.lock"
+      - ".github/workflows/ci.yml"
 
 jobs:
   verify:
