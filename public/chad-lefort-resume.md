@@ -15,10 +15,11 @@ _April 2024 – Present_
 - Develop a K-12 student assessment platform focused on social and emotional learning using React, TypeScript, Zustand, and TanStack Query.
 - Architected a custom component library on Tailwind and React Aria Components, replacing 3 disparate libraries with one accessible system that raised the a11y bar across the team.
 - Unified 3 frontend apps by migrating from legacy routers (Router 5, older React Router) to TanStack Router, shipped incrementally with zero customer downtime.
-- Moved every frontend client into an Nx monorepo and set up GitHub Actions pipelines for builds, tests, and deployments. Migrated state from MobX to Zustand to simplify stores and improve testability.
+- Moved every frontend client into an Nx monorepo and set up GitHub Actions pipelines for builds, tests, and deployments.
+- Migrated state from MobX to Zustand to simplify stores and improve testability.
 - Drove a 20% lift in teacher engagement by shipping major dashboard and assessment features for teachers and site leaders.
-- Authored project documentation and converted it into reusable AI agent skills and hooks shared across the team for consistent, on-spec AI output.
-- Maintained <1% customer-reported defects and 95%+ code quality metrics throughout 2025 while completing code reviews inside the 2-day SLA.
+- Authored project documentation and converted it into reusable AI agent skills and hooks shared across the team for more consistent AI output.
+- Maintained <1% customer-reported defects and 95%+ code quality metrics.
 
 ### CDIT — Senior Frontend Engineer
 _December 2020 – April 2024_

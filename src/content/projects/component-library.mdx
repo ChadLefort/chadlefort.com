@@ -1,0 +1,115 @@
+---
+title: DESSA Component Library
+subtitle: Oct 2025 - Apr 2026
+summary: >
+  Architected and shipped an internal component library on React Aria
+  Components that replaced Chakra UI/PrimeReact across three apps and raised the team's
+  accessibility bar.
+cover: ../../assets/projects/component-library/component-library_1.png
+coverAlt: Component library showcase
+gallery:
+  - src: ../../assets/projects/component-library/component-library_1.png
+    alt: Component library showcase
+    device: desktop
+  - src: ../../assets/projects/component-library/component-library_2.png
+    alt: Component library sidebar and form components
+  - src: ../../assets/projects/component-library/component-library_3.png
+    alt: Component library model and form components
+tech:
+  - React Aria Components
+  - Tailwind Variants
+  - UnoCSS
+  - React
+  - TypeScript
+  - Storybook
+  - Chakra UI
+  - PrimeReact
+order: 0
+featured: true
+span: lg
+accent: bg-white
+icon: dessa-full
+iconColor: "#16335a"
+start: 2025-10
+end: 2026-04
+---
+
+## Problem
+
+Three frontend apps shared no UI primitives. Two apps were built on Chakra UI,
+one with heavy use of custom CSS modules layered on top, and the third on PrimeReact.
+Accessibility was inconsistent (focus management, ARIA wiring, keyboard
+support varied component by component), visual language heavily drifted between
+apps, and every new feature reinvented similar components.
+
+## Solution
+
+Architected an internal component library built on React Aria Components and
+Tailwind Variants + UnoCSS for styling, then methodically replaced existing
+component libraries and the bespoke components across all three apps.
+Shipped 40+ components covering the full surface area. Every component ships with
+Storybook coverage and tests. Some components have multiple variants allowing for
+flexibility. Organized in Storybook by category:
+
+### **Actions**
+
+- Button
+- Link Button
+
+### **Data Display**
+
+- Accordion
+- Badge
+- Date Span
+- Table (Base)
+- Table (Grouped)
+- Tag
+
+### **Feedback**
+
+- Alert
+- Progress Bar
+- Spinner
+- Toast
+
+### **Forms**
+
+- Checkbox
+- Checkbox Group
+- Date Picker
+- Date Range Picker
+- File Input (Inline)
+- File Input (DropZone)
+- Radio Group
+- Search Input
+- Select (Single)
+- Select (Multi)
+- Switch
+- Text Field
+- Slider
+
+### **Layout**
+
+- Card
+- Container
+- Divider
+
+### **Navigation**
+
+- Scroll To Top
+- Tabs
+
+### **Overlays**
+
+- Drawer
+- Dropdown Menu
+- Modal
+- Tooltip
+
+## Impact
+
+- Replaced three disparate UI sources with one cohesive system.
+- All legacy UI libraries were fully removed from the codebase.
+- Raised the a11y bar across the team.
+- Visual consistency across all three apps.
+- Faster feature work with engineers composing from a known library.

@@ -149,6 +149,26 @@ describe('ProjectGallery', () => {
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 
+  it('supports mobile swipe navigation inside the lightbox', async () => {
+    const user = userEvent.setup();
+
+    render(<ProjectGallery images={images.slice(0, 2)} title="Spear Dashboard" />);
+
+    await user.click(screen.getByRole('button', { name: /open desktop dashboard overview in lightbox/i }));
+
+    const imageToggle = screen.getByRole('button', { name: /zoom image to next level/i });
+
+    fireEvent.touchStart(imageToggle, {
+      touches: [{ clientX: 240, clientY: 120 }]
+    });
+    fireEvent.touchEnd(imageToggle, {
+      changedTouches: [{ clientX: 120, clientY: 128 }],
+      touches: []
+    });
+
+    expect(screen.getByText('2 / 2')).toBeInTheDocument();
+  });
+
   it('supports stepped zoom controls from buttons, keyboard, and image click', async () => {
     const user = userEvent.setup();
 
@@ -171,6 +191,29 @@ describe('ProjectGallery', () => {
     expect(screen.getAllByText('100%')[0]).toBeInTheDocument();
   });
 
+  it('supports smooth zoom steps up to 1000% for every image', async () => {
+    const user = userEvent.setup();
+
+    render(<ProjectGallery images={images.slice(0, 1)} title="Spear Dashboard" />);
+
+    await user.click(screen.getByRole('button', { name: /open desktop dashboard overview in lightbox/i }));
+
+    const desktopZoomInButton = screen.getAllByRole('button', { name: /^zoom in$/i })[1];
+
+    for (let step = 0; step < 9; step += 1) {
+      fireEvent.click(desktopZoomInButton);
+    }
+
+    expect(screen.getAllByText('500%')[0]).toBeInTheDocument();
+
+    for (let step = 0; step < 2; step += 1) {
+      fireEvent.click(desktopZoomInButton);
+    }
+
+    expect(screen.getAllByText('1000%')[0]).toBeInTheDocument();
+    expect(desktopZoomInButton).toBeDisabled();
+  });
+
   it('respects per-image initial zoom when opening a tall mobile screenshot', async () => {
     const user = userEvent.setup();
 
@@ -179,6 +222,35 @@ describe('ProjectGallery', () => {
     await user.click(screen.getByRole('button', { name: /open mobile course flow in lightbox/i }));
 
     expect(screen.getAllByText('1000%')[0]).toBeInTheDocument();
+  });
+
+  it('supports pinch zooming on mobile screenshots', async () => {
+    const user = userEvent.setup();
+
+    render(<ProjectGallery images={images.slice(3)} title="Spear Dashboard" />);
+
+    await user.click(screen.getByRole('button', { name: /open mobile course flow in lightbox/i }));
+
+    const imageToggle = screen.getByRole('button', { name: /reset image zoom/i });
+
+    fireEvent.touchStart(imageToggle, {
+      touches: [
+        { clientX: 100, clientY: 100 },
+        { clientX: 200, clientY: 100 }
+      ]
+    });
+    fireEvent.touchMove(imageToggle, {
+      touches: [
+        { clientX: 135, clientY: 100 },
+        { clientX: 165, clientY: 100 }
+      ]
+    });
+    fireEvent.touchEnd(imageToggle, {
+      changedTouches: [{ clientX: 135, clientY: 100 }],
+      touches: []
+    });
+
+    expect(screen.getAllByText('300%')[0]).toBeInTheDocument();
   });
 
   it('renders nothing when there are no images', () => {

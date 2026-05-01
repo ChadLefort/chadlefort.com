@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight, Monitor, Smartphone, X, ZoomIn, ZoomOut } from 'lucide-react';
-import type { CSSProperties, FC, ReactNode } from 'react';
+import type { CSSProperties, FC, ReactNode, TouchEvent as ReactTouchEvent, RefObject, Touch } from 'react';
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Dialog, Heading, Modal, ModalOverlay } from 'react-aria-components';
 import { tv } from 'tailwind-variants';
@@ -71,18 +71,18 @@ const lightboxViewport = tv({
   base: 'h-full w-full',
   variants: {
     zoomed: {
-      true: 'overflow-auto',
+      true: 'overflow-auto overscroll-contain',
       false: 'flex items-center justify-center'
     }
   }
 });
 
 const lightboxToggle = tv({
-  base: 'w-full border-0 bg-transparent text-inherit',
+  base: 'border-0 bg-transparent text-inherit touch-pan-x touch-pan-y',
   variants: {
     zoomed: {
-      true: 'flex min-h-full min-w-full cursor-zoom-out items-start justify-center p-6',
-      false: 'flex h-full items-center justify-center cursor-zoom-in'
+      true: 'flex min-h-full w-max min-w-full cursor-zoom-out items-start justify-center p-6',
+      false: 'flex h-full w-full items-center justify-center cursor-zoom-in'
     }
   }
 });
@@ -136,7 +136,7 @@ export type GalleryImage = {
   thumbSizes: string;
   alt: string;
   device: 'desktop' | 'mobile';
-  initialZoom?: number;
+  initialZoom?: ZoomLevel;
   orientation: 'portrait' | 'landscape';
   width: number;
   height: number;
@@ -144,6 +144,54 @@ export type GalleryImage = {
 
 type IndexedImage = GalleryImage & { index: number };
 type Props = { images: GalleryImage[]; title: string };
+type SwipeState = { x: number; y: number };
+type PinchState = { distance: number; zoomLevel: number };
+type TouchHandler = (event: ReactTouchEvent<HTMLButtonElement>) => void;
+
+type ProjectGalleryLightboxProps = {
+  active: number;
+  activeImage: GalleryImage;
+  canZoomIn: boolean;
+  canZoomOut: boolean;
+  imagesLength: number;
+  imageButtonRef: RefObject<HTMLButtonElement | null>;
+  onImageClick: () => void;
+  onImageLoad: () => void;
+  onImageTouchCancel: () => void;
+  onImageTouchEnd: TouchHandler;
+  onImageTouchMove: TouchHandler;
+  onImageTouchStart: TouchHandler;
+  onNext: () => void;
+  onOpenChange: (isOpen: boolean) => void;
+  onPrev: () => void;
+  onZoomIn: () => void;
+  onZoomOut: () => void;
+  open: boolean;
+  title: string;
+  viewportRef: RefObject<HTMLDivElement | null>;
+  zoomLabel: string;
+  zoomed: boolean;
+  zoomedImageStyle?: CSSProperties;
+};
+
+const SWIPE_THRESHOLD = 48;
+const SWIPE_VERTICAL_TOLERANCE = 32;
+const BASE_ZOOM_LEVELS = [1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 3, 4, 5, 7.5, 10] as const;
+
+type ZoomLevel = (typeof BASE_ZOOM_LEVELS)[number];
+
+const getTouchDistance = (touchA: Touch, touchB: Touch) =>
+  Math.hypot(touchB.clientX - touchA.clientX, touchB.clientY - touchA.clientY);
+
+const getClosestZoomIndex = (zoomLevels: number[], targetZoom: number) => {
+  if (!zoomLevels.length) return 0;
+
+  return zoomLevels.reduce(
+    (closestIndex, zoomLevel, index) =>
+      Math.abs(zoomLevel - targetZoom) < Math.abs(zoomLevels[closestIndex] - targetZoom) ? index : closestIndex,
+    0
+  );
+};
 
 const getZoomedImageStyle = (image: GalleryImage, zoomLevel: number): CSSProperties => {
   if (image.device === 'mobile') {
@@ -162,11 +210,9 @@ const getZoomedImageStyle = (image: GalleryImage, zoomLevel: number): CSSPropert
 const getZoomLevelsForImage = (image: GalleryImage | undefined) => {
   if (!image) return [1];
 
-  const baseLevels = image.device === 'mobile' ? [1, 1.15, 1.35, 1.75, 2.25, 3] : [1, 1.25, 1.5, 2, 2.5, 3];
-
-  return [...new Set([1, ...baseLevels, image.initialZoom].filter((level): level is number => Boolean(level)))].sort(
-    (a, b) => a - b
-  );
+  return Array.from(
+    new Set([1, ...BASE_ZOOM_LEVELS, image.initialZoom].filter((level): level is number => Boolean(level)))
+  ).toSorted((a, b) => a - b);
 };
 
 const getDefaultZoomIndex = (image: GalleryImage | undefined, zoomLevels: number[]) => {
@@ -236,12 +282,184 @@ const GallerySection: FC<{
   </section>
 );
 
-export const ProjectGallery: FC<Props> = ({ images, title }) => {
+const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
+  active,
+  activeImage,
+  canZoomIn,
+  canZoomOut,
+  imageButtonRef,
+  imagesLength,
+  onImageClick,
+  onImageLoad,
+  onImageTouchCancel,
+  onImageTouchEnd,
+  onImageTouchMove,
+  onImageTouchStart,
+  onNext,
+  onOpenChange,
+  onPrev,
+  onZoomIn,
+  onZoomOut,
+  open,
+  title,
+  viewportRef,
+  zoomLabel,
+  zoomed,
+  zoomedImageStyle
+}) => (
+  <ModalOverlay isOpen={open} onOpenChange={onOpenChange} isDismissable className={lightboxOverlay()}>
+    <Modal className="flex h-full w-full flex-col outline-none">
+      <Dialog className="flex h-full flex-col outline-none">
+        <div className={mobileLightboxHeader()}>
+          <div className={mobileLightboxTitleRow()}>
+            <Heading slot="title" className="font-display text-lg">
+              {title}
+            </Heading>
+            <IconButton
+              slot="close"
+              label="Close gallery"
+              icon={<X className="h-5 w-5" />}
+              className="shrink-0 text-white data-[hovered]:bg-white/10"
+            />
+          </div>
+          <div className={lightboxControls()}>
+            <IconButton
+              label="Zoom out"
+              onPress={onZoomOut}
+              isDisabled={!canZoomOut}
+              icon={<ZoomOut className="h-5 w-5" />}
+              className={mobileZoomIconButton()}
+            />
+            <div className={zoomValue()}>{zoomLabel}</div>
+            <IconButton
+              label="Zoom in"
+              onPress={onZoomIn}
+              isDisabled={!canZoomIn}
+              icon={<ZoomIn className="h-5 w-5" />}
+              className={mobileZoomIconButton()}
+            />
+          </div>
+        </div>
+
+        <div className={desktopLightboxHeader()}>
+          <Heading slot="title" className="font-display text-xl">
+            {title}
+          </Heading>
+          <div className={lightboxControls({ desktop: true })}>
+            <Button
+              variant="ghost"
+              color="neutral"
+              size="sm"
+              onPress={onZoomOut}
+              isDisabled={!canZoomOut}
+              className={zoomButton()}
+            >
+              <ZoomOut className="h-4 w-4" />
+              Zoom out
+            </Button>
+            <div className={zoomValue({ desktop: true })}>{zoomLabel}</div>
+            <Button
+              variant="ghost"
+              color="neutral"
+              size="sm"
+              onPress={onZoomIn}
+              isDisabled={!canZoomIn}
+              className={zoomButton()}
+            >
+              <ZoomIn className="h-4 w-4" />
+              Zoom in
+            </Button>
+            <IconButton
+              slot="close"
+              label="Close gallery"
+              icon={<X className="h-5 w-5" />}
+              className="shrink-0 text-white data-[hovered]:bg-white/10"
+            />
+          </div>
+        </div>
+
+        <div className="relative flex flex-1 items-center justify-center overflow-hidden px-4 pb-4">
+          {imagesLength > 1 && (
+            <IconButton
+              label="Previous image"
+              onPress={onPrev}
+              icon={<ChevronLeft className="h-6 w-6" />}
+              className="absolute top-1/2 left-4 z-10 -translate-y-1/2 hidden sm:flex"
+            />
+          )}
+
+          <div ref={viewportRef} className={lightboxViewport({ zoomed })} aria-live="polite">
+            <button
+              ref={imageButtonRef}
+              type="button"
+              onClick={onImageClick}
+              onTouchStart={onImageTouchStart}
+              onTouchMove={onImageTouchMove}
+              onTouchEnd={onImageTouchEnd}
+              onTouchCancel={onImageTouchCancel}
+              className={lightboxToggle({ zoomed })}
+              aria-label={zoomed ? 'Reset image zoom' : 'Zoom image to next level'}
+            >
+              <picture>
+                <source type="image/avif" srcSet={activeImage.fullAvif} />
+                <img
+                  src={activeImage.src}
+                  alt={activeImage.alt}
+                  onLoad={onImageLoad}
+                  className={lightboxImage({ device: activeImage.device, zoomed })}
+                  style={zoomedImageStyle}
+                />
+              </picture>
+            </button>
+          </div>
+
+          {imagesLength > 1 && (
+            <IconButton
+              label="Next image"
+              onPress={onNext}
+              icon={<ChevronRight className="h-6 w-6" />}
+              className="absolute top-1/2 right-4 z-10 -translate-y-1/2 hidden sm:flex"
+            />
+          )}
+        </div>
+
+        <div className="flex items-center justify-center gap-4 px-4 pb-6">
+          {imagesLength > 1 && (
+            <IconButton
+              label="Previous image"
+              onPress={onPrev}
+              icon={<ChevronLeft className="h-5 w-5" />}
+              className="sm:hidden"
+            />
+          )}
+          <div className="flex flex-col items-center gap-1">
+            <span className="font-mono text-xs text-white/70">
+              {active + 1} / {imagesLength}
+            </span>
+          </div>
+          {imagesLength > 1 && (
+            <IconButton
+              label="Next image"
+              onPress={onNext}
+              icon={<ChevronRight className="h-5 w-5" />}
+              className="sm:hidden"
+            />
+          )}
+        </div>
+      </Dialog>
+    </Modal>
+  </ModalOverlay>
+);
+
+const useProjectGalleryLightbox = (images: GalleryImage[]) => {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
   const [zoomIndex, setZoomIndex] = useState(0);
-  const dialogId = useId();
   const viewportRef = useRef<HTMLDivElement>(null);
+  const imageButtonRef = useRef<HTMLButtonElement>(null);
+  const swipeStartRef = useRef<SwipeState | null>(null);
+  const pinchStateRef = useRef<PinchState | null>(null);
+  const suppressImageToggleRef = useRef(false);
 
   const activeImage = images[active];
   const zoomLevels = useMemo(() => getZoomLevelsForImage(activeImage), [activeImage]);
@@ -250,6 +468,8 @@ export const ProjectGallery: FC<Props> = ({ images, title }) => {
   const zoomLevel = zoomLevels[zoomIndex] ?? 1;
   const zoomed = zoomIndex > 0;
   const zoomLabel = `${Math.round(zoomLevel * 100)}%`;
+  const canZoomIn = zoomIndex < maxZoomIndex;
+  const canZoomOut = zoomIndex > 0;
 
   const zoomedImageStyle = useMemo(() => {
     if (!activeImage || !zoomed) return undefined;
@@ -276,16 +496,23 @@ export const ProjectGallery: FC<Props> = ({ images, title }) => {
   }, []);
 
   const toggleImageZoom = useCallback(() => {
-    setZoomIndex((value) =>
-      value === defaultZoomIndex ? Math.min(defaultZoomIndex + 1, maxZoomIndex) : defaultZoomIndex
-    );
+    setZoomIndex((value) => {
+      if (value > 0) return 0;
+
+      if (defaultZoomIndex > 0) return defaultZoomIndex;
+
+      return Math.min(1, maxZoomIndex);
+    });
   }, [defaultZoomIndex, maxZoomIndex]);
 
-  const openAt = (index: number) => {
-    setActive(index);
-    resetZoom(index);
-    setOpen(true);
-  };
+  const openAt = useCallback(
+    (index: number) => {
+      setActive(index);
+      resetZoom(index);
+      setOpen(true);
+    },
+    [resetZoom]
+  );
 
   const next = useCallback(() => {
     const nextIndex = (active + 1) % images.length;
@@ -306,6 +533,122 @@ export const ProjectGallery: FC<Props> = ({ images, title }) => {
     viewport.scrollTop = 0;
     viewport.scrollLeft = Math.max(0, (viewport.scrollWidth - viewport.clientWidth) / 2);
   }, []);
+
+  const clearGestureState = useCallback(() => {
+    swipeStartRef.current = null;
+    pinchStateRef.current = null;
+  }, []);
+
+  const isSwipeBlocked = useCallback(() => {
+    const viewport = viewportRef.current;
+
+    if (!viewport) return false;
+
+    return viewport.scrollWidth > viewport.clientWidth + 4;
+  }, []);
+
+  const handleImageTouchStart = useCallback<TouchHandler>(
+    (event) => {
+      if (event.touches.length >= 2) {
+        pinchStateRef.current = {
+          distance: getTouchDistance(event.touches[0], event.touches[1]),
+          zoomLevel
+        };
+        swipeStartRef.current = null;
+        suppressImageToggleRef.current = true;
+        return;
+      }
+
+      pinchStateRef.current = null;
+
+      if (event.touches.length !== 1 || images.length <= 1) return;
+
+      swipeStartRef.current = {
+        x: event.touches[0].clientX,
+        y: event.touches[0].clientY
+      };
+      suppressImageToggleRef.current = false;
+    },
+    [images.length, zoomLevel]
+  );
+
+  const handleImageTouchMove = useCallback<TouchHandler>(
+    (event) => {
+      const pinchState = pinchStateRef.current;
+
+      if (!pinchState || event.touches.length < 2) return;
+
+      const nextDistance = getTouchDistance(event.touches[0], event.touches[1]);
+      const scaledZoom = pinchState.zoomLevel * (nextDistance / pinchState.distance);
+      const minZoomLevel = zoomLevels[0] ?? 1;
+      const maxZoomLevel = zoomLevels[maxZoomIndex] ?? minZoomLevel;
+      const clampedZoom = Math.min(maxZoomLevel, Math.max(minZoomLevel, scaledZoom));
+      const nextZoomIndex = getClosestZoomIndex(zoomLevels, clampedZoom);
+
+      suppressImageToggleRef.current = true;
+      event.preventDefault();
+      setZoomIndex((value) => (value === nextZoomIndex ? value : nextZoomIndex));
+    },
+    [maxZoomIndex, zoomLevels]
+  );
+
+  const handleImageTouchEnd = useCallback<TouchHandler>(
+    (event) => {
+      if (pinchStateRef.current) {
+        if (event.touches.length < 2) pinchStateRef.current = null;
+        swipeStartRef.current = null;
+        return;
+      }
+
+      const swipeStart = swipeStartRef.current;
+      if (!swipeStart) return;
+
+      const touch = event.changedTouches[0];
+      swipeStartRef.current = null;
+
+      if (!touch) return;
+
+      const deltaX = touch.clientX - swipeStart.x;
+      const deltaY = touch.clientY - swipeStart.y;
+      const horizontalSwipe =
+        Math.abs(deltaX) >= SWIPE_THRESHOLD &&
+        Math.abs(deltaY) <= SWIPE_VERTICAL_TOLERANCE &&
+        Math.abs(deltaX) > Math.abs(deltaY);
+
+      if (!horizontalSwipe || isSwipeBlocked()) return;
+
+      suppressImageToggleRef.current = true;
+
+      if (deltaX < 0) {
+        next();
+        return;
+      }
+
+      prev();
+    },
+    [isSwipeBlocked, next, prev]
+  );
+
+  const handleImageClick = useCallback(() => {
+    if (suppressImageToggleRef.current) {
+      suppressImageToggleRef.current = false;
+      return;
+    }
+
+    toggleImageZoom();
+  }, [toggleImageZoom]);
+
+  const handleImageLoad = useCallback(() => {
+    if (zoomed) centerViewport();
+  }, [centerViewport, zoomed]);
+
+  const handleOpenChange = useCallback(
+    (isOpen: boolean) => {
+      setOpen(isOpen);
+      if (!isOpen) resetZoom();
+    },
+    [resetZoom]
+  );
 
   useEffect(() => {
     if (!open) return;
@@ -337,14 +680,85 @@ export const ProjectGallery: FC<Props> = ({ images, title }) => {
     return () => window.cancelAnimationFrame(frame);
   }, [centerViewport, open, zoomed]);
 
-  if (!images.length) return null;
+  useEffect(() => {
+    const imageButton = imageButtonRef.current;
+    if (!open || !imageButton) return;
 
-  const indexed: IndexedImage[] = images.map((img, index) => ({
-    ...img,
+    const preventNativeGesture = (event: Event) => event.preventDefault();
+    const listenerOptions = { passive: false };
+
+    imageButton.addEventListener('gesturestart', preventNativeGesture, listenerOptions);
+    imageButton.addEventListener('gesturechange', preventNativeGesture, listenerOptions);
+    imageButton.addEventListener('gestureend', preventNativeGesture, listenerOptions);
+
+    return () => {
+      imageButton.removeEventListener('gesturestart', preventNativeGesture);
+      imageButton.removeEventListener('gesturechange', preventNativeGesture);
+      imageButton.removeEventListener('gestureend', preventNativeGesture);
+    };
+  }, [open]);
+
+  return {
+    active,
+    activeImage,
+    canZoomIn,
+    canZoomOut,
+    clearGestureState,
+    handleImageClick,
+    handleImageLoad,
+    handleImageTouchEnd,
+    handleImageTouchMove,
+    handleImageTouchStart,
+    handleOpenChange,
+    imageButtonRef,
+    next,
+    open,
+    openAt,
+    prev,
+    viewportRef,
+    zoomIn,
+    zoomLabel,
+    zoomOut,
+    zoomed,
+    zoomedImageStyle
+  };
+};
+
+export const ProjectGallery: FC<Props> = ({ images, title }) => {
+  const dialogId = useId();
+  const {
+    active,
+    activeImage,
+    canZoomIn,
+    canZoomOut,
+    clearGestureState,
+    handleImageClick,
+    handleImageLoad,
+    handleImageTouchEnd,
+    handleImageTouchMove,
+    handleImageTouchStart,
+    handleOpenChange,
+    imageButtonRef,
+    next,
+    open,
+    openAt,
+    prev,
+    viewportRef,
+    zoomIn,
+    zoomLabel,
+    zoomOut,
+    zoomed,
+    zoomedImageStyle
+  } = useProjectGalleryLightbox(images);
+
+  if (!images.length || !activeImage) return null;
+
+  const indexed: IndexedImage[] = images.map((image, index) => ({
+    ...image,
     index
   }));
-  const desktopShots = indexed.filter((img) => img.device === 'desktop');
-  const mobileShots = indexed.filter((img) => img.device === 'mobile');
+  const desktopShots = indexed.filter((image) => image.device === 'desktop');
+  const mobileShots = indexed.filter((image) => image.device === 'mobile');
   const firstGalleryEagerCount = 2;
 
   return (
@@ -376,153 +790,31 @@ export const ProjectGallery: FC<Props> = ({ images, title }) => {
         )}
       </div>
 
-      <ModalOverlay
-        isOpen={open}
-        onOpenChange={(isOpen) => {
-          setOpen(isOpen);
-          if (!isOpen) resetZoom();
-        }}
-        isDismissable
-        className={lightboxOverlay()}
-      >
-        <Modal className="flex h-full w-full flex-col outline-none">
-          <Dialog className="flex h-full flex-col outline-none">
-            <div className={mobileLightboxHeader()}>
-              <div className={mobileLightboxTitleRow()}>
-                <Heading slot="title" className="font-display text-lg">
-                  {title}
-                </Heading>
-                <IconButton
-                  slot="close"
-                  label="Close gallery"
-                  icon={<X className="h-5 w-5" />}
-                  className="shrink-0 text-white data-[hovered]:bg-white/10"
-                />
-              </div>
-              <div className={lightboxControls()}>
-                <IconButton
-                  label="Zoom out"
-                  onPress={zoomOut}
-                  isDisabled={zoomIndex <= defaultZoomIndex}
-                  icon={<ZoomOut className="h-5 w-5" />}
-                  className={mobileZoomIconButton()}
-                />
-                <div className={zoomValue()}>{zoomLabel}</div>
-                <IconButton
-                  label="Zoom in"
-                  onPress={zoomIn}
-                  isDisabled={zoomIndex >= maxZoomIndex}
-                  icon={<ZoomIn className="h-5 w-5" />}
-                  className={mobileZoomIconButton()}
-                />
-              </div>
-            </div>
-
-            <div className={desktopLightboxHeader()}>
-              <Heading slot="title" className="font-display text-xl">
-                {title}
-              </Heading>
-              <div className={lightboxControls({ desktop: true })}>
-                <Button
-                  variant="ghost"
-                  color="neutral"
-                  size="sm"
-                  onPress={zoomOut}
-                  isDisabled={zoomIndex <= defaultZoomIndex}
-                  className={zoomButton()}
-                >
-                  <ZoomOut className="h-4 w-4" />
-                  Zoom out
-                </Button>
-                <div className={zoomValue({ desktop: true })}>{zoomLabel}</div>
-                <Button
-                  variant="ghost"
-                  color="neutral"
-                  size="sm"
-                  onPress={zoomIn}
-                  isDisabled={zoomIndex >= maxZoomIndex}
-                  className={zoomButton()}
-                >
-                  <ZoomIn className="h-4 w-4" />
-                  Zoom in
-                </Button>
-                <IconButton
-                  slot="close"
-                  label="Close gallery"
-                  icon={<X className="h-5 w-5" />}
-                  className="shrink-0 text-white data-[hovered]:bg-white/10"
-                />
-              </div>
-            </div>
-
-            <div className="relative flex flex-1 items-center justify-center overflow-hidden px-4 pb-4">
-              {images.length > 1 && (
-                <IconButton
-                  label="Previous image"
-                  onPress={prev}
-                  icon={<ChevronLeft className="h-6 w-6" />}
-                  className="absolute top-1/2 left-4 z-10 -translate-y-1/2 hidden sm:flex"
-                />
-              )}
-
-              <div ref={viewportRef} className={lightboxViewport({ zoomed })} aria-live="polite">
-                <button
-                  type="button"
-                  onClick={toggleImageZoom}
-                  className={lightboxToggle({ zoomed })}
-                  aria-label={zoomed ? 'Reset image zoom' : 'Zoom image to next level'}
-                >
-                  <picture>
-                    <source type="image/avif" srcSet={activeImage.fullAvif} />
-                    <img
-                      src={activeImage.src}
-                      alt={activeImage.alt}
-                      onLoad={() => {
-                        if (zoomed) centerViewport();
-                      }}
-                      className={lightboxImage({ device: activeImage.device, zoomed })}
-                      style={zoomedImageStyle}
-                    />
-                  </picture>
-                </button>
-              </div>
-
-              {images.length > 1 && (
-                <IconButton
-                  label="Next image"
-                  onPress={next}
-                  icon={<ChevronRight className="h-6 w-6" />}
-                  className="absolute top-1/2 right-4 z-10 -translate-y-1/2 hidden sm:flex"
-                />
-              )}
-            </div>
-
-            <div className="flex items-center justify-center gap-4 px-4 pb-6">
-              {images.length > 1 && (
-                <IconButton
-                  label="Previous image"
-                  onPress={prev}
-                  icon={<ChevronLeft className="h-5 w-5" />}
-                  className="sm:hidden"
-                />
-              )}
-              <div className="flex flex-col items-center gap-1">
-                <span className="font-mono text-xs text-white/70">
-                  {active + 1} / {images.length}
-                </span>
-              </div>
-              {images.length > 1 && (
-                <IconButton
-                  label="Next image"
-                  onPress={next}
-                  icon={<ChevronRight className="h-5 w-5" />}
-                  className="sm:hidden"
-                />
-              )}
-            </div>
-          </Dialog>
-        </Modal>
-      </ModalOverlay>
+      <ProjectGalleryLightbox
+        active={active}
+        activeImage={activeImage}
+        canZoomIn={canZoomIn}
+        canZoomOut={canZoomOut}
+        imageButtonRef={imageButtonRef}
+        imagesLength={images.length}
+        onImageClick={handleImageClick}
+        onImageLoad={handleImageLoad}
+        onImageTouchCancel={clearGestureState}
+        onImageTouchEnd={handleImageTouchEnd}
+        onImageTouchMove={handleImageTouchMove}
+        onImageTouchStart={handleImageTouchStart}
+        onNext={next}
+        onOpenChange={handleOpenChange}
+        onPrev={prev}
+        onZoomIn={zoomIn}
+        onZoomOut={zoomOut}
+        open={open}
+        title={title}
+        viewportRef={viewportRef}
+        zoomLabel={zoomLabel}
+        zoomed={zoomed}
+        zoomedImageStyle={zoomedImageStyle}
+      />
     </>
   );
 };

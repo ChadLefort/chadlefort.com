@@ -18,7 +18,22 @@ const projects = defineCollection({
             src: image(),
             alt: z.string(),
             device: z.enum(['desktop', 'mobile']).optional(),
-            initialZoom: z.number().min(1).max(12).optional()
+            initialZoom: z
+              .union([
+                z.literal(1),
+                z.literal(1.25),
+                z.literal(1.5),
+                z.literal(1.75),
+                z.literal(2),
+                z.literal(2.25),
+                z.literal(2.5),
+                z.literal(3),
+                z.literal(4),
+                z.literal(5),
+                z.literal(7.5),
+                z.literal(10)
+              ])
+              .optional()
           })
         )
         .optional(),

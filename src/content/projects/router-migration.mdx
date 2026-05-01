@@ -1,0 +1,63 @@
+---
+title: Router Migration
+subtitle: Aug 2025 - Apr 2026
+summary: >
+  Migrated three frontend apps from fragmented legacy routers to TanStack Router
+  with zero downtime, unifying type safe routing, search params, and data
+  loading.
+tech:
+  - TanStack Router
+  - TanStack Query
+  - Zustand
+  - React
+  - TypeScript
+  - MobX
+  - React Router
+  - Zod
+order: 1
+featured: true
+span: xl
+accent: from-rose-500/25 via-red-500/20 to-orange-500/10
+icon: simple-icons:tanstack
+iconColor: "#FF4154"
+start: 2025-08
+end: 2026-04
+---
+
+## Problem
+
+Three frontend apps ran on a fragmented routing stack: one was on Router 5,
+another on an older React Router, and shared navigation patterns had to be
+reinvented per app. Routes were untyped, search params were validated by hand,
+and there was no shared loader/cache story with our data layer. Compounding the
+problem, much of the app state was locked inside MobX stores that observed the
+legacy routers, so any router rewrite would cascade through hundreds of observer
+wrapped components.
+
+## Solution
+
+I sequenced the work in two phases shipped incrementally behind a migration
+shim, with zero customer downtime:
+
+1. **State migration (MobX → Zustand).** Consolidated MobX stores under a
+   single root, then migrated each store to Zustand backed shared state. Server
+   state
+   moved to TanStack Query v5. This removed observer wrappers and made stores
+   more testable.
+2. **Router migration (Router 5 / React Router → TanStack Router).**
+   Introduced TanStack Router alongside the legacy router with a migration hook,
+   Link, and
+   helpers so routes could be moved over one at a time. Once the last route was
+   ported, ripped out Router 5 and finalized typed routes, Zod validated search
+   params, and route level loaders that integrate with TanStack Query.
+
+## Impact
+
+- Unified three apps on one type safe routing stack with shared patterns for
+  links, search params, and loaders.
+- End to end type safety across routes and search params eliminated a class of
+  runtime navigation bugs.
+- Killed MobX entirely, simplified store code, and made stores unit testable
+  without React render trees.
+- Incremental rollout kept the app shippable on every commit. Users never saw a
+  freeze or downtime window.

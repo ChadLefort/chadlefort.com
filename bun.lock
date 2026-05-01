@@ -51,7 +51,6 @@
         "axe-core": "^4.11.0",
         "fallow": "^2.48.4",
         "happy-dom": "^20.9.0",
-        "jsdom": "^27.0.0",
         "lint-staged": "^16.2.0",
         "sharp-ico": "^0.1.5",
         "typescript": "^5.9.3",
