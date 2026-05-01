@@ -5,7 +5,7 @@ const log = (msg: string) => console.log(`\x1b[36m[update-snapshots]\x1b[0m ${ms
 
 async function main() {
   log('Updating local (darwin) snapshots...');
-  await $`bunx playwright test --update-snapshots`;
+  await $`FORCE_COLOR=1 bunx playwright test --update-snapshots`;
 
   log('Checking for darwin snapshot changes...');
   const status = await $`git status --short e2e/`.text();
@@ -14,10 +14,10 @@ async function main() {
 
   if (hasDarwinChanges) {
     log('Staging darwin snapshots...');
-    await $`git add e2e/*-darwin.png`;
+    await $`git add e2e/**/*-darwin.png`;
 
     log('Committing darwin snapshots...');
-    await $`git commit -m "Update darwin visual snapshots"`;
+    await $`git commit -m "Update darwin visual snapshots [skip ci]"`;
 
     log('Pushing...');
     await $`git push`;

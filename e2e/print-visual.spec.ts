@@ -55,7 +55,7 @@ const pdfToPng = (pdfPath: string): string => {
   const inputs = files.map((f) => `"${join(outDir, f)}"`).join(' ');
 
   if (hasBinary('magick')) {
-    execSync(`magick convert ${inputs} -append "${combined}"`);
+    execSync(`magick ${inputs} -append "${combined}"`);
   } else if (hasBinary('convert')) {
     execSync(`convert ${inputs} -append "${combined}"`);
   } else {

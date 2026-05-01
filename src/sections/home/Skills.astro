@@ -5,11 +5,11 @@ import Section from '~/components/Section.astro';
 import { skills } from '~/data/skills';
 ---
 
-<Section id="skills" title="Skills" tone="alt">
-  <ul class="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8" aria-label="Skills">
+<Section id="skills" title="Skills" tone="alt" class="print:break-inside-avoid">
+  <ul class="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 print:resume-skills-grid" aria-label="Skills">
     {
       skills.map((skill, index) => (
-        <Reveal as="li" delay={Math.min(index * 25, 500)}>
+        <Reveal as="li" delay={Math.min(index * 25, 500)} class="print:resume-skill-item">
           <div class="group card card-hover flex h-full flex-col items-center justify-center gap-2 p-5">
             <Icon
               name={skill.icon}

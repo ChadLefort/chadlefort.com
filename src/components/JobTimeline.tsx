@@ -9,7 +9,7 @@ type Props = { jobs: Job[] };
 type ItemProps = { job: Job; isLeft: boolean };
 
 const item = tv({
-  base: 'timeline-item print-job relative pl-12 md:grid md:grid-cols-2 md:items-center md:gap-x-16 md:pl-0',
+  base: 'timeline-item relative pl-12 md:grid md:grid-cols-2 md:items-center md:gap-x-16 md:pl-0 print:resume-timeline-item',
   variants: {
     inView: {
       true: 'is-visible',
@@ -19,7 +19,7 @@ const item = tv({
 });
 
 const card = tv({
-  base: 'timeline-card card card-hover p-6 md:p-8',
+  base: 'timeline-card card card-hover p-6 md:p-8 print:resume-timeline-card',
   variants: {
     side: {
       left: 'timeline-card-left',
@@ -29,7 +29,7 @@ const card = tv({
 });
 
 const cardHeader = tv({
-  base: 'flex flex-col gap-1',
+  base: 'flex flex-col gap-1 print:resume-timeline-header',
   variants: {
     side: {
       left: 'md:items-end',
@@ -39,7 +39,7 @@ const cardHeader = tv({
 });
 
 const bullets = tv({
-  base: 'text-fg-muted mt-4 space-y-2 text-sm leading-relaxed md:text-base',
+  base: 'text-fg-muted mt-4 space-y-2 text-sm leading-relaxed md:text-base print:resume-timeline-bullets',
   variants: {
     side: {
       left: 'text-left',
@@ -66,8 +66,8 @@ const TimelineItem: FC<ItemProps> = ({ job, isLeft }) => {
     <article className={card({ side })}>
       <header className={cardHeader({ side })}>
         <h3 className="font-display text-fg text-xl md:text-2xl">{job.company}</h3>
-        <p className="text-accent text-sm font-semibold md:text-base">{job.role}</p>
-        <p className="text-fg-muted font-mono text-xs md:hidden">{dateRange}</p>
+        <p className="text-accent text-sm font-semibold md:text-base print:resume-timeline-role">{job.role}</p>
+        <p className="text-fg-muted font-mono text-xs md:hidden print:block print:resume-timeline-date">{dateRange}</p>
       </header>
       <ul className={bullets({ side })}>
         {job.bullets.map((bullet) => (
@@ -92,11 +92,11 @@ const TimelineItem: FC<ItemProps> = ({ job, isLeft }) => {
       {isLeft ? (
         <>
           <div className="md:order-1 md:text-right">{cardEl}</div>
-          <div className="hidden md:order-2 md:block">{dateBlock}</div>
+          <div className="hidden md:order-2 md:block print:hidden">{dateBlock}</div>
         </>
       ) : (
         <>
-          <div className="hidden md:order-1 md:block md:text-right">{dateBlock}</div>
+          <div className="hidden md:order-1 md:block md:text-right print:hidden">{dateBlock}</div>
           <div className="md:order-2">{cardEl}</div>
         </>
       )}
@@ -111,7 +111,7 @@ export const JobTimeline: FC<Props> = ({ jobs }) => (
       className="via-accent/40 pointer-events-none absolute top-0 bottom-0 left-4 w-px bg-gradient-to-b from-transparent to-transparent md:left-1/2 md:-translate-x-1/2 print:hidden"
     />
 
-    <ol className="print-timeline flex flex-col gap-6 md:gap-16" aria-label="Employment history">
+    <ol className="print:resume-timeline flex flex-col gap-6 md:gap-16" aria-label="Employment history">
       {jobs.map((job, index) => (
         <TimelineItem key={job.company + job.start} job={job} isLeft={index % 2 === 0} />
       ))}

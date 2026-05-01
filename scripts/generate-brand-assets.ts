@@ -87,7 +87,7 @@ const generateResumePdf = async (): Promise<void> => {
       await page.goto(previewUrl, { waitUntil: 'networkidle' });
       await page.emulateMedia({ media: 'print' });
       await page
-        .locator('.print-avatar')
+        .locator('.print\\:sheet-avatar')
         .evaluate(
           (img: HTMLImageElement) =>
             img.complete && img.naturalWidth > 0

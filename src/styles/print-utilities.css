@@ -1,0 +1,361 @@
+@utility resume-header-top {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.22in;
+  align-items: center;
+}
+
+@utility resume-avatar {
+  width: 0.9in;
+  height: 0.9in;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1pt solid #c8c8c8;
+}
+
+@utility resume-name {
+  font-family: var(--font-display);
+  font-size: 28pt;
+  line-height: 1;
+  margin-left: -2px;
+  color: #1a1a1a;
+  font-weight: 700;
+  letter-spacing: -0.08em;
+  word-spacing: -0.2em;
+}
+
+@utility resume-role {
+  font-size: 13pt;
+  color: #555;
+  margin-top: 0.04in;
+  font-weight: 500;
+}
+
+@utility resume-contact {
+  font-size: 9pt;
+  color: #333;
+  line-height: 1.4;
+  display: grid;
+  gap: 0.04in;
+}
+
+@utility resume-contact-row {
+  display: flex;
+  align-items: center;
+  gap: 0.06in;
+  justify-content: flex-end;
+
+  & svg,
+  & [data-icon] {
+    width: 10pt;
+    height: 10pt;
+    color: #1a1a1a;
+    flex-shrink: 0;
+  }
+
+  & a {
+    color: #0a7aca;
+    text-decoration: none;
+  }
+}
+
+@utility resume-summary {
+  margin-top: 0.18in;
+  font-size: 9.75pt;
+  color: #1a1a1a;
+  line-height: 1.5;
+}
+
+@utility resume-section-title {
+  font-family: var(--font-display);
+  font-size: 17pt;
+  color: #1a1a1a;
+  margin-bottom: 0.12in;
+  text-align: center;
+  text-transform: none;
+  letter-spacing: -0.06em;
+  word-spacing: -0.2em;
+  font-weight: 700;
+}
+
+@utility resume-section-header {
+  margin-bottom: 0.1in;
+  align-items: center;
+}
+
+@utility resume-timeline {
+  list-style: none;
+  display: block;
+  gap: 0;
+  padding: 0 0 0 0.2in;
+  margin: 0;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+
+  &::before {
+    display: none;
+  }
+}
+
+@utility resume-timeline-item {
+  display: block;
+  position: relative;
+  padding: 0;
+  margin: 0 0 0.08in 0;
+  break-inside: auto;
+  text-align: left;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: -0.15in;
+    top: 0.155in;
+    width: 0.09in;
+    height: 0.09in;
+    background: #1a1a1a;
+    border-radius: 50%;
+    z-index: 3;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: -0.112in;
+    top: 0;
+    bottom: -0.1in;
+    width: 1.5pt;
+    background: #888;
+    z-index: 1;
+  }
+
+  &:first-child::after {
+    top: 0.2in;
+  }
+
+  &:last-child::after {
+    top: 0;
+    bottom: auto;
+    height: 0.2in;
+  }
+}
+
+@utility resume-timeline-header {
+  break-inside: avoid;
+  break-after: avoid;
+  display: block;
+  margin: 0 0 0.05in 0;
+  text-align: left;
+  align-items: flex-start;
+
+  & h3 {
+    font-family: var(--font-display);
+    font-size: 12pt;
+    color: #1a1a1a;
+    margin: 0;
+    text-align: left;
+    font-weight: 700;
+    letter-spacing: -0.06em;
+    word-spacing: -0.2em;
+  }
+}
+
+@utility resume-timeline-role {
+  font-size: 10pt;
+  color: #1a1a1a;
+  margin-top: 0.02in;
+  text-align: left;
+  font-weight: 600;
+}
+
+@utility resume-timeline-date {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 9pt;
+  color: #555;
+  margin-top: 0.02in;
+  text-align: left;
+}
+
+@utility resume-timeline-card {
+  display: block;
+  background: #ffffff;
+  padding: 0.1in 0.14in;
+  border: 0.5pt solid #888;
+  border-radius: 4pt;
+  text-align: left;
+  margin: 0;
+  color: #1a1a1a;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@utility resume-timeline-bullets {
+  margin: 0.04in 0 0 0.18in;
+  padding: 0;
+  list-style: disc;
+
+  & li {
+    display: list-item;
+    margin: 0.02in 0;
+    padding: 0;
+    font-size: 9pt;
+    color: #1a1a1a;
+    line-height: 1.4;
+    text-align: left;
+
+    &::before {
+      display: none;
+    }
+
+    & > span:first-child {
+      display: none;
+    }
+  }
+}
+
+@utility resume-skills-grid {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 0.06in;
+  list-style: none;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 0.04in;
+  margin: 0;
+}
+
+@utility resume-skill-item {
+  display: block;
+  break-inside: avoid;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+
+  & > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.04in;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.06in 0.04in;
+    border: 0.5pt solid #888;
+    border-radius: 3pt;
+    background: #ffffff;
+    transform: none;
+    color: #1a1a1a;
+  }
+
+  & svg,
+  & [data-icon] {
+    width: 24pt;
+    height: 24pt;
+    transform: none;
+  }
+
+  & span {
+    font-size: 7pt;
+    color: #1a1a1a;
+    text-align: center;
+    line-height: 1.1;
+  }
+}
+
+@utility resume-edu-article {
+  display: block;
+  grid-template-columns: none;
+  max-width: none;
+}
+
+@utility resume-edu-header {
+  flex-direction: row-reverse;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.2in;
+  text-align: left;
+
+  & > div {
+    flex: 1 1 auto;
+    text-align: left;
+  }
+}
+
+@utility resume-edu-logo {
+  height: 0.55in;
+  width: auto;
+}
+
+@utility resume-edu-title {
+  font-family: var(--font-display);
+  font-size: 13pt;
+  color: #1a1a1a;
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  word-spacing: -0.2em;
+  text-align: left;
+}
+
+@utility resume-edu-degree {
+  font-size: 10pt;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-top: 0.02in;
+  text-align: left;
+}
+
+@utility resume-edu-dates {
+  font-family: var(--font-display);
+  font-size: 9pt;
+  color: #555;
+  margin-top: 0.02in;
+  text-align: left;
+}
+
+@utility resume-edu-subtitle {
+  font-family: var(--font-display);
+  font-size: 11pt;
+  color: #1a1a1a;
+  margin-top: 0.1in;
+  margin-bottom: 0.04in;
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  word-spacing: -0.2em;
+}
+
+@utility resume-edu-list {
+  margin: 0.04in 0 0 0.16in;
+  padding: 0;
+  list-style: disc;
+
+  & li {
+    display: list-item;
+    margin: 0.02in 0;
+    padding: 0;
+    font-size: 9pt;
+    color: #1a1a1a;
+
+    & > span:first-child {
+      display: none;
+    }
+  }
+}
+
+@utility resume-edu-hr {
+  border: 0;
+  border-top: 0.5pt solid #d0d0d0;
+  margin: 0.06in 0;
+}
+
+@utility resume-break-before {
+  break-before: auto;
+}
+
+@utility resume-avoid-break {
+  break-inside: avoid;
+}

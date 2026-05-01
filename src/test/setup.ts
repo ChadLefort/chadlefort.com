@@ -1,3 +1,7 @@
+// Tell React we're in an act-friendly test environment (required for React 19 + Vitest)
+// https://react.dev/reference/react/act#troubleshooting
+(globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
+
 import '@testing-library/jest-dom/vitest';
 import 'vitest-axe/extend-expect';
 import { cleanup } from '@testing-library/react';
@@ -35,30 +39,10 @@ const mockCanvasContext = {
 
 expect.extend(matchers);
 
-if (!Element.prototype.scrollTo) {
-  Element.prototype.scrollTo = function scrollTo() {};
-}
-
 Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
   writable: true,
   value: () => mockCanvasContext
 });
-
-if (!window.matchMedia) {
-  Object.defineProperty(window, 'matchMedia', {
-    writable: true,
-    value: (query: string) => ({
-      matches: false,
-      media: query,
-      onchange: null,
-      addListener: () => {},
-      removeListener: () => {},
-      addEventListener: () => {},
-      removeEventListener: () => {},
-      dispatchEvent: () => false
-    })
-  });
-}
 
 afterEach(() => {
   cleanup();

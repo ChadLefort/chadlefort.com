@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./print-utilities.css";
 @import "./print.css";
 
 @font-face {

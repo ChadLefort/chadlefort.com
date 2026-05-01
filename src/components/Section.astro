@@ -28,11 +28,11 @@ const {
 } = Astro.props as Props;
 
 const section = tv({
-  base: 'relative scroll-mt-24 px-4 py-5 sm:px-6 sm:py-8 md:py-16 print:p-0'
+  base: 'relative scroll-mt-24 px-4 py-5 sm:px-6 sm:py-8 md:py-16 print:p-0 print:mb-[0.28in]'
 });
 
 const tile$ = tv({
-  base: 'relative mx-auto w-full px-5 py-10 sm:px-10 sm:py-14 md:py-28 lg:px-16 print:p-0',
+  base: 'relative mx-auto w-full px-5 py-10 sm:px-10 sm:py-14 md:py-28 lg:px-16 print:p-0 print:bg-transparent print:border-0 print:rounded-none print:max-w-full',
   variants: {
     width: {
       narrow: 'max-w-4xl',
@@ -52,7 +52,7 @@ const tile$ = tv({
 });
 
 const header = tv({
-  base: 'mb-8 flex flex-col gap-4 sm:mb-12 md:mb-20',
+  base: 'mb-8 flex flex-col gap-4 sm:mb-12 md:mb-20 print:mb-[0.1in] print:items-center',
   variants: {
     align: {
       center: 'items-center text-center',
@@ -74,7 +74,7 @@ const tileOff = !tile || tone === 'plain';
     {
       title && (
         <header class={header({ align: titleAlign })}>
-          <h2 class="font-display text-4xl md:text-6xl">{title}</h2>
+          <h2 class="font-display text-4xl md:text-6xl print:resume-section-title">{title}</h2>
         </header>
       )
     }

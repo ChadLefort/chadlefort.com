@@ -33,7 +33,7 @@ jobs:
         run: bun run build
 
       - name: Update snapshots
-        run: bun run test:e2e:update
+        run: bunx playwright test --update-snapshots
 
       - name: Upload snapshot artifacts
         uses: actions/upload-artifact@v4
@@ -50,6 +50,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No snapshot changes to commit"
           else
-            git commit -m "Update linux visual snapshots"
+            git commit -m "Update linux visual snapshots [skip ci]"
             git push
           fi

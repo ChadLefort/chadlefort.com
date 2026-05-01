@@ -1,9 +1,10 @@
-import { render, screen } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { axe } from 'vitest-axe';
 import {
   $closed,
+  $interactive,
   $maximized,
   $minimized,
   appendLines,
@@ -18,6 +19,11 @@ const renderTerminal = async () => {
   const rendered = render(<Terminal />);
 
   await screen.findByText('clefort');
+
+  await waitFor(() => expect($interactive.get()).toBe(true), { timeout: 8000 });
+
+  // Flush any remaining React Aria state updates
+  await act(() => Promise.resolve());
 
   return rendered;
 };
@@ -60,10 +66,10 @@ describe('Terminal', () => {
     expect(screen.getAllByText('clefort').length).toBeGreaterThan(0);
   });
 
-  it('switches to the interactive shell when unlocked', async () => {
+  it('switches to the interactive shell when unlocked', () => {
     renderUnlockedTerminal();
 
-    expect(await screen.findByText(/chadlefort\.com shell ready/i)).toBeInTheDocument();
+    expect(screen.getByText(/chadlefort\.com shell ready/i)).toBeInTheDocument();
   });
 
   it('minimize from maximized exits maximize', async () => {

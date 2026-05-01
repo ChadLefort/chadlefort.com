@@ -8,8 +8,8 @@ const years = yearsOfExperience();
 ---
 
 <section data-print-only class="hidden">
-  <div class="print-header">
-    <div class="print-header-top">
+  <div>
+    <div class="print:resume-header-top">
       <Image
         src={me}
         alt="Chad Lefort"
@@ -19,33 +19,33 @@ const years = yearsOfExperience();
         quality={88}
         loading="eager"
         fetchpriority="high"
-        class="print-avatar"
+        class="print:resume-avatar"
       />
       <div class="print-name-block">
-        <h1>{site.name}</h1>
-        <p>{site.jobTitle}</p>
+        <h1 class="print:resume-name">{site.name}</h1>
+        <p class="print:resume-role">{site.jobTitle}</p>
       </div>
-      <div class="print-contact">
-        <div class="print-contact-row">
+      <div class="print:resume-contact">
+        <div class="print:resume-contact-row">
           <Icon name="lucide:phone" aria-hidden="true" />
           <span>(985) 696-4781</span>
         </div>
-        <div class="print-contact-row">
+        <div class="print:resume-contact-row">
           <Icon name="lucide:mail" aria-hidden="true" />
           <a href={`mailto:${site.email}`}>{site.email}</a>
         </div>
-        <div class="print-contact-row">
+        <div class="print:resume-contact-row">
           <Icon name="simple-icons:github" aria-hidden="true" />
           <a href={site.social.github}>github.com/ChadLefort</a>
         </div>
-        <div class="print-contact-row">
+        <div class="print:resume-contact-row">
           <Icon name="simple-icons:linkedin" aria-hidden="true" />
           <a href={site.social.linkedin}>linkedin.com/in/chadlefort</a>
         </div>
       </div>
     </div>
 
-    <p class="print-summary">
+    <p class="print:resume-summary">
       Over my {years}+ year career I've specialized in frontend solutions. I've architected and delivered a wide range
       of revenue-growing projects while leveraging a variety of modern frameworks and libraries. Committed to team
       success, I prioritize delivering exceptional products that provide an outstanding user experience. Most recently
