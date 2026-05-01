@@ -52,7 +52,9 @@ export const ls: Command = (args, ctx, name) => {
   }
 
   const showHidden = flags.includes('a') || name === 'la' || name === 'll';
-  const entries = Object.values(node.children).filter((e) => showHidden || !e.name.startsWith('.'));
+  const entries = Object.values(node.children)
+    .filter((e) => showHidden || !e.name.startsWith('.'))
+    .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
 
   ctx.append(entries.map((entry) => ({ kind: 'node' as const, node: <LsRow entry={entry} /> })));
 };

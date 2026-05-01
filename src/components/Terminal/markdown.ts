@@ -13,7 +13,9 @@ export const parseMd = (content: string): MdLine[] =>
   });
 
 export const buildTree = (node: FsDir, prefix = ''): string[] => {
-  const entries = Object.values(node.children);
+  const entries = Object.values(node.children).sort((a, b) =>
+    a.name.localeCompare(b.name, undefined, { sensitivity: 'base' })
+  );
   const out: string[] = [];
 
   entries.forEach((child, idx) => {
