@@ -13,6 +13,7 @@
   "scripts": {
     "dev": "astro dev --host",
     "start": "astro dev --host",
+    "prebuild": "bun scripts/generate-build-info.ts",
     "build": "astro build",
     "assets:brand": "bun scripts/generate-brand-assets.ts",
     "assets:favicon": "bun scripts/generate-favicon.ts",

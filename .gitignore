@@ -36,6 +36,9 @@ jspm_packages
 .astro
 dist
 
+# Generated
+public/build-info.json
+
 # Mac
 .DS_Store
 
