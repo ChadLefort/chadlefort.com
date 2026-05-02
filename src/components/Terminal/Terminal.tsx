@@ -5,17 +5,17 @@ import neovim from '@iconify-icons/simple-icons/neovim';
 import tmux from '@iconify-icons/simple-icons/tmux';
 import { useStore } from '@nanostores/react';
 import type { FC } from 'react';
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { tv } from 'tailwind-variants';
 import { NavigationProvider } from '~/components/NavigationProvider';
 import { useSiteHost } from '~/hooks/useSiteHost';
+import { Shell } from './Shell';
 import {
   $closed,
   $maximized,
   $minimized,
   $welcomeShown,
   appendLines,
-  resetShellStore,
   setClosed,
   setInteractive,
   setLines,
@@ -27,8 +27,6 @@ import {
 import { Tab } from './Tab';
 import { TrafficLights } from './TrafficLights';
 import { getSessionLabel } from './utils';
-
-const Shell = lazy(() => import('./Shell').then((module) => ({ default: module.Shell })));
 
 const wrapper = tv({
   base: 'relative w-full',
@@ -96,9 +94,7 @@ const ShellViewport: FC<{ maximized: boolean; minimized?: boolean; sessionLabel:
 }) => {
   const shell = (
     <div className={slot({ maximized })}>
-      <Suspense fallback={null}>
-        <Shell />
-      </Suspense>
+      <Shell />
     </div>
   );
 
@@ -128,13 +124,6 @@ export const Terminal: FC = () => {
   const host = useSiteHost();
   const [closing, setClosing] = useState(false);
   const sessionLabel = getSessionLabel(host);
-
-  useEffect(() => {
-    return () => {
-      document.documentElement.style.overflow = '';
-      resetShellStore();
-    };
-  }, []);
 
   useEffect(() => {
     if (closed || !maximized || minimized) return;

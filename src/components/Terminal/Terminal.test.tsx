@@ -115,7 +115,7 @@ describe('Terminal', () => {
     expect(document.documentElement.style.overflow).toBe('');
   });
 
-  it('resets shell state on unmount', () => {
+  it('preserves shell state across remounts', () => {
     const { unmount } = renderUnlockedTerminal();
 
     expect($interactive.get()).toBe(true);
@@ -123,8 +123,12 @@ describe('Terminal', () => {
 
     unmount();
 
-    expect($interactive.get()).toBe(false);
-    expect($lines.get()).toHaveLength(0);
+    expect($interactive.get()).toBe(true);
+    expect($lines.get()).toHaveLength(WELCOME_LINES.length);
+
+    render(<Terminal />);
+
+    expect(screen.getByText(/chadlefort\.com shell ready/i)).toBeInTheDocument();
   });
 
   it('has no axe violations', async () => {
