@@ -118,9 +118,9 @@ const ShellViewport: FC<{ maximized: boolean; minimized?: boolean; sessionLabel:
 };
 
 export const Terminal: FC = () => {
-  const maximized = useStore($maximized);
-  const minimized = useStore($minimized);
-  const closed = useStore($closed);
+  const maximized = useStore($maximized, { ssr: 'initial' });
+  const minimized = useStore($minimized, { ssr: 'initial' });
+  const closed = useStore($closed, { ssr: 'initial' });
   const host = useSiteHost();
   const [closing, setClosing] = useState(false);
   const sessionLabel = getSessionLabel(host);

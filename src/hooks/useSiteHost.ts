@@ -8,4 +8,4 @@ onMount($siteHost, () => {
   $siteHost.set(getSiteHost());
 });
 
-export const useSiteHost = () => useStore($siteHost);
+export const useSiteHost = () => useStore($siteHost, { ssr: 'initial' });

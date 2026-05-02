@@ -66,15 +66,15 @@ const promptArrow = tv({ base: 'text-term-prompt shrink-0' });
 
 export const Shell: FC = () => {
   const host = useSiteHost();
-  const root = useMemo(() => buildFs(host), [host]);
-  const lines = useStore($lines);
-  const cwd = useStore($cwd);
-  const history = useStore($history);
-  const interactive = useStore($interactive);
-  const maximized = useStore($maximized);
+  const lines = useStore($lines, { ssr: 'initial' });
+  const cwd = useStore($cwd, { ssr: 'initial' });
+  const history = useStore($history, { ssr: 'initial' });
+  const interactive = useStore($interactive, { ssr: 'initial' });
+  const maximized = useStore($maximized, { ssr: 'initial' });
   const years = yearsOfExperience();
   const reducedMotion = useReducedMotion();
   const isMobile = useMediaQuery('(max-width: 640px)');
+  const root = useMemo(() => buildFs(host), [host]);
   const [viewRef, inView] = useInView<HTMLDivElement>({
     threshold: isMobile ? 0.4 : 0,
     rootMargin: isMobile ? '0px 0px -20% 0px' : '0px',
@@ -101,6 +101,7 @@ export const Shell: FC = () => {
     inView,
     append
   });
+
   const { input, setInput, onKey, onSubmit } = useShellPrompt({
     root,
     cwd,
@@ -118,10 +119,10 @@ export const Shell: FC = () => {
   }, [maximized, phase]);
 
   useEffect(() => {
-    if (interactive) return;
+    if ($interactive.get() || $lines.get().length > 0) return;
 
     append([{ kind: 'status' }]);
-  }, [append, interactive]);
+  }, [append]);
 
   useEffect(() => {
     const target = cwdForHost(host);
