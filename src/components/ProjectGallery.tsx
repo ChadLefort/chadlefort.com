@@ -6,6 +6,8 @@ import { tv } from 'tailwind-variants';
 import { Button } from '~/components/Button';
 import { IconButton } from '~/components/IconButton';
 
+export const PROJECT_GALLERY_OPEN_EVENT = 'project-gallery:open';
+
 const thumbImg = tv({
   base: 'block h-full w-full rounded-2xl object-cover object-top transition duration-300 group-hover:scale-[1.01]',
   variants: {
@@ -16,9 +18,9 @@ const thumbImg = tv({
   }
 });
 
-const thumbButton = tv({
+export const thumbButton = tv({
   base: [
-    'group relative block w-full cursor-pointer rounded-2xl transition px-2',
+    'group relative block w-full cursor-pointer rounded-2xl transition p-0',
     'focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-accent'
   ]
 });
@@ -143,7 +145,7 @@ export type GalleryImage = {
 };
 
 type IndexedImage = GalleryImage & { index: number };
-type Props = { images: GalleryImage[]; title: string };
+type Props = { images: GalleryImage[]; title: string; openRequest?: number };
 type SwipeState = { x: number; y: number };
 type PinchState = { distance: number; zoomLevel: number };
 type TouchHandler = (event: ReactTouchEvent<HTMLButtonElement>) => void;
@@ -724,8 +726,9 @@ const useProjectGalleryLightbox = (images: GalleryImage[]) => {
   };
 };
 
-export const ProjectGallery: FC<Props> = ({ images, title }) => {
+export const ProjectGallery: FC<Props> = ({ images, title, openRequest = 0 }) => {
   const dialogId = useId();
+  const handledOpenRequestRef = useRef(0);
   const {
     active,
     activeImage,
@@ -750,6 +753,13 @@ export const ProjectGallery: FC<Props> = ({ images, title }) => {
     zoomed,
     zoomedImageStyle
   } = useProjectGalleryLightbox(images);
+
+  useEffect(() => {
+    if (!openRequest || !images.length || openRequest === handledOpenRequestRef.current) return;
+
+    handledOpenRequestRef.current = openRequest;
+    openAt(0);
+  }, [images.length, openAt, openRequest]);
 
   if (!images.length || !activeImage) return null;
 

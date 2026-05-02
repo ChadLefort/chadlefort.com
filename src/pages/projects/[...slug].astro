@@ -2,6 +2,7 @@
 import { getImage, Picture } from 'astro:assets';
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import { Icon } from 'astro-icon/components';
+import { ProjectHeroGalleryButton } from '~/components/ProjectHeroGalleryButton';
 import { ProjectTabsIsland } from '~/components/ProjectTabsIsland';
 import { CTALink } from '~/components/CTALink';
 import { PillLink } from '~/components/PillLink';
@@ -198,7 +199,26 @@ const breadcrumbLd = {
           </div>
 
           {
-            project.data.cover && (
+            project.data.cover && gallery.length > 0 && (
+              <ProjectHeroGalleryButton client:load>
+                <Picture
+                  src={project.data.cover}
+                  alt={project.data.title}
+                  widths={[640, 960, 1280, 1600]}
+                  sizes="(min-width: 768px) 640px, 100vw"
+                  formats={['avif', 'webp']}
+                  fallbackFormat="webp"
+                  quality={82}
+                  loading="eager"
+                  fetchpriority="high"
+                  pictureAttributes={{ class: 'block h-full w-full' }}
+                  class="h-full w-full object-cover object-top"
+                />
+              </ProjectHeroGalleryButton>
+            )
+          }
+          {
+            project.data.cover && gallery.length === 0 && (
               <Picture
                 src={project.data.cover}
                 alt={project.data.title}
