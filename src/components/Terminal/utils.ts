@@ -1,7 +1,12 @@
-export const formatTime = () => new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+const timeFormatter = new Intl.DateTimeFormat('en-US', {
+  hour: 'numeric',
+  minute: '2-digit'
+});
+
+export const formatTime = (date = new Date()) => timeFormatter.format(date);
 
 const KNOWN_HOSTS = ['chadlefort.com', 'chadlefort.me'] as const;
-const FALLBACK_HOST = 'chadlefort.com';
+export const FALLBACK_HOST = 'chadlefort.com';
 
 export const getSiteHost = (): string => {
   if (typeof window === 'undefined') return FALLBACK_HOST;

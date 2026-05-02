@@ -8,12 +8,14 @@ import type { FC } from 'react';
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { tv } from 'tailwind-variants';
 import { NavigationProvider } from '~/components/NavigationProvider';
+import { useSiteHost } from '~/hooks/useSiteHost';
 import {
   $closed,
   $maximized,
   $minimized,
   $welcomeShown,
   appendLines,
+  resetShellStore,
   setClosed,
   setInteractive,
   setLines,
@@ -24,7 +26,7 @@ import {
 } from './store';
 import { Tab } from './Tab';
 import { TrafficLights } from './TrafficLights';
-import { getSessionLabel, getSiteHost } from './utils';
+import { getSessionLabel } from './utils';
 
 const Shell = lazy(() => import('./Shell').then((module) => ({ default: module.Shell })));
 
@@ -123,9 +125,16 @@ export const Terminal: FC = () => {
   const maximized = useStore($maximized);
   const minimized = useStore($minimized);
   const closed = useStore($closed);
-  const host = getSiteHost();
-  const sessionLabel = getSessionLabel(host);
+  const host = useSiteHost();
   const [closing, setClosing] = useState(false);
+  const sessionLabel = getSessionLabel(host);
+
+  useEffect(() => {
+    return () => {
+      document.documentElement.style.overflow = '';
+      resetShellStore();
+    };
+  }, []);
 
   useEffect(() => {
     if (closed || !maximized || minimized) return;

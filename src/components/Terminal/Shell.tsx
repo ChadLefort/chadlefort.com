@@ -6,6 +6,7 @@ import { yearsOfExperience } from '~/data/site';
 import { useInView } from '~/hooks/useInView';
 import { useMediaQuery } from '~/hooks/useMediaQuery';
 import { useReducedMotion } from '~/hooks/useReducedMotion';
+import { useSiteHost } from '~/hooks/useSiteHost';
 import { Cursor } from './Cursor';
 import { PromptInput } from './PromptInput';
 import { StatusLine } from './StatusLine';
@@ -23,7 +24,7 @@ import {
 } from './store';
 import { useShellDemo } from './useShellDemo';
 import { useShellPrompt } from './useShellPrompt';
-import { formatTime, getSiteHost } from './utils';
+import { formatTime } from './utils';
 import { buildFs, cwdForHost, formatPath } from './vfs';
 
 const shellRoot = tv({
@@ -64,7 +65,7 @@ const promptRow = tv({ base: 'flex items-center gap-1.5' });
 const promptArrow = tv({ base: 'text-term-prompt shrink-0' });
 
 export const Shell: FC = () => {
-  const host = getSiteHost();
+  const host = useSiteHost();
   const root = useMemo(() => buildFs(host), [host]);
   const lines = useStore($lines);
   const cwd = useStore($cwd);

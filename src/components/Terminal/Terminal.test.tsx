@@ -5,6 +5,7 @@ import { axe } from 'vitest-axe';
 import {
   $closed,
   $interactive,
+  $lines,
   $maximized,
   $minimized,
   appendLines,
@@ -112,6 +113,18 @@ describe('Terminal', () => {
     expect($maximized.get()).toBe(false);
     expect($closed.get()).toBe(false);
     expect(document.documentElement.style.overflow).toBe('');
+  });
+
+  it('resets shell state on unmount', () => {
+    const { unmount } = renderUnlockedTerminal();
+
+    expect($interactive.get()).toBe(true);
+    expect($lines.get()).toHaveLength(WELCOME_LINES.length);
+
+    unmount();
+
+    expect($interactive.get()).toBe(false);
+    expect($lines.get()).toHaveLength(0);
   });
 
   it('has no axe violations', async () => {
