@@ -31,7 +31,8 @@ const shellRoot = tv({
   base: [
     'bg-term-bg text-term-fg break-words font-mono h-full',
     'px-4 pt-4 pb-5 text-[12.5px] leading-6',
-    'sm:px-5 sm:pt-5 sm:pb-6 sm:text-[15px] sm:leading-7'
+    'sm:px-5 sm:pt-5 sm:pb-6 sm:text-[15px] sm:leading-7',
+    '[mask-image:linear-gradient(to_bottom,transparent,black_10px,black_calc(100%-10px),transparent)]'
   ],
   variants: {
     maximized: {
