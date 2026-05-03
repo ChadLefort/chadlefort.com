@@ -4,7 +4,7 @@ import { Link } from 'react-aria-components';
 import { tv } from 'tailwind-variants';
 
 const tabStyles = tv({
-  base: 'inline-flex h-9 items-center gap-2 rounded-t-xl px-3 text-[12px] font-medium whitespace-nowrap transition sm:px-4',
+  base: 'box-border inline-flex h-9 transform-gpu items-center gap-2 overflow-hidden rounded-t-xl border border-transparent px-3 text-[12px] font-medium whitespace-nowrap transition sm:px-4',
   variants: {
     tone: {
       default: '',
@@ -60,7 +60,7 @@ export const Tab: FC<TabProps> = ({ idx, mobileIdx, icon, label, active, href, h
           )}
         </span>
       )}
-      <Icon icon={icon} className="h-3.5 w-3.5" aria-hidden="true" />
+      <Icon icon={icon} className="shrink-0 h-4 w-4" aria-hidden="true" />
       <span className="font-mono">{label}</span>
     </>
   );

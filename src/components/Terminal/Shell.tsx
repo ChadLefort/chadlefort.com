@@ -1,6 +1,7 @@
 import { useStore } from '@nanostores/react';
-import type { FC, FocusEvent } from 'react';
+import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { FocusScope, useFocusWithin } from 'react-aria';
 import { tv } from 'tailwind-variants';
 import { yearsOfExperience } from '~/data/site';
 import { useInView } from '~/hooks/useInView';
@@ -32,6 +33,7 @@ const shellRoot = tv({
     'bg-term-bg text-term-fg break-words font-mono h-full',
     'px-4 pt-4 pb-5 text-[12.5px] leading-6',
     'sm:px-5 sm:pt-5 sm:pb-6 sm:text-[15px] sm:leading-7',
+    'focus:outline-none',
     '[mask-image:linear-gradient(to_bottom,transparent,black_10px,black_calc(100%-10px),transparent)]'
   ],
   variants: {
@@ -155,45 +157,15 @@ export const Shell: FC = () => {
     scroller.scrollTo({ top: scroller.scrollHeight });
   }, [lastLineId]);
 
-  useEffect(() => {
-    const element = scrollerRef.current;
-
-    if (!element) return;
-
-    const onMouseUp = () => {
-      const selection = window.getSelection?.();
-
-      if (selection && selection.toString().length > 0) return;
-
-      inputRef.current?.focus();
-    };
-
-    element.addEventListener('mouseup', onMouseUp);
-
-    return () => element.removeEventListener('mouseup', onMouseUp);
-  }, []);
-
-  const shellIsEngaged = maximized || engaged;
-
-  const onFocusCapture = useCallback(() => {
-    if (maximized) return;
-
-    setEngaged(true);
-  }, [maximized]);
-
-  const onBlurCapture = useCallback(
-    (event: FocusEvent<HTMLDivElement>) => {
-      if (maximized) return;
-
-      const nextFocused = event.relatedTarget;
-
-      if (nextFocused instanceof Node && event.currentTarget.contains(nextFocused)) return;
-
+  const { focusWithinProps } = useFocusWithin({
+    onFocusWithin: () => setEngaged(true),
+    onBlurWithin: () => {
       setEngaged(false);
       scrollerRef.current?.scrollTo({ top: scrollerRef.current.scrollHeight });
-    },
-    [maximized]
-  );
+    }
+  });
+
+  const shellIsEngaged = maximized || engaged;
 
   const renderLine = (line: Line) => {
     if (line.kind === 'status') {
@@ -235,42 +207,44 @@ export const Shell: FC = () => {
   };
 
   return (
-    <div
-      ref={setShellRef}
-      className={shellRoot({ maximized, engaged: shellIsEngaged })}
-      role="log"
-      aria-live="polite"
-      data-no-print
-      onFocusCapture={onFocusCapture}
-      onBlurCapture={onBlurCapture}
-    >
-      {lines.map(renderLine)}
+    <FocusScope contain={maximized} restoreFocus>
+      <div
+        ref={setShellRef}
+        className={shellRoot({ maximized, engaged: shellIsEngaged })}
+        role="log"
+        aria-live="polite"
+        data-no-print
+        tabIndex={-1}
+        {...focusWithinProps}
+      >
+        {lines.map(renderLine)}
 
-      {phase === 'cmd' && (
-        <p className="m-0">
-          <span className={promptArrow()}>→</span> <span>{typed}</span>
-          <Cursor />
-        </p>
-      )}
+        {phase === 'cmd' && (
+          <p className="m-0">
+            <span className={promptArrow()}>→</span> <span>{typed}</span>
+            <Cursor />
+          </p>
+        )}
 
-      {phase === 'done' && (
-        <>
-          <div className="mt-4 mb-2">
-            <StatusLine
-              cwd={formatPath(cwd)}
-              branch="feat/redesign"
-              modified={2}
-              added={years}
-              removed={0}
-              time={time}
-            />
-          </div>
-          <form onSubmit={onSubmit} className={promptRow()}>
-            <span className={promptArrow()}>→</span>
-            <PromptInput value={input} onChange={setInput} onKey={onKey} inputRef={inputRef} />
-          </form>
-        </>
-      )}
-    </div>
+        {phase === 'done' && (
+          <>
+            <div className="mt-4 mb-2">
+              <StatusLine
+                cwd={formatPath(cwd)}
+                branch="feat/redesign"
+                modified={2}
+                added={years}
+                removed={0}
+                time={time}
+              />
+            </div>
+            <form onSubmit={onSubmit} className={promptRow()} onClick={() => inputRef.current?.focus()}>
+              <span className={promptArrow()}>→</span>
+              <PromptInput value={input} onChange={setInput} onKey={onKey} inputRef={inputRef} />
+            </form>
+          </>
+        )}
+      </div>
+    </FocusScope>
   );
 };
