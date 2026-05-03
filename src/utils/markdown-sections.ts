@@ -6,8 +6,8 @@ import { locationLong, site, yearsOfExperience } from '~/data/site';
 import { skills } from '~/data/skills';
 
 export const sortedProjects = async () =>
-  (await getCollection('projects')).sort(
-    (a: { data: { order?: number } }, b: { data: { order?: number } }) => (a.data.order ?? 99) - (b.data.order ?? 99)
+  (await getCollection('projects')).sort((a: { data: { end: string } }, b: { data: { end: string } }) =>
+    b.data.end.localeCompare(a.data.end)
   );
 
 export const introLines = (): string[] =>

@@ -40,7 +40,6 @@ const projects = defineCollection({
       externalUrl: z.string().url().optional(),
       repoUrl: z.string().url().optional(),
       tech: z.array(z.string()),
-      order: z.number(),
       featured: z.boolean().default(false),
       span: z.enum(['sm', 'md', 'lg', 'xl']).default('md'),
       accent: z.string().default('from-sky-500/20 to-indigo-500/10'),

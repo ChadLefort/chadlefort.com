@@ -7,7 +7,7 @@ import Base from '~/layouts/Base.astro';
 type Project = CollectionEntry<'projects'>;
 
 const raw = await getCollection('projects');
-const projects = raw.sort((a: Project, b: Project) => a.data.order - b.data.order);
+const projects = raw.sort((a: Project, b: Project) => b.data.end.localeCompare(a.data.end));
 
 const collectionLd = {
   '@context': 'https://schema.org',
