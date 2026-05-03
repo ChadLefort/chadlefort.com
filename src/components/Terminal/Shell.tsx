@@ -227,8 +227,8 @@ export const Shell: FC = () => {
         )}
 
         {phase === 'done' && (
-          <>
-            <div className="mt-4 mb-2">
+          <div className="mt-4 mb-2" onClick={() => inputRef.current?.focus()}>
+            <div className="mb-2">
               <StatusLine
                 cwd={formatPath(cwd)}
                 branch="feat/redesign"
@@ -238,11 +238,11 @@ export const Shell: FC = () => {
                 time={time}
               />
             </div>
-            <form onSubmit={onSubmit} className={promptRow()} onClick={() => inputRef.current?.focus()}>
+            <form onSubmit={onSubmit} className={promptRow()}>
               <span className={promptArrow()}>→</span>
               <PromptInput value={input} onChange={setInput} onKey={onKey} inputRef={inputRef} />
             </form>
-          </>
+          </div>
         )}
       </div>
     </FocusScope>
