@@ -1,0 +1,33 @@
+{
+  "name": "Chad Lefort - Senior Frontend Engineer",
+  "short_name": "Chad Lefort",
+  "description": "Portfolio and resume for Chad Lefort - Senior Frontend Engineer from Mandeville, Louisiana building accessible, performant web apps.",
+  "theme_color": "#21252b",
+  "background_color": "#21252b",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/",
+  "lang": "en-US",
+  "orientation": "portrait",
+  "categories": ["portfolio", "personal", "productivity"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -1,9 +1,12 @@
 import { fileURLToPath } from 'node:url';
 import react from '@vitejs/plugin-react';
+import type { ViteUserConfig } from 'vitest/config';
 import { defineConfig } from 'vitest/config';
 
+type VitestPlugins = NonNullable<ViteUserConfig['plugins']>;
+
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react()] as unknown as VitestPlugins,
   resolve: {
     alias: {
       '~': fileURLToPath(new URL('./src', import.meta.url)),

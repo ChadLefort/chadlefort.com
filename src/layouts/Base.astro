@@ -1,9 +1,7 @@
 ---
 import '~/styles/global.css';
 import { ClientRouter } from 'astro:transitions';
-import { pwaInfo } from 'virtual:pwa-info';
 import Nav from '~/components/Nav.astro';
-import PWARegister from '~/components/PWARegister.astro';
 import { ScrollToTop } from '~/components/ScrollToTop';
 import SEO from '~/components/SEO.astro';
 import ThemeScript from '~/components/ThemeScript.astro';
@@ -45,11 +43,16 @@ const {
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Chad Lefort" />
-    {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
+    <link rel="manifest" href="/manifest.webmanifest" />
 
     <ThemeScript />
     <SEO title={title} description={description} image={image} pathname={pathname} structuredData={structuredData} />
-    <PWARegister />
+    <script
+      is:inline
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "332e6a2791d048f4af0a1bf802b33444"}'
+    ></script>
     <ClientRouter />
   </head>
 
