@@ -34,10 +34,11 @@ export type FsDir = {
 export type FsNode = FsFile | FsDir;
 
 export const projects = [
+  { id: 'cdocs-go', summary: 'An instructor-guided live online education SaaS platform for dentists.' },
   { id: 'component-library', summary: 'React Aria Components library replacing Chakra UI/PrimeReact across 3 apps.' },
   { id: 'lerna-monorepo', summary: 'Lerna monorepo for 17 React projects, saved deployment hours.' },
   { id: 'router-migration', summary: 'TanStack Router migration across 3 apps with zero downtime.' },
-  { id: 'spear-cart', summary: 'Mobile-first multi-cart for education SaaS, +25% memberships.' },
+  { id: 'spear-cart', summary: 'Mobile first multi-cart for education SaaS, +25% memberships.' },
   { id: 'spear-dashboard', summary: 'Live instructor-guided learning dashboard, +9000% engagement.' },
   { id: 'webpack-5-module-federation', summary: 'Webpack 5 module federation rollout, reduced PR count 5→1.' }
 ];
