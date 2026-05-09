@@ -10,7 +10,8 @@ const resumeSourceFiles = new Set([
   'src/data/site.ts',
   'src/data/skills.ts',
   'src/pages/resume.md.ts',
-  'src/utils/markdown-sections.ts'
+  'src/utils/markdown-sections.ts',
+  'src/sections/home/PrintHeader.astro'
 ]);
 
 const stagedFilesResult = await $`git diff --cached --name-only`.cwd(rootDir).quiet().nothrow();
