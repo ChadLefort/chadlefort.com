@@ -185,6 +185,55 @@ type ZoomLevel = (typeof BASE_ZOOM_LEVELS)[number];
 const getTouchDistance = (touchA: Touch, touchB: Touch) =>
   Math.hypot(touchB.clientX - touchA.clientX, touchB.clientY - touchA.clientY);
 
+const isHorizontalSwipeGesture = (deltaX: number, deltaY: number) =>
+  Math.abs(deltaX) >= SWIPE_THRESHOLD &&
+  Math.abs(deltaY) <= SWIPE_VERTICAL_TOLERANCE &&
+  Math.abs(deltaX) > Math.abs(deltaY);
+
+const endPinchTouchGesture = (
+  event: ReactTouchEvent<HTMLButtonElement>,
+  pinchStateRef: RefObject<PinchState | null>,
+  swipeStartRef: RefObject<SwipeState | null>
+) => {
+  if (!pinchStateRef.current) return false;
+
+  if (event.touches.length < 2) {
+    pinchStateRef.current = null;
+  }
+
+  swipeStartRef.current = null;
+  return true;
+};
+
+const handleSwipeTouchEnd = (
+  event: ReactTouchEvent<HTMLButtonElement>,
+  swipeStartRef: RefObject<SwipeState | null>,
+  suppressImageToggleRef: RefObject<boolean>,
+  isSwipeBlocked: () => boolean,
+  next: () => void,
+  prev: () => void
+) => {
+  const swipeStart = swipeStartRef.current;
+  if (!swipeStart) return;
+
+  const touch = event.changedTouches[0];
+  swipeStartRef.current = null;
+  if (!touch) return;
+
+  const deltaX = touch.clientX - swipeStart.x;
+  const deltaY = touch.clientY - swipeStart.y;
+  if (!isHorizontalSwipeGesture(deltaX, deltaY) || isSwipeBlocked()) return;
+
+  suppressImageToggleRef.current = true;
+
+  if (deltaX < 0) {
+    next();
+    return;
+  }
+
+  prev();
+};
+
 const getClosestZoomIndex = (zoomLevels: number[], targetZoom: number) => {
   if (!zoomLevels.length) return 0;
 
@@ -596,37 +645,9 @@ const useProjectGalleryLightbox = (images: GalleryImage[]) => {
 
   const handleImageTouchEnd = useCallback<TouchHandler>(
     (event) => {
-      if (pinchStateRef.current) {
-        if (event.touches.length < 2) pinchStateRef.current = null;
-        swipeStartRef.current = null;
-        return;
-      }
+      if (endPinchTouchGesture(event, pinchStateRef, swipeStartRef)) return;
 
-      const swipeStart = swipeStartRef.current;
-      if (!swipeStart) return;
-
-      const touch = event.changedTouches[0];
-      swipeStartRef.current = null;
-
-      if (!touch) return;
-
-      const deltaX = touch.clientX - swipeStart.x;
-      const deltaY = touch.clientY - swipeStart.y;
-      const horizontalSwipe =
-        Math.abs(deltaX) >= SWIPE_THRESHOLD &&
-        Math.abs(deltaY) <= SWIPE_VERTICAL_TOLERANCE &&
-        Math.abs(deltaX) > Math.abs(deltaY);
-
-      if (!horizontalSwipe || isSwipeBlocked()) return;
-
-      suppressImageToggleRef.current = true;
-
-      if (deltaX < 0) {
-        next();
-        return;
-      }
-
-      prev();
+      handleSwipeTouchEnd(event, swipeStartRef, suppressImageToggleRef, isSwipeBlocked, next, prev);
     },
     [isSwipeBlocked, next, prev]
   );

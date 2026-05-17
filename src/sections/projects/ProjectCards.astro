@@ -75,18 +75,6 @@ const cardLink = tv({
               <p class="text-accent font-mono text-xs tracking-[0.25em] uppercase">{project.data.subtitle}</p>
               <h3 class="font-display text-2xl md:text-3xl">{project.data.title}</h3>
               <p class="text-fg-muted leading-relaxed">{project.data.summary}</p>
-              <ul class="mt-auto flex flex-wrap gap-1.5 pt-3">
-                {project.data.tech.slice(0, 6).map((tag: string) => (
-                  <li class="border-glass-border bg-tile text-fg-muted rounded-full border px-2.5 py-0.5 text-xs font-semibold tracking-wide">
-                    {tag}
-                  </li>
-                ))}
-                {project.data.tech.length > 6 && (
-                  <li class="border-glass-border text-fg-muted rounded-full border px-2.5 py-0.5 text-xs font-semibold tracking-wide">
-                    +{project.data.tech.length - 6}
-                  </li>
-                )}
-              </ul>
             </div>
           </a>
         </Reveal>
