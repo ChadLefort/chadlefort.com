@@ -1,5 +1,5 @@
 {
-  "ignorePatterns": ["scripts/**"],
+  "ignorePatterns": ["scripts/**", "src/test/**"],
   "ignoreDependencies": [
     "@astrojs/mdx",
     "@astrojs/react",
