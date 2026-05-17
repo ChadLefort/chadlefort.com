@@ -40,12 +40,12 @@ export const ProjectTabsIsland: FC<Props> = ({ hasGallery, galleryImages, title,
     <Tabs selectedKey={selectedKey} onSelectionChange={(key) => setSelectedKey(key as TabKey)}>
       <TabList aria-label="Project sections" className="border-glass-border mb-10 flex items-center gap-2 border-b">
         <Tab id={DESCRIPTION_TAB} className={tabClass}>
-          <FileText className="h-4 w-4" aria-hidden="true" />
+          <FileText className="size-4" aria-hidden="true" />
           Description
         </Tab>
         {hasGallery && (
           <Tab id={GALLERY_TAB} className={tabClass}>
-            <Images className="h-4 w-4" aria-hidden="true" />
+            <Images className="size-4" aria-hidden="true" />
             Images
           </Tab>
         )}

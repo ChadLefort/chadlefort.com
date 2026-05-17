@@ -15,8 +15,7 @@ if (includePathsResult.exitCode !== 0) {
 const includePaths = includePathsResult.stdout
   .toString()
   .split('\n')
-  .map((value) => value.trim())
-  .filter(Boolean);
+  .flatMap((value) => (value.trim() ? [value.trim()] : []));
 
 if (!includePaths.includes(hooksConfigPath)) {
   console.log(`Git hook include not installed: ${hooksConfigPath}`);

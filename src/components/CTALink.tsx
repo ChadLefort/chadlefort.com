@@ -2,7 +2,7 @@ import type { FC, ReactNode } from 'react';
 import { composeRenderProps, Link as RACLink, type LinkProps as RACLinkProps } from 'react-aria-components';
 import { tv, type VariantProps } from 'tailwind-variants';
 
-export const ctaStyles = tv({
+const ctaStyles = tv({
   base: [
     'group inline-flex items-center font-semibold transition-all duration-200',
     'hover:scale-[1.02] active:scale-[0.98] motion-reduce:hover:scale-100',

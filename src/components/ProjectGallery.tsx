@@ -369,7 +369,7 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
             <IconButton
               slot="close"
               label="Close gallery"
-              icon={<X className="h-5 w-5" />}
+              icon={<X className="size-5" />}
               className="shrink-0 text-white data-[hovered]:bg-white/10"
             />
           </div>
@@ -378,7 +378,7 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
               label="Zoom out"
               onPress={onZoomOut}
               isDisabled={!canZoomOut}
-              icon={<ZoomOut className="h-5 w-5" />}
+              icon={<ZoomOut className="size-5" />}
               className={mobileZoomIconButton()}
             />
             <div className={zoomValue()}>{zoomLabel}</div>
@@ -386,7 +386,7 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
               label="Zoom in"
               onPress={onZoomIn}
               isDisabled={!canZoomIn}
-              icon={<ZoomIn className="h-5 w-5" />}
+              icon={<ZoomIn className="size-5" />}
               className={mobileZoomIconButton()}
             />
           </div>
@@ -405,7 +405,7 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
               isDisabled={!canZoomOut}
               className={zoomButton()}
             >
-              <ZoomOut className="h-4 w-4" />
+              <ZoomOut className="size-4" />
               Zoom out
             </Button>
             <div className={zoomValue({ desktop: true })}>{zoomLabel}</div>
@@ -417,13 +417,13 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
               isDisabled={!canZoomIn}
               className={zoomButton()}
             >
-              <ZoomIn className="h-4 w-4" />
+              <ZoomIn className="size-4" />
               Zoom in
             </Button>
             <IconButton
               slot="close"
               label="Close gallery"
-              icon={<X className="h-5 w-5" />}
+              icon={<X className="size-5" />}
               className="shrink-0 text-white data-[hovered]:bg-white/10"
             />
           </div>
@@ -434,7 +434,7 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
             <IconButton
               label="Previous image"
               onPress={onPrev}
-              icon={<ChevronLeft className="h-6 w-6" />}
+              icon={<ChevronLeft className="size-6" />}
               className="absolute top-1/2 left-4 z-10 -translate-y-1/2 hidden sm:flex"
             />
           )}
@@ -468,7 +468,7 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
             <IconButton
               label="Next image"
               onPress={onNext}
-              icon={<ChevronRight className="h-6 w-6" />}
+              icon={<ChevronRight className="size-6" />}
               className="absolute top-1/2 right-4 z-10 -translate-y-1/2 hidden sm:flex"
             />
           )}
@@ -479,7 +479,7 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
             <IconButton
               label="Previous image"
               onPress={onPrev}
-              icon={<ChevronLeft className="h-5 w-5" />}
+              icon={<ChevronLeft className="size-5" />}
               className="sm:hidden"
             />
           )}
@@ -492,7 +492,7 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
             <IconButton
               label="Next image"
               onPress={onNext}
-              icon={<ChevronRight className="h-5 w-5" />}
+              icon={<ChevronRight className="size-5" />}
               className="sm:hidden"
             />
           )}
@@ -799,7 +799,7 @@ export const ProjectGallery: FC<Props> = ({ images, title, openRequest = 0 }) =>
           <GallerySection
             id={`${dialogId}-desktop`}
             label="Desktop"
-            icon={<Monitor className="h-3.5 w-3.5" aria-hidden="true" />}
+            icon={<Monitor className="size-3.5" aria-hidden="true" />}
             gridClass="grid gap-4 sm:gap-8 md:grid-cols-2"
             images={desktopShots}
             onOpen={openAt}
@@ -811,7 +811,7 @@ export const ProjectGallery: FC<Props> = ({ images, title, openRequest = 0 }) =>
           <GallerySection
             id={`${dialogId}-mobile`}
             label="Mobile"
-            icon={<Smartphone className="h-3.5 w-3.5" aria-hidden="true" />}
+            icon={<Smartphone className="size-3.5" aria-hidden="true" />}
             gridClass="grid grid-cols-2 gap-4 sm:gap-8 sm:grid-cols-3 md:grid-cols-4"
             images={mobileShots}
             onOpen={openAt}

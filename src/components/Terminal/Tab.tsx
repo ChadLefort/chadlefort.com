@@ -60,7 +60,7 @@ export const Tab: FC<TabProps> = ({ idx, mobileIdx, icon, label, active, href, h
           )}
         </span>
       )}
-      <Icon icon={icon} className="shrink-0 h-4 w-4" aria-hidden="true" />
+      <Icon icon={icon} className="shrink-0 size-4" aria-hidden="true" />
       <span className="font-mono">{label}</span>
     </>
   );

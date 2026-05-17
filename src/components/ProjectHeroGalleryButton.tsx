@@ -29,7 +29,7 @@ export const ProjectHeroGalleryButton: FC<Props> = ({ label = 'Open project imag
       />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-end p-4">
         <span className={pillLinkStyles({ className: 'pointer-events-none shadow-lg shadow-black/15' })}>
-          <Images className="h-4 w-4" aria-hidden="true" />
+          <Images className="size-4" aria-hidden="true" />
           View gallery
         </span>
       </div>

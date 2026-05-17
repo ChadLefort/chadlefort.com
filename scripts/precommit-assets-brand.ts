@@ -18,8 +18,7 @@ const stagedFilesResult = await $`git diff --cached --name-only`.cwd(rootDir).qu
 const stagedFiles = stagedFilesResult.stdout
   .toString()
   .split('\n')
-  .map((file) => file.trim())
-  .filter(Boolean);
+  .flatMap((file) => (file.trim() ? [file.trim()] : []));
 
 if (!stagedFiles.some((file) => resumeSourceFiles.has(file))) {
   console.log('Skipping resume asset generation: no resume source files changed.');

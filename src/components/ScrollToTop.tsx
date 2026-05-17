@@ -33,7 +33,7 @@ export const ScrollToTop: FC = () => {
       <IconButton
         onPress={scrollUp}
         label="Scroll to top"
-        icon={<ArrowUp className="h-5 w-5" />}
+        icon={<ArrowUp className="size-5" />}
         variant="solid"
         color="brand"
         size="lg"

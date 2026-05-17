@@ -25,12 +25,17 @@ describe('ThemeToggle', () => {
     await user.click(button);
 
     expect(document.documentElement.classList.contains('dark')).toBe(false);
-    expect(localStorage.getItem('theme')).toBe('light');
+
+    const storedThemeAfterLight = localStorage.getItem('theme');
+    expect(storedThemeAfterLight).toBe('light');
 
     await user.click(button);
 
     expect(document.documentElement.classList.contains('dark')).toBe(true);
-    expect(localStorage.getItem('theme')).toBe('dark');
+
+    // react-doctor-disable-next-line react-doctor/js-cache-storage
+    const storedThemeAfterDark = localStorage.getItem('theme');
+    expect(storedThemeAfterDark).toBe('dark');
   });
 
   it('has no axe violations', async () => {

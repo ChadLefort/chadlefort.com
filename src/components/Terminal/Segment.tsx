@@ -32,7 +32,7 @@ type SegmentProps = {
 
 export const Segment: FC<SegmentProps> = ({ icon, text, tone, hideOnMobile, className, 'data-testid': dataTestId }) => (
   <span className={segmentStyles({ tone, hideOnMobile, className })} data-testid={dataTestId}>
-    {icon && <Icon icon={icon} className="h-3.5 w-3.5" aria-hidden="true" />}
+    {icon && <Icon icon={icon} className="size-3.5" aria-hidden="true" />}
     {text && <span className="font-mono text-[11px] sm:text-[12px]">{text}</span>}
   </span>
 );

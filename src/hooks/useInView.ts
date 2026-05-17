@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
 
 type Options = {
   threshold?: number;
@@ -14,7 +14,7 @@ export const useInView = <T extends HTMLElement>({
   respectReducedMotion = true
 }: Options = {}) => {
   const ref = useRef<T | null>(null);
-  const [inView, setInView] = useState(false);
+  const [inView, dispatch] = useReducer((_: boolean, value: boolean) => value, false);
 
   useEffect(() => {
     const node = ref.current;
@@ -22,13 +22,13 @@ export const useInView = <T extends HTMLElement>({
     if (!node) return;
 
     if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
-      setInView(true);
+      dispatch(true);
 
       return;
     }
 
     if (respectReducedMotion && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setInView(true);
+      dispatch(true);
 
       return;
     }
@@ -37,11 +37,11 @@ export const useInView = <T extends HTMLElement>({
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setInView(true);
+            dispatch(true);
 
             if (once) io.unobserve(entry.target);
           } else if (!once) {
-            setInView(false);
+            dispatch(false);
           }
         });
       },

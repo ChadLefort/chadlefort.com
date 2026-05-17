@@ -227,7 +227,7 @@ export const Shell: FC = () => {
         )}
 
         {phase === 'done' && (
-          <div className="mt-4 mb-2" onClick={() => inputRef.current?.focus()}>
+          <div className="mt-4 mb-2">
             <div className="mb-2">
               <StatusLine
                 cwd={formatPath(cwd)}

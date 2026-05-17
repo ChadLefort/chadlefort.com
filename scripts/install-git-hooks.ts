@@ -18,8 +18,7 @@ const includePaths =
     ? includePathsResult.stdout
         .toString()
         .split('\n')
-        .map((value) => value.trim())
-        .filter(Boolean)
+        .flatMap((value) => (value.trim() ? [value.trim()] : []))
     : [];
 
 if (!includePaths.includes(hooksConfigPath)) {

@@ -40,13 +40,11 @@ const previewHost = '127.0.0.1';
 const previewPort = 4326;
 const previewUrl = `http://${previewHost}:${previewPort}/`;
 
-// fallow-ignore-next-line complexity
 const waitForServer = async (url: string, timeoutMs = 30_000): Promise<void> => {
   const start = Date.now();
 
   while (Date.now() - start < timeoutMs) {
     try {
-      // eslint-disable-next-line no-await-in-loop
       const response = await fetch(url);
 
       if (response.ok || response.status === 404) return;
@@ -54,7 +52,6 @@ const waitForServer = async (url: string, timeoutMs = 30_000): Promise<void> => 
       // keep polling
     }
 
-    // eslint-disable-next-line no-await-in-loop
     await new Promise<void>((resolve) => {
       setTimeout(resolve, 250);
     });
@@ -99,15 +96,16 @@ const generateResumePdf = async (): Promise<void> => {
           { timeout: 5000 }
         )
         .catch(() => undefined);
-      await page.pdf({
-        path: resumePdfPath,
-        format: 'Letter',
-        margin: { top: '0', right: '0', bottom: '0', left: '0' },
-        printBackground: true,
-        preferCSSPageSize: true
-      });
-
-      const mdResponse = await fetch(`${previewUrl}resume.md`);
+      const [, mdResponse] = await Promise.all([
+        page.pdf({
+          path: resumePdfPath,
+          format: 'Letter',
+          margin: { top: '0', right: '0', bottom: '0', left: '0' },
+          printBackground: true,
+          preferCSSPageSize: true
+        }),
+        fetch(`${previewUrl}resume.md`)
+      ]);
 
       if (mdResponse.ok) {
         await Bun.write(resumeMdPath, await mdResponse.text());
@@ -183,19 +181,20 @@ try {
   const resumeSlotHeight = 504;
   const extractHeight = Math.min(resumeHeight, Math.round(resumeWidth / (resumeSlotWidth / resumeSlotHeight)));
 
-  const resumeHero = await roundedCrop(resumePreview, {
-    width: resumeSlotWidth,
-    height: resumeSlotHeight,
-    radius: 22,
-    extract: {
-      left: 0,
-      top: 0,
-      width: resumeWidth,
-      height: extractHeight
-    }
-  });
-
-  const portraitCircle = await circleCrop(portrait, 224);
+  const [resumeHero, portraitCircle] = await Promise.all([
+    roundedCrop(resumePreview, {
+      width: resumeSlotWidth,
+      height: resumeSlotHeight,
+      radius: 22,
+      extract: {
+        left: 0,
+        top: 0,
+        width: resumeWidth,
+        height: extractHeight
+      }
+    }),
+    circleCrop(portrait, 224)
+  ]);
   const backgroundSvg = dedent`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
     <defs>
       <style>

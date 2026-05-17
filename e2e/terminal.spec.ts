@@ -85,11 +85,16 @@ test.describe('terminal · mobile viewport', () => {
   test('tab labels do not wrap to multiple lines', async ({ page }) => {
     await page.goto('/');
 
-    const tabHeights = await page.evaluate(() =>
-      [...document.querySelectorAll<HTMLElement>('[aria-label="Terminal" i] [class*="rounded-t-xl"]')]
-        .map((el) => el.getBoundingClientRect().height)
-        .filter((h) => h > 0)
-    );
+    const tabHeights = await page.evaluate(() => {
+      const heights: number[] = [];
+
+      for (const el of document.querySelectorAll<HTMLElement>('[aria-label="Terminal" i] [class*="rounded-t-xl"]')) {
+        const h = el.getBoundingClientRect().height;
+        if (h > 0) heights.push(h);
+      }
+
+      return heights;
+    });
 
     expect(tabHeights.length).toBeGreaterThan(0);
     const min = Math.min(...tabHeights);

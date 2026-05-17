@@ -54,6 +54,7 @@ const iconMap: Record<string, typeof Home> = {
 };
 
 export const MobileDrawer: FC<Props> = ({ links }) => {
+  // react-doctor-disable-next-line react-doctor/prefer-use-sync-external-store
   const [isOpen, setOpen] = useState(false);
 
   useEffect(() => {
@@ -67,7 +68,7 @@ export const MobileDrawer: FC<Props> = ({ links }) => {
   return (
     <NavigationProvider>
       <DialogTrigger isOpen={isOpen} onOpenChange={setOpen}>
-        <IconButton label="Open navigation menu" icon={<Menu className="h-6 w-6" />} className="text-nav-fg" />
+        <IconButton label="Open navigation menu" icon={<Menu className="size-6" />} className="text-nav-fg" />
 
         <ModalOverlay isDismissable className={overlay()}>
           <Modal className={modal()}>
@@ -76,7 +77,7 @@ export const MobileDrawer: FC<Props> = ({ links }) => {
                 Menu
               </Heading>
               <div className="border-glass-border flex items-center justify-end border-b px-4 py-3">
-                <IconButton slot="close" label="Close menu" icon={<X className="h-6 w-6" />} />
+                <IconButton slot="close" label="Close menu" icon={<X className="size-6" />} />
               </div>
 
               <nav aria-label="Mobile" className="flex flex-col gap-1 p-4">
@@ -90,7 +91,7 @@ export const MobileDrawer: FC<Props> = ({ links }) => {
                       onPress={() => setOpen(false)}
                       className={(rp) => drawerLink(rp)}
                     >
-                      <Icon className="text-fg-muted h-5 w-5" aria-hidden="true" />
+                      <Icon className="text-fg-muted size-5" aria-hidden="true" />
                       {link.label}
                     </Link>
                   );

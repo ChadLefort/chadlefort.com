@@ -72,7 +72,7 @@ const TimelineItem: FC<ItemProps> = ({ job, isLeft }) => {
       <ul className={bullets({ side })}>
         {job.bullets.map((bullet) => (
           <li key={bullet} className="flex gap-2">
-            <span aria-hidden="true" className="bg-accent mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full" />
+            <span aria-hidden="true" className="bg-accent mt-2 inline-block size-1.5 shrink-0 rounded-full" />
             <span>{bullet}</span>
           </li>
         ))}
@@ -86,7 +86,7 @@ const TimelineItem: FC<ItemProps> = ({ job, isLeft }) => {
     <li ref={ref} className={item({ inView })}>
       <span
         aria-hidden="true"
-        className="timeline-dot bg-accent ring-surface absolute top-6 left-4 z-10 inline-flex h-4 w-4 -translate-x-1/2 items-center justify-center rounded-full ring-4 md:top-1/2 md:left-1/2 md:-translate-y-1/2 print:hidden"
+        className="timeline-dot bg-accent ring-surface absolute top-6 left-4 z-10 inline-flex size-4 -translate-x-1/2 items-center justify-center rounded-full ring-4 md:top-1/2 md:left-1/2 md:-translate-y-1/2 print:hidden"
       />
 
       {isLeft ? (
