@@ -21,11 +21,11 @@ end: 2019-12
 
 ## Problem
 
-A team of seven frontend engineers maintained 17 React apps and 6 internal NPM packages across separate repos, each with its own build pipeline. Deployments had to happen one at a time, and cross-package changes were painful.
+A team of seven frontend engineers maintained 17 React apps and 6 internal NPM packages across separate repos, each with its own build pipeline. The team deployed one app at a time, and cross-package changes created friction.
 
 ## Solution
 
-I migrated everything into a single Lerna monorepo and wired the Jenkins pipeline to build and release Docker images and NPM packages in parallel. External legacy consumers still got published NPM packages, and TypeScript project references kept shared code sane.
+I migrated everything into a single Lerna monorepo and wired the Jenkins pipeline to build and release Docker images and NPM packages in parallel. External legacy consumers still got published NPM packages, and TypeScript project references organized shared code.
 
 ## Impact
 

@@ -23,14 +23,14 @@ end: 2021-03
 
 ## Problem
 
-Every ticket forced the team to ship 4-7 coordinated pull requests before code review could even start. Releases were painful and updates stalled behind coordination overhead.
+Every ticket forced the team to ship 4-7 coordinated pull requests before code review started. Releases stalled behind coordination overhead.
 
 ## Solution
 
-I built a reference microfrontend monorepo on Nx that demonstrated Webpack 5 Module Federation with injectable Redux reducers. Teams could load and own federated modules independently, while the shell app composed them at runtime. The patterns from this demo were brought into the client's production applications.
+I built a reference microfrontend monorepo on Nx that demonstrated Webpack 5 Module Federation with injectable Redux reducers. Teams could load and own federated modules independently, while the shell app composed them at runtime. I brought the patterns from this demo into the client's production applications.
 
 ## Impact
 
 - Reduced the number of PRs per issue from 5-7 down to **1**.
-- Applications could ship independently, unlocking incremental delivery.
+- Applications now ship independently, so the team delivers incrementally.
 - Full write-up, architecture docs, and code live on [GitHub](https://github.com/ChadLefort/mf-mfe-demo).

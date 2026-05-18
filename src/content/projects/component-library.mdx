@@ -29,11 +29,11 @@ end: 2026-04
 
 ## Problem
 
-Three frontend apps shared no UI primitives. Two apps were built on Chakra UI, one with heavy use of custom CSS modules layered on top, and the third on PrimeReact. Accessibility was inconsistent (focus management, ARIA wiring, keyboard support varied component by component), visual language heavily drifted between apps, and every new feature reinvented similar components.
+Three frontend apps shared no UI primitives. Two apps ran on Chakra UI, one with heavy custom CSS modules layered on top, and the third on PrimeReact. Accessibility varied (focus management, ARIA wiring, and keyboard support differed component by component), the visual language drifted between apps, and every new feature reinvented similar components.
 
 ## Solution
 
-Architected an internal component library built on React Aria Components and Tailwind Variants + UnoCSS for styling, then methodically replaced existing component libraries and the bespoke components across all three apps. Shipped 40+ components covering the full surface area. Every component ships with Storybook coverage and tests. Some components have multiple variants allowing for flexibility. Organized in Storybook by category:
+I architected an internal component library built on React Aria Components and Tailwind Variants + UnoCSS for styling, then replaced existing component libraries and bespoke components across all three apps. I shipped 40+ components covering the full surface area. Each component ships with Storybook coverage and tests. Some components ship with multiple variants for flexibility. Organized in Storybook by category:
 
 ### **Actions**
 
@@ -93,7 +93,7 @@ Architected an internal component library built on React Aria Components and Tai
 ## Impact
 
 - Replaced three disparate UI sources with one cohesive system.
-- All legacy UI libraries were fully removed from the codebase.
+- Removed all legacy UI libraries from the codebase.
 - Raised the a11y bar across the team.
-- Visual consistency across all three apps.
-- Faster feature work with engineers composing from a known library.
+- Brought visual consistency across all three apps.
+- Feature work moves faster with engineers composing from a known library.

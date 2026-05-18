@@ -238,6 +238,10 @@ const breadcrumbLd = {
       </div>
     </section>
 
+    <div aria-hidden="true" class="hidden">
+      {projectSkills.map((skill: { icon: string }) => <Icon name={skill.icon} />)}
+    </div>
+
     <section class="px-4 pb-24 sm:px-6 md:pb-32">
       <div class="max-w-section mx-auto">
         <ProjectTabsIsland
