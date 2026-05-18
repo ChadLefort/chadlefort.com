@@ -64,12 +64,17 @@ test.describe('projects', () => {
     await page.waitForLoadState('networkidle');
 
     const descTab = page.getByRole('tab', { name: /description/i });
+    const skillsTab = page.getByRole('tab', { name: /skills/i });
     const imagesTab = page.getByRole('tab', { name: /images/i });
 
     await expect(descTab).toHaveAttribute('aria-selected', 'true');
+    await expect(skillsTab).toBeVisible();
 
     await descTab.click();
     await expect(descTab).toBeFocused();
+
+    await page.keyboard.press('ArrowRight');
+    await expect(skillsTab).toBeFocused();
     await page.keyboard.press('ArrowRight');
     await expect(imagesTab).toBeFocused();
     await page.keyboard.press('Enter');
