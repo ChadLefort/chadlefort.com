@@ -1,6 +1,6 @@
 ---
 title: Router Migration
-subtitle: Aug 2025 — Apr 2026
+subtitle: August 2025 — April 2026
 summary: >
   Migrated three frontend apps from fragmented legacy routers to TanStack Router
   with zero downtime, unifying type safe routing, search params, and data
@@ -31,8 +31,13 @@ Three frontend apps ran on a fragmented routing stack: one was on Router 5, anot
 
 I sequenced the work in two phases shipped incrementally behind a migration shim, with zero customer downtime:
 
-1. **State migration (MobX → Zustand).** Consolidated MobX stores under a single root, then migrated each store to Zustand backed shared state. Server state moved to TanStack Query v5. This removed observer wrappers and made stores more testable.
-2. **Router migration (Router 5 / React Router → TanStack Router).** Introduced TanStack Router alongside the legacy router with a migration hook, Link, and helpers so routes could be moved over one at a time. Once the last route was ported, ripped out Router 5 and finalized typed routes, Zod validated search params, and route level loaders that integrate with TanStack Query.
+#### 1. **State migration (MobX → Zustand).**
+
+Consolidated MobX stores under a single root, then migrated each store to Zustand backed shared state. Server state moved to TanStack Query v5. This removed observer wrappers and made stores more testable.
+
+#### 2. **Router migration (Router 5 / React Router → TanStack Router).**
+
+Introduced TanStack Router alongside the legacy router with a migration hook, Link, and helpers so routes could be moved over one at a time. Once the last route was ported, ripped out Router 5 and finalized typed routes, Zod validated search params, and route level loaders that integrate with TanStack Query.
 
 ## Impact
 

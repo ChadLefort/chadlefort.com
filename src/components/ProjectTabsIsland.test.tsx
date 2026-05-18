@@ -5,33 +5,28 @@ import type { GalleryImage } from '~/components/ProjectGallery';
 import { PROJECT_GALLERY_OPEN_EVENT } from '~/components/ProjectGallery';
 import { ProjectTabsIsland } from '~/components/ProjectTabsIsland';
 
+const projectSkills = [
+  { name: 'Vue', icon: 'devicon:vuejs' },
+  { name: 'TypeScript', icon: 'devicon:typescript' }
+];
+
+const makeGalleryImage = (index: number, alt: string): GalleryImage => ({
+  src: `/desktop-${index}.webp`,
+  fullAvif: `/desktop-${index}.avif`,
+  thumbSrc: `/desktop-${index}-thumb.webp`,
+  thumbAvif: `/desktop-${index}-thumb.avif`,
+  thumbWebp: `/desktop-${index}-thumb.webp`,
+  thumbSizes: '50vw',
+  alt,
+  device: 'desktop',
+  orientation: 'landscape',
+  width: 1600,
+  height: 900
+});
+
 const galleryImages: GalleryImage[] = [
-  {
-    src: '/desktop-1.webp',
-    fullAvif: '/desktop-1.avif',
-    thumbSrc: '/desktop-1-thumb.webp',
-    thumbAvif: '/desktop-1-thumb.avif',
-    thumbWebp: '/desktop-1-thumb.webp',
-    thumbSizes: '50vw',
-    alt: 'Desktop dashboard overview',
-    device: 'desktop',
-    orientation: 'landscape',
-    width: 1600,
-    height: 900
-  },
-  {
-    src: '/desktop-2.webp',
-    fullAvif: '/desktop-2.avif',
-    thumbSrc: '/desktop-2-thumb.webp',
-    thumbAvif: '/desktop-2-thumb.avif',
-    thumbWebp: '/desktop-2-thumb.webp',
-    thumbSizes: '50vw',
-    alt: 'Desktop analytics panel',
-    device: 'desktop',
-    orientation: 'landscape',
-    width: 1600,
-    height: 900
-  }
+  makeGalleryImage(1, 'Desktop dashboard overview'),
+  makeGalleryImage(2, 'Desktop analytics panel')
 ];
 
 describe('ProjectTabsIsland', () => {
@@ -40,6 +35,7 @@ describe('ProjectTabsIsland', () => {
       <ProjectTabsIsland
         hasGallery={false}
         galleryImages={[]}
+        projectSkills={projectSkills}
         title="Spear Dashboard"
         description={<p>Project summary</p>}
       />
@@ -47,6 +43,7 @@ describe('ProjectTabsIsland', () => {
 
     expect(screen.getByRole('tab', { name: /description/i })).toHaveAttribute('aria-selected', 'true');
     expect(screen.getByText('Project summary')).toBeInTheDocument();
+    expect(screen.getByRole('tab', { name: /skills/i })).toBeInTheDocument();
     expect(screen.queryByRole('tab', { name: /images/i })).not.toBeInTheDocument();
   });
 
@@ -57,6 +54,7 @@ describe('ProjectTabsIsland', () => {
       <ProjectTabsIsland
         hasGallery
         galleryImages={galleryImages}
+        projectSkills={projectSkills}
         title="Spear Dashboard"
         description={<p>Project summary</p>}
       />
@@ -76,6 +74,7 @@ describe('ProjectTabsIsland', () => {
       <ProjectTabsIsland
         hasGallery
         galleryImages={galleryImages}
+        projectSkills={projectSkills}
         title="Spear Dashboard"
         description={<p>Project summary</p>}
       />

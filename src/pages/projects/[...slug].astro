@@ -6,6 +6,7 @@ import { ProjectHeroGalleryButton } from '~/components/ProjectHeroGalleryButton'
 import { ProjectTabsIsland } from '~/components/ProjectTabsIsland';
 import { CTALink } from '~/components/CTALink';
 import { PillLink } from '~/components/PillLink';
+import { projectSkills as projectSkillIcons } from '~/data/project-skills';
 import { site } from '~/data/site';
 import Base from '~/layouts/Base.astro';
 
@@ -114,6 +115,15 @@ const coverUrl = project.data.cover
   ? new URL((await getImage({ src: project.data.cover, width: 1200, format: 'webp' })).src, site.siteUrl).toString()
   : undefined;
 
+const skillAliases = new Map([
+  ['React Aria Components', 'React Aria'],
+  ['React Router', 'React']
+]);
+const skillByName = new Map(projectSkillIcons.map((skill) => [skill.name, skill]));
+const projectSkills = project.data.tech.map(
+  (tech: string) => skillByName.get(skillAliases.get(tech) ?? tech) ?? { name: tech, icon: 'lucide:code-2' }
+);
+
 const projectLd: Record<string, unknown> = {
   '@context': 'https://schema.org',
   '@type': 'CreativeWork',
@@ -164,19 +174,9 @@ const breadcrumbLd = {
 
         <div class="mt-8 grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-center md:gap-12">
           <div>
-            <p class="text-accent font-mono text-xs tracking-[0.3em] uppercase">{project.data.subtitle}</p>
-            <h1 class="font-display mt-3 text-5xl md:text-6xl">{project.data.title}</h1>
+            <h1 class="font-display my-3 text-5xl md:text-6xl">{project.data.title}</h1>
+            <p class="text-accent font-mono text-sm">{project.data.subtitle}</p>
             <p class="text-fg-muted mt-5 text-lg leading-relaxed md:text-xl">{project.data.summary}</p>
-
-            <ul class="mt-6 flex flex-wrap gap-2">
-              {
-                project.data.tech.map((tag: string) => (
-                  <li class="border-glass-border bg-glass text-fg rounded-full border px-3 py-1 text-xs font-semibold tracking-wide">
-                    {tag}
-                  </li>
-                ))
-              }
-            </ul>
 
             <div class="mt-8 flex flex-wrap gap-3">
               {
@@ -244,6 +244,7 @@ const breadcrumbLd = {
           client:load
           hasGallery={gallery.length > 0}
           galleryImages={gallery}
+          projectSkills={projectSkills}
           title={project.data.title}
         >
           <Fragment slot="description">
