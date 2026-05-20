@@ -16,7 +16,7 @@ export const projectSkills: Skill[] = [
   { name: 'Testing Library', icon: 'simple-icons:testinglibrary', color: '#E33332' },
   { name: 'MSW', icon: 'simple-icons:mockserviceworker', color: '#FF6A33' },
   { name: 'Storybook', icon: 'devicon:storybook' },
-  { name: 'Bootstrap', icon: 'devicon:bootstrap' },
+  { name: 'Bootstrap', icon: 'simple-icons:bootstrap', color: '#7952B3' },
   { name: 'Sass', icon: 'devicon:sass' },
   { name: 'GraphQL', icon: 'simple-icons:graphql', color: '#E10098' },
   { name: 'TypeORM', icon: 'devicon:typeorm' },
