@@ -76,7 +76,6 @@
   --glass-bg-strong: rgba(157, 163, 173, 0.7);
   --glass-border: rgba(35, 37, 41, 0.12);
   --glass-border-strong: rgba(35, 37, 41, 0.18);
-  --blob-opacity: 0.6;
 
   --term-bg: #c8cdd6;
   --term-fg: #21252b;
@@ -122,7 +121,6 @@
   --glass-bg-strong: rgba(48, 51, 58, 0.78);
   --glass-border: rgba(255, 255, 255, 0.08);
   --glass-border-strong: rgba(255, 255, 255, 0.14);
-  --blob-opacity: 1;
 
   --term-bg: #282c34;
   --term-fg: #cccccc;
@@ -487,10 +485,6 @@ html {
       transform: none;
     }
   }
-}
-
-@utility blob {
-  opacity: var(--blob-opacity, 1);
 }
 
 @utility surface-vignette {
