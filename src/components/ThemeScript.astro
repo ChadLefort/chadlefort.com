@@ -19,6 +19,12 @@
         root.classList.add('dark');
         root.dataset.theme = 'dark';
       }
+
+      const meta = document.querySelector('meta[name="theme-color"]');
+
+      if (meta) {
+        meta.content = root.classList.contains('dark') ? '#21252b' : '#e2e5ea';
+      }
     };
 
     apply();

@@ -250,6 +250,12 @@ html {
     word-spacing: -0.2em;
     margin: 0;
     font-weight: 600;
+    text-wrap: balance;
+  }
+
+  p,
+  li {
+    text-wrap: pretty;
   }
 
   :focus-visible {
@@ -335,19 +341,6 @@ html {
       letter-spacing: -0.01em;
       margin-top: 3rem;
       margin-bottom: 0.5rem;
-      position: relative;
-      padding-left: 1rem;
-
-      &::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0.55rem;
-        bottom: 0.55rem;
-        width: 4px;
-        border-radius: 4px;
-        background: var(--accent);
-      }
 
       &:first-child {
         margin-top: 0;
@@ -536,17 +529,14 @@ html {
   0% {
     opacity: 0;
     transform: translateY(48px) scale(0.85);
-    filter: blur(10px);
   }
   60% {
     opacity: 1;
     transform: translateY(-6px) scale(1.02);
-    filter: blur(0);
   }
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);
-    filter: blur(0);
   }
 }
 

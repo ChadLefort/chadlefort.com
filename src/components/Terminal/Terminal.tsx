@@ -54,11 +54,21 @@ const container = tv({
 });
 
 const collapse = tv({
-  base: 'grid origin-top transition-[grid-template-rows,opacity,transform,filter] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)]',
+  base: 'grid overflow-hidden transition-[grid-template-rows] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none',
   variants: {
     minimized: {
-      true: 'grid-rows-[0fr] -translate-y-2 scale-y-95 opacity-0 blur-sm',
-      false: 'grid-rows-[1fr] translate-y-0 scale-y-100 opacity-100'
+      true: 'grid-rows-[0fr]',
+      false: 'grid-rows-[1fr]'
+    }
+  }
+});
+
+const collapseInner = tv({
+  base: 'min-h-0 overflow-hidden origin-top transition-[opacity,transform,filter] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none',
+  variants: {
+    minimized: {
+      true: '-translate-y-2 scale-y-95 opacity-0 blur-sm',
+      false: 'translate-y-0 scale-y-100 opacity-100'
     }
   }
 });
@@ -109,7 +119,7 @@ const ShellViewport: FC<{ maximized: boolean; minimized?: boolean; sessionLabel:
 
   return (
     <div aria-hidden={minimized} className={collapse({ minimized })}>
-      <div className="min-h-0 overflow-hidden">
+      <div className={collapseInner({ minimized })}>
         <SessionTabs sessionLabel={sessionLabel} />
         {shell}
       </div>
