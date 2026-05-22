@@ -57,7 +57,7 @@ const TimelineItem: FC<ItemProps> = ({ job, isLeft }) => {
   const dateRange = (
     <>
       {startDateTime ? <time dateTime={startDateTime}>{job.start}</time> : <span>{job.start}</span>}
-      <span aria-hidden="true"> &mdash; </span>
+      <span aria-hidden="true"> – </span>
       {endDateTime ? <time dateTime={endDateTime}>{job.end}</time> : <span>{job.end}</span>}
     </>
   );

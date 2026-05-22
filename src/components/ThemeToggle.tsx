@@ -11,6 +11,12 @@ const apply = (theme: Theme) => {
   root.classList.toggle('dark', theme === 'dark');
   root.dataset.theme = theme;
   localStorage.setItem('theme', theme);
+
+  const meta = document.querySelector('meta[name="theme-color"]');
+
+  if (meta) {
+    meta.setAttribute('content', theme === 'dark' ? '#21252b' : '#e2e5ea');
+  }
 };
 
 const SunIcon: FC = () => (

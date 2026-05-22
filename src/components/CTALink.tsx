@@ -4,7 +4,7 @@ import { tv, type VariantProps } from 'tailwind-variants';
 
 const ctaStyles = tv({
   base: [
-    'group inline-flex items-center font-semibold transition-all duration-200',
+    'group inline-flex items-center font-semibold transition-colors transition-transform duration-200',
     'hover:scale-[1.02] active:scale-[0.98] motion-reduce:hover:scale-100',
     'focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent'
   ],

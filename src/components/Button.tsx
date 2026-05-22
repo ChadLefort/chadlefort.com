@@ -49,7 +49,7 @@ export const buttonStyles = tv({
         'motion-reduce:data-[hovered]:scale-100 motion-reduce:data-[pressed]:scale-100'
       ],
       bouncy: [
-        'data-[hovered]:scale-[1.08] data-[pressed]:scale-[0.92]',
+        'data-[hovered]:scale-[1.08] data-[pressed]:scale-[0.95]',
         'motion-reduce:data-[hovered]:scale-100 motion-reduce:data-[pressed]:scale-100'
       ]
     },
