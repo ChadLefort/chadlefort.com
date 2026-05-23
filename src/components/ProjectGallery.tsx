@@ -9,7 +9,7 @@ import { IconButton } from '~/components/IconButton';
 export const PROJECT_GALLERY_OPEN_EVENT = 'project-gallery:open';
 
 const thumbImg = tv({
-  base: 'block h-full w-full rounded-2xl object-cover object-top transition duration-300 group-hover:scale-[1.005]',
+  base: 'block h-full w-full rounded-2xl object-cover object-top transition duration-[var(--motion-duration-state)] ease-[var(--motion-ease-settle)] group-hover:scale-[1.005]',
   variants: {
     loaded: {
       true: 'opacity-100',
@@ -20,7 +20,7 @@ const thumbImg = tv({
 
 export const thumbButton = tv({
   base: [
-    'group relative block w-full cursor-pointer rounded-2xl transition p-0',
+    'group relative block w-full cursor-pointer rounded-2xl transition duration-[var(--motion-duration-state)] ease-[var(--motion-ease-settle)] p-0',
     'focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-accent'
   ]
 });
@@ -38,7 +38,7 @@ const thumbFrame = tv({
 const lightboxOverlay = tv({
   base: [
     'fixed inset-0 z-50 bg-overlay-bg backdrop-blur-md',
-    'transition-opacity duration-200 ease-out',
+    'transition-opacity duration-[var(--motion-duration-state)] ease-[var(--motion-ease-out)]',
     'data-[entering]:opacity-0 data-[exiting]:opacity-0'
   ]
 });

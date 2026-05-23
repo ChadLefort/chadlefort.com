@@ -54,7 +54,7 @@ const container = tv({
 });
 
 const collapse = tv({
-  base: 'grid overflow-hidden transition-[grid-template-rows] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none',
+  base: 'grid overflow-hidden transition-[grid-template-rows] duration-[420ms] ease-[var(--motion-ease-settle)] motion-reduce:transition-none',
   variants: {
     minimized: {
       true: 'grid-rows-[0fr]',
@@ -64,7 +64,7 @@ const collapse = tv({
 });
 
 const collapseInner = tv({
-  base: 'min-h-0 overflow-hidden origin-top transition-[opacity,transform,filter] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none',
+  base: 'min-h-0 overflow-hidden origin-top transition-[opacity,transform,filter] duration-[420ms] ease-[var(--motion-ease-settle)] motion-reduce:transition-none',
   variants: {
     minimized: {
       true: '-translate-y-1 scale-y-[0.98] opacity-0',
@@ -167,7 +167,7 @@ export const Terminal: FC = () => {
     window.setTimeout(() => {
       setClosed(true);
       setClosing(false);
-    }, 280);
+    }, 240);
   };
 
   const resetWithWelcome = () => {

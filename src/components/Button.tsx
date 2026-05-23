@@ -17,7 +17,7 @@ export const buttonStyles = tv({
   base: [
     'inline-flex items-center justify-center gap-2 cursor-pointer',
     'font-semibold tracking-tight select-none',
-    'transition-[background-color,color,box-shadow,transform] duration-150 ease-out',
+    'transition-[background-color,color,box-shadow,transform] duration-[var(--motion-duration-feedback)] ease-[var(--motion-ease-out)]',
     'data-[disabled]:cursor-not-allowed data-[disabled]:opacity-60'
   ],
   variants: {
