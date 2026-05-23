@@ -17,17 +17,39 @@ type Props = {
 };
 
 const { project, index, featured = false, compact = false, headingLevel = 3 } = Astro.props;
-const HeadingTag = `h${headingLevel}` as const;
-const headerAspect = featured ? 'aspect-[16/8.5]' : 'aspect-[16/7]';
-const smallBrandIcons = new Set(['simple-icons:lerna', 'simple-icons:webpack']);
-const iconClass = smallBrandIcons.has(project.data.icon ?? '')
-  ? compact
-    ? 'h-14 w-14 md:h-16 md:w-16'
-    : 'h-16 w-16 md:h-20 md:w-20'
-  : compact
-    ? 'h-20 w-20 md:h-24 md:w-24'
-    : 'h-24 w-24 md:h-32 md:w-32';
 
+const mediaFrame = tv({
+  base: 'block w-full overflow-hidden rounded-2xl',
+  variants: {
+    featured: {
+      true: 'aspect-video',
+      false:  'aspect-video md:aspect-[16/8]'
+    }
+  }
+});
+
+const projectIcon = tv({
+  variants: {
+    compact: {
+      true: '',
+      false: ''
+    },
+    small: {
+      true: '',
+      false: ''
+    }
+  },
+  compoundVariants: [
+    { compact: true, small: true, class: 'h-14 w-14 md:h-16 md:w-16' },
+    { compact: false, small: true, class: 'h-16 w-16 md:h-20 md:w-20' },
+    { compact: true, small: false, class: 'h-20 w-20 md:h-24 md:w-24' },
+    { compact: false, small: false, class: 'h-24 w-24 md:h-32 md:w-32' }
+  ]
+});
+
+const HeadingTag = `h${headingLevel}` as const;
+const smallBrandIcons = new Set(['simple-icons:lerna', 'simple-icons:webpack']);
+const isSmallBrandIcon = smallBrandIcons.has(project.data.icon ?? '');
 const projectSkills = getProjectSkills(project.data.tech);
 
 const initials = project.data.title
@@ -61,16 +83,16 @@ const cardLink = tv({
           loading={index < 2 ? 'eager' : 'lazy'}
           decoding={index === 0 ? 'sync' : 'async'}
           fetchpriority={index === 0 ? 'high' : 'auto'}
-          pictureAttributes={{ class: `block w-full overflow-hidden rounded-2xl ${headerAspect}` }}
+          pictureAttributes={{ class: mediaFrame({ featured }) }}
           class="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.015]"
         />
       ) : (
-        <div class={`flex w-full items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br ${project.data.accent} ${headerAspect}`}>
+        <div class={`${mediaFrame({ featured })} flex items-center justify-center bg-gradient-to-br ${project.data.accent}`}>
           {project.data.icon ? (
             <Icon
               name={project.data.icon}
               style={project.data.iconColor ? { color: project.data.iconColor } : undefined}
-              class={iconClass}
+              class={projectIcon({ compact, small: isSmallBrandIcon })}
               aria-hidden="true"
             />
           ) : (

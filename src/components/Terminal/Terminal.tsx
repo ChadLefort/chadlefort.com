@@ -82,7 +82,7 @@ const slot = tv({
   variants: {
     maximized: {
       true: 'min-h-0 flex-1',
-      false: 'h-[min(640px,calc(100svh-8rem))] min-h-80 sm:h-[min(480px,calc(100svh-9rem))]'
+      false: 'h-[min(640px,calc(100svh-6rem))] min-h-[30rem] sm:h-[min(480px,calc(100svh-9rem))]'
     }
   }
 });
