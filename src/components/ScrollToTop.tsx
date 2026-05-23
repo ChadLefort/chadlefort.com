@@ -35,7 +35,7 @@ export const ScrollToTop: FC = () => {
     <div
       data-no-print
       className={cn(
-        'fixed right-6 bottom-6 z-30 transition-transform transition-opacity duration-200',
+        'fixed right-6 bottom-6 z-30 transition-[opacity,transform] duration-[var(--motion-duration-state)] ease-[var(--motion-ease-settle)]',
         visible ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-4 opacity-0'
       )}
     >
