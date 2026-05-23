@@ -67,7 +67,7 @@ export const ProjectTabsIsland: FC<Props> = ({ hasGallery, galleryImages, projec
     <Tabs selectedKey={selectedKey} onSelectionChange={(key) => setSelectedKey(key as TabKey)}>
       <TabList
         aria-label="Project sections"
-        className="border-glass-border mb-10 flex min-w-0 items-center gap-2 overflow-x-auto border-b pb-px"
+        className="border-panel-border mb-10 flex min-w-0 items-center gap-2 overflow-x-auto border-b pb-px"
       >
         <Tab id={DESCRIPTION_TAB} className={tabStyles()}>
           <FileText className="size-4" aria-hidden="true" />

@@ -45,7 +45,8 @@
   --accent: oklch(43% 0.11 251);
   --accent-strong: oklch(33% 0.095 251);
   --accent-success: oklch(70% 0.075 168);
-  --section-rail-accent: oklch(76% 0.095 174);
+  --section-rail-accent: oklch(94% 0.012 260);
+  --section-heading-accent: oklch(76% 0.095 174);
   --section-rail-bg: transparent;
   --section-content-bg: transparent;
 
@@ -66,7 +67,7 @@
   --surface-raised: oklch(95% 0.01 260);
   --text: var(--color-1);
   --text-muted: var(--color-5);
-  --border: oklch(24% 0.012 260 / 14%);
+  --border: oklch(94% 0.012 260);
   --nav-bg: oklch(72% 0.018 260 / 62%);
   --nav-fg: var(--color-1);
   --nav-link-hover-bg: oklch(24% 0.012 260 / 6%);
@@ -77,10 +78,10 @@
   --card-backdrop: none;
   --card-border: oklch(24% 0.012 260 / 9%);
   --card-border-hover: oklch(51% 0.12 251 / 28%);
-  --glass-bg: oklch(72% 0.018 260 / 34%);
-  --glass-bg-strong: oklch(72% 0.018 260 / 52%);
-  --glass-border: oklch(24% 0.012 260 / 9%);
-  --glass-border-strong: oklch(24% 0.012 260 / 14%);
+  --panel-bg: oklch(72% 0.018 260 / 34%);
+  --panel-bg-strong: oklch(72% 0.018 260 / 52%);
+  --panel-border: oklch(24% 0.012 260 / 9%);
+  --panel-border-strong: oklch(24% 0.012 260 / 14%);
   --overlay-bg: oklch(17% 0.018 260 / 92%);
   --overlay-fg: oklch(96% 0.01 260);
   --overlay-muted: oklch(96% 0.01 260 / 70%);
@@ -112,7 +113,8 @@
   color-scheme: dark;
   --accent: var(--terminal-blue);
   --accent-strong: oklch(57% 0.14 248);
-  --section-rail-accent: var(--terminal-green);
+  --section-rail-accent: var(--color-11);
+  --section-heading-accent: var(--terminal-green);
   --section-rail-bg: transparent;
   --section-content-bg: transparent;
   --surface: var(--background);
@@ -131,10 +133,10 @@
   --card-backdrop: none;
   --card-border: oklch(96% 0.01 260 / 4.5%);
   --card-border-hover: oklch(67% 0.12 248 / 30%);
-  --glass-bg: oklch(31% 0.014 260 / 38%);
-  --glass-bg-strong: oklch(31% 0.014 260 / 58%);
-  --glass-border: oklch(96% 0.01 260 / 6%);
-  --glass-border-strong: oklch(96% 0.01 260 / 10%);
+  --panel-bg: oklch(31% 0.014 260 / 38%);
+  --panel-bg-strong: oklch(31% 0.014 260 / 58%);
+  --panel-border: oklch(96% 0.01 260 / 6%);
+  --panel-border-strong: oklch(96% 0.01 260 / 10%);
   --overlay-bg: oklch(17% 0.018 260 / 92%);
   --overlay-fg: oklch(96% 0.01 260);
   --overlay-muted: oklch(96% 0.01 260 / 70%);
@@ -181,6 +183,7 @@
   --color-accent-strong: var(--accent-strong);
   --color-accent-success: var(--accent-success);
   --color-section-rail-accent: var(--section-rail-accent);
+  --color-section-heading-accent: var(--section-heading-accent);
   --color-section-rail-bg: var(--section-rail-bg);
   --color-section-content-bg: var(--section-content-bg);
 
@@ -196,10 +199,10 @@
   --color-tile: var(--tile-bg);
   --color-tile-alt: var(--tile-bg-alt);
 
-  --color-glass: var(--glass-bg);
-  --color-glass-strong: var(--glass-bg-strong);
-  --color-glass-border: var(--glass-border);
-  --color-glass-border-strong: var(--glass-border-strong);
+  --color-panel: var(--panel-bg);
+  --color-panel-strong: var(--panel-bg-strong);
+  --color-panel-border: var(--panel-border);
+  --color-panel-border-strong: var(--panel-border-strong);
 
   --color-card-grad-from: var(--card-grad-from);
   --color-card-grad-to: var(--card-grad-to);
@@ -453,7 +456,7 @@ html {
     inline-size: 2.25rem;
     block-size: 1px;
     margin-top: 0.875rem;
-    background: var(--section-rail-accent);
+    background: var(--section-heading-accent);
   }
 
   @media (max-width: 767px) {
@@ -513,7 +516,7 @@ html {
   @media not print {
     .home-section-frame :where(.card, .job-card, .skill-badge) {
       background: var(--term-bg) !important;
-      border: 1px solid var(--glass-border) !important;
+      border: 1px solid var(--panel-border) !important;
       box-shadow: none !important;
       backdrop-filter: none !important;
     }
@@ -533,7 +536,7 @@ html {
     .project-card .skill-badge,
     .project-detail :where(.card, .skill-badge) {
       background: var(--term-bg) !important;
-      border: 1px solid var(--glass-border) !important;
+      border: 1px solid var(--panel-border) !important;
       box-shadow: none !important;
       backdrop-filter: none !important;
     }
@@ -827,12 +830,10 @@ html {
   from {
     opacity: 1;
     transform: scale(1) translateY(0);
-    filter: blur(0);
   }
   to {
     opacity: 0;
     transform: scale(0.7) translateY(-12px);
-    filter: blur(3px);
   }
 }
 
