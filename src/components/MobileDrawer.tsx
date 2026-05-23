@@ -19,7 +19,7 @@ const overlay = tv({
 const modal = tv({
   base: [
     'h-full w-80 max-w-full transform-gpu',
-    'bg-term-bg text-term-fg border-glass-border border-l shadow-none',
+    'bg-term-bg text-term-fg border-panel-border border-l shadow-none',
     'transition-transform duration-250 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none',
     'data-[entering]:translate-x-full data-[exiting]:translate-x-full'
   ]
@@ -72,7 +72,7 @@ export const MobileDrawer: FC<Props> = ({ links }) => {
               <Heading slot="title" className="sr-only">
                 Menu
               </Heading>
-              <div className="border-glass-border flex items-center justify-end border-b px-4 py-3">
+              <div className="border-panel-border flex items-center justify-end border-b px-4 py-3">
                 <IconButton slot="close" label="Close menu" icon={<X className="size-6" />} />
               </div>
 

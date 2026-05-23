@@ -63,8 +63,8 @@ describe('ProjectGallery', () => {
   it('renders desktop and mobile sections when both device groups are present', () => {
     render(<ProjectGallery images={images} title="Spear Dashboard" />);
 
-    expect(screen.getByRole('heading', { name: 'Desktop', level: 3 })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: 'Mobile', level: 3 })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Desktop', level: 2 })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Mobile', level: 2 })).toBeInTheDocument();
     expect(screen.getAllByRole('button', { name: /open screenshot:/i })).toHaveLength(4);
   });
 
@@ -103,8 +103,8 @@ describe('ProjectGallery', () => {
       />
     );
 
-    const desktopSection = screen.getByRole('heading', { name: 'Desktop', level: 3 }).closest('section');
-    const mobileSection = screen.getByRole('heading', { name: 'Mobile', level: 3 }).closest('section');
+    const desktopSection = screen.getByRole('heading', { name: 'Desktop', level: 2 }).closest('section');
+    const mobileSection = screen.getByRole('heading', { name: 'Mobile', level: 2 }).closest('section');
 
     expect(desktopSection).toContainElement(
       screen.getByRole('button', { name: /open screenshot: tall desktop dashboard/i })
@@ -178,8 +178,12 @@ describe('ProjectGallery', () => {
 
     expect(screen.getAllByText('100%')[0]).toBeInTheDocument();
 
-    await user.click(screen.getAllByRole('button', { name: /^zoom in$/i })[1]);
+    await user.click(screen.getAllByRole('button', { name: /^zoom in$/i })[0]);
     expect(screen.getAllByText('125%')[0]).toBeInTheDocument();
+
+    const zoomToggle = screen.getByRole('button', { name: /reset screenshot zoom/i });
+    expect(zoomToggle).toHaveAttribute('aria-pressed', 'true');
+    expect(zoomToggle).toHaveAccessibleDescription(/screenshot zoom is 125%/i);
 
     fireEvent.keyDown(document, { key: 'z' });
     expect(screen.getAllByText('150%')[0]).toBeInTheDocument();
@@ -187,7 +191,7 @@ describe('ProjectGallery', () => {
     fireEvent.keyDown(document, { key: 'Z', shiftKey: true });
     expect(screen.getAllByText('125%')[0]).toBeInTheDocument();
 
-    await user.click(screen.getByRole('button', { name: /reset screenshot zoom/i }));
+    await user.click(zoomToggle);
     expect(screen.getAllByText('100%')[0]).toBeInTheDocument();
   });
 
@@ -198,7 +202,7 @@ describe('ProjectGallery', () => {
 
     await user.click(screen.getByRole('button', { name: /open screenshot: desktop dashboard overview/i }));
 
-    const desktopZoomInButton = screen.getAllByRole('button', { name: /^zoom in$/i })[1];
+    const desktopZoomInButton = screen.getAllByRole('button', { name: /^zoom in$/i })[0];
 
     for (let step = 0; step < 9; step += 1) {
       fireEvent.click(desktopZoomInButton);
