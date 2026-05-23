@@ -37,7 +37,7 @@ const thumbFrame = tv({
 
 const lightboxOverlay = tv({
   base: [
-    'fixed inset-0 z-50 bg-overlay-bg',
+    'fixed inset-0 z-50 bg-overlay-bg backdrop-blur-md',
     'transition-opacity duration-200 ease-out',
     'data-[entering]:opacity-0 data-[exiting]:opacity-0'
   ]

@@ -1,4 +1,4 @@
 export const browserThemeColor = {
-  dark: '#21252b',
-  light: '#e2e5ea'
+  dark: 'oklch(23% 0.014 260)',
+  light: 'oklch(92% 0.012 260)'
 } as const;

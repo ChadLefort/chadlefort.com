@@ -17,7 +17,7 @@ const { links = homeNav, showLogoOnDesktop = true, compactLogo = false } = Astro
 const navLink = tv({
   base: [
     'inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold tracking-wide transition',
-    'text-nav-fg/85 hover:text-nav-fg hover:bg-black/10 dark:hover:bg-white/5',
+    'text-nav-fg/85 hover:text-nav-fg hover:bg-nav-link-hover-bg',
     'focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent'
   ]
 });
@@ -29,7 +29,7 @@ const navLink = tv({
   data-no-print
   data-nav
   data-nav-compact={compactLogo ? 'true' : 'false'}
-  class="glass-nav text-nav-fg sticky top-0 z-30"
+  class="bg-nav-bg border-glass-border text-nav-fg sticky top-0 z-30 border-b backdrop-blur-md"
 >
   <div
     class="max-w-section nav:grid nav:grid-cols-[1fr_auto_1fr] mx-auto hidden h-16 w-full items-center gap-4 px-4 sm:px-6"

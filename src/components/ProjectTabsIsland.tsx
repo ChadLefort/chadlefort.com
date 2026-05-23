@@ -35,7 +35,7 @@ const tabStyles = tv({
 });
 
 const skillIconStyles = tv({
-  base: 'size-5 transition-transform duration-200 group-hover:scale-[1.02] motion-reduce:group-hover:scale-100 md:size-6'
+  base: 'size-5 md:size-6'
 });
 
 const symbolId = (icon: string) => (icon.includes(':') ? `ai:${icon}` : `ai:local:${icon}`);
@@ -86,7 +86,7 @@ export const ProjectTabsIsland: FC<Props> = ({ hasGallery, galleryImages, projec
       </TabList>
 
       <TabPanel id={DESCRIPTION_TAB} className="tab-panel outline-none">
-        <div className="tile bg-tile-alt border-glass-border rounded-3xl border p-8 md:p-16">
+        <div className="bg-tile-alt border-glass-border rounded-3xl border p-8 md:p-16">
           <div className="project-prose">{description}</div>
         </div>
       </TabPanel>
@@ -95,7 +95,7 @@ export const ProjectTabsIsland: FC<Props> = ({ hasGallery, galleryImages, projec
         <ul className="flex min-w-0 flex-wrap justify-center gap-3 md:gap-4" aria-label={`${title} stack`}>
           {projectSkills.map((skill) => (
             <li key={skill.name}>
-              <div className="group card card-hover flex items-center gap-2 rounded-full px-3 py-2 md:px-4">
+              <div className="skill-badge">
                 <SkillIcon skill={skill} />
                 <span className="text-fg/90 min-w-0 text-sm font-semibold tracking-wide break-words">{skill.name}</span>
               </div>

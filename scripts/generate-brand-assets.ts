@@ -124,14 +124,16 @@ const generateResumePdf = async (): Promise<void> => {
 
 const toDataUrl = (mimeType: string, buffer: Buffer): string => `data:${mimeType};base64,${buffer.toString('base64')}`;
 
+const maskFill = '#eceef2';
+
 const roundedMask = (width: number, height: number, radius: number): Buffer =>
   Buffer.from(
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"><rect width="${width}" height="${height}" rx="${radius}" fill="#fff"/></svg>`
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"><rect width="${width}" height="${height}" rx="${radius}" fill="${maskFill}"/></svg>`
   );
 
 const circleMask = (size: number): Buffer =>
   Buffer.from(
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}"><circle cx="${size / 2}" cy="${size / 2}" r="${size / 2}" fill="#fff"/></svg>`
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}"><circle cx="${size / 2}" cy="${size / 2}" r="${size / 2}" fill="${maskFill}"/></svg>`
   );
 
 const roundedCrop = async (input: Buffer, options: RoundedCropOptions): Promise<Buffer> => {
@@ -263,10 +265,10 @@ try {
       <circle cx="176" cy="176" r="220" fill="url(#blueGlow)" />
       <circle cx="1030" cy="132" r="220" fill="url(#greenGlow)" />
 
-      <circle cx="164" cy="176" r="120" fill="rgba(255,255,255,0.03)" />
-      <circle cx="164" cy="176" r="116" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2" />
+      <circle cx="164" cy="176" r="120" fill="rgba(236,238,242,0.03)" />
+      <circle cx="164" cy="176" r="116" fill="none" stroke="rgba(236,238,242,0.2)" stroke-width="2" />
 
-      <rect x="712" y="18" width="470" height="594" rx="30" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" />
+      <rect x="712" y="18" width="470" height="594" rx="30" fill="rgba(236,238,242,0.04)" stroke="rgba(236,238,242,0.1)" />
       <rect x="732" y="40" width="430" height="36" rx="18" fill="rgba(10,13,18,0.32)" />
       <circle cx="756" cy="58" r="5" fill="#ff5f57" />
       <circle cx="772" cy="58" r="5" fill="#ffbd2e" />
@@ -285,7 +287,7 @@ try {
         <tspan x="84" dy="38">polished for all users.</tspan>
       </text>
     </g>
-    <rect x="18" y="18" width="1164" height="594" rx="24" fill="none" stroke="#fff" stroke-opacity="0.06" />
+    <rect x="18" y="18" width="1164" height="594" rx="24" fill="none" stroke="#eceef2" stroke-opacity="0.06" />
   </svg>`;
 
   const baseCard = sharp(Buffer.from(backgroundSvg));

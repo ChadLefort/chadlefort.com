@@ -66,9 +66,9 @@
   --border: oklch(24% 0.012 260 / 14%);
   --nav-bg: oklch(72% 0.018 260 / 62%);
   --nav-fg: var(--color-1);
+  --nav-link-hover-bg: oklch(24% 0.012 260 / 6%);
   --tile-bg: oklch(72% 0.018 260 / 38%);
   --tile-bg-alt: oklch(72% 0.018 260 / 32%);
-  --tile-backdrop: none;
   --card-grad-from: oklch(72% 0.018 260 / 38%);
   --card-grad-to: oklch(72% 0.018 260 / 30%);
   --card-backdrop: none;
@@ -117,9 +117,9 @@
   --border: oklch(96% 0.01 260 / 8%);
   --nav-bg: oklch(27% 0.016 260 / 72%);
   --nav-fg: var(--color-12);
+  --nav-link-hover-bg: oklch(96% 0.01 260 / 6%);
   --tile-bg: oklch(27% 0.012 260 / 28%);
   --tile-bg-alt: oklch(31% 0.014 260 / 34%);
-  --tile-backdrop: none;
   --card-grad-from: oklch(41% 0.018 260 / 62%);
   --card-grad-to: oklch(31% 0.014 260 / 52%);
   --card-backdrop: none;
@@ -199,6 +199,7 @@
 
   --color-nav-bg: var(--nav-bg);
   --color-nav-fg: var(--nav-fg);
+  --color-nav-link-hover-bg: var(--nav-link-hover-bg);
 
   --color-overlay-bg: var(--overlay-bg);
   --color-overlay-fg: var(--overlay-fg);
@@ -261,7 +262,7 @@ html {
     min-height: 100vh;
     margin: 0;
     line-height: 1.55;
-    word-spacing: 0.1em;
+    word-spacing: 0.05em;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
@@ -530,12 +531,6 @@ html {
   }
 }
 
-@utility glass-nav {
-  background: var(--nav-bg);
-  backdrop-filter: blur(6px) saturate(100%);
-  border-bottom: 1px solid var(--glass-border);
-}
-
 @utility card {
   position: relative;
   background: linear-gradient(160deg, var(--card-grad-from), var(--card-grad-to));
@@ -562,16 +557,28 @@ html {
   }
 }
 
+@utility skill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  background: var(--surface-raised);
+}
+
+@utility job-card {
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: var(--surface-raised);
+}
+
 @utility surface-vignette {
   background: radial-gradient(ellipse at top, transparent 0%, var(--surface) 95%);
 
   :where(.dark, .dark *) & {
     background: radial-gradient(ellipse at top, transparent 0%, var(--surface) 70%);
   }
-}
-
-@utility tile {
-  backdrop-filter: var(--tile-backdrop, none);
 }
 
 [data-logo-text] {
@@ -668,7 +675,7 @@ html {
 
 .timeline-card {
   transform: translate3d(14px, 8px, 0);
-  transition-property: opacity, transform, border-color, background-color;
+  transition-property: opacity, transform;
 }
 
 .timeline-date {
@@ -696,16 +703,9 @@ html {
 .timeline-item.is-visible .timeline-date {
   opacity: 1;
   transform: translate3d(0, 0, 0);
-  transition-property: opacity, transform, border-color, background-color;
-  transition-duration: 560ms, 560ms, 220ms, 220ms;
-  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1), cubic-bezier(0.22, 1, 0.36, 1), ease, ease;
-}
-
-@media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .timeline-item.is-visible .timeline-card:hover {
-    transform: translate3d(0, -1px, 0);
-    border-color: var(--card-border-hover);
-  }
+  transition-property: opacity, transform;
+  transition-duration: 560ms, 560ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1), cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .timeline-item.is-visible .timeline-dot {

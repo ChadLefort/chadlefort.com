@@ -19,7 +19,7 @@ const item = tv({
 });
 
 const card = tv({
-  base: 'timeline-card card card-hover p-5 md:p-7 print:resume-timeline-card',
+  base: 'timeline-card job-card p-5 md:p-7 print:resume-timeline-card',
   variants: {
     side: {
       left: 'timeline-card-left',
