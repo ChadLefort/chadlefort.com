@@ -47,7 +47,7 @@ test.describe('home page', () => {
     const btn = page.locator('[data-copy-email]');
     await btn.scrollIntoViewIfNeeded();
     await btn.click();
-    await expect(page.locator('[data-copy-email-label]')).toHaveText('Copied!');
+    await expect(page.locator('[data-copy-email-label]')).toHaveText('Email copied!');
   });
 });
 
@@ -63,9 +63,9 @@ test.describe('projects', () => {
     await page.goto('/projects/spear-dashboard');
     await page.waitForLoadState('networkidle');
 
-    const descTab = page.getByRole('tab', { name: /description/i });
-    const skillsTab = page.getByRole('tab', { name: /skills/i });
-    const imagesTab = page.getByRole('tab', { name: /images/i });
+    const descTab = page.getByRole('tab', { name: /case study/i });
+    const skillsTab = page.getByRole('tab', { name: /stack/i });
+    const screenshotsTab = page.getByRole('tab', { name: /screenshots/i });
 
     await expect(descTab).toHaveAttribute('aria-selected', 'true');
     await expect(skillsTab).toBeVisible();
@@ -76,9 +76,9 @@ test.describe('projects', () => {
     await page.keyboard.press('ArrowRight');
     await expect(skillsTab).toBeFocused();
     await page.keyboard.press('ArrowRight');
-    await expect(imagesTab).toBeFocused();
+    await expect(screenshotsTab).toBeFocused();
     await page.keyboard.press('Enter');
-    await expect(imagesTab).toHaveAttribute('aria-selected', 'true');
+    await expect(screenshotsTab).toHaveAttribute('aria-selected', 'true');
 
     await page.keyboard.press('Home');
     await expect(descTab).toBeFocused();

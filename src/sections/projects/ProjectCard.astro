@@ -58,7 +58,7 @@ const cardLink = tv({
           quality={82}
           loading={index < 2 ? 'eager' : 'lazy'}
           pictureAttributes={{ class: `block w-full overflow-hidden rounded-2xl ${headerAspect}` }}
-          class="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]"
+          class="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.015]"
         />
       ) : (
         <div class={`flex w-full items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br ${project.data.accent} ${headerAspect}`}>
@@ -70,17 +70,17 @@ const cardLink = tv({
               aria-hidden="true"
             />
           ) : (
-            <span class="font-display text-7xl tracking-tighter text-white/85 mix-blend-overlay md:text-8xl">{initials}</span>
+            <span class="font-display text-overlay-fg/85 text-7xl tracking-tighter mix-blend-overlay md:text-8xl">{initials}</span>
           )}
         </div>
       )
     }
   </div>
 
-  <div class={`flex flex-1 flex-col gap-3 px-1 pt-4 pb-1 md:px-2 ${compact ? 'md:pt-4 md:pb-1' : 'md:pt-5 md:pb-2'}`}>
-    <h3 class={`font-display ${compact ? 'text-2xl' : 'text-2xl md:text-3xl'}`}>{project.data.title}</h3>
-    <p class="text-accent font-mono text-sm">{project.data.subtitle}</p>
-    <p class="text-fg-muted leading-relaxed">{project.data.summary}</p>
+  <div class={`flex min-w-0 flex-1 flex-col gap-3 px-1 pt-4 pb-1 md:px-2 ${compact ? 'md:pt-4 md:pb-1' : 'md:pt-5 md:pb-2'}`}>
+    <h3 class={`font-display break-words ${compact ? 'text-2xl' : 'text-2xl md:text-3xl'}`}>{project.data.title}</h3>
+    <p class="text-accent font-mono text-sm break-words">{project.data.subtitle}</p>
+    <p class="text-fg-muted leading-relaxed break-words">{project.data.summary}</p>
     {
       featured && projectSkills.length ? (
         <ul class="mt-auto hidden flex-wrap gap-3 pt-6 md:flex md:gap-4" aria-label={`${project.data.title} skills used`}>
@@ -89,11 +89,11 @@ const cardLink = tv({
               <div class="group card card-hover flex items-center gap-2 rounded-full px-3 py-2 md:px-4">
                 <Icon
                   name={skill.icon}
-                  class="h-5 w-5 transition-transform duration-200 group-hover:scale-105 motion-reduce:group-hover:scale-100 md:h-6 md:w-6"
+                  class="h-5 w-5 transition-transform duration-200 group-hover:scale-[1.02] motion-reduce:group-hover:scale-100 md:h-6 md:w-6"
                   style={skill.color ? `color: ${skill.color};` : undefined}
                   aria-hidden="true"
                 />
-                <span class="text-fg/90 text-sm font-semibold tracking-wide">{skill.name}</span>
+                <span class="text-fg/90 min-w-0 text-sm font-semibold tracking-wide break-words">{skill.name}</span>
               </div>
             </li>
           ))}

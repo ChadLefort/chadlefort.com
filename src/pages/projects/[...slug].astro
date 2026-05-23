@@ -162,7 +162,7 @@ const breadcrumbLd = {
       <div class="max-w-section mx-auto">
         <PillLink href="/projects" client:idle>
           <Icon name="lucide:chevron-left" class="h-4 w-4 transition-transform duration-200 group-hover:-translate-x-0.5 motion-reduce:group-hover:translate-x-0" aria-hidden="true" />
-          Back to projects
+          All projects
         </PillLink>
 
         <div class="mt-8 grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-center md:gap-12">
@@ -176,7 +176,7 @@ const breadcrumbLd = {
                 project.data.externalUrl && (
                   <CTALink href={project.data.externalUrl} target="_blank" rel="noopener" intent="primary" client:idle>
                     <Icon name="lucide:external-link" class="h-4 w-4" aria-hidden="true" />
-                    Visit live site
+                    Open live project
                   </CTALink>
                 )
               }
@@ -184,7 +184,7 @@ const breadcrumbLd = {
                 project.data.repoUrl && (
                   <CTALink href={project.data.repoUrl} target="_blank" rel="noopener" intent="secondary" client:idle>
                     <Icon name="lucide:github" class="h-4 w-4" aria-hidden="true" />
-                    Repository
+                    View code
                   </CTALink>
                 )
               }

@@ -22,7 +22,7 @@ export const buttonStyles = tv({
   ],
   variants: {
     variant: {
-      solid: 'text-white shadow-lg shadow-black/20',
+      solid: 'text-overlay-fg shadow-sm shadow-ink-950/10',
       outline: 'border-2 bg-transparent',
       ghost: 'border-2 border-transparent',
       unstyled: ['bg-transparent border-none text-current p-0', 'data-[hovered]:opacity-85']
@@ -45,11 +45,11 @@ export const buttonStyles = tv({
     press: {
       none: '',
       subtle: [
-        'data-[hovered]:scale-[1.03] data-[pressed]:scale-[0.96]',
+        'data-[hovered]:scale-[1.01] data-[pressed]:scale-[0.98]',
         'motion-reduce:data-[hovered]:scale-100 motion-reduce:data-[pressed]:scale-100'
       ],
       bouncy: [
-        'data-[hovered]:scale-[1.08] data-[pressed]:scale-[0.95]',
+        'data-[hovered]:scale-[1.02] data-[pressed]:scale-[0.98]',
         'motion-reduce:data-[hovered]:scale-100 motion-reduce:data-[pressed]:scale-100'
       ]
     },
@@ -73,7 +73,7 @@ export const buttonStyles = tv({
       color: 'term',
       class: [
         'bg-terminal-bg text-terminal-fg border border-ink-500',
-        'data-[hovered]:border-terminal-blue data-[hovered]:text-white'
+        'data-[hovered]:border-terminal-blue data-[hovered]:text-overlay-fg'
       ]
     },
     {

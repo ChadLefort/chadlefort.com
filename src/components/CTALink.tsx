@@ -5,12 +5,12 @@ import { tv, type VariantProps } from 'tailwind-variants';
 const ctaStyles = tv({
   base: [
     'group inline-flex items-center font-semibold transition-colors transition-transform duration-200',
-    'hover:scale-[1.02] active:scale-[0.98] motion-reduce:hover:scale-100',
+    'hover:-translate-y-px active:translate-y-0 motion-reduce:hover:translate-y-0',
     'focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent'
   ],
   variants: {
     intent: {
-      primary: 'bg-accent-strong hover:bg-accent text-white',
+      primary: 'bg-accent-strong hover:bg-accent text-overlay-fg',
       secondary: 'border-glass-border-strong bg-glass text-fg hover:border-accent border'
     },
     size: {

@@ -51,7 +51,7 @@ const copyEmailButton = tv({
               >
                 <Icon
                   name={link.icon}
-                  class="h-6 w-6 transition-transform duration-300 group-hover:scale-110 motion-reduce:group-hover:scale-100"
+                  class="h-6 w-6 transition-transform duration-300 group-hover:scale-[1.02] motion-reduce:group-hover:scale-100"
                   aria-hidden="true"
                 />
               </a>
@@ -68,7 +68,7 @@ const copyEmailButton = tv({
           aria-label={`Copy email ${site.email} to clipboard`}
         >
           <Icon name="lucide:mail" class="text-accent h-4 w-4" aria-hidden="true" />
-          <span data-copy-email-label>{site.email}</span>
+          <span class="min-w-0 break-all" data-copy-email-label>{site.email}</span>
           <Icon
             name="lucide:copy"
             class="text-fg-muted group-hover:text-accent h-4 w-4 transition"
@@ -99,6 +99,7 @@ const copyEmailButton = tv({
         try {
           await navigator.clipboard.writeText(email);
         } catch {
+          if (status) status.textContent = `Copy failed. Email ${email} manually.`;
           return;
         }
 
@@ -106,7 +107,7 @@ const copyEmailButton = tv({
         void btn.offsetWidth;
         btn.classList.add('copy-email-confirmed');
 
-        if (label) label.textContent = 'Copied!';
+        if (label) label.textContent = 'Email copied!';
         if (status) status.textContent = 'Email copied to clipboard.';
 
         window.setTimeout(() => {

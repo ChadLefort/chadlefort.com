@@ -120,7 +120,7 @@ export const buildFs = (host = 'chadlefort.com'): FsDir => {
         { git: '--' }
       ),
       'ABOUT.md': file('ABOUT.md', () => aboutBody(years), { route: '/#about-me', git: 'M' }),
-      whoami: file('whoami', () => `chad — ${site.jobTitle} (${years}+ years)`, { git: '--' }),
+      whoami: file('whoami', () => `chad, ${site.jobTitle} (${years}+ years)`, { git: '--' }),
       'EXPERIENCE.LOG': file(
         'EXPERIENCE.LOG',
         () =>

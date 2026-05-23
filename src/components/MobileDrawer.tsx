@@ -19,7 +19,7 @@ const overlay = tv({
 const modal = tv({
   base: [
     'h-full w-80 max-w-full transform-gpu',
-    'bg-surface text-fg border-border-subtle border-l shadow-lg',
+    'bg-surface text-fg border-border-subtle border-l shadow-sm',
     'transition-transform duration-250 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none',
     'data-[entering]:translate-x-full data-[exiting]:translate-x-full'
   ]

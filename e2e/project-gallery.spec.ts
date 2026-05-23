@@ -4,7 +4,7 @@ test.describe('project gallery', () => {
   test('opens the gallery lightbox and navigates between images', async ({ page }) => {
     await page.goto('/projects/spear-dashboard');
 
-    const imagesTab = page.getByRole('tab', { name: /images/i });
+    const imagesTab = page.getByRole('tab', { name: /screenshots/i });
 
     await expect
       .poll(async () => {
@@ -13,7 +13,7 @@ test.describe('project gallery', () => {
       })
       .toBe('true');
 
-    const openButtons = page.getByRole('button', { name: /open .* in lightbox/i });
+    const openButtons = page.getByRole('button', { name: /open screenshot:/i });
     await expect(openButtons.first()).toBeVisible();
     const imageCount = await openButtons.count();
 
@@ -30,7 +30,7 @@ test.describe('project gallery', () => {
     await page.keyboard.press('ArrowLeft');
     await expect(page.getByText(`1 / ${imageCount}`)).toBeVisible();
 
-    await page.getByRole('button', { name: /close gallery/i }).click();
+    await page.getByRole('button', { name: /close screenshots/i }).click();
     await expect(page.getByRole('dialog')).toHaveCount(0);
   });
 });

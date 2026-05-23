@@ -41,10 +41,10 @@ describe('ProjectTabsIsland', () => {
       />
     );
 
-    expect(screen.getByRole('tab', { name: /description/i })).toHaveAttribute('aria-selected', 'true');
+    expect(screen.getByRole('tab', { name: /case study/i })).toHaveAttribute('aria-selected', 'true');
     expect(screen.getByText('Project summary')).toBeInTheDocument();
-    expect(screen.getByRole('tab', { name: /skills/i })).toBeInTheDocument();
-    expect(screen.queryByRole('tab', { name: /images/i })).not.toBeInTheDocument();
+    expect(screen.getByRole('tab', { name: /stack/i })).toBeInTheDocument();
+    expect(screen.queryByRole('tab', { name: /screenshots/i })).not.toBeInTheDocument();
   });
 
   it('switches to the gallery tab when images are available', async () => {
@@ -60,11 +60,11 @@ describe('ProjectTabsIsland', () => {
       />
     );
 
-    const imagesTab = screen.getByRole('tab', { name: /images/i });
+    const imagesTab = screen.getByRole('tab', { name: /screenshots/i });
     await user.click(imagesTab);
 
     expect(imagesTab).toHaveAttribute('aria-selected', 'true');
-    expect(screen.getByRole('button', { name: /open desktop dashboard overview in lightbox/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /open screenshot: desktop dashboard overview/i })).toBeInTheDocument();
   });
 
   it('opens the lightbox when the hero requests the gallery and still allows navigation', async () => {
@@ -85,7 +85,7 @@ describe('ProjectTabsIsland', () => {
     });
 
     expect(await screen.findByRole('dialog')).toBeInTheDocument();
-    expect(screen.getByRole('tab', { name: /images/i })).toHaveAttribute('aria-selected', 'true');
+    expect(screen.getByRole('tab', { name: /screenshots/i })).toHaveAttribute('aria-selected', 'true');
     expect(screen.getByText('1 / 2')).toBeInTheDocument();
 
     await user.click(screen.getAllByRole('button', { name: /next image/i })[0]);

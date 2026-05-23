@@ -65,7 +65,7 @@ describe('ProjectGallery', () => {
 
     expect(screen.getByRole('heading', { name: 'Desktop', level: 3 })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Mobile', level: 3 })).toBeInTheDocument();
-    expect(screen.getAllByRole('button', { name: /open .* in lightbox/i })).toHaveLength(4);
+    expect(screen.getAllByRole('button', { name: /open screenshot:/i })).toHaveLength(4);
   });
 
   it('groups images by explicit device instead of raw aspect ratio', () => {
@@ -107,10 +107,10 @@ describe('ProjectGallery', () => {
     const mobileSection = screen.getByRole('heading', { name: 'Mobile', level: 3 }).closest('section');
 
     expect(desktopSection).toContainElement(
-      screen.getByRole('button', { name: /open tall desktop dashboard in lightbox/i })
+      screen.getByRole('button', { name: /open screenshot: tall desktop dashboard/i })
     );
     expect(mobileSection).toContainElement(
-      screen.getByRole('button', { name: /open tall mobile dashboard in lightbox/i })
+      screen.getByRole('button', { name: /open screenshot: tall mobile dashboard/i })
     );
   });
 
@@ -134,7 +134,7 @@ describe('ProjectGallery', () => {
 
     render(<ProjectGallery images={images.slice(0, 2)} title="Spear Dashboard" />);
 
-    await user.click(screen.getByRole('button', { name: /open desktop dashboard overview in lightbox/i }));
+    await user.click(screen.getByRole('button', { name: /open screenshot: desktop dashboard overview/i }));
 
     expect(screen.getByRole('dialog')).toBeInTheDocument();
     expect(screen.getByText('1 / 2')).toBeInTheDocument();
@@ -145,7 +145,7 @@ describe('ProjectGallery', () => {
     fireEvent.keyDown(document, { key: 'ArrowLeft' });
     expect(screen.getByText('1 / 2')).toBeInTheDocument();
 
-    await user.click(screen.getAllByRole('button', { name: /close gallery/i })[0]);
+    await user.click(screen.getAllByRole('button', { name: /close screenshots/i })[0]);
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 
@@ -154,9 +154,9 @@ describe('ProjectGallery', () => {
 
     render(<ProjectGallery images={images.slice(0, 2)} title="Spear Dashboard" />);
 
-    await user.click(screen.getByRole('button', { name: /open desktop dashboard overview in lightbox/i }));
+    await user.click(screen.getByRole('button', { name: /open screenshot: desktop dashboard overview/i }));
 
-    const imageToggle = screen.getByRole('button', { name: /zoom image to next level/i });
+    const imageToggle = screen.getByRole('button', { name: /zoom screenshot/i });
 
     fireEvent.touchStart(imageToggle, {
       touches: [{ clientX: 240, clientY: 120 }]
@@ -174,7 +174,7 @@ describe('ProjectGallery', () => {
 
     render(<ProjectGallery images={images.slice(0, 1)} title="Spear Dashboard" />);
 
-    await user.click(screen.getByRole('button', { name: /open desktop dashboard overview in lightbox/i }));
+    await user.click(screen.getByRole('button', { name: /open screenshot: desktop dashboard overview/i }));
 
     expect(screen.getAllByText('100%')[0]).toBeInTheDocument();
 
@@ -187,7 +187,7 @@ describe('ProjectGallery', () => {
     fireEvent.keyDown(document, { key: 'Z', shiftKey: true });
     expect(screen.getAllByText('125%')[0]).toBeInTheDocument();
 
-    await user.click(screen.getByRole('button', { name: /reset image zoom/i }));
+    await user.click(screen.getByRole('button', { name: /reset screenshot zoom/i }));
     expect(screen.getAllByText('100%')[0]).toBeInTheDocument();
   });
 
@@ -196,7 +196,7 @@ describe('ProjectGallery', () => {
 
     render(<ProjectGallery images={images.slice(0, 1)} title="Spear Dashboard" />);
 
-    await user.click(screen.getByRole('button', { name: /open desktop dashboard overview in lightbox/i }));
+    await user.click(screen.getByRole('button', { name: /open screenshot: desktop dashboard overview/i }));
 
     const desktopZoomInButton = screen.getAllByRole('button', { name: /^zoom in$/i })[1];
 
@@ -219,7 +219,7 @@ describe('ProjectGallery', () => {
 
     render(<ProjectGallery images={images.slice(3)} title="Spear Dashboard" />);
 
-    await user.click(screen.getByRole('button', { name: /open mobile course flow in lightbox/i }));
+    await user.click(screen.getByRole('button', { name: /open screenshot: mobile course flow/i }));
 
     expect(screen.getAllByText('1000%')[0]).toBeInTheDocument();
   });
@@ -229,9 +229,9 @@ describe('ProjectGallery', () => {
 
     render(<ProjectGallery images={images.slice(3)} title="Spear Dashboard" />);
 
-    await user.click(screen.getByRole('button', { name: /open mobile course flow in lightbox/i }));
+    await user.click(screen.getByRole('button', { name: /open screenshot: mobile course flow/i }));
 
-    const imageToggle = screen.getByRole('button', { name: /reset image zoom/i });
+    const imageToggle = screen.getByRole('button', { name: /reset screenshot zoom/i });
 
     fireEvent.touchStart(imageToggle, {
       touches: [

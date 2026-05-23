@@ -24,7 +24,7 @@ export const GET: APIRoute = async () => {
 
   out.push('## Experience');
   for (const job of jobs) {
-    out.push(`- **${job.company}** — ${job.role} (${job.start} – ${job.end})`);
+    out.push(`- **${job.company}**, ${job.role} (${job.start} to ${job.end})`);
   }
   out.push('');
 

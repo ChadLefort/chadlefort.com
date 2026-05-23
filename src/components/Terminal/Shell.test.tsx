@@ -42,7 +42,7 @@ describe('Shell', () => {
     render(<Shell />);
     await typeAndEnter(user, 'help');
 
-    expect(screen.getByText('available commands:')).toBeInTheDocument();
+    expect(screen.getByText('commands:')).toBeInTheDocument();
     expect(screen.getByText(/ls \[-la\] \[path\]/)).toBeInTheDocument();
   });
 
@@ -104,10 +104,10 @@ describe('Shell', () => {
     render(<Shell />);
 
     await typeAndEnter(user, 'help');
-    expect(screen.getByText('available commands:')).toBeInTheDocument();
+    expect(screen.getByText('commands:')).toBeInTheDocument();
 
     await typeAndEnter(user, 'clear');
-    expect(screen.queryByText('available commands:')).not.toBeInTheDocument();
+    expect(screen.queryByText('commands:')).not.toBeInTheDocument();
   });
 
   it('unknown commands suggest the closest match', async () => {
@@ -192,14 +192,14 @@ describe('Shell', () => {
 
     render(<Shell />);
     await typeAndEnter(user, 'help');
-    expect(screen.getByText('available commands:')).toBeInTheDocument();
+    expect(screen.getByText('commands:')).toBeInTheDocument();
 
     const input = screen.getByLabelText('terminal input');
 
     await user.click(input);
     await user.keyboard('{Control>}l{/Control}');
 
-    expect(screen.queryByText('available commands:')).not.toBeInTheDocument();
+    expect(screen.queryByText('commands:')).not.toBeInTheDocument();
   });
 
   it('neofetch prints fastfetch-style header', async () => {
@@ -239,7 +239,7 @@ describe('Shell', () => {
     await typeAndEnter(user, 'vim');
     await typeAndEnter(user, ':q!');
 
-    expect(screen.getByText(/wrote 0 bytes\. you escaped/)).toBeInTheDocument();
+    expect(screen.getByText(/wrote 0 bytes\. You escaped/)).toBeInTheDocument();
   });
 
   it('keeps the embedded shell in page-scroll mode until focused', async () => {
