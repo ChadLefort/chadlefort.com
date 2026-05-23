@@ -1,0 +1,12 @@
+@media print {
+  :root,
+  :root.dark,
+  .dark {
+    --print-paper: oklch(99% 0.004 260);
+    --print-ink: oklch(20% 0.008 260);
+    --print-muted: oklch(42% 0.008 260);
+    --print-subtle: oklch(56% 0.006 260);
+    --print-border: oklch(82% 0.005 260);
+    --print-link: oklch(55% 0.145 248);
+  }
+}

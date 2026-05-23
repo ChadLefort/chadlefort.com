@@ -57,8 +57,10 @@ const cardLink = tv({
           sizes={featured ? '(min-width: 768px) 640px, 100vw' : '(min-width: 768px) 360px, 100vw'}
           formats={['avif', 'webp']}
           fallbackFormat="webp"
-          quality={82}
+          quality={68}
           loading={index < 2 ? 'eager' : 'lazy'}
+          decoding={index === 0 ? 'sync' : 'async'}
+          fetchpriority={index === 0 ? 'high' : 'auto'}
           pictureAttributes={{ class: `block w-full overflow-hidden rounded-2xl ${headerAspect}` }}
           class="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.015]"
         />
