@@ -10,7 +10,7 @@
   height: 0.9in;
   border-radius: 50%;
   object-fit: cover;
-  border: 1pt solid #c8c8c8;
+  border: 1pt solid var(--print-border);
 }
 
 @utility resume-name {
@@ -18,7 +18,7 @@
   font-size: 28pt;
   line-height: 1;
   margin-left: -2px;
-  color: #1a1a1a;
+  color: var(--print-ink);
   font-weight: 700;
   letter-spacing: -0.08em;
   word-spacing: -0.2em;
@@ -26,14 +26,14 @@
 
 @utility resume-role {
   font-size: 13pt;
-  color: #555;
+  color: var(--print-muted);
   margin-top: 0.04in;
   font-weight: 500;
 }
 
 @utility resume-contact {
   font-size: 9pt;
-  color: #333;
+  color: var(--print-ink);
   line-height: 1.4;
   display: grid;
   gap: 0.04in;
@@ -49,12 +49,12 @@
   & [data-icon] {
     width: 10pt;
     height: 10pt;
-    color: #1a1a1a;
+    color: var(--print-ink);
     flex-shrink: 0;
   }
 
   & a {
-    color: #0a7aca;
+    color: var(--print-link);
     text-decoration: none;
   }
 }
@@ -62,14 +62,14 @@
 @utility resume-summary {
   margin-top: 0.18in;
   font-size: 9.75pt;
-  color: #1a1a1a;
+  color: var(--print-ink);
   line-height: 1.5;
 }
 
 @utility resume-section-title {
   font-family: var(--font-display);
   font-size: 17pt;
-  color: #1a1a1a;
+  color: var(--print-ink);
   margin-bottom: 0.12in;
   text-align: center;
   text-transform: none;
@@ -117,7 +117,7 @@
     top: 0.155in;
     width: 0.09in;
     height: 0.09in;
-    background: #1a1a1a;
+    background: var(--print-ink);
     border-radius: 50%;
     z-index: 3;
   }
@@ -129,7 +129,7 @@
     top: 0;
     bottom: -0.1in;
     width: 1.5pt;
-    background: #888;
+    background: var(--print-subtle);
     z-index: 1;
   }
 
@@ -155,7 +155,7 @@
   & h3 {
     font-family: var(--font-display);
     font-size: 12pt;
-    color: #1a1a1a;
+    color: var(--print-ink);
     margin: 0;
     text-align: left;
     font-weight: 700;
@@ -166,7 +166,7 @@
 
 @utility resume-timeline-role {
   font-size: 10pt;
-  color: #1a1a1a;
+  color: var(--print-ink);
   margin-top: 0.02in;
   text-align: left;
   font-weight: 600;
@@ -176,20 +176,20 @@
   display: block;
   font-family: var(--font-display);
   font-size: 9pt;
-  color: #555;
+  color: var(--print-muted);
   margin-top: 0.02in;
   text-align: left;
 }
 
 @utility resume-timeline-card {
   display: block;
-  background: #ffffff;
+  background: var(--print-paper);
   padding: 0.1in 0.14in;
-  border: 0.5pt solid #888;
+  border: 0.5pt solid var(--print-subtle);
   border-radius: 4pt;
   text-align: left;
   margin: 0;
-  color: #1a1a1a;
+  color: var(--print-ink);
   max-width: 100%;
   width: 100%;
   box-sizing: border-box;
@@ -205,7 +205,7 @@
     margin: 0.02in 0;
     padding: 0;
     font-size: 9pt;
-    color: #1a1a1a;
+    color: var(--print-ink);
     line-height: 1.4;
     text-align: left;
 
@@ -244,11 +244,11 @@
     gap: 0.06in;
     box-sizing: border-box;
     padding: 0.045in 0.1in;
-    border: 0.5pt solid #888;
+    border: 0.5pt solid var(--print-subtle);
     border-radius: 9999px;
-    background: #ffffff;
+    background: var(--print-paper);
     transform: none;
-    color: #1a1a1a;
+    color: var(--print-ink);
   }
 
   & svg,
@@ -262,7 +262,7 @@
   & span {
     font-size: 8.5pt;
     font-weight: 600;
-    color: #1a1a1a;
+    color: var(--print-ink);
     text-align: left;
     line-height: 1.1;
     white-space: nowrap;
@@ -296,7 +296,7 @@
 @utility resume-edu-title {
   font-family: var(--font-display);
   font-size: 13pt;
-  color: #1a1a1a;
+  color: var(--print-ink);
   font-weight: 700;
   letter-spacing: -0.06em;
   word-spacing: -0.2em;
@@ -306,7 +306,7 @@
 @utility resume-edu-degree {
   font-size: 10pt;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--print-ink);
   margin-top: 0.02in;
   text-align: left;
 }
@@ -314,7 +314,7 @@
 @utility resume-edu-dates {
   font-family: var(--font-display);
   font-size: 9pt;
-  color: #555;
+  color: var(--print-muted);
   margin-top: 0.02in;
   text-align: left;
 }
@@ -322,7 +322,7 @@
 @utility resume-edu-subtitle {
   font-family: var(--font-display);
   font-size: 11pt;
-  color: #1a1a1a;
+  color: var(--print-ink);
   margin-top: 0.1in;
   margin-bottom: 0.04in;
   font-weight: 700;
@@ -340,7 +340,7 @@
     margin: 0.02in 0;
     padding: 0;
     font-size: 9pt;
-    color: #1a1a1a;
+    color: var(--print-ink);
 
     & > span:first-child {
       display: none;
@@ -350,7 +350,7 @@
 
 @utility resume-edu-hr {
   border: 0;
-  border-top: 0.5pt solid #d0d0d0;
+  border-top: 0.5pt solid var(--print-border);
   margin: 0.06in 0;
 }
 
