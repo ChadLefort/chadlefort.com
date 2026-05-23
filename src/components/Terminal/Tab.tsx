@@ -4,7 +4,7 @@ import { Link } from 'react-aria-components';
 import { tv } from 'tailwind-variants';
 
 const tabStyles = tv({
-  base: 'box-border inline-flex h-9 transform-gpu items-center gap-2 rounded-t-xl border border-transparent px-3 text-[12px] font-medium whitespace-nowrap transition sm:px-4',
+  base: 'box-border inline-flex min-h-11 transform-gpu items-center gap-2 rounded-t-xl border border-transparent px-3 text-[12px] font-medium whitespace-nowrap transition sm:h-9 sm:min-h-9 sm:px-4',
   variants: {
     tone: {
       default: '',

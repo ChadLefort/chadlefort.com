@@ -1,8 +1,8 @@
 ---
-
+import { browserThemeColor } from '~/data/theme';
 ---
 
-<script is:inline>
+<script is:inline define:vars={{ darkThemeColor: browserThemeColor.dark, lightThemeColor: browserThemeColor.light }}>
   (() => {
     const apply = () => {
       const root = document.documentElement;
@@ -23,7 +23,7 @@
       const meta = document.querySelector('meta[name="theme-color"]');
 
       if (meta) {
-        meta.content = root.classList.contains('dark') ? '#21252b' : '#e2e5ea';
+        meta.content = root.classList.contains('dark') ? darkThemeColor : lightThemeColor;
       }
     };
 

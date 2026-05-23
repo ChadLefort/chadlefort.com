@@ -13,9 +13,11 @@ type Props = {
   index: number;
   featured?: boolean;
   compact?: boolean;
+  headingLevel?: 2 | 3;
 };
 
-const { project, index, featured = false, compact = false } = Astro.props;
+const { project, index, featured = false, compact = false, headingLevel = 3 } = Astro.props;
+const HeadingTag = `h${headingLevel}` as const;
 const headerAspect = featured ? 'aspect-[16/8.5]' : 'aspect-[16/7]';
 const smallBrandIcons = new Set(['simple-icons:lerna', 'simple-icons:webpack']);
 const iconClass = smallBrandIcons.has(project.data.icon ?? '')
@@ -78,7 +80,7 @@ const cardLink = tv({
   </div>
 
   <div class={`flex min-w-0 flex-1 flex-col gap-3 px-1 pt-4 pb-1 md:px-2 ${compact ? 'md:pt-4 md:pb-1' : 'md:pt-5 md:pb-2'}`}>
-    <h3 class={`font-display break-words ${compact ? 'text-2xl' : 'text-2xl md:text-3xl'}`}>{project.data.title}</h3>
+    <HeadingTag class={`font-display break-words ${compact ? 'text-2xl' : 'text-2xl md:text-3xl'}`}>{project.data.title}</HeadingTag>
     <p class="text-accent font-mono text-sm break-words">{project.data.subtitle}</p>
     <p class="text-fg-muted leading-relaxed break-words">{project.data.summary}</p>
     {

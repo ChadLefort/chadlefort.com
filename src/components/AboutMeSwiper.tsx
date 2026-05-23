@@ -12,6 +12,7 @@ const SIZES = '(min-width: 768px) 300px, 260px';
 
 export const AboutMeSwiper: FC<Props> = ({ images }) => {
   const reduced = useReducedMotion();
+  const canAutoplay = !reduced && images.length > 1;
 
   return (
     <div className="mx-auto w-full max-w-65">
@@ -19,7 +20,7 @@ export const AboutMeSwiper: FC<Props> = ({ images }) => {
         slidesPerView={1}
         grabCursor
         effect="cards"
-        autoplay={reduced ? false : { delay: 3200, disableOnInteraction: false }}
+        autoplay={canAutoplay ? { delay: 3200, disableOnInteraction: false } : false}
         modules={[Autoplay, EffectCards]}
         a11y={{ enabled: true }}
         className="overflow-visible"

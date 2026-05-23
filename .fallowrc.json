@@ -9,6 +9,8 @@
     "@iconify-json/mdi",
     "@iconify-json/simple-icons",
     "@iconify-json/devicon",
-    "axe-core"
+    "axe-core",
+    "sharp",
+    "sharp-ico"
   ]
 }

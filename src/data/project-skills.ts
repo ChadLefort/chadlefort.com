@@ -1,15 +1,7 @@
-import type { Skill } from '~/data/skills';
+import { type Skill, sharedSkills } from '~/data/skills';
 
 const projectSkills: Skill[] = [
-  { name: 'TypeScript', icon: 'devicon:typescript' },
-  { name: 'React', icon: 'devicon:react' },
-  { name: 'React Aria', icon: 'react-aria', color: '#7f57ff' },
-  { name: 'Zustand', icon: 'devicon:zustand' },
-  { name: 'TanStack Query', icon: 'simple-icons:reactquery', color: '#FF4154' },
-  { name: 'TanStack Router', icon: 'simple-icons:tanstack', color: '#FF4154' },
-  { name: 'Vue', icon: 'devicon:vuejs' },
-  { name: 'Nuxt', icon: 'devicon:nuxtjs' },
-  { name: 'Pinia', icon: 'simple-icons:pinia', color: '#FFD859' },
+  ...sharedSkills,
   { name: 'Tailwind Variants', icon: 'devicon:tailwindcss' },
   { name: 'UnoCSS', icon: 'simple-icons:unocss', color: '#858585' },
   { name: 'Vitest', icon: 'devicon:vitest' },

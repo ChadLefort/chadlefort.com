@@ -19,7 +19,7 @@ const remainingProjects = projects.slice(3);
   {
     featuredProjects[0] && (
       <Reveal as="li" delay={0} class="md:col-span-4">
-        <ProjectCard project={featuredProjects[0]} index={0} featured />
+        <ProjectCard project={featuredProjects[0]} index={0} headingLevel={2} featured />
       </Reveal>
     )
   }
@@ -28,7 +28,7 @@ const remainingProjects = projects.slice(3);
       {
         featuredProjects.slice(1).map((project: ProjectEntry, index: number) => (
           <Reveal as="li" delay={(index + 1) * 80}>
-            <ProjectCard project={project} index={index + 1} compact />
+            <ProjectCard project={project} index={index + 1} headingLevel={2} compact />
           </Reveal>
         ))
       }
@@ -37,7 +37,7 @@ const remainingProjects = projects.slice(3);
   {
     remainingProjects.map((project: ProjectEntry, index: number) => (
       <Reveal as="li" delay={(index + 3) * 80} class="md:col-span-2">
-        <ProjectCard project={project} index={index + 3} />
+        <ProjectCard project={project} index={index + 3} headingLevel={2} />
       </Reveal>
     ))
   }

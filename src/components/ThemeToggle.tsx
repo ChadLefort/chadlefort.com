@@ -2,6 +2,7 @@ import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { composeRenderProps, ToggleButton } from 'react-aria-components';
 import { buttonStyles } from '~/components/Button';
+import { browserThemeColor } from '~/data/theme';
 
 type Theme = 'light' | 'dark';
 
@@ -15,7 +16,7 @@ const apply = (theme: Theme) => {
   const meta = document.querySelector('meta[name="theme-color"]');
 
   if (meta) {
-    meta.setAttribute('content', theme === 'dark' ? '#21252b' : '#e2e5ea');
+    meta.setAttribute('content', browserThemeColor[theme]);
   }
 };
 

@@ -6,6 +6,7 @@ import { ScrollToTop } from '~/components/ScrollToTop';
 import SEO from '~/components/SEO.astro';
 import ThemeScript from '~/components/ThemeScript.astro';
 import { homeNav, type NavLink } from '~/data/nav';
+import { browserThemeColor } from '~/data/theme';
 
 type Props = {
   title?: string;
@@ -38,7 +39,7 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta name="theme-color" content="#21252b" />
+    <meta name="theme-color" content={browserThemeColor.dark} />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />

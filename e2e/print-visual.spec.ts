@@ -1,9 +1,10 @@
-import { expect, type Page, test } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import { execSync } from 'child_process';
 import dedent from 'dedent';
 import { mkdtempSync, readdirSync, readFileSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
+import { waitForStablePrintPage } from './helpers/visual';
 
 const hasBinary = (name: string): boolean => {
   try {
@@ -12,20 +13,6 @@ const hasBinary = (name: string): boolean => {
   } catch {
     return false;
   }
-};
-
-const waitForPrintPage = async (page: Page, path: string) => {
-  await page.emulateMedia({ media: 'print', colorScheme: 'light', reducedMotion: 'reduce' });
-  await page.goto(path);
-  await page.waitForLoadState('networkidle');
-  await page.waitForFunction(() => document.fonts.status === 'loaded');
-  await page.evaluate(
-    () =>
-      new Promise<void>((resolve) => {
-        requestAnimationFrame(() => resolve());
-      })
-  );
-  await page.addStyleTag({ content: '[aria-label="Scroll to top"] { display: none !important; }' });
 };
 
 const pdfToPng = (pdfPath: string): string => {
@@ -75,7 +62,7 @@ test.describe('print visual regressions', () => {
   test.use({ viewport: { width: 794, height: 1123 } });
 
   test('print header matches snapshot', async ({ page }) => {
-    await waitForPrintPage(page, '/');
+    await waitForStablePrintPage(page, '/');
 
     const header = page.locator('[data-print-only]');
     await expect(header).toBeVisible();
@@ -84,7 +71,7 @@ test.describe('print visual regressions', () => {
   });
 
   test('print job experience matches snapshot', async ({ page }) => {
-    await waitForPrintPage(page, '/');
+    await waitForStablePrintPage(page, '/');
 
     const section = page.locator('#job-experience');
     await expect(section.getByText('Riverside Insights')).toBeVisible();
@@ -93,7 +80,7 @@ test.describe('print visual regressions', () => {
   });
 
   test('print skills matches snapshot', async ({ page }) => {
-    await waitForPrintPage(page, '/');
+    await waitForStablePrintPage(page, '/');
 
     const section = page.locator('#skills');
     await expect(section.getByText('TypeScript')).toBeVisible();
@@ -102,7 +89,7 @@ test.describe('print visual regressions', () => {
   });
 
   test('print education matches snapshot', async ({ page }) => {
-    await waitForPrintPage(page, '/');
+    await waitForStablePrintPage(page, '/');
 
     const section = page.locator('#education');
     await expect(section.getByText('Nicholls State University')).toBeVisible();
@@ -111,7 +98,7 @@ test.describe('print visual regressions', () => {
   });
 
   test('print full page matches snapshot', async ({ page }) => {
-    await waitForPrintPage(page, '/');
+    await waitForStablePrintPage(page, '/');
 
     const tmpDir = mkdtempSync(join(tmpdir(), 'print-pdf-'));
     const pdfPath = join(tmpDir, 'print.pdf');
