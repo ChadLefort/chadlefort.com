@@ -30,7 +30,7 @@ const tabStyles = tv({
     'inline-flex shrink-0 items-center gap-2 px-5 py-3 whitespace-nowrap',
     'text-sm font-semibold tracking-wide text-fg-muted hover:text-fg',
     'border-b-2 border-transparent data-[selected]:border-accent data-[selected]:text-fg',
-    'cursor-pointer transition outline-none focus-visible:ring-accent focus-visible:ring-2 focus-visible:outline-none'
+    'cursor-pointer transition duration-[var(--motion-duration-state)] ease-[var(--motion-ease-settle)] outline-none focus-visible:ring-accent focus-visible:ring-2 focus-visible:outline-none'
   ]
 });
 

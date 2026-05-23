@@ -11,7 +11,7 @@ const overlay = tv({
   base: [
     'fixed inset-0 z-50 flex justify-end',
     'bg-ink-950/35 dark:bg-ink-950/55',
-    'transition-opacity duration-200 ease-out',
+    'transition-opacity duration-[var(--motion-duration-state)] ease-[var(--motion-ease-out)]',
     'data-[entering]:opacity-0 data-[exiting]:opacity-0'
   ]
 });
@@ -20,13 +20,16 @@ const modal = tv({
   base: [
     'h-full w-80 max-w-full transform-gpu',
     'bg-term-bg text-term-fg border-panel-border border-l shadow-none',
-    'transition-transform duration-250 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none',
+    'transition-transform duration-[var(--motion-duration-state)] ease-[var(--motion-ease-out)] motion-reduce:transition-none',
     'data-[entering]:translate-x-full data-[exiting]:translate-x-full'
   ]
 });
 
 const drawerLink = tv({
-  base: ['flex items-center gap-3 rounded-lg px-3 py-3 font-medium transition-colors', 'hover:bg-term-menu-bg'],
+  base: [
+    'flex items-center gap-3 rounded-lg px-3 py-3 font-medium transition-colors',
+    'duration-[var(--motion-duration-feedback)] ease-[var(--motion-ease-settle)] hover:bg-term-menu-bg'
+  ],
   variants: {
     isFocusVisible: {
       true: 'outline-accent outline-2 -outline-offset-2'

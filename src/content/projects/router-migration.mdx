@@ -30,11 +30,11 @@ Three frontend apps ran on a fragmented routing stack: one on Router 5, another 
 
 I sequenced the work in two phases shipped incrementally behind a migration shim, with zero customer downtime:
 
-#### 1. **State migration (MobX → Zustand).**
+### 1. **State migration (MobX → Zustand).**
 
-I consolidated MobX stores under a single root, then migrated each store to Zustand backed shared state. I moved server state to TanStack Query v5. That removed observer wrappers and made stores more testable.
+I consolidated MobX stores under a single root, then migrated each store to Zustand-backed shared state. I moved server state to TanStack Query v5, removed observer wrappers, and made stores more testable.
 
-#### 2. **Router migration (Router 5 / React Router → TanStack Router).**
+### 2. **Router migration (Router 5 / React Router → TanStack Router).**
 
 I introduced TanStack Router alongside the legacy router with a migration hook, Link, and helpers so the team could move routes over one at a time. Once the team ported the last route, I ripped out Router 5 and finalized typed routes, Zod validated search params, and route level loaders that integrate with TanStack Query.
 
