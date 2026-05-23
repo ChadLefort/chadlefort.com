@@ -67,7 +67,7 @@ export const ThemeToggle: FC = () => {
           variant: 'ghost',
           color: 'neutral',
           shape: 'icon',
-          press: 'bouncy',
+          press: 'subtle',
           className: extra
         })
       )}

@@ -35,7 +35,7 @@ const tabStyles = tv({
 });
 
 const skillIconStyles = tv({
-  base: 'size-10 transition-transform duration-300 group-hover:scale-110 motion-reduce:group-hover:scale-100'
+  base: 'size-5 transition-transform duration-200 group-hover:scale-105 motion-reduce:group-hover:scale-100 md:size-6'
 });
 
 const symbolId = (icon: string) => (icon.includes(':') ? `ai:${icon}` : `ai:local:${icon}`);
@@ -82,24 +82,19 @@ export const ProjectTabsIsland: FC<Props> = ({ hasGallery, galleryImages, projec
         )}
       </TabList>
 
-      <TabPanel id={DESCRIPTION_TAB} className="outline-none">
+      <TabPanel id={DESCRIPTION_TAB} className="tab-panel outline-none">
         <div className="tile bg-tile-alt border-glass-border rounded-3xl border p-8 md:p-16">
           <div className="project-prose">{description}</div>
         </div>
       </TabPanel>
 
-      <TabPanel id={SKILLS_TAB} className="outline-none">
-        <ul
-          className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6"
-          aria-label={`${title} skills`}
-        >
+      <TabPanel id={SKILLS_TAB} className="tab-panel outline-none">
+        <ul className="flex flex-wrap justify-center gap-3 md:gap-4" aria-label={`${title} skills`}>
           {projectSkills.map((skill) => (
             <li key={skill.name}>
-              <div className="group card card-hover flex h-full flex-col items-center justify-center gap-3 p-5">
+              <div className="group card card-hover flex items-center gap-2 rounded-full px-3 py-2 md:px-4">
                 <SkillIcon skill={skill} />
-                <span className="text-fg/90 text-center text-xs font-semibold tracking-wide md:text-sm">
-                  {skill.name}
-                </span>
+                <span className="text-fg/90 text-sm font-semibold tracking-wide">{skill.name}</span>
               </div>
             </li>
           ))}
@@ -107,7 +102,7 @@ export const ProjectTabsIsland: FC<Props> = ({ hasGallery, galleryImages, projec
       </TabPanel>
 
       {hasGallery && (
-        <TabPanel id={GALLERY_TAB} className="outline-none">
+        <TabPanel id={GALLERY_TAB} className="tab-panel outline-none">
           <ProjectGallery images={galleryImages} title={title} openRequest={heroOpenRequest} />
         </TabPanel>
       )}

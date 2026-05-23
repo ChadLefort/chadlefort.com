@@ -31,7 +31,7 @@ export const IconButton: FC<Props> = ({
         color,
         size,
         shape: 'icon',
-        press: 'bouncy',
+        press: 'subtle',
         className: extra
       })
     )}

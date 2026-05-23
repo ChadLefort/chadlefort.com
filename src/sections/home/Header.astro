@@ -9,7 +9,7 @@ import { CTALink } from '~/components/CTALink';
 <header class="relative px-4 pt-8 pb-0 sm:px-6 sm:pt-10 md:pt-20" data-no-print data-hero>
   <div class="max-w-section mx-auto flex w-full flex-col items-center gap-6 md:gap-14">
     <div class="flex flex-col items-center gap-6 text-center md:flex-row md:gap-12 md:text-left" data-testid="hero-intro">
-      <figure class="ring-glass-border-strong relative m-0 h-36 w-36 overflow-hidden rounded-full ring-1 md:h-44 md:w-44">
+      <figure class="hero-mark ring-glass-border-strong relative m-0 h-36 w-36 overflow-hidden rounded-full ring-1 md:h-44 md:w-44">
         <Picture
           src={me}
           alt="Chad Lefort"
@@ -27,7 +27,7 @@ import { CTALink } from '~/components/CTALink';
         <div aria-hidden="true" class="bg-ink-300 pointer-events-none absolute inset-0 opacity-50 mix-blend-color">
         </div>
       </figure>
-      <div class="max-w-xl">
+      <div class="hero-copy max-w-xl">
         <h1 class="font-display ml-0 text-6xl tracking-[-0.08em] sm:-ml-[8px] md:text-8xl" data-hero-name>
           Chad Lefort
         </h1>
@@ -37,7 +37,7 @@ import { CTALink } from '~/components/CTALink';
 
     <Terminal client:idle />
 
-    <CTALink href="/chad-lefort-resume.pdf" download size="lg" client:idle>
+    <CTALink href="/chad-lefort-resume.pdf" download size="lg" className="hero-action" client:idle>
       <Icon
         name="lucide:download"
         class="h-5 w-5 transition-transform group-hover:-translate-y-0.5"

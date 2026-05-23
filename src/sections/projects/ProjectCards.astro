@@ -1,8 +1,6 @@
 ---
-import { Picture } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
-import { Icon } from 'astro-icon/components';
-import { tv } from 'tailwind-variants';
+import ProjectCard from '~/sections/projects/ProjectCard.astro';
 import Reveal from '~/components/Reveal.astro';
 
 type ProjectEntry = CollectionEntry<'projects'>;
@@ -13,72 +11,34 @@ type Props = {
 
 const { projects } = Astro.props;
 
-const initialsFor = (title: string) =>
-  title
-    .split(' ')
-    .map((word) => word[0])
-    .filter(Boolean)
-    .slice(0, 2)
-    .join('')
-    .toUpperCase();
-
-const cardLink = tv({
-  base: [
-    'group card card-hover flex h-full flex-col p-4 md:p-5',
-    'focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent'
-  ]
-});
+const featuredProjects = projects.slice(0, 3);
+const remainingProjects = projects.slice(3);
 ---
 
-<ul class="grid grid-cols-1 gap-8 md:grid-cols-2">
+<ul class="grid grid-cols-1 gap-6 md:grid-cols-6 md:gap-8">
   {
-    projects.map((project: ProjectEntry, index: number) => {
-      const href = `/projects/${project.id}`;
-      const initials = initialsFor(project.data.title);
-
-      return (
-        <Reveal as="li" delay={index * 80}>
-          <a href={href} class={cardLink()}>
-            <div class="relative w-full">
-              {project.data.cover ? (
-                <Picture
-                  src={project.data.cover}
-                  alt={project.data.coverAlt ?? project.data.title}
-                  widths={[640, 960, 1280]}
-                  sizes="(min-width: 768px) 640px, 100vw"
-                  formats={['avif', 'webp']}
-                  fallbackFormat="webp"
-                  quality={82}
-                  loading={index < 2 ? 'eager' : 'lazy'}
-                  pictureAttributes={{ class: 'block aspect-video w-full overflow-hidden rounded-2xl' }}
-                  class="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]"
-                />
-              ) : (
-                <div class={`flex aspect-video w-full items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br ${project.data.accent}`}>
-                  {project.data.icon ? (
-                    <Icon
-                      name={project.data.icon}
-                      style={project.data.iconColor ? { color: project.data.iconColor } : undefined}
-                      class="h-24 w-24 md:h-32 md:w-32"
-                      aria-hidden="true"
-                    />
-                  ) : (
-                    <span class="font-display text-7xl tracking-tighter text-white/85 mix-blend-overlay md:text-8xl">
-                      {initials}
-                    </span>
-                  )}
-                </div>
-              )}
-            </div>
-
-            <div class="flex flex-1 flex-col gap-3 px-1 pt-4 pb-1 md:px-2 md:pt-5 md:pb-2">
-              <h3 class="font-display text-2xl md:text-3xl">{project.data.title}</h3>
-              <p class="text-accent font-mono text-sm">{project.data.subtitle}</p>
-              <p class="text-fg-muted leading-relaxed">{project.data.summary}</p>
-            </div>
-          </a>
-        </Reveal>
-      );
-    })
+    featuredProjects[0] && (
+      <Reveal as="li" delay={0} class="md:col-span-4">
+        <ProjectCard project={featuredProjects[0]} index={0} featured />
+      </Reveal>
+    )
+  }
+  <li class="grid gap-6 md:col-span-2 md:gap-6">
+    <ul class="grid gap-6 md:gap-6">
+      {
+        featuredProjects.slice(1).map((project: ProjectEntry, index: number) => (
+          <Reveal as="li" delay={(index + 1) * 80}>
+            <ProjectCard project={project} index={index + 1} compact />
+          </Reveal>
+        ))
+      }
+    </ul>
+  </li>
+  {
+    remainingProjects.map((project: ProjectEntry, index: number) => (
+      <Reveal as="li" delay={(index + 3) * 80} class="md:col-span-2">
+        <ProjectCard project={project} index={index + 3} />
+      </Reveal>
+    ))
   }
 </ul>

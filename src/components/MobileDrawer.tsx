@@ -10,7 +10,7 @@ import type { NavLink } from '~/data/nav';
 const overlay = tv({
   base: [
     'fixed inset-0 z-50 flex justify-end',
-    'bg-black/30 backdrop-blur-sm dark:bg-black/60',
+    'bg-ink-950/24 dark:bg-ink-950/50',
     'transition-opacity duration-200 ease-out',
     'data-[entering]:opacity-0 data-[exiting]:opacity-0'
   ]
@@ -19,24 +19,20 @@ const overlay = tv({
 const modal = tv({
   base: [
     'h-full w-80 max-w-full transform-gpu',
-    'bg-nav-bg text-nav-fg border-glass-border border-l shadow-2xl',
-    'backdrop-blur-[32px] backdrop-saturate-[180%]',
-    'transition-transform duration-300 ease-out motion-reduce:transition-none',
+    'bg-surface text-fg border-border-subtle border-l shadow-lg',
+    'transition-transform duration-250 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none',
     'data-[entering]:translate-x-full data-[exiting]:translate-x-full'
   ]
 });
 
 const drawerLink = tv({
-  base: [
-    'flex items-center gap-3 rounded-lg px-3 py-3 font-semibold transition',
-    'hover:bg-black/10 dark:hover:bg-white/5'
-  ],
+  base: ['flex items-center gap-3 rounded-lg px-3 py-3 font-medium transition-colors', 'hover:bg-surface-alt'],
   variants: {
     isFocusVisible: {
       true: 'outline-accent outline-2 -outline-offset-2'
     },
     isHovered: {
-      true: 'bg-black/10 dark:bg-white/5'
+      true: 'bg-surface-alt'
     }
   }
 });
@@ -76,7 +72,7 @@ export const MobileDrawer: FC<Props> = ({ links }) => {
               <Heading slot="title" className="sr-only">
                 Menu
               </Heading>
-              <div className="border-glass-border flex items-center justify-end border-b px-4 py-3">
+              <div className="border-border-subtle flex items-center justify-end border-b px-4 py-3">
                 <IconButton slot="close" label="Close menu" icon={<X className="size-6" />} />
               </div>
 

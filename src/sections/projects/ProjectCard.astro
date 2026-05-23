@@ -1,0 +1,104 @@
+---
+import { Picture } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+import { tv } from 'tailwind-variants';
+import { getProjectSkills } from '~/data/project-skills';
+import type { Skill } from '~/data/skills';
+
+type ProjectEntry = CollectionEntry<'projects'>;
+
+type Props = {
+  project: ProjectEntry;
+  index: number;
+  featured?: boolean;
+  compact?: boolean;
+};
+
+const { project, index, featured = false, compact = false } = Astro.props;
+const headerAspect = featured ? 'aspect-[16/8.5]' : 'aspect-[16/7]';
+const smallBrandIcons = new Set(['simple-icons:lerna', 'simple-icons:webpack']);
+const iconClass = smallBrandIcons.has(project.data.icon ?? '')
+  ? compact
+    ? 'h-14 w-14 md:h-16 md:w-16'
+    : 'h-16 w-16 md:h-20 md:w-20'
+  : compact
+    ? 'h-20 w-20 md:h-24 md:w-24'
+    : 'h-24 w-24 md:h-32 md:w-32';
+
+const projectSkills = getProjectSkills(project.data.tech);
+
+const initials = project.data.title
+  .split(' ')
+  .map((word: string) => word[0])
+  .filter(Boolean)
+  .slice(0, 2)
+  .join('')
+  .toUpperCase();
+
+const cardLink = tv({
+  base: [
+    'group card card-hover flex h-full flex-col p-4 md:p-5',
+    'focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent'
+  ]
+});
+---
+
+<a href={`/projects/${project.id}`} class={cardLink()}>
+  <div class="relative w-full">
+    {
+      project.data.cover ? (
+        <Picture
+          src={project.data.cover}
+          alt={project.data.coverAlt ?? project.data.title}
+          widths={[640, 960, 1280]}
+          sizes={featured ? '(min-width: 768px) 640px, 100vw' : '(min-width: 768px) 360px, 100vw'}
+          formats={['avif', 'webp']}
+          fallbackFormat="webp"
+          quality={82}
+          loading={index < 2 ? 'eager' : 'lazy'}
+          pictureAttributes={{ class: `block w-full overflow-hidden rounded-2xl ${headerAspect}` }}
+          class="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]"
+        />
+      ) : (
+        <div class={`flex w-full items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br ${project.data.accent} ${headerAspect}`}>
+          {project.data.icon ? (
+            <Icon
+              name={project.data.icon}
+              style={project.data.iconColor ? { color: project.data.iconColor } : undefined}
+              class={iconClass}
+              aria-hidden="true"
+            />
+          ) : (
+            <span class="font-display text-7xl tracking-tighter text-white/85 mix-blend-overlay md:text-8xl">{initials}</span>
+          )}
+        </div>
+      )
+    }
+  </div>
+
+  <div class={`flex flex-1 flex-col gap-3 px-1 pt-4 pb-1 md:px-2 ${compact ? 'md:pt-4 md:pb-1' : 'md:pt-5 md:pb-2'}`}>
+    <h3 class={`font-display ${compact ? 'text-2xl' : 'text-2xl md:text-3xl'}`}>{project.data.title}</h3>
+    <p class="text-accent font-mono text-sm">{project.data.subtitle}</p>
+    <p class="text-fg-muted leading-relaxed">{project.data.summary}</p>
+    {
+      featured && projectSkills.length ? (
+        <ul class="mt-auto hidden flex-wrap gap-3 pt-6 md:flex md:gap-4" aria-label={`${project.data.title} skills used`}>
+          {projectSkills.map((skill: Skill) => (
+            <li>
+              <div class="group card card-hover flex items-center gap-2 rounded-full px-3 py-2 md:px-4">
+                <Icon
+                  name={skill.icon}
+                  class="h-5 w-5 transition-transform duration-200 group-hover:scale-105 motion-reduce:group-hover:scale-100 md:h-6 md:w-6"
+                  style={skill.color ? `color: ${skill.color};` : undefined}
+                  aria-hidden="true"
+                />
+                <span class="text-fg/90 text-sm font-semibold tracking-wide">{skill.name}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : null
+    }
+  </div>
+</a>
