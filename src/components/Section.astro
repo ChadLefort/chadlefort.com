@@ -56,12 +56,13 @@ const header = tv({
   variants: {
     align: {
       center: 'items-center text-center',
-      left: 'items-start text-left'
+      left: 'section-rail mb-8 items-start text-left md:sticky md:top-24 md:mb-0 md:self-start'
     }
   }
 });
 
 const tileOff = !tile || tone === 'plain';
+const splitTitle = title && titleAlign === 'left';
 ---
 
 <Tag
@@ -72,12 +73,27 @@ const tileOff = !tile || tone === 'plain';
 >
   <div class={tile$({ width, tone, tileOff })}>
     {
-      title && (
-        <header class={header({ align: titleAlign })}>
-          <h2 class="font-display text-4xl md:text-6xl print:resume-section-title">{title}</h2>
-        </header>
+      splitTitle ? (
+        <div class="md:grid md:grid-cols-[minmax(14rem,20rem)_minmax(0,1fr)] md:gap-0">
+          <header class={header({ align: titleAlign })}>
+            <h2 class="font-display text-3xl md:text-4xl print:resume-section-title">{title}</h2>
+          </header>
+          <div class="min-w-0">
+            <slot />
+          </div>
+        </div>
+      ) : (
+        <>
+          {
+            title && (
+              <header class={header({ align: titleAlign })}>
+                <h2 class="font-display text-4xl md:text-6xl print:resume-section-title">{title}</h2>
+              </header>
+            )
+          }
+          <slot />
+        </>
       )
     }
-    <slot />
   </div>
 </Tag>

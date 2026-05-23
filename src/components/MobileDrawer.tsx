@@ -10,7 +10,7 @@ import type { NavLink } from '~/data/nav';
 const overlay = tv({
   base: [
     'fixed inset-0 z-50 flex justify-end',
-    'bg-ink-950/24 dark:bg-ink-950/50',
+    'bg-ink-950/35 dark:bg-ink-950/55',
     'transition-opacity duration-200 ease-out',
     'data-[entering]:opacity-0 data-[exiting]:opacity-0'
   ]
@@ -19,20 +19,20 @@ const overlay = tv({
 const modal = tv({
   base: [
     'h-full w-80 max-w-full transform-gpu',
-    'bg-surface text-fg border-border-subtle border-l shadow-sm',
+    'bg-term-bg text-term-fg border-glass-border border-l shadow-none',
     'transition-transform duration-250 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none',
     'data-[entering]:translate-x-full data-[exiting]:translate-x-full'
   ]
 });
 
 const drawerLink = tv({
-  base: ['flex items-center gap-3 rounded-lg px-3 py-3 font-medium transition-colors', 'hover:bg-surface-alt'],
+  base: ['flex items-center gap-3 rounded-lg px-3 py-3 font-medium transition-colors', 'hover:bg-term-menu-bg'],
   variants: {
     isFocusVisible: {
       true: 'outline-accent outline-2 -outline-offset-2'
     },
     isHovered: {
-      true: 'bg-surface-alt'
+      true: 'bg-term-menu-bg'
     }
   }
 });
@@ -72,7 +72,7 @@ export const MobileDrawer: FC<Props> = ({ links }) => {
               <Heading slot="title" className="sr-only">
                 Menu
               </Heading>
-              <div className="border-border-subtle flex items-center justify-end border-b px-4 py-3">
+              <div className="border-glass-border flex items-center justify-end border-b px-4 py-3">
                 <IconButton slot="close" label="Close menu" icon={<X className="size-6" />} />
               </div>
 
@@ -87,7 +87,7 @@ export const MobileDrawer: FC<Props> = ({ links }) => {
                       onPress={() => setOpen(false)}
                       className={(rp) => drawerLink(rp)}
                     >
-                      <Icon className="text-fg-muted size-5" aria-hidden="true" />
+                      <Icon className="text-term-comment size-5" aria-hidden="true" />
                       {link.label}
                     </Link>
                   );

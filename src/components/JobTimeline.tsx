@@ -6,10 +6,10 @@ import { toYearMonth } from '~/utils/date';
 
 type Props = { jobs: Job[] };
 
-type ItemProps = { job: Job; isLeft: boolean };
+type ItemProps = { job: Job };
 
 const item = tv({
-  base: 'timeline-item relative pl-10 md:grid md:grid-cols-2 md:items-center md:gap-x-14 md:pl-0 print:resume-timeline-item',
+  base: 'timeline-item relative pl-10 print:resume-timeline-item',
   variants: {
     inView: {
       true: 'is-visible',
@@ -19,38 +19,11 @@ const item = tv({
 });
 
 const card = tv({
-  base: 'timeline-card job-card p-5 md:p-7 print:resume-timeline-card',
-  variants: {
-    side: {
-      left: 'timeline-card-left',
-      right: ''
-    }
-  }
+  base: 'timeline-card job-card w-full max-w-full p-5 md:p-7 print:resume-timeline-card print:!bg-[var(--print-paper)] print:!shadow-none print:!border-[0.5pt] print:!border-solid print:!border-[var(--print-subtle)]'
 });
 
-const cardHeader = tv({
-  base: 'flex flex-col gap-1 print:resume-timeline-header',
-  variants: {
-    side: {
-      left: 'md:items-end',
-      right: ''
-    }
-  }
-});
-
-const bullets = tv({
-  base: 'text-fg-muted mt-4 space-y-2 text-sm leading-relaxed md:text-base print:resume-timeline-bullets',
-  variants: {
-    side: {
-      left: 'text-left',
-      right: ''
-    }
-  }
-});
-
-const TimelineItem: FC<ItemProps> = ({ job, isLeft }) => {
-  const [ref, inView] = useInView<HTMLLIElement>({ threshold: 0.3, rootMargin: '0px 0px -80px 0px' });
-  const side = isLeft ? 'left' : 'right';
+const TimelineItem: FC<ItemProps> = ({ job }) => {
+  const [ref, inView] = useInView<HTMLLIElement>({ threshold: 0.2, rootMargin: '0px 0px -80px 0px' });
 
   const startDateTime = toYearMonth(job.start);
   const endDateTime = toYearMonth(job.end);
@@ -62,58 +35,46 @@ const TimelineItem: FC<ItemProps> = ({ job, isLeft }) => {
     </>
   );
 
-  const cardEl = (
-    <article className={card({ side })}>
-      <header className={cardHeader({ side })}>
-        <h3 className="font-display text-fg text-xl md:text-2xl">{job.company}</h3>
-        <p className="text-accent text-sm font-medium md:text-base print:resume-timeline-role">{job.role}</p>
-        <p className="text-fg-muted font-mono text-xs md:hidden print:block print:resume-timeline-date">{dateRange}</p>
-      </header>
-      <ul className={bullets({ side })}>
-        {job.bullets.map((bullet) => (
-          <li key={bullet} className="flex gap-2">
-            <span aria-hidden="true" className="bg-accent mt-2 inline-block size-1.5 shrink-0 rounded-full" />
-            <span>{bullet}</span>
-          </li>
-        ))}
-      </ul>
-    </article>
-  );
-
-  const dateBlock = <p className="timeline-date text-fg-muted font-mono text-sm tracking-wide">{dateRange}</p>;
-
   return (
     <li ref={ref} className={item({ inView })}>
       <span
         aria-hidden="true"
-        className="timeline-dot bg-accent ring-surface absolute top-6 left-4 z-10 inline-flex size-4 -translate-x-1/2 items-center justify-center rounded-full ring-4 md:top-1/2 md:left-1/2 md:-translate-y-1/2 print:hidden"
+        className="timeline-dot bg-accent ring-surface absolute top-7 left-0 z-10 inline-flex size-3.5 -translate-x-1/2 items-center justify-center rounded-full ring-4 print:hidden"
       />
 
-      {isLeft ? (
-        <>
-          <div className="md:order-1 md:text-right">{cardEl}</div>
-          <div className="hidden md:order-2 md:block print:hidden">{dateBlock}</div>
-        </>
-      ) : (
-        <>
-          <div className="hidden md:order-1 md:block md:text-right print:hidden">{dateBlock}</div>
-          <div className="md:order-2">{cardEl}</div>
-        </>
-      )}
+      <article className={card()}>
+        <header className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between md:gap-6 print:resume-timeline-header">
+          <div>
+            <h3 className="font-display text-fg text-xl md:text-2xl">{job.company}</h3>
+            <p className="text-accent mt-1 text-sm font-medium md:text-base print:resume-timeline-role">{job.role}</p>
+          </div>
+          <p className="text-fg-muted shrink-0 font-mono text-xs md:pt-1 md:text-sm print:resume-timeline-date">
+            {dateRange}
+          </p>
+        </header>
+        <ul className="text-fg-muted mt-4 space-y-4 text-sm leading-relaxed md:text-base print:resume-timeline-bullets">
+          {job.bullets.map((bullet) => (
+            <li key={bullet} className="flex gap-4">
+              <span aria-hidden="true" className="bg-accent mt-2 inline-block size-1.5 shrink-0 rounded-full" />
+              <span>{bullet}</span>
+            </li>
+          ))}
+        </ul>
+      </article>
     </li>
   );
 };
 
 export const JobTimeline: FC<Props> = ({ jobs }) => (
-  <div className="relative mx-auto w-full max-w-6xl">
+  <div className="relative w-full">
     <span
       aria-hidden="true"
-      className="via-accent/22 pointer-events-none absolute top-0 bottom-0 left-4 w-px bg-gradient-to-b from-transparent to-transparent md:left-1/2 md:-translate-x-1/2 print:hidden"
+      className="pointer-events-none absolute top-2 bottom-2 left-0 w-px bg-gradient-to-b from-transparent via-accent/25 to-transparent print:hidden"
     />
 
-    <ol className="print:resume-timeline flex flex-col gap-5 md:gap-14" aria-label="Employment history">
-      {jobs.map((job, index) => (
-        <TimelineItem key={job.company + job.start} job={job} isLeft={index % 2 === 0} />
+    <ol className="print:resume-timeline flex flex-col gap-5 md:gap-6" aria-label="Employment history">
+      {jobs.map((job) => (
+        <TimelineItem key={job.company + job.start} job={job} />
       ))}
     </ol>
   </div>

@@ -157,7 +157,7 @@ const breadcrumbLd = {
   pathname={`/projects/${project.id}`}
   structuredData={[projectLd, breadcrumbLd]}
 >
-  <article>
+  <article class="project-detail">
     <section class="relative px-4 pt-12 pb-16 sm:px-6 md:pt-20 md:pb-24" data-testid="project-hero">
       <div class="max-w-section mx-auto">
         <PillLink href="/projects" client:idle>
@@ -174,7 +174,7 @@ const breadcrumbLd = {
             <div class="mt-8 flex flex-wrap gap-3">
               {
                 project.data.externalUrl && (
-                  <CTALink href={project.data.externalUrl} target="_blank" rel="noopener" intent="primary" client:idle>
+                  <CTALink href={project.data.externalUrl} target="_blank" intent="primary" client:idle>
                     <Icon name="lucide:external-link" class="h-4 w-4" aria-hidden="true" />
                     Open live project
                   </CTALink>
@@ -182,7 +182,7 @@ const breadcrumbLd = {
               }
               {
                 project.data.repoUrl && (
-                  <CTALink href={project.data.repoUrl} target="_blank" rel="noopener" intent="secondary" client:idle>
+                  <CTALink href={project.data.repoUrl} target="_blank" intent="secondary" client:idle>
                     <Icon name="lucide:github" class="h-4 w-4" aria-hidden="true" />
                     View code
                   </CTALink>

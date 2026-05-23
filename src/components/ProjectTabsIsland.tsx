@@ -86,7 +86,7 @@ export const ProjectTabsIsland: FC<Props> = ({ hasGallery, galleryImages, projec
       </TabList>
 
       <TabPanel id={DESCRIPTION_TAB} className="tab-panel outline-none">
-        <div className="bg-tile-alt border-glass-border rounded-3xl border p-8 md:p-16">
+        <div className="project-panel rounded-3xl p-8 md:p-16">
           <div className="project-prose">{description}</div>
         </div>
       </TabPanel>
