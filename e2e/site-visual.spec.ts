@@ -56,7 +56,8 @@ test.describe('screen visual regressions', () => {
 
     const section = page.locator('#contact');
     await section.scrollIntoViewIfNeeded();
-    await expect(section.getByText(/have questions or a job opportunity/i)).toBeVisible();
+    await expect(section.getByRole('heading', { name: 'Contact' })).toBeVisible();
+    await expect(section.getByText('chad@chadlefort.com')).toBeVisible();
 
     await expect(section).toHaveScreenshot('home-contact-screen.png');
   });

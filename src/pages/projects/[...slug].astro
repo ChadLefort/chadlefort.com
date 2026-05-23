@@ -158,7 +158,7 @@ const breadcrumbLd = {
   structuredData={[projectLd, breadcrumbLd]}
 >
   <article class="project-detail">
-    <section class="relative px-4 pt-12 pb-16 sm:px-6 md:pt-20 md:pb-24" data-testid="project-hero">
+    <section class="relative px-6 pt-12 pb-16 sm:px-8 md:px-6 md:pt-20 md:pb-24" data-testid="project-hero">
       <div class="max-w-section mx-auto">
         <PillLink href="/projects" client:idle>
           <Icon name="lucide:chevron-left" class="h-4 w-4 transition-transform duration-200 group-hover:-translate-x-0.5 motion-reduce:group-hover:translate-x-0" aria-hidden="true" />
@@ -235,7 +235,7 @@ const breadcrumbLd = {
       {projectSkills.map((skill: { icon: string }) => <Icon name={skill.icon} />)}
     </div>
 
-    <section class="px-4 pb-24 sm:px-6 md:pb-32">
+    <section class="px-6 pb-24 sm:px-8 md:px-6 md:pb-32">
       <div class="max-w-section mx-auto">
         <ProjectTabsIsland
           client:idle
