@@ -4,9 +4,8 @@ export type Skill = {
   color?: string;
 };
 
-export const skills: Skill[] = [
+export const sharedSkills: Skill[] = [
   { name: 'TypeScript', icon: 'devicon:typescript' },
-  { name: 'JavaScript', icon: 'devicon:javascript' },
   { name: 'React', icon: 'devicon:react' },
   { name: 'React Aria', icon: 'react-aria', color: '#7f57ff' },
   { name: 'Zustand', icon: 'devicon:zustand' },
@@ -14,7 +13,13 @@ export const skills: Skill[] = [
   { name: 'TanStack Router', icon: 'simple-icons:tanstack', color: '#FF4154' },
   { name: 'Vue', icon: 'devicon:vuejs' },
   { name: 'Nuxt', icon: 'devicon:nuxtjs' },
-  { name: 'Pinia', icon: 'simple-icons:pinia', color: '#FFD859' },
+  { name: 'Pinia', icon: 'simple-icons:pinia', color: '#FFD859' }
+];
+
+export const skills: Skill[] = [
+  sharedSkills[0],
+  { name: 'JavaScript', icon: 'devicon:javascript' },
+  ...sharedSkills.slice(1),
   { name: 'Tailwind', icon: 'devicon:tailwindcss' },
   { name: 'Vite', icon: 'devicon:vitejs' },
   { name: 'Vitest', icon: 'devicon:vitest' },

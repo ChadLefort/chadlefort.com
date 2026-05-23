@@ -1,30 +1,7 @@
 import { expect, type Page, test } from '@playwright/test';
+import { maximizeTerminal, terminalLocator, waitForTerminalReady } from './helpers/terminal';
 
 test.describe.configure({ mode: 'serial' });
-
-const terminalLocator = (page: Page) => page.getByLabel('Terminal', { exact: true });
-
-const waitForTerminalReady = async (page: Page) => {
-  await page.goto('/');
-
-  const terminal = terminalLocator(page);
-  await expect(terminal).toBeVisible();
-  await expect(terminal.getByText('clefort').first()).toBeVisible();
-
-  return terminal;
-};
-
-const maximizeTerminal = async (page: Page) => {
-  await waitForTerminalReady(page);
-  await page.getByRole('button', { name: 'Maximize terminal (interactive shell)' }).click();
-
-  await expect(page.getByText(/chadlefort\.com shell ready/i)).toBeVisible();
-
-  const input = page.getByLabel('terminal input');
-  await expect(input).toBeVisible();
-
-  return input;
-};
 
 const expectScrollLocked = async (page: Page) => {
   await expect.poll(() => page.evaluate(() => document.documentElement.style.overflow)).toBe('hidden');
