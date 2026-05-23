@@ -30,7 +30,7 @@ import { buildFs, cwdForHost, formatPath } from './vfs';
 
 const shellRoot = tv({
   base: [
-    'bg-term-bg text-term-fg break-words font-mono h-full',
+    'bg-term-bg text-term-fg break-words font-mono h-full [word-spacing:normal]',
     'px-4 pt-4 pb-5 text-[12.5px] leading-6',
     'sm:px-5 sm:pt-5 sm:pb-6 sm:text-[15px] sm:leading-7',
     'focus:outline-none',

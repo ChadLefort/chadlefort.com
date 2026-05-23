@@ -32,7 +32,7 @@ const wrapper = tv({
   base: 'relative w-full',
   variants: {
     maximized: {
-      true: 'min-h-[604px] sm:min-h-[564px]',
+      true: 'min-h-svh',
       false: ''
     }
   }
@@ -42,7 +42,7 @@ const container = tv({
   base: ['bg-term-bg ring-glass-border relative w-full overflow-hidden ring-1'],
   variants: {
     maximized: {
-      true: 'fixed inset-0 z-50 max-w-none rounded-none flex flex-col',
+      true: 'fixed inset-0 z-50 flex h-svh max-w-none flex-col rounded-none',
       false: 'mx-auto max-w-section rounded-2xl'
     },
     closing: {
@@ -67,7 +67,7 @@ const collapseInner = tv({
   base: 'min-h-0 overflow-hidden origin-top transition-[opacity,transform,filter] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none',
   variants: {
     minimized: {
-      true: '-translate-y-2 scale-y-95 opacity-0 blur-sm',
+      true: '-translate-y-1 scale-y-[0.98] opacity-0',
       false: 'translate-y-0 scale-y-100 opacity-100'
     }
   }
@@ -81,8 +81,8 @@ const slot = tv({
   base: 'relative w-full',
   variants: {
     maximized: {
-      true: 'flex-1 min-h-0',
-      false: 'h-[640px] sm:h-[480px]'
+      true: 'min-h-0 flex-1',
+      false: 'h-[min(640px,calc(100svh-8rem))] min-h-80 sm:h-[min(480px,calc(100svh-9rem))]'
     }
   }
 });

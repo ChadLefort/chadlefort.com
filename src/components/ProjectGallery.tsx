@@ -9,7 +9,7 @@ import { IconButton } from '~/components/IconButton';
 export const PROJECT_GALLERY_OPEN_EVENT = 'project-gallery:open';
 
 const thumbImg = tv({
-  base: 'block h-full w-full rounded-2xl object-cover object-top transition duration-300 group-hover:scale-[1.01]',
+  base: 'block h-full w-full rounded-2xl object-cover object-top transition duration-300 group-hover:scale-[1.005]',
   variants: {
     loaded: {
       true: 'opacity-100',
@@ -37,7 +37,7 @@ const thumbFrame = tv({
 
 const lightboxOverlay = tv({
   base: [
-    'fixed inset-0 z-50 bg-black/90 backdrop-blur-sm',
+    'fixed inset-0 z-50 bg-overlay-bg',
     'transition-opacity duration-200 ease-out',
     'data-[entering]:opacity-0 data-[exiting]:opacity-0'
   ]
@@ -48,7 +48,7 @@ const lightboxImage = tv({
   variants: {
     zoomed: {
       true: 'max-h-none max-w-none',
-      false: 'max-h-[calc(100vh-10rem)]'
+      false: 'max-h-[calc(100svh-13rem)] sm:max-h-[calc(100svh-8rem)]'
     },
     device: {
       mobile: 'w-auto max-w-[min(100%,28rem)]',
@@ -83,14 +83,14 @@ const lightboxToggle = tv({
   base: 'border-0 bg-transparent text-inherit touch-pan-x touch-pan-y',
   variants: {
     zoomed: {
-      true: 'flex min-h-full w-max min-w-full cursor-zoom-out items-start justify-center p-6',
-      false: 'flex h-full w-full items-center justify-center cursor-zoom-in'
+      true: 'flex min-h-full w-max min-w-full cursor-zoom-out items-start justify-center p-3 sm:p-6',
+      false: 'flex h-full w-full items-center justify-center p-2 cursor-zoom-in sm:p-0'
     }
   }
 });
 
 const mobileLightboxHeader = tv({
-  base: 'flex flex-col gap-4 px-4 py-3 text-white sm:hidden'
+  base: 'flex flex-col gap-4 px-4 py-3 text-overlay-fg sm:hidden'
 });
 
 const mobileLightboxTitleRow = tv({
@@ -98,7 +98,7 @@ const mobileLightboxTitleRow = tv({
 });
 
 const desktopLightboxHeader = tv({
-  base: 'hidden w-full items-center justify-between gap-3 px-4 py-3 text-white sm:flex'
+  base: 'hidden w-full items-center justify-between gap-3 px-4 py-3 text-overlay-fg sm:flex'
 });
 
 const lightboxControls = tv({
@@ -112,7 +112,7 @@ const lightboxControls = tv({
 });
 
 const zoomValue = tv({
-  base: 'text-center font-mono leading-none text-white/70',
+  base: 'text-overlay-muted text-center font-mono leading-none',
   variants: {
     desktop: {
       true: 'min-w-14 text-xs',
@@ -122,11 +122,11 @@ const zoomValue = tv({
 });
 
 const zoomButton = tv({
-  base: 'min-w-0 border border-white/15 bg-white/5 px-2.5 text-white data-[hovered]:bg-white/10'
+  base: 'border-overlay-border bg-overlay-control-bg text-overlay-fg data-[hovered]:bg-overlay-control-bg-hover min-w-0 border px-2.5'
 });
 
 const mobileZoomIconButton = tv({
-  base: 'text-white data-[hovered]:bg-white/10'
+  base: 'text-overlay-fg data-[hovered]:bg-overlay-control-bg-hover'
 });
 
 export type GalleryImage = {
@@ -247,13 +247,13 @@ const getClosestZoomIndex = (zoomLevels: number[], targetZoom: number) => {
 const getZoomedImageStyle = (image: GalleryImage, zoomLevel: number): CSSProperties => {
   if (image.device === 'mobile') {
     return {
-      height: `min(calc((100vh - 10rem) * ${zoomLevel}), ${image.height}px)`,
+      height: `min(calc((100svh - 13rem) * ${zoomLevel}), ${image.height}px)`,
       width: 'auto'
     };
   }
 
   return {
-    width: `min(calc((100vw - 10rem) * ${zoomLevel}), ${image.width}px)`,
+    width: `min(calc((100svw - clamp(3rem, 10vw, 10rem)) * ${zoomLevel}), ${image.width}px)`,
     height: 'auto'
   };
 };
@@ -277,9 +277,10 @@ const getDefaultZoomIndex = (image: GalleryImage | undefined, zoomLevels: number
 
 const Thumb: FC<{ image: GalleryImage; onOpen: () => void; eager?: boolean }> = ({ image, onOpen, eager = false }) => {
   const [loaded, setLoaded] = useState(false);
+  const label = image.alt.trim() || 'Project screenshot';
 
   return (
-    <Button variant="unstyled" onPress={onOpen} className={thumbButton()} aria-label={`Open ${image.alt} in lightbox`}>
+    <Button variant="unstyled" onPress={onOpen} className={thumbButton()} aria-label={`Open screenshot: ${label}`}>
       <div className={thumbFrame({ device: image.device })}>
         {!loaded && <div className="absolute inset-0 animate-pulse bg-surface-alt" aria-hidden="true" />}
         <picture>
@@ -287,7 +288,7 @@ const Thumb: FC<{ image: GalleryImage; onOpen: () => void; eager?: boolean }> = 
           <source type="image/webp" srcSet={image.thumbWebp} sizes={image.thumbSizes} />
           <img
             src={image.thumbSrc}
-            alt={image.alt}
+            alt={label}
             loading={eager ? 'eager' : 'lazy'}
             decoding="async"
             onLoad={() => setLoaded(true)}
@@ -359,8 +360,8 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
   zoomedImageStyle
 }) => (
   <ModalOverlay isOpen={open} onOpenChange={onOpenChange} isDismissable className={lightboxOverlay()}>
-    <Modal className="flex h-full w-full flex-col outline-none">
-      <Dialog className="flex h-full flex-col outline-none">
+    <Modal className="flex h-svh w-full flex-col outline-none">
+      <Dialog className="flex min-h-0 flex-1 flex-col outline-none">
         <div className={mobileLightboxHeader()}>
           <div className={mobileLightboxTitleRow()}>
             <Heading slot="title" className="font-display text-lg">
@@ -368,9 +369,9 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
             </Heading>
             <IconButton
               slot="close"
-              label="Close gallery"
+              label="Close screenshots"
               icon={<X className="size-5" />}
-              className="shrink-0 text-white data-[hovered]:bg-white/10"
+              className="text-overlay-fg data-[hovered]:bg-overlay-control-bg-hover shrink-0"
             />
           </div>
           <div className={lightboxControls()}>
@@ -422,14 +423,14 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
             </Button>
             <IconButton
               slot="close"
-              label="Close gallery"
+              label="Close screenshots"
               icon={<X className="size-5" />}
-              className="shrink-0 text-white data-[hovered]:bg-white/10"
+              className="text-overlay-fg data-[hovered]:bg-overlay-control-bg-hover shrink-0"
             />
           </div>
         </div>
 
-        <div className="relative flex flex-1 items-center justify-center overflow-hidden px-4 pb-4">
+        <div className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden px-3 pb-3 sm:px-4 sm:pb-4">
           {imagesLength > 1 && (
             <IconButton
               label="Previous image"
@@ -449,13 +450,13 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
               onTouchEnd={onImageTouchEnd}
               onTouchCancel={onImageTouchCancel}
               className={lightboxToggle({ zoomed })}
-              aria-label={zoomed ? 'Reset image zoom' : 'Zoom image to next level'}
+              aria-label={zoomed ? 'Reset screenshot zoom' : 'Zoom screenshot'}
             >
               <picture>
                 <source type="image/avif" srcSet={activeImage.fullAvif} />
                 <img
                   src={activeImage.src}
-                  alt={activeImage.alt}
+                  alt={activeImage.alt.trim() || 'Project screenshot'}
                   onLoad={onImageLoad}
                   className={lightboxImage({ device: activeImage.device, zoomed })}
                   style={zoomedImageStyle}
@@ -474,7 +475,7 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
           )}
         </div>
 
-        <div className="flex items-center justify-center gap-4 px-4 pb-6">
+        <div className="flex items-center justify-center gap-4 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:pb-6">
           {imagesLength > 1 && (
             <IconButton
               label="Previous image"
@@ -484,7 +485,7 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
             />
           )}
           <div className="flex flex-col items-center gap-1">
-            <span className="font-mono text-xs text-white/70">
+            <span className="text-overlay-muted font-mono text-xs">
               {active + 1} / {imagesLength}
             </span>
           </div>

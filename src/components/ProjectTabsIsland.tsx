@@ -27,7 +27,7 @@ type TabKey = typeof DESCRIPTION_TAB | typeof SKILLS_TAB | typeof GALLERY_TAB;
 
 const tabStyles = tv({
   base: [
-    'inline-flex items-center gap-2 px-5 py-3',
+    'inline-flex shrink-0 items-center gap-2 px-5 py-3 whitespace-nowrap',
     'text-sm font-semibold tracking-wide text-fg-muted hover:text-fg',
     'border-b-2 border-transparent data-[selected]:border-accent data-[selected]:text-fg',
     'cursor-pointer transition outline-none focus-visible:ring-accent focus-visible:ring-2 focus-visible:outline-none'
@@ -35,7 +35,7 @@ const tabStyles = tv({
 });
 
 const skillIconStyles = tv({
-  base: 'size-5 transition-transform duration-200 group-hover:scale-105 motion-reduce:group-hover:scale-100 md:size-6'
+  base: 'size-5 transition-transform duration-200 group-hover:scale-[1.02] motion-reduce:group-hover:scale-100 md:size-6'
 });
 
 const symbolId = (icon: string) => (icon.includes(':') ? `ai:${icon}` : `ai:local:${icon}`);
@@ -65,19 +65,22 @@ export const ProjectTabsIsland: FC<Props> = ({ hasGallery, galleryImages, projec
 
   return (
     <Tabs selectedKey={selectedKey} onSelectionChange={(key) => setSelectedKey(key as TabKey)}>
-      <TabList aria-label="Project sections" className="border-glass-border mb-10 flex items-center gap-2 border-b">
+      <TabList
+        aria-label="Project sections"
+        className="border-glass-border mb-10 flex min-w-0 items-center gap-2 overflow-x-auto border-b pb-px"
+      >
         <Tab id={DESCRIPTION_TAB} className={tabStyles()}>
           <FileText className="size-4" aria-hidden="true" />
-          Description
+          Case study
         </Tab>
         <Tab id={SKILLS_TAB} className={tabStyles()}>
           <Code2 className="size-4" aria-hidden="true" />
-          Skills Used
+          Stack
         </Tab>
         {hasGallery && (
           <Tab id={GALLERY_TAB} className={tabStyles()}>
             <Images className="size-4" aria-hidden="true" />
-            Images
+            Screenshots
           </Tab>
         )}
       </TabList>
@@ -89,12 +92,12 @@ export const ProjectTabsIsland: FC<Props> = ({ hasGallery, galleryImages, projec
       </TabPanel>
 
       <TabPanel id={SKILLS_TAB} className="tab-panel outline-none">
-        <ul className="flex flex-wrap justify-center gap-3 md:gap-4" aria-label={`${title} skills`}>
+        <ul className="flex min-w-0 flex-wrap justify-center gap-3 md:gap-4" aria-label={`${title} stack`}>
           {projectSkills.map((skill) => (
             <li key={skill.name}>
               <div className="group card card-hover flex items-center gap-2 rounded-full px-3 py-2 md:px-4">
                 <SkillIcon skill={skill} />
-                <span className="text-fg/90 text-sm font-semibold tracking-wide">{skill.name}</span>
+                <span className="text-fg/90 min-w-0 text-sm font-semibold tracking-wide break-words">{skill.name}</span>
               </div>
             </li>
           ))}

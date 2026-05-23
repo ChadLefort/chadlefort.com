@@ -16,7 +16,7 @@ const statusStyles = tv({
     compact: {
       true: ['text-term-fg bg-term-status-bg/60 flex gap-x-2 gap-y-1 px-3 py-1 text-[11px]'],
       false: [
-        'bg-term-status-bg inline-flex gap-x-2 gap-y-2 rounded-2xl px-3 py-2.5 shadow-inner shadow-black/10',
+        'bg-term-status-bg inline-flex gap-x-2 gap-y-2 rounded-2xl px-3 py-2.5',
         'sm:gap-x-3 sm:rounded-full sm:px-4 sm:py-1.5'
       ]
     }
@@ -64,6 +64,6 @@ export const StatusLine: FC<Props> = ({
     <Sep hideOnMobile />
     <Segment icon={nodedotjs} text={nodeVersion} tone="add" hideOnMobile />
     <Sep hideOnMobile />
-    <Segment icon={clock} text={time ?? '—:—'} data-testid="status-time" />
+    <Segment icon={clock} text={time ?? '··:··'} data-testid="status-time" />
   </div>
 );

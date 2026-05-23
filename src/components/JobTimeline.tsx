@@ -9,7 +9,7 @@ type Props = { jobs: Job[] };
 type ItemProps = { job: Job; isLeft: boolean };
 
 const item = tv({
-  base: 'timeline-item relative pl-12 md:grid md:grid-cols-2 md:items-center md:gap-x-16 md:pl-0 print:resume-timeline-item',
+  base: 'timeline-item relative pl-10 md:grid md:grid-cols-2 md:items-center md:gap-x-14 md:pl-0 print:resume-timeline-item',
   variants: {
     inView: {
       true: 'is-visible',
@@ -19,7 +19,7 @@ const item = tv({
 });
 
 const card = tv({
-  base: 'timeline-card card card-hover p-6 md:p-8 print:resume-timeline-card',
+  base: 'timeline-card card card-hover p-5 md:p-7 print:resume-timeline-card',
   variants: {
     side: {
       left: 'timeline-card-left',
@@ -66,7 +66,7 @@ const TimelineItem: FC<ItemProps> = ({ job, isLeft }) => {
     <article className={card({ side })}>
       <header className={cardHeader({ side })}>
         <h3 className="font-display text-fg text-xl md:text-2xl">{job.company}</h3>
-        <p className="text-accent text-sm font-semibold md:text-base print:resume-timeline-role">{job.role}</p>
+        <p className="text-accent text-sm font-medium md:text-base print:resume-timeline-role">{job.role}</p>
         <p className="text-fg-muted font-mono text-xs md:hidden print:block print:resume-timeline-date">{dateRange}</p>
       </header>
       <ul className={bullets({ side })}>
@@ -108,10 +108,10 @@ export const JobTimeline: FC<Props> = ({ jobs }) => (
   <div className="relative mx-auto w-full max-w-6xl">
     <span
       aria-hidden="true"
-      className="via-accent/40 pointer-events-none absolute top-0 bottom-0 left-4 w-px bg-gradient-to-b from-transparent to-transparent md:left-1/2 md:-translate-x-1/2 print:hidden"
+      className="via-accent/22 pointer-events-none absolute top-0 bottom-0 left-4 w-px bg-gradient-to-b from-transparent to-transparent md:left-1/2 md:-translate-x-1/2 print:hidden"
     />
 
-    <ol className="print:resume-timeline flex flex-col gap-6 md:gap-16" aria-label="Employment history">
+    <ol className="print:resume-timeline flex flex-col gap-5 md:gap-14" aria-label="Employment history">
       {jobs.map((job, index) => (
         <TimelineItem key={job.company + job.start} job={job} isLeft={index % 2 === 0} />
       ))}

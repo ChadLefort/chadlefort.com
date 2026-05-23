@@ -30,7 +30,7 @@ export const editor: Command = (_args, ctx, name) => {
 export const exit: Command = (_args, ctx, name) => {
   if (editorAttempted) {
     editorAttempted = false;
-    ctx.append([{ kind: 'success', text: `✓ ${name} — wrote 0 bytes. you escaped.` }]);
+    ctx.append([{ kind: 'success', text: `✓ ${name}: wrote 0 bytes. You escaped.` }]);
 
     return;
   }
@@ -66,5 +66,5 @@ export const sandwich: Command = (_args, ctx) => {
 };
 
 export const forkBomb: Command = (_args, ctx) => {
-  ctx.append([{ kind: 'err', text: ':(){ :|:& };: — nice try. fork bomb blocked.' }]);
+  ctx.append([{ kind: 'err', text: ':(){ :|:& };: nice try. Fork bomb blocked.' }]);
 };

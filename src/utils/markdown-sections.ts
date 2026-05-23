@@ -28,7 +28,7 @@ export const experienceSection = (): string[] => {
   const out: string[] = ['## Experience'];
 
   for (const job of jobs) {
-    out.push(`### ${job.company} — ${job.role}`);
+    out.push(`### ${job.company}, ${job.role}`);
     out.push(`_${job.start} – ${job.end}_`);
     out.push('');
     for (const bullet of job.bullets) {
@@ -83,7 +83,7 @@ export const projectDetailLines = (project: ProjectEntry): string[] => [
 export const educationSection = (): string[] => [
   ...dedent`
     ## Education
-    ### ${education.institution} — ${education.degree}
+    ### ${education.institution}, ${education.degree}
     _${education.start} – ${education.end}_
 
     - Majored in ${education.major}

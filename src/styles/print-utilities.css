@@ -220,33 +220,32 @@
 }
 
 @utility resume-skills-grid {
-  display: grid;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
-  gap: 0.06in;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.08in;
   list-style: none;
   width: 100%;
   box-sizing: border-box;
-  padding: 0 0.04in;
+  padding: 0;
   margin: 0;
 }
 
 @utility resume-skill-item {
   display: block;
   break-inside: avoid;
-  min-width: 0;
   margin: 0;
   padding: 0;
 
   & > div {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    gap: 0.04in;
-    width: 100%;
+    gap: 0.06in;
     box-sizing: border-box;
-    padding: 0.06in 0.04in;
+    padding: 0.045in 0.1in;
     border: 0.5pt solid #888;
-    border-radius: 3pt;
+    border-radius: 9999px;
     background: #ffffff;
     transform: none;
     color: #1a1a1a;
@@ -254,16 +253,19 @@
 
   & svg,
   & [data-icon] {
-    width: 24pt;
-    height: 24pt;
+    width: 14pt;
+    height: 14pt;
+    flex-shrink: 0;
     transform: none;
   }
 
   & span {
-    font-size: 7pt;
+    font-size: 8.5pt;
+    font-weight: 600;
     color: #1a1a1a;
-    text-align: center;
+    text-align: left;
     line-height: 1.1;
+    white-space: nowrap;
   }
 }
 

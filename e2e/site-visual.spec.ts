@@ -148,19 +148,19 @@ test.describe('screen visual regressions', () => {
     await waitForStablePage(page, '/projects/spear-dashboard');
 
     const body = page.locator('article > section').nth(1);
-    await expect(body.getByRole('tab', { name: /description/i })).toBeVisible();
+    await expect(body.getByRole('tab', { name: /case study/i })).toBeVisible();
 
     await expect(body).toHaveScreenshot('project-detail-description-screen.png');
   });
 
-  test('project detail images tab matches snapshot', async ({ page }) => {
+  test('project detail screenshot tab matches snapshot', async ({ page }) => {
     await waitForStablePage(page, '/projects/spear-dashboard');
 
     const body = page.locator('article > section').nth(1);
-    const imagesTab = body.getByRole('tab', { name: /images/i });
+    const screenshotsTab = body.getByRole('tab', { name: /screenshot/i });
 
-    await imagesTab.click();
-    await expect(imagesTab).toHaveAttribute('aria-selected', 'true');
+    await screenshotsTab.click();
+    await expect(screenshotsTab).toHaveAttribute('aria-selected', 'true');
 
     const firstImage = body.locator('img').first();
     await expect(firstImage).toBeVisible();
