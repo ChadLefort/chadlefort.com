@@ -24,7 +24,7 @@ export const site = {
   social: {
     github: 'https://github.com/ChadLefort',
     linkedin: 'https://www.linkedin.com/in/chadlefort',
-    twitter: 'https://twitter.com/ChadLefort',
+    x: 'https://x.com/ChadLefort',
     bluesky: 'https://bsky.app/profile/chadlefort.com',
     instagram: 'https://instagram.com/cl_skate/',
     youtube: 'https://www.youtube.com/chadlefort'

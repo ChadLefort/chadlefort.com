@@ -28,7 +28,7 @@ export const AboutMeSwiper: FC<Props> = ({ images }) => {
         {images.map((image) => (
           <SwiperSlide
             key={image.src}
-            className="bg-surface-raised ring-glass-border overflow-hidden rounded-2xl ring-1"
+            className="bg-surface-raised ring-panel-border overflow-hidden rounded-2xl ring-1"
           >
             <picture>
               <source type="image/avif" srcSet={image.avif} sizes={SIZES} />

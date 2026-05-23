@@ -16,10 +16,10 @@
     --card-grad-from: transparent !important;
     --card-grad-to: transparent !important;
     --card-border: var(--print-border) !important;
-    --glass-bg: transparent !important;
-    --glass-bg-strong: transparent !important;
-    --glass-border: var(--print-border) !important;
-    --glass-border-strong: var(--print-border) !important;
+    --panel-bg: transparent !important;
+    --panel-bg-strong: transparent !important;
+    --panel-border: var(--print-border) !important;
+    --panel-border-strong: var(--print-border) !important;
     --blob-opacity: 0 !important;
     --nav-bg: transparent !important;
     --nav-fg: var(--print-ink) !important;

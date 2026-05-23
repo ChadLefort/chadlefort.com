@@ -10,10 +10,19 @@ export const ScrollToTop: FC = () => {
   const reduced = useReducedMotion();
 
   useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 400);
+    let isVisible = window.scrollY > 400;
 
+    const onScroll = () => {
+      const nextVisible = window.scrollY > 400;
+
+      if (nextVisible === isVisible) return;
+
+      isVisible = nextVisible;
+      setVisible(nextVisible);
+    };
+
+    setVisible(isVisible);
     window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
 
     return () => window.removeEventListener('scroll', onScroll);
   }, []);

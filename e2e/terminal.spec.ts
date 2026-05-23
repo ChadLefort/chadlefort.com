@@ -26,6 +26,23 @@ test.describe('terminal', () => {
     await expect(page.getByText(/Senior Frontend Engineer from Mandeville, LA/i)).toBeVisible();
   });
 
+  test('keyboard-only command flow keeps focus and supports clearing output', async ({ page }) => {
+    const input = await maximizeTerminal(page);
+
+    await expect(input).toBeFocused();
+    await page.keyboard.type('help');
+    await page.keyboard.press('Enter');
+
+    await expect(page.getByText('commands:')).toBeVisible();
+    await expect(input).toBeFocused();
+
+    await page.keyboard.type('clear');
+    await page.keyboard.press('Enter');
+
+    await expect(page.getByText('commands:')).toHaveCount(0);
+    await expect(input).toBeFocused();
+  });
+
   test('minimize from maximized restores body scroll', async ({ page }) => {
     await maximizeTerminal(page);
     await expectScrollLocked(page);

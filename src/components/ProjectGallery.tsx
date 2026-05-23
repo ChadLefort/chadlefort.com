@@ -48,7 +48,7 @@ const lightboxImage = tv({
   variants: {
     zoomed: {
       true: 'max-h-none max-w-none',
-      false: 'max-h-[calc(100svh-13rem)] sm:max-h-[calc(100svh-8rem)]'
+      false: 'max-h-[calc(100svh-9rem)] sm:max-h-[calc(100svh-8rem)]'
     },
     device: {
       mobile: 'w-auto max-w-[min(100%,28rem)]',
@@ -90,11 +90,7 @@ const lightboxToggle = tv({
 });
 
 const mobileLightboxHeader = tv({
-  base: 'flex flex-col gap-4 px-4 py-3 text-overlay-fg sm:hidden'
-});
-
-const mobileLightboxTitleRow = tv({
-  base: 'flex items-center justify-between gap-3'
+  base: 'flex items-center justify-between gap-3 px-4 py-3 text-overlay-fg sm:hidden'
 });
 
 const desktopLightboxHeader = tv({
@@ -123,10 +119,6 @@ const zoomValue = tv({
 
 const zoomButton = tv({
   base: 'border-overlay-border bg-overlay-control-bg text-overlay-fg data-[hovered]:bg-overlay-control-bg-hover min-w-0 border px-2.5'
-});
-
-const mobileZoomIconButton = tv({
-  base: 'text-overlay-fg data-[hovered]:bg-overlay-control-bg-hover'
 });
 
 export type GalleryImage = {
@@ -171,6 +163,7 @@ type ProjectGalleryLightboxProps = {
   open: boolean;
   title: string;
   viewportRef: RefObject<HTMLDivElement | null>;
+  zoomDescriptionId: string;
   zoomLabel: string;
   zoomed: boolean;
   zoomedImageStyle?: CSSProperties;
@@ -247,7 +240,7 @@ const getClosestZoomIndex = (zoomLevels: number[], targetZoom: number) => {
 const getZoomedImageStyle = (image: GalleryImage, zoomLevel: number): CSSProperties => {
   if (image.device === 'mobile') {
     return {
-      height: `min(calc((100svh - 13rem) * ${zoomLevel}), ${image.height}px)`,
+      height: `min(calc((100svh - 9rem) * ${zoomLevel}), ${image.height}px)`,
       width: 'auto'
     };
   }
@@ -311,13 +304,13 @@ const GallerySection: FC<{
   eagerCount?: number;
 }> = ({ id, label, icon, gridClass, images, onOpen, wrapThumb, eagerCount = 0 }) => (
   <section aria-labelledby={id}>
-    <h3
+    <h2
       id={id}
       className="text-fg-muted mb-4 flex items-center gap-2 font-mono text-xs tracking-[0.25em] uppercase md:mb-8"
     >
       {icon}
       {label}
-    </h3>
+    </h2>
     <div className={gridClass}>
       {images.map((image, index) =>
         wrapThumb ? (
@@ -355,6 +348,7 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
   open,
   title,
   viewportRef,
+  zoomDescriptionId,
   zoomLabel,
   zoomed,
   zoomedImageStyle
@@ -363,34 +357,15 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
     <Modal className="flex h-svh w-full flex-col outline-none">
       <Dialog className="flex min-h-0 flex-1 flex-col outline-none">
         <div className={mobileLightboxHeader()}>
-          <div className={mobileLightboxTitleRow()}>
-            <Heading slot="title" className="font-display text-lg">
-              {title}
-            </Heading>
-            <IconButton
-              slot="close"
-              label="Close screenshots"
-              icon={<X className="size-5" />}
-              className="text-overlay-fg data-[hovered]:bg-overlay-control-bg-hover shrink-0"
-            />
-          </div>
-          <div className={lightboxControls()}>
-            <IconButton
-              label="Zoom out"
-              onPress={onZoomOut}
-              isDisabled={!canZoomOut}
-              icon={<ZoomOut className="size-5" />}
-              className={mobileZoomIconButton()}
-            />
-            <div className={zoomValue()}>{zoomLabel}</div>
-            <IconButton
-              label="Zoom in"
-              onPress={onZoomIn}
-              isDisabled={!canZoomIn}
-              icon={<ZoomIn className="size-5" />}
-              className={mobileZoomIconButton()}
-            />
-          </div>
+          <Heading slot="title" className="font-display min-w-0 truncate text-lg">
+            {title}
+          </Heading>
+          <IconButton
+            slot="close"
+            label="Close screenshots"
+            icon={<X className="size-5" />}
+            className="text-overlay-fg data-[hovered]:bg-overlay-control-bg-hover shrink-0"
+          />
         </div>
 
         <div className={desktopLightboxHeader()}>
@@ -451,7 +426,13 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
               onTouchCancel={onImageTouchCancel}
               className={lightboxToggle({ zoomed })}
               aria-label={zoomed ? 'Reset screenshot zoom' : 'Zoom screenshot'}
+              aria-pressed={zoomed}
+              aria-describedby={zoomDescriptionId}
             >
+              <span id={zoomDescriptionId} className="sr-only">
+                Screenshot zoom is {zoomLabel}. Activate to {zoomed ? 'reset zoom' : 'zoom in'}. Use arrow keys to move
+                between screenshots.
+              </span>
               <picture>
                 <source type="image/avif" srcSet={activeImage.fullAvif} />
                 <img
@@ -750,6 +731,7 @@ const useProjectGalleryLightbox = (images: GalleryImage[]) => {
 
 export const ProjectGallery: FC<Props> = ({ images, title, openRequest = 0 }) => {
   const dialogId = useId();
+  const zoomDescriptionId = `${dialogId}-zoom-description`;
   const handledOpenRequestRef = useRef(0);
   const {
     active,
@@ -843,6 +825,7 @@ export const ProjectGallery: FC<Props> = ({ images, title, openRequest = 0 }) =>
         open={open}
         title={title}
         viewportRef={viewportRef}
+        zoomDescriptionId={zoomDescriptionId}
         zoomLabel={zoomLabel}
         zoomed={zoomed}
         zoomedImageStyle={zoomedImageStyle}
