@@ -10,6 +10,6 @@ const { class: className, as: Tag = 'div', delay = 0 } = Astro.props as Props;
 const classes = ['fade-up', className].filter(Boolean).join(' ');
 ---
 
-<Tag class={classes} style={delay ? `transition-delay: ${delay}ms;` : undefined} data-reveal>
+<Tag class={classes} style={delay ? `--reveal-delay: ${delay}ms;` : undefined} data-reveal>
   <slot />
 </Tag>

@@ -6,7 +6,7 @@ import { ProjectHeroGalleryButton } from '~/components/ProjectHeroGalleryButton'
 import { ProjectTabsIsland } from '~/components/ProjectTabsIsland';
 import { CTALink } from '~/components/CTALink';
 import { PillLink } from '~/components/PillLink';
-import { projectSkills as projectSkillIcons } from '~/data/project-skills';
+import { getProjectSkills } from '~/data/project-skills';
 import { site } from '~/data/site';
 import Base from '~/layouts/Base.astro';
 
@@ -115,14 +115,7 @@ const coverUrl = project.data.cover
   ? new URL((await getImage({ src: project.data.cover, width: 1200, format: 'webp' })).src, site.siteUrl).toString()
   : undefined;
 
-const skillAliases = new Map([
-  ['React Aria Components', 'React Aria'],
-  ['React Router', 'React']
-]);
-const skillByName = new Map(projectSkillIcons.map((skill) => [skill.name, skill]));
-const projectSkills = project.data.tech.map(
-  (tech: string) => skillByName.get(skillAliases.get(tech) ?? tech) ?? { name: tech, icon: 'lucide:code-2' }
-);
+const projectSkills = getProjectSkills(project.data.tech);
 
 const projectLd: Record<string, unknown> = {
   '@context': 'https://schema.org',
@@ -168,7 +161,7 @@ const breadcrumbLd = {
     <section class="relative px-4 pt-12 pb-16 sm:px-6 md:pt-20 md:pb-24" data-testid="project-hero">
       <div class="max-w-section mx-auto">
         <PillLink href="/projects" client:idle>
-          <Icon name="lucide:chevron-left" class="h-4 w-4" aria-hidden="true" />
+          <Icon name="lucide:chevron-left" class="h-4 w-4 transition-transform duration-200 group-hover:-translate-x-0.5 motion-reduce:group-hover:translate-x-0" aria-hidden="true" />
           Back to projects
         </PillLink>
 

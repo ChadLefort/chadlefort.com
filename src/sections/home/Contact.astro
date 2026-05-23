@@ -27,10 +27,8 @@ const socialButton = tv({
 
 const copyEmailButton = tv({
   base: [
-    'group inline-flex cursor-pointer items-center gap-3',
-    'border-glass-border bg-glass text-fg rounded-full border px-4 py-2 font-mono text-sm',
-    'backdrop-blur-[24px] backdrop-saturate-[160%]',
-    'hover:border-accent transition',
+    'group card card-hover text-fg',
+    'inline-flex cursor-pointer items-center gap-3 rounded-full px-4 py-2 font-mono text-sm',
     'focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent'
   ]
 });
@@ -104,10 +102,15 @@ const copyEmailButton = tv({
           return;
         }
 
+        btn.classList.remove('copy-email-confirmed');
+        void btn.offsetWidth;
+        btn.classList.add('copy-email-confirmed');
+
         if (label) label.textContent = 'Copied!';
         if (status) status.textContent = 'Email copied to clipboard.';
 
         window.setTimeout(() => {
+          btn.classList.remove('copy-email-confirmed');
           if (label) label.textContent = original;
           if (status) status.textContent = '';
         }, 1800);

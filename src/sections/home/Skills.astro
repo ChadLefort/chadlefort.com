@@ -6,18 +6,18 @@ import { skills } from '~/data/skills';
 ---
 
 <Section id="skills" title="Skills" tone="alt" class="print:break-inside-avoid">
-  <ul class="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 print:resume-skills-grid" aria-label="Skills">
+  <ul class="flex flex-wrap justify-center gap-3 md:gap-4 print:resume-skills-grid" aria-label="Skills">
     {
       skills.map((skill, index) => (
-        <Reveal as="li" delay={Math.min(index * 25, 500)} class="print:resume-skill-item">
-          <div class="group card card-hover flex h-full flex-col items-center justify-center gap-2 p-5">
+        <Reveal as="li" delay={Math.min(index * 18, 360)} class="print:resume-skill-item">
+          <div class="group card card-hover flex items-center gap-2 rounded-full px-3 py-2 md:px-4">
             <Icon
               name={skill.icon}
-              class="h-9 w-9 transition-transform duration-300 group-hover:scale-110 motion-reduce:group-hover:scale-100"
+              class="h-5 w-5 transition-transform duration-200 group-hover:scale-105 motion-reduce:group-hover:scale-100 md:h-6 md:w-6"
               style={skill.color ? `color: ${skill.color};` : undefined}
               aria-hidden="true"
             />
-            <span class="text-fg/90 text-center text-xs font-semibold tracking-wide md:text-sm">{skill.name}</span>
+            <span class="text-fg/90 text-sm font-semibold tracking-wide">{skill.name}</span>
           </div>
         </Reveal>
       ))

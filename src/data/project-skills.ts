@@ -1,6 +1,6 @@
 import type { Skill } from '~/data/skills';
 
-export const projectSkills: Skill[] = [
+const projectSkills: Skill[] = [
   { name: 'TypeScript', icon: 'devicon:typescript' },
   { name: 'React', icon: 'devicon:react' },
   { name: 'React Aria', icon: 'react-aria', color: '#7f57ff' },
@@ -35,3 +35,12 @@ export const projectSkills: Skill[] = [
   { name: 'Chakra UI', icon: 'devicon:chakraui' },
   { name: 'PrimeReact', icon: 'simple-icons:primereact', color: '#06C4E8' }
 ];
+
+const skillAliases = new Map([
+  ['React Aria Components', 'React Aria'],
+  ['React Router', 'React']
+]);
+const skillByName = new Map(projectSkills.map((skill) => [skill.name, skill]));
+
+export const getProjectSkills = (tech: string[]): Skill[] =>
+  tech.map((name: string) => skillByName.get(skillAliases.get(name) ?? name) ?? { name, icon: 'lucide:code-2' });
