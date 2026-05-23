@@ -90,10 +90,10 @@ const cardLink = tv({
         <ul class="mt-auto hidden flex-wrap gap-3 pt-6 md:flex md:gap-4" aria-label={`${project.data.title} skills used`}>
           {projectSkills.map((skill: Skill) => (
             <li>
-              <div class="group card card-hover flex items-center gap-2 rounded-full px-3 py-2 md:px-4">
+              <div class="skill-badge">
                 <Icon
                   name={skill.icon}
-                  class="h-5 w-5 transition-transform duration-200 group-hover:scale-[1.02] motion-reduce:group-hover:scale-100 md:h-6 md:w-6"
+                  class="h-5 w-5 md:h-6 md:w-6"
                   style={skill.color ? `color: ${skill.color};` : undefined}
                   aria-hidden="true"
                 />

@@ -19,8 +19,8 @@ const light = tv({
 const dot = tv({
   base: [
     'inline-flex h-3 w-3 items-center justify-center rounded-full',
-    'text-[8px] font-bold text-black/55',
-    'shadow-[inset_0_0_0_0.5px_oklch(17%_0.018_260_/_25%)]'
+    'text-[8px] font-bold text-ink-950/55',
+    'shadow-[inset_0_0_0_0.5px_var(--border)]'
   ],
   variants: {
     color: {

@@ -193,10 +193,10 @@ const breadcrumbLd = {
 
           {
             project.data.cover && gallery.length > 0 && (
-              <ProjectHeroGalleryButton client:load>
+              <ProjectHeroGalleryButton client:idle>
                 <Picture
                   src={project.data.cover}
-                  alt={project.data.title}
+                  alt={project.data.coverAlt ?? project.data.title}
                   widths={[640, 960, 1280, 1600]}
                   sizes="(min-width: 768px) 640px, 100vw"
                   formats={['avif', 'webp']}
@@ -214,7 +214,7 @@ const breadcrumbLd = {
             project.data.cover && gallery.length === 0 && (
               <Picture
                 src={project.data.cover}
-                alt={project.data.title}
+                alt={project.data.coverAlt ?? project.data.title}
                 widths={[640, 960, 1280, 1600]}
                 sizes="(min-width: 768px) 640px, 100vw"
                 formats={['avif', 'webp']}
@@ -238,7 +238,7 @@ const breadcrumbLd = {
     <section class="px-4 pb-24 sm:px-6 md:pb-32">
       <div class="max-w-section mx-auto">
         <ProjectTabsIsland
-          client:load
+          client:idle
           hasGallery={gallery.length > 0}
           galleryImages={gallery}
           projectSkills={projectSkills}

@@ -25,10 +25,10 @@ export const ProjectHeroGalleryButton: FC<Props> = ({ label = 'Open project scre
       </div>
       <div
         data-hero-cover-overlay
-        className="pointer-events-none absolute inset-0 bg-black/0 transition duration-200 ease-out"
+        className="pointer-events-none absolute inset-0 bg-transparent transition duration-200 ease-out"
       />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-end p-4">
-        <span className={pillLinkStyles({ className: 'pointer-events-none shadow-sm shadow-ink-950/10' })}>
+        <span className={pillLinkStyles({ className: 'pointer-events-none shadow-sm' })}>
           <Images className="size-4" aria-hidden="true" />
           View screenshots
         </span>

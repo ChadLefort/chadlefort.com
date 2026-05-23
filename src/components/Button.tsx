@@ -22,7 +22,7 @@ export const buttonStyles = tv({
   ],
   variants: {
     variant: {
-      solid: 'text-overlay-fg shadow-sm shadow-ink-950/10',
+      solid: 'text-overlay-fg shadow-sm',
       outline: 'border-2 bg-transparent',
       ghost: 'border-2 border-transparent',
       unstyled: ['bg-transparent border-none text-current p-0', 'data-[hovered]:opacity-85']

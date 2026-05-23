@@ -16,8 +16,8 @@ import { CTALink } from '~/components/CTALink';
           width={176}
           height={176}
           densities={[1, 2, 3]}
-          loading="lazy"
-          fetchpriority="auto"
+          loading="eager"
+          fetchpriority="high"
           formats={['avif', 'webp']}
           fallbackFormat="webp"
           pictureAttributes={{ class: 'block h-full w-full' }}
