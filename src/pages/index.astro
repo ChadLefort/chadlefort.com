@@ -21,9 +21,11 @@ const profileLd = {
 <Base structuredData={profileLd} compactLogo>
   <PrintHeader />
   <Header />
-  <JobExperience />
-  <Skills />
-  <Education />
-  <AboutMe />
-  <Contact />
+  <div class="home-section-frame mx-auto w-full max-w-section print:contents">
+    <JobExperience />
+    <Skills />
+    <Education />
+    <AboutMe />
+    <Contact />
+  </div>
 </Base>

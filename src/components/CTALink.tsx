@@ -10,8 +10,8 @@ const ctaStyles = tv({
   ],
   variants: {
     intent: {
-      primary: 'bg-accent-strong hover:bg-accent text-overlay-fg',
-      secondary: 'border-glass-border-strong bg-glass text-fg hover:border-accent border'
+      primary: 'border border-accent-strong bg-accent-strong text-overlay-fg hover:border-accent hover:bg-accent',
+      secondary: 'border border-glass-border bg-term-bg text-term-fg hover:border-accent hover:text-fg'
     },
     size: {
       md: 'gap-2 rounded-xl px-6 py-3',

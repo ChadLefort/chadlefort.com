@@ -45,6 +45,9 @@
   --accent: oklch(43% 0.11 251);
   --accent-strong: oklch(33% 0.095 251);
   --accent-success: oklch(70% 0.075 168);
+  --section-rail-accent: oklch(76% 0.095 174);
+  --section-rail-bg: transparent;
+  --section-content-bg: transparent;
 
   --terminal-bg: oklch(27% 0.016 260);
   --terminal-fg: oklch(83% 0.012 260);
@@ -109,6 +112,9 @@
   color-scheme: dark;
   --accent: var(--terminal-blue);
   --accent-strong: oklch(57% 0.14 248);
+  --section-rail-accent: var(--terminal-green);
+  --section-rail-bg: transparent;
+  --section-content-bg: transparent;
   --surface: var(--background);
   --surface-alt: oklch(31% 0.014 260 / 55%);
   --surface-raised: oklch(37% 0.016 260 / 78%);
@@ -174,6 +180,9 @@
   --color-accent: var(--accent);
   --color-accent-strong: var(--accent-strong);
   --color-accent-success: var(--accent-success);
+  --color-section-rail-accent: var(--section-rail-accent);
+  --color-section-rail-bg: var(--section-rail-bg);
+  --color-section-content-bg: var(--section-content-bg);
 
   --color-surface: var(--surface);
   --color-surface-alt: var(--surface-alt);
@@ -351,6 +360,185 @@ html {
 
   .copy-email-confirmed {
     animation: copy-confirm 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .home-section-frame {
+    position: relative;
+    margin-top: clamp(1rem, 3vw, 2rem);
+  }
+
+  .home-section-frame::before {
+    content: "";
+    position: absolute;
+    inset-inline: clamp(1.5rem, 7vw, 6rem);
+    top: 0;
+    z-index: 1;
+    block-size: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklab, var(--section-rail-accent) 10%, var(--border)) 18%,
+      color-mix(in oklab, var(--section-rail-accent) 18%, var(--border)) 50%,
+      color-mix(in oklab, var(--section-rail-accent) 10%, var(--border)) 82%,
+      transparent
+    );
+  }
+
+  .home-split-section {
+    padding: 0 !important;
+  }
+
+  .home-section-frame .home-split-section > div {
+    max-width: none !important;
+    overflow: visible;
+    border: 0 !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+  }
+
+  .home-section-frame .home-split-section > div > div {
+    position: relative;
+  }
+
+  .home-section-frame .home-split-section > div > div::before {
+    content: "";
+    position: absolute;
+    inset-inline: clamp(1.5rem, 7vw, 6rem);
+    top: 0;
+    z-index: 1;
+    block-size: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklab, var(--section-rail-accent) 10%, var(--border)) 18%,
+      color-mix(in oklab, var(--section-rail-accent) 18%, var(--border)) 50%,
+      color-mix(in oklab, var(--section-rail-accent) 10%, var(--border)) 82%,
+      transparent
+    );
+  }
+
+  .home-section-frame .home-split-section:first-child > div > div::before {
+    content: none;
+  }
+
+  .home-section-frame .home-split-section:last-child > div > div::after {
+    content: "";
+    position: absolute;
+    inset-inline: clamp(1.5rem, 7vw, 6rem);
+    bottom: 0;
+    z-index: 1;
+    block-size: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklab, var(--section-rail-accent) 10%, var(--border)) 18%,
+      color-mix(in oklab, var(--section-rail-accent) 18%, var(--border)) 50%,
+      color-mix(in oklab, var(--section-rail-accent) 10%, var(--border)) 82%,
+      transparent
+    );
+  }
+
+  .section-rail {
+    padding: clamp(2rem, 5vw, 3.25rem) clamp(1.5rem, 3vw, 3rem);
+  }
+
+  .section-rail h2 {
+    color: var(--text);
+    letter-spacing: -0.075em;
+  }
+
+  .section-rail::after {
+    content: "";
+    display: block;
+    inline-size: 2.25rem;
+    block-size: 1px;
+    margin-top: 0.875rem;
+    background: var(--section-rail-accent);
+  }
+
+  @media (min-width: 768px) {
+    .home-section-frame .home-split-section > div > div {
+      min-height: clamp(10rem, 18vw, 16rem);
+    }
+
+    .section-rail {
+      position: static !important;
+      align-self: stretch !important;
+      background: transparent !important;
+      padding-block: clamp(2.35rem, 4vw, 3.75rem);
+    }
+
+    .section-rail + div {
+      position: relative;
+      min-width: 0;
+      border-left: 1px solid color-mix(in oklab, var(--section-rail-accent) 10%, var(--border));
+      background: var(--section-content-bg);
+      padding-block: clamp(2.35rem, 4vw, 3.75rem);
+      padding-inline: clamp(2rem, 4vw, 4rem);
+    }
+
+    .home-section-frame .home-split-section:first-child .section-rail {
+      background: transparent !important;
+    }
+
+    .home-section-frame .home-split-section:first-child .section-rail + div {
+      border-left: 0;
+      background: transparent;
+    }
+
+    .home-section-frame .home-split-section:first-child .section-rail + div::before {
+      content: "";
+      position: absolute;
+      inset-block: 0;
+      left: 0;
+      inline-size: 1px;
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        color-mix(in oklab, var(--section-rail-accent) 10%, var(--border)) clamp(3rem, 8vw, 6rem)
+      );
+    }
+  }
+
+  @media not print {
+    .home-section-frame :where(.card, .job-card, .skill-badge) {
+      background: var(--term-bg) !important;
+      border: 1px solid var(--glass-border) !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+    }
+
+    .home-section-frame :where(.card-hover:hover, .card-hover[data-hovered]) {
+      transform: translateY(-1px) !important;
+      border-color: var(--accent) !important;
+      box-shadow: none !important;
+    }
+
+    .home-section-frame .skill-badge {
+      border-radius: 0.75rem !important;
+    }
+
+    .project-card,
+    .project-panel,
+    .project-card .skill-badge,
+    .project-detail :where(.card, .skill-badge) {
+      background: var(--term-bg) !important;
+      border: 1px solid var(--glass-border) !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+    }
+
+    .project-card.card-hover:hover,
+    .project-detail :where(.card-hover:hover, .card-hover[data-hovered]) {
+      transform: translateY(-1px) !important;
+      border-color: var(--accent) !important;
+      box-shadow: none !important;
+    }
+
+    .project-card .skill-badge,
+    .project-detail .skill-badge {
+      border-radius: 0.75rem !important;
+    }
   }
 
   .tab-panel {
