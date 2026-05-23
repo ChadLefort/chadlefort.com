@@ -4,6 +4,6 @@ import Section from '~/components/Section.astro';
 import { jobs } from '~/data/jobs';
 ---
 
-<Section id="job-experience" title="Experience" tone="alt" class="print:mt-[0.28in]">
+<Section id="job-experience" title="Experience" tone="plain" tile={false} titleAlign="left" class="home-split-section print:mt-[0.28in]">
   <JobTimeline client:visible jobs={jobs} />
 </Section>

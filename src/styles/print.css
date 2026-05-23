@@ -48,6 +48,24 @@
     overflow: visible !important;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
+
+    & *,
+    & *::before,
+    & *::after {
+      background-image: none !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      text-shadow: none !important;
+      transition: none !important;
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+    }
+
+    & > div[aria-hidden="true"] {
+      display: none !important;
+    }
   }
 
   * {
@@ -55,27 +73,11 @@
     -webkit-print-color-adjust: exact !important;
   }
 
-  body *,
-  body *::before,
-  body *::after {
-    background-image: none !important;
-    box-shadow: none !important;
-    backdrop-filter: none !important;
-    text-shadow: none !important;
-    transition: none !important;
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-    filter: none !important;
-  }
-
-  .card::before,
-  .card::after {
-    display: none !important;
-  }
-
-  body > div[aria-hidden="true"] {
-    display: none !important;
+  .card {
+    &::before,
+    &::after {
+      display: none !important;
+    }
   }
 
   [data-no-print],
@@ -91,6 +93,119 @@
   @page {
     margin: 0.5in;
     size: A4;
+  }
+
+  .home-section-frame {
+    display: block !important;
+    margin: 0 !important;
+    max-width: none !important;
+    width: 100% !important;
+
+    &::before,
+    & .home-split-section > div > div::before,
+    & .home-split-section > div > div::after,
+    & .home-split-section:first-child .section-rail + div::before {
+      display: none !important;
+      content: none !important;
+    }
+
+    & .home-split-section {
+      display: block !important;
+      padding: 0 !important;
+      margin-bottom: 0.28in !important;
+      break-inside: auto !important;
+
+      &[data-no-print],
+      &[data-no-print] * {
+        display: none !important;
+      }
+
+      & > div,
+      & > div > div {
+        display: block !important;
+        max-width: none !important;
+        width: 100% !important;
+        min-height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: 0 !important;
+        background: transparent !important;
+      }
+
+      &:first-child .section-rail,
+      &:first-child .section-rail + div {
+        background: transparent !important;
+        border: 0 !important;
+      }
+    }
+
+    & :where(.card, .job-card, .skill-badge) {
+      background: var(--print-paper) !important;
+      background-color: var(--print-paper) !important;
+      border: 0.5pt solid var(--print-subtle) !important;
+      box-shadow: none !important;
+      color: var(--print-ink) !important;
+    }
+
+    & .skill-badge {
+      border-radius: 9999px !important;
+    }
+  }
+
+  .section-rail {
+    display: block !important;
+    position: static !important;
+    padding: 0 !important;
+    margin: 0 0 0.1in 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+
+    &::after {
+      display: none !important;
+      content: none !important;
+    }
+
+    & h2,
+    & .resume-section-title {
+      display: block !important;
+      text-align: left !important;
+      margin: 0 0 0.2in 0 !important;
+      padding-bottom: 0.05in !important;
+      border-bottom: 0.5pt solid var(--print-border) !important;
+    }
+
+    & + div {
+      display: block !important;
+      max-width: none !important;
+      width: 100% !important;
+      min-height: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: 0 !important;
+      background: transparent !important;
+    }
+  }
+
+  .project-card,
+  .project-panel,
+  .project-detail :where(.card, .skill-badge) {
+    background: var(--print-paper) !important;
+    background-color: var(--print-paper) !important;
+    border: 0.5pt solid var(--print-subtle) !important;
+    box-shadow: none !important;
+    color: var(--print-ink) !important;
+  }
+
+  .timeline-card,
+  .resume-timeline-card {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  .skill-badge,
+  .project-detail .skill-badge,
+  .project-card .skill-badge {
+    border-radius: 9999px !important;
   }
 }
 
