@@ -1,0 +1,200 @@
+@layer components {
+  .skip-link {
+    position: absolute;
+    left: 0.5rem;
+    top: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--text);
+    color: var(--surface);
+    border-radius: var(--default-border-radius);
+    transform: translateY(-200%);
+    transition: transform var(--motion-duration-feedback) var(--motion-ease-out);
+    z-index: 100;
+
+    &:focus {
+      transform: translateY(0);
+    }
+  }
+
+  .blink {
+    animation: blink 1s linear infinite;
+  }
+
+  .fade-up {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .js [data-reveal].fade-up {
+      opacity: 0;
+      transform: translate3d(0, 16px, 0);
+    }
+
+    .js [data-reveal].fade-up.in-view {
+      animation: fade-up-in var(--motion-duration-reveal) var(--motion-ease-out) var(--reveal-delay, 0ms) both;
+    }
+
+    .hero-mark {
+      animation: hero-mark-in var(--motion-duration-reveal) var(--motion-ease-out) 80ms both;
+    }
+
+    .hero-copy {
+      animation: hero-copy-in var(--motion-duration-hero) var(--motion-ease-out) var(--motion-duration-feedback) both;
+    }
+
+    .hero-action {
+      animation: fade-up-in var(--motion-duration-reveal) var(--motion-ease-out) 360ms both;
+    }
+  }
+
+  .copy-email-confirmed {
+    animation: copy-confirm var(--motion-duration-reveal) var(--motion-ease-out) both;
+  }
+
+  @media not print {
+    .home-section-frame :where(.card, .job-card, .skill-badge) {
+      background: var(--term-bg) !important;
+      border: 1px solid var(--panel-border) !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+    }
+
+    .home-section-frame :where(.card-hover:hover, .card-hover[data-hovered]) {
+      transform: translateY(-1px) !important;
+      border-color: var(--accent) !important;
+      box-shadow: none !important;
+    }
+
+    .home-section-frame .skill-badge {
+      border-radius: 0.75rem !important;
+    }
+
+    .project-card,
+    .project-panel,
+    .project-card .skill-badge,
+    .project-detail :where(.card, .skill-badge) {
+      background: var(--term-bg) !important;
+      border: 1px solid var(--panel-border) !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+    }
+
+    .project-card.card-hover:hover,
+    .project-detail :where(.card-hover:hover, .card-hover[data-hovered]) {
+      transform: translateY(-1px) !important;
+      border-color: var(--accent) !important;
+      box-shadow: none !important;
+    }
+
+    .project-card .skill-badge,
+    .project-detail .skill-badge {
+      border-radius: 0.75rem !important;
+    }
+  }
+
+  .tab-panel {
+    animation: tab-panel-in var(--motion-duration-state) var(--motion-ease-out) both;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: var(--motion-duration-state);
+    animation-timing-function: var(--motion-ease-settle);
+  }
+
+  ::view-transition-old(terminal),
+  ::view-transition-new(terminal) {
+    animation-duration: 360ms;
+    animation-timing-function: var(--motion-ease-settle);
+  }
+
+  ::selection {
+    background: var(--terminal-selection);
+    color: var(--terminal-fg);
+  }
+
+  .project-prose {
+    color: var(--text);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+
+    & > * + * {
+      margin-top: 1.25rem;
+    }
+
+    & h2 {
+      font-family: var(--header-font-family);
+      font-size: 1.875rem;
+      letter-spacing: -0.01em;
+      margin-top: 3rem;
+      margin-bottom: 0.5rem;
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    & h3 {
+      font-family: var(--header-font-family);
+      font-size: 1.375rem;
+      margin-top: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    & p {
+      color: var(--text-muted);
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    & strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    & a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-decoration-color: color-mix(in oklab, var(--accent) 50%, transparent);
+      text-underline-offset: 3px;
+
+      &:hover {
+        text-decoration-color: var(--accent);
+      }
+    }
+
+    & :is(ul, ol) {
+      color: var(--text-muted);
+      padding-left: 1.5rem;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    & ul {
+      list-style: disc;
+    }
+
+    & ol {
+      list-style: decimal;
+    }
+
+    & li {
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+      padding-left: 0.5rem;
+
+      &::marker {
+        color: var(--accent);
+      }
+    }
+
+    & code {
+      background: var(--surface-alt);
+      padding: 0.15em 0.4em;
+      border-radius: 4px;
+      font-size: 0.9em;
+      color: var(--text);
+    }
+  }
+}
