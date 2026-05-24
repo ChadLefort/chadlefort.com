@@ -9,7 +9,7 @@ import { IconButton } from '~/components/IconButton';
 export const PROJECT_GALLERY_OPEN_EVENT = 'project-gallery:open';
 
 const thumbImg = tv({
-  base: 'block h-full w-full rounded-2xl object-cover object-top transition duration-[var(--motion-duration-state)] ease-[var(--motion-ease-settle)] group-hover:scale-[1.005]',
+  base: 'block h-full w-full rounded-2xl object-cover object-top transition duration-[var(--motion-duration-state)] ease-[var(--motion-ease-settle)]',
   variants: {
     loaded: {
       true: 'opacity-100',
@@ -117,7 +117,7 @@ const zoomValue = tv({
 });
 
 const zoomButton = tv({
-  base: 'border-overlay-border bg-overlay-control-bg text-overlay-fg data-[hovered]:bg-overlay-control-bg-hover min-w-0 border px-2.5'
+  base: 'min-w-0 px-2.5'
 });
 
 export type GalleryImage = {
@@ -392,7 +392,8 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
             slot="close"
             label="Close screenshots"
             icon={<X className="size-5" />}
-            className="text-overlay-fg data-[hovered]:bg-overlay-control-bg-hover shrink-0"
+            color="overlay"
+            className="shrink-0"
           />
         </div>
 
@@ -403,7 +404,7 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
           <div className={lightboxControls({ desktop: true })}>
             <Button
               variant="ghost"
-              color="neutral"
+              color="overlay"
               size="sm"
               onPress={onZoomOut}
               isDisabled={!canZoomOut}
@@ -415,7 +416,7 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
             <div className={zoomValue({ desktop: true })}>{zoomLabel}</div>
             <Button
               variant="ghost"
-              color="neutral"
+              color="overlay"
               size="sm"
               onPress={onZoomIn}
               isDisabled={!canZoomIn}
@@ -428,7 +429,8 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
               slot="close"
               label="Close screenshots"
               icon={<X className="size-5" />}
-              className="text-overlay-fg data-[hovered]:bg-overlay-control-bg-hover shrink-0"
+              color="overlay"
+              className="shrink-0"
             />
           </div>
         </div>

@@ -28,7 +28,7 @@ const modal = tv({
 const drawerLink = tv({
   base: [
     'flex items-center gap-3 rounded-lg px-3 py-3 font-medium transition-colors',
-    'duration-[var(--motion-duration-feedback)] ease-[var(--motion-ease-settle)] hover:bg-term-menu-bg'
+    'duration-[var(--motion-duration-feedback)] ease-[var(--motion-ease-settle)]'
   ],
   variants: {
     isFocusVisible: {

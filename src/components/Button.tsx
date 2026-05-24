@@ -17,21 +17,19 @@ export const buttonStyles = tv({
   base: [
     'inline-flex items-center justify-center gap-2 cursor-pointer',
     'font-semibold tracking-tight select-none',
-    'transition-[background-color,color,box-shadow,transform] duration-[var(--motion-duration-feedback)] ease-[var(--motion-ease-out)]',
-    'data-[disabled]:cursor-not-allowed data-[disabled]:opacity-60'
+    'transition-[background-color,color,box-shadow,transform] duration-[var(--motion-duration-feedback)] ease-[var(--motion-ease-out)]'
   ],
   variants: {
     variant: {
       solid: 'text-overlay-fg shadow-sm',
       outline: 'border-2 bg-transparent',
       ghost: 'border-2 border-transparent',
-      card: ['group card card-hover text-fg rounded-2xl', 'data-[hovered]:opacity-100'],
-      unstyled: ['bg-transparent border-none text-current p-0', 'data-[hovered]:opacity-85']
+      card: 'group card card-hover text-fg rounded-2xl'
     },
     color: {
       brand: '',
       neutral: '',
-      term: ''
+      overlay: ''
     },
     size: {
       sm: 'px-3 py-1.5 text-sm rounded-lg min-h-9',
@@ -45,57 +43,130 @@ export const buttonStyles = tv({
     },
     press: {
       none: '',
-      subtle: [
-        'data-[hovered]:scale-[1.01] data-[pressed]:scale-[0.98]',
-        'motion-reduce:data-[hovered]:scale-100 motion-reduce:data-[pressed]:scale-100'
-      ],
-      bouncy: [
-        'data-[hovered]:scale-[1.02] data-[pressed]:scale-[0.98]',
-        'motion-reduce:data-[hovered]:scale-100 motion-reduce:data-[pressed]:scale-100'
-      ]
+      subtle: '',
+      bouncy: ''
     },
     fullWidth: {
       true: 'w-full'
+    },
+    isDisabled: {
+      true: 'cursor-not-allowed opacity-60'
+    },
+    isHovered: {
+      true: ''
+    },
+    isPressed: {
+      true: ''
     }
   },
   compoundVariants: [
     {
       variant: 'solid',
       color: 'brand',
-      class: ['bg-accent-strong', 'data-[hovered]:bg-accent', 'data-[pressed]:bg-accent-strong']
+      class: 'bg-accent-strong'
+    },
+    {
+      variant: 'solid',
+      color: 'brand',
+      isHovered: true,
+      class: 'bg-accent'
+    },
+    {
+      variant: 'solid',
+      color: 'brand',
+      isPressed: true,
+      class: 'bg-accent-strong'
     },
     {
       variant: 'solid',
       color: 'neutral',
-      class: ['bg-ink-950 text-ink-100', 'data-[hovered]:bg-ink-800']
+      class: 'bg-ink-950 text-ink-100'
     },
     {
       variant: 'solid',
-      color: 'term',
-      class: [
-        'bg-terminal-bg text-terminal-fg border border-ink-500',
-        'data-[hovered]:border-terminal-blue data-[hovered]:text-overlay-fg'
-      ]
+      color: 'neutral',
+      isHovered: true,
+      class: 'bg-ink-800'
     },
     {
       variant: 'outline',
       color: 'brand',
-      class: ['text-accent border-accent', 'data-[hovered]:bg-accent/10']
+      class: 'text-accent border-accent'
+    },
+    {
+      variant: 'outline',
+      color: 'brand',
+      isHovered: true,
+      class: 'bg-accent/10'
     },
     {
       variant: 'outline',
       color: 'neutral',
-      class: ['text-fg border-border-subtle', 'data-[hovered]:bg-surface-alt']
+      class: 'text-fg border-border-subtle'
+    },
+    {
+      variant: 'outline',
+      color: 'neutral',
+      isHovered: true,
+      class: 'bg-surface-alt'
     },
     {
       variant: 'ghost',
       color: 'brand',
-      class: ['text-accent', 'data-[hovered]:bg-accent/10']
+      class: 'text-accent'
+    },
+    {
+      variant: 'ghost',
+      color: 'brand',
+      isHovered: true,
+      class: 'bg-accent/10'
     },
     {
       variant: 'ghost',
       color: 'neutral',
-      class: ['text-fg', 'data-[hovered]:bg-surface-alt']
+      class: 'text-fg'
+    },
+    {
+      variant: 'ghost',
+      color: 'neutral',
+      isHovered: true,
+      class: 'bg-surface-alt'
+    },
+    {
+      variant: 'ghost',
+      color: 'overlay',
+      class: 'border-overlay-border bg-overlay-control-bg text-overlay-fg border'
+    },
+    {
+      variant: 'ghost',
+      color: 'overlay',
+      isHovered: true,
+      class: 'bg-overlay-control-bg-hover'
+    },
+    {
+      variant: 'card',
+      isHovered: true,
+      class: 'opacity-100'
+    },
+    {
+      press: 'subtle',
+      isHovered: true,
+      class: 'scale-[1.01] motion-reduce:scale-100'
+    },
+    {
+      press: 'subtle',
+      isPressed: true,
+      class: 'scale-[0.98] motion-reduce:scale-100'
+    },
+    {
+      press: 'bouncy',
+      isHovered: true,
+      class: 'scale-[1.02] motion-reduce:scale-100'
+    },
+    {
+      press: 'bouncy',
+      isPressed: true,
+      class: 'scale-[0.98] motion-reduce:scale-100'
     },
     { shape: 'icon', size: 'sm', class: 'h-9 w-9 min-h-0' },
     { shape: 'icon', size: 'md', class: 'h-11 w-11 min-h-0' },
@@ -126,7 +197,7 @@ type Props = Omit<RACButtonProps, 'className' | 'children'> &
     startIcon?: ReactNode;
     endIcon?: ReactNode;
     children?: ReactNode;
-    className?: string;
+    className?: RACButtonProps['className'];
   };
 
 export const Button: FC<Props> = ({
