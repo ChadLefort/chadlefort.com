@@ -92,6 +92,7 @@
   @page {
     margin: 0.5in;
     size: A4;
+    background: oklch(100% 0 0);
   }
 
   .home-section-frame {
