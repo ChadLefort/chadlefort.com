@@ -41,7 +41,7 @@ const processed = await Promise.all(
 
 <Section id="about-me" title="About" tone="plain" tile={false} titleAlign="left" class="home-split-section" hideFromPrint>
   <div class="grid max-w-5xl items-center gap-12 md:grid-cols-[minmax(0,300px)_1fr]">
-    <AboutMeSwiper client:visible images={processed} />
+    <AboutMeSwiper client:load images={processed} />
     <div class="mx-auto w-full max-w-[36ch] md:mx-0 md:max-w-none">
       <div class="text-fg-muted space-y-5 leading-relaxed [word-spacing:0] [&_p]:[text-wrap:auto]">
         <p>
