@@ -24,10 +24,21 @@ type TabKey = typeof DESCRIPTION_TAB | typeof SKILLS_TAB | typeof GALLERY_TAB;
 const tabStyles = tv({
   base: [
     'inline-flex shrink-0 items-center gap-2 px-5 py-3 whitespace-nowrap',
-    'text-sm font-semibold tracking-wide text-fg-muted hover:text-fg',
-    'border-b-2 border-transparent data-[selected]:border-accent data-[selected]:text-fg',
-    'cursor-pointer transition duration-[var(--motion-duration-state)] ease-[var(--motion-ease-settle)] outline-none focus-visible:ring-accent focus-visible:ring-2 focus-visible:outline-none'
-  ]
+    'text-sm font-semibold tracking-wide text-fg-muted',
+    'border-b-2 border-transparent',
+    'cursor-pointer transition duration-[var(--motion-duration-state)] ease-[var(--motion-ease-settle)] outline-none'
+  ],
+  variants: {
+    isFocusVisible: {
+      true: 'focus-visible:ring-accent focus-visible:ring-2 focus-visible:outline-none'
+    },
+    isHovered: {
+      true: 'text-fg'
+    },
+    isSelected: {
+      true: 'border-accent text-fg'
+    }
+  }
 });
 
 const skillIconStyles = tv({
@@ -66,16 +77,16 @@ export const ProjectTabsIsland: FC<Props> = ({ hasGallery, galleryImages, projec
         aria-label="Project sections"
         className="border-panel-border mb-10 flex min-w-0 items-center gap-2 overflow-x-auto border-b pb-px"
       >
-        <Tab id={DESCRIPTION_TAB} className={tabStyles()}>
+        <Tab id={DESCRIPTION_TAB} className={(renderProps) => tabStyles(renderProps)}>
           <FileText className="size-4" aria-hidden="true" />
           Case study
         </Tab>
-        <Tab id={SKILLS_TAB} className={tabStyles()}>
+        <Tab id={SKILLS_TAB} className={(renderProps) => tabStyles(renderProps)}>
           <Code2 className="size-4" aria-hidden="true" />
           Stack
         </Tab>
         {hasGallery && (
-          <Tab id={GALLERY_TAB} className={tabStyles()}>
+          <Tab id={GALLERY_TAB} className={(renderProps) => tabStyles(renderProps)}>
             <Images className="size-4" aria-hidden="true" />
             Screenshots
           </Tab>

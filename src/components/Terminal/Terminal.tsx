@@ -156,7 +156,7 @@ export const Terminal: FC = () => {
     setViewportFrame();
     document.documentElement.style.overflow = 'hidden';
     window.visualViewport?.addEventListener('resize', setViewportFrame);
-    window.visualViewport?.addEventListener('scroll', setViewportFrame);
+    window.visualViewport?.addEventListener('scroll', setViewportFrame, { passive: true });
     window.addEventListener('resize', setViewportFrame);
 
     return () => {
