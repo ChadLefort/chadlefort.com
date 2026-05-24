@@ -42,18 +42,20 @@ const processed = await Promise.all(
 <Section id="about-me" title="About" tone="plain" tile={false} titleAlign="left" class="home-split-section" hideFromPrint>
   <div class="grid max-w-5xl items-center gap-12 md:grid-cols-[minmax(0,300px)_1fr]">
     <AboutMeSwiper client:visible images={processed} />
-    <div class="text-fg-muted space-y-5 text-sm leading-relaxed md:text-base">
-      <p>
-        I've been a technology enthusiast ever since a young age. Whether it's looking at source code or computer
-        hardware, I've always enjoyed tinkering around to understand how things work. Shortly after I was given my first
-        computer at 11 years old, I started the journey of creating web sites and fell in love with the web and
-        programming.
-      </p>
-      <p>
-        When I'm not programming, I enjoy taking daily walks with my wife Melanie and taking naps on the couch with my
-        cat. I also enjoy skateboarding a couple of times a week (even though my knees don't), riding my bike on trails,
-        playing guitar, and adventuring in video games.
-      </p>
+    <div class="mx-auto w-full max-w-[36ch] md:mx-0 md:max-w-none">
+      <div class="text-fg-muted space-y-5 text-sm leading-relaxed [word-spacing:0] [&_p]:[text-wrap:auto] md:text-base">
+        <p>
+          I've been a technology enthusiast ever since a young age. Whether it's looking at source code or computer
+          hardware, I've always enjoyed tinkering around to understand how things work. Shortly after I was given my first
+          computer at 11 years old, I started the journey of creating web sites and fell in love with the web and
+          programming.
+        </p>
+        <p>
+          When I'm not programming, I enjoy taking daily walks with my wife Melanie and taking naps on the couch with my
+          cat. I also enjoy skateboarding a couple of times a week (even though my knees don't), riding my bike on trails,
+          playing guitar, and adventuring in video games.
+        </p>
+      </div>
     </div>
   </div>
 </Section>

@@ -11,13 +11,13 @@ import { Segment } from './Segment';
 import { Sep } from './Sep';
 
 const statusStyles = tv({
-  base: 'max-w-full flex-wrap items-center font-mono',
+  base: 'max-w-full flex-nowrap items-center whitespace-nowrap font-mono',
   variants: {
     compact: {
-      true: ['text-term-fg bg-term-status-bg/60 flex gap-x-2 gap-y-1 px-3 py-1 text-[11px]'],
+      true: ['text-term-fg bg-term-status-bg/60 flex gap-x-1.5 px-3 py-1 text-[11px] sm:gap-x-2'],
       false: [
-        'bg-term-status-bg inline-flex gap-x-2 gap-y-2 rounded-2xl px-3 py-2.5',
-        'sm:gap-x-3 sm:rounded-full sm:px-4 sm:py-1.5'
+        'bg-term-status-bg inline-flex gap-x-1.5 rounded-2xl px-2.5 py-2 text-[10.5px]',
+        'sm:gap-x-3 sm:rounded-full sm:px-4 sm:py-1.5 sm:text-[12px]'
       ]
     }
   },
@@ -46,24 +46,28 @@ export const StatusLine: FC<Props> = ({
   nodeVersion = 'v24.15.0',
   time,
   compact = false
-}) => (
-  <div className={statusStyles({ compact })}>
-    <Segment icon={apple} text="clefort" />
-    <Sep />
-    <Segment text={cwd} hideOnMobile />
-    <Sep hideOnMobile />
-    <Segment icon={gitBranch} text={branch} tone="branch" />
-    {(modified != null || added != null || removed != null) && (
-      <>
-        <Sep />
-        {modified != null && <Segment icon={pencilLine} text={String(modified)} hideOnMobile />}
-        {added != null && <Segment icon={plus} text={String(added)} tone="add" hideOnMobile />}
-        {removed != null && <Segment icon={minus} text={String(removed)} tone="del" hideOnMobile />}
-      </>
-    )}
-    <Sep hideOnMobile />
-    <Segment icon={nodedotjs} text={nodeVersion} tone="add" hideOnMobile />
-    <Sep hideOnMobile />
-    <Segment icon={clock} text={time ?? '··:··'} data-testid="status-time" />
-  </div>
-);
+}) => {
+  const mobileBranch = branch.includes('/') ? branch.split('/').at(-1) : branch;
+
+  return (
+    <div className={statusStyles({ compact })}>
+      <Segment icon={apple} text="clefort" />
+      <Sep />
+      <Segment text={cwd} hideOnMobile />
+      <Sep hideOnMobile />
+      <Segment icon={gitBranch} text={branch} mobileText={mobileBranch} tone="branch" />
+      {(modified != null || added != null || removed != null) && (
+        <>
+          <Sep hideOnMobile />
+          {modified != null && <Segment icon={pencilLine} text={String(modified)} hideOnMobile />}
+          {added != null && <Segment icon={plus} text={String(added)} tone="add" hideOnMobile />}
+          {removed != null && <Segment icon={minus} text={String(removed)} tone="del" hideOnMobile />}
+        </>
+      )}
+      <Sep hideOnMobile />
+      <Segment icon={nodedotjs} text={nodeVersion} tone="add" hideOnMobile />
+      <Sep />
+      <Segment icon={clock} text={time ?? '··:··'} data-testid="status-time" />
+    </div>
+  );
+};

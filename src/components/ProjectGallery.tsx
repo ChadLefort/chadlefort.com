@@ -44,7 +44,10 @@ const lightboxOverlay = tv({
 });
 
 const lightboxImage = tv({
-  base: 'block h-auto rounded-lg object-contain',
+  base: [
+    'block h-auto rounded-lg object-contain',
+    'transition-[width,height,max-width,max-height] duration-[520ms] ease-[var(--motion-ease-out)] motion-reduce:transition-none'
+  ],
   variants: {
     zoomed: {
       true: 'max-h-none max-w-none',
@@ -80,7 +83,10 @@ const lightboxViewport = tv({
 });
 
 const lightboxToggle = tv({
-  base: 'border-0 bg-transparent text-inherit touch-pan-x touch-pan-y',
+  base: [
+    'border-0 bg-transparent text-inherit touch-pan-x touch-pan-y',
+    'transition-[padding] duration-[520ms] ease-[var(--motion-ease-out)] motion-reduce:transition-none'
+  ],
   variants: {
     zoomed: {
       true: 'flex min-h-full w-max min-w-full cursor-zoom-out items-start justify-center p-3 sm:p-6',
@@ -140,6 +146,7 @@ type IndexedImage = GalleryImage & { index: number };
 type Props = { images: GalleryImage[]; title: string; openRequest?: number };
 type SwipeState = { x: number; y: number };
 type PinchState = { distance: number; zoomLevel: number };
+type PinchAnchor = { localX: number; localY: number; ratioX: number; ratioY: number };
 type TouchHandler = (event: ReactTouchEvent<HTMLButtonElement>) => void;
 
 type ProjectGalleryLightboxProps = {
@@ -166,17 +173,27 @@ type ProjectGalleryLightboxProps = {
   zoomDescriptionId: string;
   zoomLabel: string;
   zoomed: boolean;
-  zoomedImageStyle?: CSSProperties;
+  lightboxImageStyle?: CSSProperties;
 };
 
 const SWIPE_THRESHOLD = 48;
 const SWIPE_VERTICAL_TOLERANCE = 32;
 const BASE_ZOOM_LEVELS = [1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 3, 4, 5, 7.5, 10] as const;
+const MOBILE_ZOOM_LEVELS = [
+  1, 1.125, 1.25, 1.375, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.5, 4, 4.5, 5, 6, 7.5, 8.5, 10
+] as const;
 
 type ZoomLevel = (typeof BASE_ZOOM_LEVELS)[number];
 
 const getTouchDistance = (touchA: Touch, touchB: Touch) =>
   Math.hypot(touchB.clientX - touchA.clientX, touchB.clientY - touchA.clientY);
+
+const getTouchMidpoint = (touchA: Touch, touchB: Touch) => ({
+  x: (touchA.clientX + touchB.clientX) / 2,
+  y: (touchA.clientY + touchB.clientY) / 2
+});
+
+const clampScroll = (value: number, max: number) => Math.min(Math.max(value, 0), Math.max(max, 0));
 
 const isHorizontalSwipeGesture = (deltaX: number, deltaY: number) =>
   Math.abs(deltaX) >= SWIPE_THRESHOLD &&
@@ -237,13 +254,22 @@ const getClosestZoomIndex = (zoomLevels: number[], targetZoom: number) => {
   );
 };
 
-const getZoomedImageStyle = (image: GalleryImage, zoomLevel: number): CSSProperties => {
+const getLightboxImageStyle = (image: GalleryImage, zoomLevel: number, zoomed: boolean): CSSProperties | undefined => {
   if (image.device === 'mobile') {
+    if (!zoomed) {
+      return {
+        width: `min(100%, 28rem, calc((100svh - 9rem) * ${image.width / image.height}), ${image.width}px)`,
+        height: 'auto'
+      };
+    }
+
     return {
-      height: `min(calc((100svh - 9rem) * ${zoomLevel}), ${image.height}px)`,
-      width: 'auto'
+      width: `min(calc((100svw - 1.5rem) * ${zoomLevel}), ${image.width}px)`,
+      height: 'auto'
     };
   }
+
+  if (!zoomed) return undefined;
 
   return {
     width: `min(calc((100svw - clamp(3rem, 10vw, 10rem)) * ${zoomLevel}), ${image.width}px)`,
@@ -254,8 +280,10 @@ const getZoomedImageStyle = (image: GalleryImage, zoomLevel: number): CSSPropert
 const getZoomLevelsForImage = (image: GalleryImage | undefined) => {
   if (!image) return [1];
 
+  const baseLevels = image.device === 'mobile' ? MOBILE_ZOOM_LEVELS : BASE_ZOOM_LEVELS;
+
   return Array.from(
-    new Set([1, ...BASE_ZOOM_LEVELS, image.initialZoom].filter((level): level is number => Boolean(level)))
+    new Set([1, ...baseLevels, image.initialZoom].filter((level): level is number => Boolean(level)))
   ).toSorted((a, b) => a - b);
 };
 
@@ -351,7 +379,7 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
   zoomDescriptionId,
   zoomLabel,
   zoomed,
-  zoomedImageStyle
+  lightboxImageStyle
 }) => (
   <ModalOverlay isOpen={open} onOpenChange={onOpenChange} isDismissable className={lightboxOverlay()}>
     <Modal className="flex h-svh w-full flex-col outline-none">
@@ -440,7 +468,7 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
                   alt={activeImage.alt.trim() || 'Project screenshot'}
                   onLoad={onImageLoad}
                   className={lightboxImage({ device: activeImage.device, zoomed })}
-                  style={zoomedImageStyle}
+                  style={lightboxImageStyle}
                 />
               </picture>
             </button>
@@ -492,6 +520,8 @@ const useProjectGalleryLightbox = (images: GalleryImage[]) => {
   const imageButtonRef = useRef<HTMLButtonElement>(null);
   const swipeStartRef = useRef<SwipeState | null>(null);
   const pinchStateRef = useRef<PinchState | null>(null);
+  const pinchAnchorRef = useRef<PinchAnchor | null>(null);
+  const pinchAnchorFrameRef = useRef<number | null>(null);
   const suppressImageToggleRef = useRef(false);
 
   const activeImage = images[active];
@@ -504,10 +534,10 @@ const useProjectGalleryLightbox = (images: GalleryImage[]) => {
   const canZoomIn = zoomIndex < maxZoomIndex;
   const canZoomOut = zoomIndex > 0;
 
-  const zoomedImageStyle = useMemo(() => {
-    if (!activeImage || !zoomed) return undefined;
+  const lightboxImageStyle = useMemo(() => {
+    if (!activeImage) return undefined;
 
-    return getZoomedImageStyle(activeImage, zoomLevel);
+    return getLightboxImageStyle(activeImage, zoomLevel, zoomed);
   }, [activeImage, zoomLevel, zoomed]);
 
   const resetZoom = useCallback(
@@ -515,20 +545,24 @@ const useProjectGalleryLightbox = (images: GalleryImage[]) => {
       const image = images[imageIndex];
       const levels = getZoomLevelsForImage(image);
 
+      pinchAnchorRef.current = null;
       setZoomIndex(getDefaultZoomIndex(image, levels));
     },
     [active, images]
   );
 
   const zoomIn = useCallback(() => {
+    pinchAnchorRef.current = null;
     setZoomIndex((value) => Math.min(value + 1, maxZoomIndex));
   }, [maxZoomIndex]);
 
   const zoomOut = useCallback(() => {
+    pinchAnchorRef.current = null;
     setZoomIndex((value) => Math.max(value - 1, 0));
   }, []);
 
   const toggleImageZoom = useCallback(() => {
+    pinchAnchorRef.current = null;
     setZoomIndex((value) => {
       if (value > 0) return 0;
 
@@ -567,6 +601,58 @@ const useProjectGalleryLightbox = (images: GalleryImage[]) => {
     viewport.scrollLeft = Math.max(0, (viewport.scrollWidth - viewport.clientWidth) / 2);
   }, []);
 
+  const applyPinchAnchor = useCallback(() => {
+    const viewport = viewportRef.current;
+    const anchor = pinchAnchorRef.current;
+    if (!viewport || !anchor) return;
+
+    viewport.scrollLeft = clampScroll(
+      anchor.ratioX * viewport.scrollWidth - anchor.localX,
+      viewport.scrollWidth - viewport.clientWidth
+    );
+    viewport.scrollTop = clampScroll(
+      anchor.ratioY * viewport.scrollHeight - anchor.localY,
+      viewport.scrollHeight - viewport.clientHeight
+    );
+  }, []);
+
+  const keepPinchAnchorStable = useCallback(() => {
+    if (pinchAnchorFrameRef.current !== null) {
+      window.cancelAnimationFrame(pinchAnchorFrameRef.current);
+    }
+
+    const startedAt = performance.now();
+    const tick = (now: number) => {
+      applyPinchAnchor();
+
+      if (now - startedAt < 560 && pinchAnchorRef.current) {
+        pinchAnchorFrameRef.current = window.requestAnimationFrame(tick);
+        return;
+      }
+
+      pinchAnchorFrameRef.current = null;
+    };
+
+    pinchAnchorFrameRef.current = window.requestAnimationFrame(tick);
+  }, [applyPinchAnchor]);
+
+  const rememberPinchAnchor = useCallback((touchA: Touch, touchB: Touch) => {
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+
+    const midpoint = getTouchMidpoint(touchA, touchB);
+    const rect = viewport.getBoundingClientRect();
+    const localX = midpoint.x - rect.left;
+    const localY = midpoint.y - rect.top;
+
+    pinchAnchorRef.current = {
+      localX,
+      localY,
+      ratioX: (viewport.scrollLeft + localX) / Math.max(viewport.scrollWidth, 1),
+      ratioY: (viewport.scrollTop + localY) / Math.max(viewport.scrollHeight, 1)
+    };
+  }, []);
+
   const clearGestureState = useCallback(() => {
     swipeStartRef.current = null;
     pinchStateRef.current = null;
@@ -587,6 +673,7 @@ const useProjectGalleryLightbox = (images: GalleryImage[]) => {
           distance: getTouchDistance(event.touches[0], event.touches[1]),
           zoomLevel
         };
+        rememberPinchAnchor(event.touches[0], event.touches[1]);
         swipeStartRef.current = null;
         suppressImageToggleRef.current = true;
         return;
@@ -602,7 +689,7 @@ const useProjectGalleryLightbox = (images: GalleryImage[]) => {
       };
       suppressImageToggleRef.current = false;
     },
-    [images.length, zoomLevel]
+    [images.length, rememberPinchAnchor, zoomLevel]
   );
 
   const handleImageTouchMove = useCallback<TouchHandler>(
@@ -610,6 +697,8 @@ const useProjectGalleryLightbox = (images: GalleryImage[]) => {
       const pinchState = pinchStateRef.current;
 
       if (!pinchState || event.touches.length < 2) return;
+
+      rememberPinchAnchor(event.touches[0], event.touches[1]);
 
       const nextDistance = getTouchDistance(event.touches[0], event.touches[1]);
       const scaledZoom = pinchState.zoomLevel * (nextDistance / pinchState.distance);
@@ -622,7 +711,7 @@ const useProjectGalleryLightbox = (images: GalleryImage[]) => {
       event.preventDefault();
       setZoomIndex((value) => (value === nextZoomIndex ? value : nextZoomIndex));
     },
-    [maxZoomIndex, zoomLevels]
+    [maxZoomIndex, rememberPinchAnchor, zoomLevels]
   );
 
   const handleImageTouchEnd = useCallback<TouchHandler>(
@@ -644,7 +733,7 @@ const useProjectGalleryLightbox = (images: GalleryImage[]) => {
   }, [toggleImageZoom]);
 
   const handleImageLoad = useCallback(() => {
-    if (zoomed) centerViewport();
+    if (zoomed && !pinchAnchorRef.current) centerViewport();
   }, [centerViewport, zoomed]);
 
   const handleOpenChange = useCallback(
@@ -678,12 +767,27 @@ const useProjectGalleryLightbox = (images: GalleryImage[]) => {
   }, [open, next, prev, resetZoom, zoomIn, zoomOut]);
 
   useEffect(() => {
-    if (!open || !zoomed) return;
+    const shouldKeepPinchAnchor = open && zoomIndex >= 0 && pinchAnchorRef.current;
+    if (!shouldKeepPinchAnchor) return;
+
+    keepPinchAnchorStable();
+  }, [keepPinchAnchorStable, open, zoomIndex]);
+
+  useEffect(() => {
+    if (!open || !zoomed || pinchAnchorRef.current) return;
 
     const frame = window.requestAnimationFrame(centerViewport);
 
     return () => window.cancelAnimationFrame(frame);
   }, [centerViewport, open, zoomed]);
+
+  useEffect(() => {
+    return () => {
+      if (pinchAnchorFrameRef.current !== null) {
+        window.cancelAnimationFrame(pinchAnchorFrameRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const imageButton = imageButtonRef.current;
@@ -725,7 +829,7 @@ const useProjectGalleryLightbox = (images: GalleryImage[]) => {
     zoomLabel,
     zoomOut,
     zoomed,
-    zoomedImageStyle
+    lightboxImageStyle
   };
 };
 
@@ -755,7 +859,7 @@ export const ProjectGallery: FC<Props> = ({ images, title, openRequest = 0 }) =>
     zoomLabel,
     zoomOut,
     zoomed,
-    zoomedImageStyle
+    lightboxImageStyle
   } = useProjectGalleryLightbox(images);
 
   useEffect(() => {
@@ -828,7 +932,7 @@ export const ProjectGallery: FC<Props> = ({ images, title, openRequest = 0 }) =>
         zoomDescriptionId={zoomDescriptionId}
         zoomLabel={zoomLabel}
         zoomed={zoomed}
-        zoomedImageStyle={zoomedImageStyle}
+        lightboxImageStyle={lightboxImageStyle}
       />
     </>
   );
