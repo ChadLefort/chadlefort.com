@@ -20,7 +20,6 @@
     --panel-bg-strong: transparent !important;
     --panel-border: var(--print-border) !important;
     --panel-border-strong: var(--print-border) !important;
-    --blob-opacity: 0 !important;
     --nav-bg: transparent !important;
     --nav-fg: var(--print-ink) !important;
   }

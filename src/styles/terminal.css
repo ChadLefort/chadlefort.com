@@ -2,16 +2,11 @@
   animation: term-line-in 120ms var(--motion-ease-out) both;
 }
 
-.term-mount {
-  animation: term-mount 420ms var(--motion-ease-out) both;
-}
-
 .term-closing {
   animation: term-closing var(--motion-duration-state) var(--motion-ease-out) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .term-mount,
   .term-closing {
     animation: none;
   }
