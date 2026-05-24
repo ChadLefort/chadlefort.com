@@ -4,20 +4,41 @@ import { tv, type VariantProps } from 'tailwind-variants';
 
 const ctaStyles = tv({
   base: [
-    'group inline-flex items-center font-semibold transition-[color,background-color,border-color,transform] duration-[var(--motion-duration-state)] ease-[var(--motion-ease-settle)]',
-    'hover:-translate-y-px active:translate-y-0 motion-reduce:hover:translate-y-0',
-    'focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent'
+    'group inline-flex items-center font-semibold transition-[color,background-color,border-color,transform]',
+    'duration-[var(--motion-duration-state)] ease-[var(--motion-ease-settle)]',
+    'outline-accent'
   ],
   variants: {
     intent: {
-      primary: 'border border-accent-strong bg-accent-strong text-overlay-fg hover:border-accent hover:bg-accent',
-      secondary: 'border border-panel-border bg-term-bg text-term-fg hover:border-accent hover:text-fg'
+      primary: 'border border-accent-strong bg-accent-strong text-overlay-fg',
+      secondary: 'border border-panel-border bg-term-bg text-term-fg'
     },
     size: {
       md: 'gap-2 rounded-xl px-6 py-3',
       lg: 'gap-3 rounded-xl px-8 py-4 text-lg font-bold'
+    },
+    isFocusVisible: {
+      true: 'outline-2 -outline-offset-2'
+    },
+    isHovered: {
+      true: '-translate-y-px motion-reduce:translate-y-0'
+    },
+    isPressed: {
+      true: 'translate-y-0'
     }
   },
+  compoundVariants: [
+    {
+      intent: 'primary',
+      isHovered: true,
+      class: 'border-accent bg-accent'
+    },
+    {
+      intent: 'secondary',
+      isHovered: true,
+      class: 'border-accent text-fg'
+    }
+  ],
   defaultVariants: { intent: 'primary', size: 'md' }
 });
 
@@ -31,7 +52,7 @@ type CTAStyleProps = {
 type Props = Omit<RACLinkProps, 'className' | 'children'> &
   CTAStyleProps & {
     children?: ReactNode;
-    className?: string;
+    className?: RACLinkProps['className'];
     download?: boolean | string;
   };
 

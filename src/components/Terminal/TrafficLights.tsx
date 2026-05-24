@@ -1,17 +1,24 @@
 import type { FC } from 'react';
+import { Button as RACButton } from 'react-aria-components';
 import { tv, type VariantProps } from 'tailwind-variants';
 
 const light = tv({
   base: [
     'inline-flex h-6 w-6 items-center justify-center rounded-full',
-    'transition-opacity hover:opacity-90',
-    'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2'
+    'transition-opacity',
+    'outline outline-2 outline-offset-2'
   ],
   variants: {
     color: {
-      red: 'focus-visible:outline-mac-red',
-      yellow: 'focus-visible:outline-mac-yellow',
-      green: 'focus-visible:outline-mac-green'
+      red: 'outline-mac-red',
+      yellow: 'outline-mac-yellow',
+      green: 'outline-mac-green'
+    },
+    isFocusVisible: {
+      false: 'outline-0'
+    },
+    isHovered: {
+      true: 'opacity-90'
     }
   }
 });
@@ -41,11 +48,11 @@ type LightProps = {
 };
 
 const Light: FC<LightProps> = ({ color, label, onClick, glyph }) => (
-  <button type="button" onClick={onClick} aria-label={label} className={light({ color })}>
+  <RACButton onPress={onClick} aria-label={label} className={(renderProps) => light({ ...renderProps, color })}>
     <span aria-hidden="true" className={dot({ color })}>
       <span className="opacity-0 group-hover/lights:opacity-100">{glyph}</span>
     </span>
-  </button>
+  </RACButton>
 );
 
 type Props = {
