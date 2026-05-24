@@ -17,7 +17,6 @@
     --card-grad-to: transparent !important;
     --card-border: var(--print-border) !important;
     --panel-bg: transparent !important;
-    --panel-bg-strong: transparent !important;
     --panel-border: var(--print-border) !important;
     --panel-border-strong: var(--print-border) !important;
     --nav-bg: transparent !important;
@@ -139,7 +138,7 @@
       }
     }
 
-    & :where(.card, .job-card, .skill-badge) {
+    & :where(.card, .timeline-card, .skill-badge) {
       background: var(--print-paper) !important;
       background-color: var(--print-paper) !important;
       border: 0.5pt solid var(--print-subtle) !important;
