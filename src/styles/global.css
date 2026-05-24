@@ -71,6 +71,7 @@
   --surface: oklch(92% 0.012 260);
   --surface-alt: oklch(88% 0.014 260);
   --surface-raised: oklch(95% 0.01 260);
+  --section-rail-accent: oklch(24% 0.012 260);
   --text: var(--color-1);
   --text-muted: var(--color-5);
   --border: oklch(94% 0.012 260);
@@ -379,7 +380,7 @@ html {
   .home-section-frame::before {
     content: "";
     position: absolute;
-    inset-inline: clamp(1.5rem, 7vw, 6rem);
+    inset-inline: clamp(1.5rem, 0vw, 6rem);
     top: 0;
     z-index: 1;
     block-size: 1px;
@@ -412,7 +413,7 @@ html {
   .home-section-frame .home-split-section > div > div::before {
     content: "";
     position: absolute;
-    inset-inline: clamp(1.5rem, 7vw, 6rem);
+    inset-inline: clamp(1.5rem, 0vw, 6rem);
     top: 0;
     z-index: 1;
     block-size: 1px;
@@ -433,7 +434,7 @@ html {
   .home-section-frame .home-split-section:last-child > div > div::after {
     content: "";
     position: absolute;
-    inset-inline: clamp(1.5rem, 7vw, 6rem);
+    inset-inline: clamp(1.5rem, 0vw, 6rem);
     bottom: 0;
     z-index: 1;
     block-size: 1px;
@@ -514,7 +515,7 @@ html {
       background: linear-gradient(
         to bottom,
         transparent,
-        color-mix(in oklab, var(--section-rail-accent) 10%, var(--border)) clamp(3rem, 8vw, 6rem)
+        color-mix(in oklab, var(--section-rail-accent) 10%, var(--border)) clamp(1rem, 1vw, 6rem)
       );
     }
   }
