@@ -1,6 +1,8 @@
 ---
 import { Icon } from 'astro-icon/components';
 import { tv } from 'tailwind-variants';
+import { Button } from '~/components/Button';
+import { ButtonLink } from '~/components/ButtonLink';
 import Section from '~/components/Section.astro';
 import { site } from '~/data/site';
 
@@ -16,7 +18,7 @@ const contactLinks = [
 const contactPill = tv({
   base: [
     'group card card-hover text-fg',
-    'inline-flex min-h-12 items-center gap-3 rounded-2xl px-4 py-3 text-left font-mono text-sm',
+    'inline-flex min-h-12 items-center justify-start gap-3 rounded-2xl px-4 py-3 text-left font-mono text-sm',
     'focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent'
   ]
 });
@@ -50,19 +52,26 @@ const contactPill = tv({
               {
                 link.href ? (
                   link.copy ? (
-                    <button
+                    <Button
                       type="button"
+                      variant="unstyled"
                       data-copy-email
                       data-email={site.email}
-                      class={contactPill({ class: 'w-full cursor-pointer' })}
+                      className={contactPill({ class: 'w-full cursor-pointer data-[hovered]:opacity-100' })}
                       aria-label={`Copy email ${site.email} to clipboard`}
                     >
                       {content}
-                    </button>
+                    </Button>
                   ) : (
-                    <a href={link.href} rel="noopener" target="_blank" class={contactPill({ class: 'w-full' })}>
+                    <ButtonLink
+                      href={link.href}
+                      rel="noopener"
+                      target="_blank"
+                      variant="unstyled"
+                      className={contactPill({ class: 'w-full data-[hovered]:opacity-100' })}
+                    >
                       {content}
-                    </a>
+                    </ButtonLink>
                   )
                 ) : (
                   <span class={contactPill({ class: 'w-full' })}>{content}</span>

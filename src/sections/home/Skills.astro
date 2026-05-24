@@ -3,6 +3,7 @@ import { Icon } from 'astro-icon/components';
 import Reveal from '~/components/Reveal.astro';
 import Section from '~/components/Section.astro';
 import { skills } from '~/data/skills';
+import { skillIcon } from '~/utils/skillIcon';
 ---
 
 <Section id="skills" title="Skills" tone="plain" tile={false} titleAlign="left" class="home-split-section print:break-inside-avoid">
@@ -11,7 +12,7 @@ import { skills } from '~/data/skills';
       skills.map((skill, index) => (
         <Reveal as="li" delay={Math.min(index * 18, 360)} class="print:resume-skill-item">
           <div class="skill-badge print:!bg-[var(--print-paper)] print:!shadow-none print:!border-[0.5pt] print:!border-solid print:!border-[var(--print-subtle)]">
-            <Icon name={skill.icon} class="h-5 w-5 md:h-6 md:w-6" style={skill.color ? `color: ${skill.color};` : undefined} aria-hidden="true" />
+            <Icon name={skill.icon} class={skillIcon({ tone: skill.iconTone, class: 'h-5 w-5 md:h-6 md:w-6' })} aria-hidden="true" />
             <span class="text-fg/90 text-sm font-semibold tracking-wide">{skill.name}</span>
           </div>
         </Reveal>
