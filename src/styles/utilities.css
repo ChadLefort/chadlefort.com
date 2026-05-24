@@ -9,17 +9,6 @@
     background-color var(--motion-duration-state) var(--motion-ease-settle);
 }
 
-@utility fallow-dead {
-  position: relative;
-  background: linear-gradient(160deg, var(--card-grad-from), var(--card-grad-to));
-  border: 1px solid var(--card-border);
-  border-radius: 1rem;
-  transition:
-    transform var(--motion-duration-state) var(--motion-ease-settle),
-    border-color var(--motion-duration-state) var(--motion-ease-settle),
-    background-color var(--motion-duration-state) var(--motion-ease-settle);
-}
-
 @utility card-hover {
   @media (hover: hover) {
     &:hover {
@@ -43,18 +32,4 @@
   border: 1px solid var(--border);
   border-radius: 9999px;
   background: var(--surface-raised);
-}
-
-@utility job-card {
-  border: 1px solid var(--border);
-  border-radius: 1rem;
-  background: var(--surface-raised);
-}
-
-@utility surface-vignette {
-  background: radial-gradient(ellipse at top, transparent 0%, var(--surface) 95%);
-
-  :where(.dark, .dark *) & {
-    background: radial-gradient(ellipse at top, transparent 0%, var(--surface) 70%);
-  }
 }
