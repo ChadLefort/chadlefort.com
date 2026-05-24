@@ -163,3 +163,88 @@ test.describe('screen visual regressions', () => {
     await expect(page.locator('section')).toHaveScreenshot('404-screen.png');
   });
 });
+
+test.describe('mobile screen visual regressions', () => {
+  test.use({ hasTouch: true, isMobile: true, viewport: { width: 402, height: 874 } });
+
+  test('home terminal frame matches iPhone 17 snapshot', async ({ page }) => {
+    await waitForStableScreenPage(page, '/');
+
+    const terminal = page.getByLabel('Terminal', { exact: true });
+    await expect(terminal).toBeVisible();
+    await expect(terminal.getByText('clefort').first()).toBeVisible();
+
+    await expect(terminal).toHaveScreenshot('mobile-home-terminal-frame-screen.png', {
+      mask: [terminal.getByTestId('status-time')]
+    });
+  });
+
+  test('fullscreen terminal with keyboard-sized viewport matches iPhone 17 snapshot', async ({ page }) => {
+    await waitForStableScreenPage(page, '/');
+
+    const input = await maximizeTerminal(page);
+    await input.focus();
+    await page.setViewportSize({ width: 402, height: 520 });
+
+    const terminal = page.getByLabel('Terminal', { exact: true });
+    await expect(input).toBeFocused();
+    await expect(terminal).toBeVisible();
+
+    await expect(terminal).toHaveScreenshot('mobile-terminal-fullscreen-keyboard-screen.png', {
+      mask: [terminal.getByTestId('status-time')]
+    });
+  });
+
+  test('home about matches iPhone 17 snapshot', async ({ page }) => {
+    await waitForStableScreenPage(page, '/');
+
+    const section = page.locator('#about-me');
+    await section.scrollIntoViewIfNeeded();
+    await expect(section.getByText(/technology enthusiast/i)).toBeVisible();
+
+    await expect(section).toHaveScreenshot('mobile-home-about-screen.png');
+  });
+
+  test('home education matches iPhone 17 snapshot', async ({ page }) => {
+    await waitForStableScreenPage(page, '/');
+
+    const section = page.locator('#education');
+    await section.scrollIntoViewIfNeeded();
+    await expect(section.getByText('Nicholls State University')).toBeVisible();
+
+    await expect(section).toHaveScreenshot('mobile-home-education-screen.png');
+  });
+
+  test('home full page matches iPhone 17 snapshot', async ({ page }) => {
+    await waitForStableScreenPage(page, '/');
+
+    await expect(page).toHaveScreenshot('mobile-home-full-page-screen.png', {
+      fullPage: true,
+      mask: [page.getByTestId('status-time')]
+    });
+  });
+
+  test('home full page light mode matches iPhone 17 snapshot', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('theme', 'light'));
+    await waitForStableScreenPage(page, '/');
+
+    await expect(page).toHaveScreenshot('mobile-home-full-page-light-screen.png', {
+      fullPage: true,
+      mask: [page.getByTestId('status-time')]
+    });
+  });
+});
+
+test.describe('light mode screen visual regressions', () => {
+  test.use({ viewport: { width: 1440, height: 1600 } });
+
+  test('home full page light mode matches desktop snapshot', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('theme', 'light'));
+    await waitForStableScreenPage(page, '/');
+
+    await expect(page).toHaveScreenshot('home-full-page-light-screen.png', {
+      fullPage: true,
+      mask: [page.getByTestId('status-time')]
+    });
+  });
+});

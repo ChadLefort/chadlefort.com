@@ -10,17 +10,17 @@ const endDateTime = toYearMonth(education.end);
 
 <Section id="education" title="Education" tone="plain" tile={false} titleAlign="left" class="home-split-section print:break-inside-avoid">
   <article class="w-full max-w-5xl print:resume-edu-article print:pb-[0.05in]">
-    <header class="flex flex-col items-center gap-6 text-center md:grid md:grid-cols-[1fr_auto] md:gap-8 md:text-left print:resume-edu-header">
-      <Nicholls aria-hidden="true" focusable="false" class="h-16 w-auto md:order-2 md:h-20 print:h-10 print:resume-edu-logo" />
-      <div class="md:order-1">
-        <h3 class="font-display text-2xl md:text-3xl print:resume-edu-title">{education.institution}</h3>
-        <p class="text-accent mt-1 text-sm font-semibold md:text-base print:resume-edu-degree">{education.degree}</p>
-        <p class="text-fg-muted mt-1 font-mono text-xs md:text-sm print:resume-edu-dates">
+    <header class="grid grid-cols-[minmax(0,1fr)_5rem] items-start gap-4 text-left md:grid-cols-[1fr_auto] md:items-center md:gap-8 print:resume-edu-header">
+      <div class="min-w-0">
+        <h3 class="font-display text-[1.5rem] leading-[1.05] md:text-3xl print:resume-edu-title">{education.institution}</h3>
+        <p class="text-accent mt-2 text-sm leading-snug font-semibold md:mt-1 md:text-base print:resume-edu-degree">{education.degree}</p>
+        <p class="text-fg-muted mt-2 font-mono text-xs leading-snug md:mt-1 md:text-sm print:resume-edu-dates">
           {startDateTime ? <time datetime={startDateTime}>{education.start}</time> : education.start} &ndash; {
             endDateTime ? <time datetime={endDateTime}>{education.end}</time> : education.end
           }
         </p>
       </div>
+      <Nicholls aria-hidden="true" focusable="false" class="mt-1 h-9 w-auto justify-self-end md:mt-0 md:h-20 print:h-10 print:resume-edu-logo" />
     </header>
 
     <hr class="border-panel-border my-6 border-t print:resume-edu-hr" />
