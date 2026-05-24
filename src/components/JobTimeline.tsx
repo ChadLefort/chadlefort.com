@@ -46,13 +46,13 @@ const TimelineItem: FC<ItemProps> = ({ job }) => {
         <header className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between md:gap-6 print:resume-timeline-header">
           <div>
             <h3 className="font-display text-fg text-xl md:text-2xl">{job.company}</h3>
-            <p className="text-accent mt-1 text-sm font-medium md:text-base print:resume-timeline-role">{job.role}</p>
+            <p className="text-accent mt-1 font-medium print:resume-timeline-role">{job.role}</p>
           </div>
           <p className="text-fg-muted shrink-0 font-mono text-xs md:pt-1 md:text-sm print:resume-timeline-date">
             {dateRange}
           </p>
         </header>
-        <ul className="text-fg-muted mt-4 space-y-4 text-sm leading-relaxed md:text-base print:resume-timeline-bullets">
+        <ul className="text-fg-muted mt-4 space-y-4 leading-relaxed print:resume-timeline-bullets">
           {job.bullets.map((bullet) => (
             <li key={bullet} className="flex gap-4">
               <span aria-hidden="true" className="bg-accent mt-2 inline-block size-1.5 shrink-0 rounded-full" />

@@ -23,9 +23,9 @@ const endDateTime = toYearMonth(education.end);
       <Nicholls aria-hidden="true" focusable="false" class="mt-1 h-9 w-auto justify-self-end md:mt-0 md:h-20 print:h-10 print:resume-edu-logo" />
     </header>
 
-    <hr class="border-panel-border my-6 border-t print:resume-edu-hr" />
+    <hr class="border-panel-border-strong my-6 border-t print:resume-edu-hr" />
 
-    <ul class="text-fg-muted space-y-2 text-sm md:text-base print:resume-edu-list">
+    <ul class="text-fg-muted space-y-2 print:resume-edu-list">
       <li class="flex gap-3">
         <span aria-hidden="true" class="bg-accent mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full"></span>
         <span>Majored in {education.major}</span>
@@ -38,7 +38,7 @@ const endDateTime = toYearMonth(education.end);
 
     <section class="mt-10 print:mt-0" aria-labelledby="education-awards-title">
       <h4 id="education-awards-title" class="font-display text-lg md:text-xl print:resume-edu-subtitle">Awards</h4>
-      <ul class="text-fg-muted mt-3 space-y-2 text-sm md:text-base print:resume-edu-list">
+      <ul class="text-fg-muted mt-3 space-y-2 print:resume-edu-list">
         {
           education.awards.map((award) => (
             <li class="flex gap-3">
@@ -52,7 +52,7 @@ const endDateTime = toYearMonth(education.end);
 
     <section class="mt-10 print:mt-0" aria-labelledby="education-organizations-title">
       <h4 id="education-organizations-title" class="font-display text-lg md:text-xl print:resume-edu-subtitle">Organizations</h4>
-      <ul class="text-fg-muted mt-3 space-y-2 text-sm md:text-base print:resume-edu-list">
+      <ul class="text-fg-muted mt-3 space-y-2 print:resume-edu-list">
         {
           education.organizations.map((org) => (
             <li class="flex gap-3">
