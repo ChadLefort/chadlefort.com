@@ -1,6 +1,5 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { tv } from 'tailwind-variants';
 import { Button } from '~/components/Button';
 import { ButtonLink } from '~/components/ButtonLink';
 import Section from '~/components/Section.astro';
@@ -14,14 +13,6 @@ const contactLinks = [
   { label: 'Instagram', href: site.social.instagram, icon: 'simple-icons:instagram' },
   { label: 'YouTube', href: site.social.youtube, icon: 'simple-icons:youtube' }
 ];
-
-const contactPill = tv({
-  base: [
-    'group card card-hover text-fg',
-    'inline-flex min-h-12 items-center justify-start gap-3 rounded-2xl px-4 py-3 text-left font-mono text-sm',
-    'focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent'
-  ]
-});
 
 ---
 
@@ -54,10 +45,10 @@ const contactPill = tv({
                   link.copy ? (
                     <Button
                       type="button"
-                      variant="unstyled"
+                      variant="card"
                       data-copy-email
                       data-email={site.email}
-                      className={contactPill({ class: 'w-full cursor-pointer data-[hovered]:opacity-100' })}
+                      className="min-h-12 w-full justify-start gap-3 px-4 py-3 text-left font-mono text-sm"
                       aria-label={`Copy email ${site.email} to clipboard`}
                     >
                       {content}
@@ -67,14 +58,16 @@ const contactPill = tv({
                       href={link.href}
                       rel="noopener"
                       target="_blank"
-                      variant="unstyled"
-                      className={contactPill({ class: 'w-full data-[hovered]:opacity-100' })}
+                      variant="card"
+                      className="min-h-12 w-full justify-start gap-3 px-4 py-3 text-left font-mono text-sm"
                     >
                       {content}
                     </ButtonLink>
                   )
                 ) : (
-                  <span class={contactPill({ class: 'w-full' })}>{content}</span>
+                  <span class="card card-hover text-fg inline-flex min-h-12 w-full items-center justify-start gap-3 rounded-2xl px-4 py-3 text-left font-mono text-sm">
+                    {content}
+                  </span>
                 )
               }
             </div>
