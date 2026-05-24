@@ -73,7 +73,7 @@ const lightboxImage = tv({
 });
 
 const lightboxViewport = tv({
-  base: 'h-full w-full',
+  base: 'relative h-full w-full',
   variants: {
     zoomed: {
       true: 'overflow-auto overscroll-contain',
@@ -89,8 +89,8 @@ const lightboxToggle = tv({
   ],
   variants: {
     zoomed: {
-      true: 'flex min-h-full w-max min-w-full cursor-zoom-out items-start justify-center p-3 sm:p-6',
-      false: 'flex h-full w-full items-center justify-center p-2 cursor-zoom-in sm:p-0'
+      true: 'inline-flex cursor-zoom-out p-3 sm:p-6',
+      false: 'inline-flex cursor-zoom-in p-2 sm:p-0'
     }
   }
 });
@@ -164,6 +164,7 @@ type ProjectGalleryLightboxProps = {
   onImageTouchStart: TouchHandler;
   onNext: () => void;
   onOpenChange: (isOpen: boolean) => void;
+  onOutsideImageClick: () => void;
   onPrev: () => void;
   onZoomIn: () => void;
   onZoomOut: () => void;
@@ -370,6 +371,7 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
   onImageTouchStart,
   onNext,
   onOpenChange,
+  onOutsideImageClick,
   onPrev,
   onZoomIn,
   onZoomOut,
@@ -445,6 +447,12 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
 
           <div ref={viewportRef} className={lightboxViewport({ zoomed })} aria-live="polite">
             <button
+              type="button"
+              onClick={onOutsideImageClick}
+              className="absolute inset-0 z-0 cursor-default border-0 bg-transparent p-0"
+              aria-label="Close screenshots"
+            />
+            <button
               ref={imageButtonRef}
               type="button"
               onClick={onImageClick}
@@ -452,7 +460,7 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
               onTouchMove={onImageTouchMove}
               onTouchEnd={onImageTouchEnd}
               onTouchCancel={onImageTouchCancel}
-              className={lightboxToggle({ zoomed })}
+              className={lightboxToggle({ zoomed, class: 'relative z-10' })}
               aria-label={zoomed ? 'Reset screenshot zoom' : 'Zoom screenshot'}
               aria-pressed={zoomed}
               aria-describedby={zoomDescriptionId}
@@ -744,6 +752,10 @@ const useProjectGalleryLightbox = (images: GalleryImage[]) => {
     [resetZoom]
   );
 
+  const handleOutsideImageClick = useCallback(() => {
+    handleOpenChange(false);
+  }, [handleOpenChange]);
+
   useEffect(() => {
     if (!open) return;
 
@@ -819,6 +831,7 @@ const useProjectGalleryLightbox = (images: GalleryImage[]) => {
     handleImageTouchMove,
     handleImageTouchStart,
     handleOpenChange,
+    handleOutsideImageClick,
     imageButtonRef,
     next,
     open,
@@ -849,6 +862,7 @@ export const ProjectGallery: FC<Props> = ({ images, title, openRequest = 0 }) =>
     handleImageTouchMove,
     handleImageTouchStart,
     handleOpenChange,
+    handleOutsideImageClick,
     imageButtonRef,
     next,
     open,
@@ -923,6 +937,7 @@ export const ProjectGallery: FC<Props> = ({ images, title, openRequest = 0 }) =>
         onImageTouchStart={handleImageTouchStart}
         onNext={next}
         onOpenChange={handleOpenChange}
+        onOutsideImageClick={handleOutsideImageClick}
         onPrev={prev}
         onZoomIn={zoomIn}
         onZoomOut={zoomOut}
