@@ -39,7 +39,7 @@ const TimelineItem: FC<ItemProps> = ({ job }) => {
     <li ref={ref} className={item({ inView })}>
       <span
         aria-hidden="true"
-        className="timeline-dot bg-accent ring-surface absolute top-7 left-0 z-10 inline-flex size-3.5 -translate-x-1/2 items-center justify-center rounded-full ring-4 print:hidden"
+        className="timeline-dot bg-accent ring-surface absolute top-7 left-0 z-10 inline-flex size-3.5 -translate-x-1/2 items-center justify-center rounded-full ring-4 shadow-[0_0_0_1px_color-mix(in_oklab,var(--accent)_35%,transparent)] print:hidden"
       />
 
       <article className={card()}>
@@ -69,7 +69,7 @@ export const JobTimeline: FC<Props> = ({ jobs }) => (
   <div className="relative w-full">
     <span
       aria-hidden="true"
-      className="pointer-events-none absolute top-2 bottom-2 left-0 w-px bg-gradient-to-b from-transparent via-accent/25 to-transparent print:hidden"
+      className="pointer-events-none absolute top-2 bottom-2 left-0 w-px bg-gradient-to-b from-transparent via-accent/55 to-transparent print:hidden"
     />
 
     <ol className="print:resume-timeline flex flex-col gap-5 md:gap-6" aria-label="Employment history">

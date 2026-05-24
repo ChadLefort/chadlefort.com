@@ -32,7 +32,7 @@ const wrapper = tv({
   base: 'relative w-full',
   variants: {
     maximized: {
-      true: 'min-h-svh',
+      true: 'min-h-[604px] sm:min-h-[564px]',
       false: ''
     }
   }
@@ -42,7 +42,7 @@ const container = tv({
   base: ['bg-term-bg ring-panel-border relative w-full overflow-hidden ring-1'],
   variants: {
     maximized: {
-      true: 'fixed inset-0 z-50 flex h-svh max-w-none flex-col rounded-none',
+      true: 'fixed z-50 flex h-[var(--terminal-viewport-height,100dvh)] w-[var(--terminal-viewport-width,100vw)] max-w-none flex-col rounded-none [left:var(--terminal-viewport-left,0px)] [top:var(--terminal-viewport-top,0px)]',
       false: 'mx-auto max-w-section rounded-2xl'
     },
     closing: {
@@ -82,7 +82,7 @@ const slot = tv({
   variants: {
     maximized: {
       true: 'min-h-0 flex-1',
-      false: 'h-[min(640px,calc(100svh-6rem))] min-h-[30rem] sm:h-[min(480px,calc(100svh-9rem))]'
+      false: 'h-[640px] sm:h-[480px]'
     }
   }
 });
@@ -138,10 +138,36 @@ export const Terminal: FC = () => {
   useEffect(() => {
     if (closed || !maximized || minimized) return;
 
+    const setViewportFrame = () => {
+      const viewport = window.visualViewport;
+
+      document.documentElement.style.setProperty(
+        '--terminal-viewport-height',
+        `${viewport?.height ?? window.innerHeight}px`
+      );
+      document.documentElement.style.setProperty(
+        '--terminal-viewport-width',
+        `${viewport?.width ?? window.innerWidth}px`
+      );
+      document.documentElement.style.setProperty('--terminal-viewport-top', `${viewport?.offsetTop ?? 0}px`);
+      document.documentElement.style.setProperty('--terminal-viewport-left', `${viewport?.offsetLeft ?? 0}px`);
+    };
+
+    setViewportFrame();
     document.documentElement.style.overflow = 'hidden';
+    window.visualViewport?.addEventListener('resize', setViewportFrame);
+    window.visualViewport?.addEventListener('scroll', setViewportFrame);
+    window.addEventListener('resize', setViewportFrame);
 
     return () => {
       document.documentElement.style.overflow = '';
+      document.documentElement.style.removeProperty('--terminal-viewport-height');
+      document.documentElement.style.removeProperty('--terminal-viewport-width');
+      document.documentElement.style.removeProperty('--terminal-viewport-top');
+      document.documentElement.style.removeProperty('--terminal-viewport-left');
+      window.visualViewport?.removeEventListener('resize', setViewportFrame);
+      window.visualViewport?.removeEventListener('scroll', setViewportFrame);
+      window.removeEventListener('resize', setViewportFrame);
     };
   }, [maximized, minimized, closed]);
 

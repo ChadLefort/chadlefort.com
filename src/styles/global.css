@@ -387,9 +387,9 @@ html {
     background: linear-gradient(
       90deg,
       transparent,
-      color-mix(in oklab, var(--section-rail-accent) 10%, var(--border)) 18%,
-      color-mix(in oklab, var(--section-rail-accent) 18%, var(--border)) 50%,
-      color-mix(in oklab, var(--section-rail-accent) 10%, var(--border)) 82%,
+      color-mix(in oklab, var(--section-rail-accent) 24%, var(--border)) 18%,
+      color-mix(in oklab, var(--section-rail-accent) 42%, var(--border)) 50%,
+      color-mix(in oklab, var(--section-rail-accent) 24%, var(--border)) 82%,
       transparent
     );
   }
@@ -420,9 +420,9 @@ html {
     background: linear-gradient(
       90deg,
       transparent,
-      color-mix(in oklab, var(--section-rail-accent) 10%, var(--border)) 18%,
-      color-mix(in oklab, var(--section-rail-accent) 18%, var(--border)) 50%,
-      color-mix(in oklab, var(--section-rail-accent) 10%, var(--border)) 82%,
+      color-mix(in oklab, var(--section-rail-accent) 24%, var(--border)) 18%,
+      color-mix(in oklab, var(--section-rail-accent) 42%, var(--border)) 50%,
+      color-mix(in oklab, var(--section-rail-accent) 24%, var(--border)) 82%,
       transparent
     );
   }
@@ -441,9 +441,9 @@ html {
     background: linear-gradient(
       90deg,
       transparent,
-      color-mix(in oklab, var(--section-rail-accent) 10%, var(--border)) 18%,
-      color-mix(in oklab, var(--section-rail-accent) 18%, var(--border)) 50%,
-      color-mix(in oklab, var(--section-rail-accent) 10%, var(--border)) 82%,
+      color-mix(in oklab, var(--section-rail-accent) 24%, var(--border)) 18%,
+      color-mix(in oklab, var(--section-rail-accent) 42%, var(--border)) 50%,
+      color-mix(in oklab, var(--section-rail-accent) 24%, var(--border)) 82%,
       transparent
     );
   }
@@ -491,7 +491,7 @@ html {
     .section-rail + div {
       position: relative;
       min-width: 0;
-      border-left: 1px solid color-mix(in oklab, var(--section-rail-accent) 10%, var(--border));
+      border-left: 1px solid color-mix(in oklab, var(--section-rail-accent) 34%, var(--border));
       background: var(--section-content-bg);
       padding-block: clamp(2.35rem, 4vw, 3.75rem);
       padding-inline: clamp(2rem, 4vw, 4rem);
@@ -515,7 +515,7 @@ html {
       background: linear-gradient(
         to bottom,
         transparent,
-        color-mix(in oklab, var(--section-rail-accent) 10%, var(--border)) clamp(1rem, 1vw, 6rem)
+        color-mix(in oklab, var(--section-rail-accent) 34%, var(--border)) clamp(1rem, 1vw, 6rem)
       );
     }
   }

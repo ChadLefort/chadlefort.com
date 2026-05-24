@@ -160,6 +160,11 @@ export const Shell: FC = () => {
   const { focusWithinProps } = useFocusWithin({
     onFocusWithin: () => setEngaged(true),
     onBlurWithin: () => {
+      if (maximized) {
+        inputRef.current?.focus({ preventScroll: true });
+        return;
+      }
+
       setEngaged(false);
       scrollerRef.current?.scrollTo({ top: scrollerRef.current.scrollHeight });
     }
