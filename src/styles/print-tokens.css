@@ -2,7 +2,7 @@
   :root,
   :root.dark,
   .dark {
-    --print-paper: oklch(99% 0.004 260);
+    --print-paper: oklch(100% 0 0);
     --print-ink: oklch(20% 0.008 260);
     --print-muted: oklch(42% 0.008 260);
     --print-subtle: oklch(56% 0.006 260);
