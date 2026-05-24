@@ -32,10 +32,6 @@
   .timeline-card {
     transform: translate3d(14px, 8px, 0);
   }
-
-  .timeline-card-left {
-    transform: translate3d(-14px, 8px, 0);
-  }
 }
 
 .timeline-item.is-visible .timeline-card,
