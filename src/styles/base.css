@@ -1,0 +1,62 @@
+html {
+  background: var(--surface);
+  color: var(--text);
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@layer base {
+  body {
+    font-family: var(--default-font-family);
+    min-height: 100vh;
+    margin: 0;
+    line-height: 1.55;
+    word-spacing: 0.05em;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  :is(h1, h2, h3, h4, h5, h6) {
+    font-family: var(--header-font-family);
+    letter-spacing: -0.06em;
+    word-spacing: -0.2em;
+    margin: 0;
+    font-weight: 600;
+    text-wrap: balance;
+  }
+
+  p,
+  li {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  a {
+    color: inherit;
+    text-decoration-color: color-mix(in oklab, currentColor 35%, transparent);
+    text-underline-offset: 3px;
+    transition: color var(--motion-duration-feedback) var(--motion-ease-settle);
+
+    &:hover {
+      text-decoration-color: currentColor;
+    }
+  }
+}
