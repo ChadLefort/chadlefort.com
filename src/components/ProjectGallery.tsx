@@ -18,13 +18,6 @@ const thumbImg = tv({
   }
 });
 
-export const thumbButton = tv({
-  base: [
-    'group relative block w-full cursor-pointer rounded-2xl transition duration-[var(--motion-duration-state)] ease-[var(--motion-ease-settle)] p-0',
-    'focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-accent'
-  ]
-});
-
 const thumbFrame = tv({
   base: 'relative overflow-hidden rounded-2xl',
   variants: {
@@ -302,7 +295,12 @@ const Thumb: FC<{ image: GalleryImage; onOpen: () => void; eager?: boolean }> = 
   const label = image.alt.trim() || 'Project screenshot';
 
   return (
-    <Button variant="unstyled" onPress={onOpen} className={thumbButton()} aria-label={`Open screenshot: ${label}`}>
+    <Button
+      variant="card"
+      onPress={onOpen}
+      className="relative block w-full p-0 transition duration-[var(--motion-duration-state)] ease-[var(--motion-ease-settle)]"
+      aria-label={`Open screenshot: ${label}`}
+    >
       <div className={thumbFrame({ device: image.device })}>
         {!loaded && <div className="absolute inset-0 animate-pulse bg-surface-alt" aria-hidden="true" />}
         <picture>

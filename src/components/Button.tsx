@@ -25,6 +25,7 @@ export const buttonStyles = tv({
       solid: 'text-overlay-fg shadow-sm',
       outline: 'border-2 bg-transparent',
       ghost: 'border-2 border-transparent',
+      card: ['group card card-hover text-fg rounded-2xl', 'data-[hovered]:opacity-100'],
       unstyled: ['bg-transparent border-none text-current p-0', 'data-[hovered]:opacity-85']
     },
     color: {
