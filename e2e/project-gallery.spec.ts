@@ -30,7 +30,7 @@ test.describe('project gallery', () => {
     await page.keyboard.press('ArrowLeft');
     await expect(page.getByText(`1 / ${imageCount}`)).toBeVisible();
 
-    await page.getByRole('button', { name: /close screenshots/i }).click();
+    await page.locator('button[slot="close"]:visible').click();
     await expect(page.getByRole('dialog')).toHaveCount(0);
   });
 
@@ -70,7 +70,7 @@ test.describe('project gallery', () => {
       await expect(dialog.getByText(`2 / ${imageCount}`)).toBeVisible();
     }
 
-    await dialog.getByRole('button', { name: /close screenshots/i }).click();
+    await dialog.locator('button[slot="close"]:visible').click();
     await expect(page.getByRole('dialog')).toHaveCount(0);
   });
 });

@@ -138,7 +138,7 @@
   --panel-bg: oklch(31% 0.014 260 / 38%);
   --panel-bg-strong: oklch(31% 0.014 260 / 58%);
   --panel-border: oklch(96% 0.01 260 / 6%);
-  --panel-border-strong: oklch(96% 0.01 260 / 10%);
+  --panel-border-strong: oklch(96% 0.01 260 / 15%);
   --overlay-bg: oklch(17% 0.018 260 / 92%);
   --overlay-fg: oklch(96% 0.01 260);
   --overlay-muted: oklch(96% 0.01 260 / 70%);

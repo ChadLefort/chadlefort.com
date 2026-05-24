@@ -5,12 +5,8 @@ import { Tab, TabList, TabPanel, Tabs } from 'react-aria-components';
 import { tv } from 'tailwind-variants';
 import type { GalleryImage } from '~/components/ProjectGallery';
 import { PROJECT_GALLERY_OPEN_EVENT, ProjectGallery } from '~/components/ProjectGallery';
-
-type Skill = {
-  name: string;
-  icon: string;
-  color?: string;
-};
+import type { Skill } from '~/data/skills';
+import { skillIcon } from '~/utils/skillIcon';
 
 type Props = {
   hasGallery: boolean;
@@ -35,13 +31,14 @@ const tabStyles = tv({
 });
 
 const skillIconStyles = tv({
-  base: 'size-5 md:size-6'
+  base: 'size-5 md:size-6',
+  extend: skillIcon
 });
 
 const symbolId = (icon: string) => (icon.includes(':') ? `ai:${icon}` : `ai:local:${icon}`);
 
 const SkillIcon: FC<{ skill: Skill }> = ({ skill }) => (
-  <svg className={skillIconStyles()} style={skill.color ? { color: skill.color } : undefined} aria-hidden="true">
+  <svg className={skillIconStyles({ tone: skill.iconTone })} aria-hidden="true">
     <use href={`#${symbolId(skill.icon)}`} />
   </svg>
 );
