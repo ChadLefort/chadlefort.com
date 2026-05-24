@@ -41,6 +41,10 @@ const tabStyles = tv({
   }
 });
 
+const tabPanelStyles = tv({
+  base: ['outline-none', '[animation:tab-panel-in_var(--motion-duration-state)_var(--motion-ease-out)_both]']
+});
+
 const skillIconStyles = tv({
   base: 'size-5 md:size-6',
   extend: skillIcon
@@ -93,13 +97,13 @@ export const ProjectTabsIsland: FC<Props> = ({ hasGallery, galleryImages, projec
         )}
       </TabList>
 
-      <TabPanel id={DESCRIPTION_TAB} className="tab-panel outline-none">
+      <TabPanel id={DESCRIPTION_TAB} className={tabPanelStyles()}>
         <div className="project-panel rounded-3xl p-8 md:p-16">
           <div className="project-prose">{description}</div>
         </div>
       </TabPanel>
 
-      <TabPanel id={SKILLS_TAB} className="tab-panel outline-none">
+      <TabPanel id={SKILLS_TAB} className={tabPanelStyles()}>
         <ul className="flex min-w-0 flex-wrap justify-center gap-3 md:gap-4" aria-label={`${title} stack`}>
           {projectSkills.map((skill) => (
             <li key={skill.name}>
@@ -113,7 +117,7 @@ export const ProjectTabsIsland: FC<Props> = ({ hasGallery, galleryImages, projec
       </TabPanel>
 
       {hasGallery && (
-        <TabPanel id={GALLERY_TAB} className="tab-panel outline-none">
+        <TabPanel id={GALLERY_TAB} className={tabPanelStyles()}>
           <ProjectGallery images={galleryImages} title={title} openRequest={heroOpenRequest} />
         </TabPanel>
       )}

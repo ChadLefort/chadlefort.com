@@ -39,10 +39,8 @@
   --background: oklch(23% 0.014 260);
   --accent: oklch(43% 0.11 251);
   --accent-strong: oklch(33% 0.095 251);
-  --accent-success: oklch(70% 0.075 168);
   --section-rail-accent: oklch(94% 0.012 260);
   --section-heading-accent: oklch(76% 0.095 174);
-  --section-rail-bg: transparent;
   --section-content-bg: transparent;
 
   --terminal-bg: oklch(27% 0.016 260);
@@ -80,7 +78,6 @@
   --card-border: oklch(24% 0.012 260 / 9%);
   --card-border-hover: oklch(51% 0.12 251 / 28%);
   --panel-bg: oklch(72% 0.018 260 / 34%);
-  --panel-bg-strong: oklch(72% 0.018 260 / 52%);
   --panel-border: oklch(24% 0.012 260 / 9%);
   --panel-border-strong: oklch(24% 0.012 260 / 14%);
   --overlay-bg: oklch(17% 0.018 260 / 92%);
@@ -99,7 +96,6 @@
   --term-tab-session: var(--terminal-green);
   --term-tab-session-text: oklch(21% 0.02 260);
   --term-status-bg: oklch(94% 0.012 260);
-  --term-status-fg: var(--color-1);
   --term-comment: var(--color-7);
   --term-prompt: oklch(48% 0.09 165);
   --term-branch: oklch(49% 0.11 58);
@@ -116,7 +112,6 @@
   --accent-strong: oklch(57% 0.14 248);
   --section-rail-accent: var(--color-11);
   --section-heading-accent: var(--terminal-green);
-  --section-rail-bg: transparent;
   --section-content-bg: transparent;
   --surface: var(--background);
   --surface-alt: oklch(31% 0.014 260 / 55%);
@@ -134,7 +129,6 @@
   --card-border: oklch(96% 0.01 260 / 4.5%);
   --card-border-hover: oklch(67% 0.12 248 / 30%);
   --panel-bg: oklch(31% 0.014 260 / 38%);
-  --panel-bg-strong: oklch(31% 0.014 260 / 58%);
   --panel-border: oklch(96% 0.01 260 / 6%);
   --panel-border-strong: oklch(96% 0.01 260 / 15%);
   --overlay-bg: oklch(17% 0.018 260 / 92%);
@@ -153,7 +147,6 @@
   --term-tab-session: var(--terminal-green);
   --term-tab-session-text: oklch(21% 0.02 260);
   --term-status-bg: var(--color-5);
-  --term-status-fg: var(--terminal-fg);
   --term-comment: oklch(72% 0.025 260);
   --term-prompt: var(--terminal-green);
   --term-branch: oklch(78% 0.1 58);

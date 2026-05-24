@@ -19,7 +19,10 @@ const item = tv({
 });
 
 const card = tv({
-  base: 'timeline-card job-card w-full max-w-full p-5 md:p-7 print:resume-timeline-card print:!bg-[var(--print-paper)] print:!shadow-none print:!border-[0.5pt] print:!border-solid print:!border-[var(--print-subtle)]'
+  base: [
+    'timeline-card w-full max-w-full rounded-2xl border border-[var(--border)] bg-surface-raised p-5 md:p-7',
+    'print:resume-timeline-card print:!border-[0.5pt] print:!border-solid print:!border-[var(--print-subtle)] print:!bg-[var(--print-paper)] print:!shadow-none'
+  ]
 });
 
 const TimelineItem: FC<ItemProps> = ({ job }) => {
