@@ -5,7 +5,7 @@ import { Icon } from 'astro-icon/components';
 import { ProjectHeroGalleryButton } from '~/components/ProjectHeroGalleryButton';
 import { ProjectTabsIsland } from '~/components/ProjectTabsIsland';
 import { CTALink } from '~/components/CTALink';
-import { PillLink } from '~/components/PillLink';
+import { ButtonLink } from '~/components/ButtonLink';
 import { getProjectSkills } from '~/data/project-skills';
 import { site } from '~/data/site';
 import Base from '~/layouts/Base.astro';
@@ -160,14 +160,21 @@ const breadcrumbLd = {
   <article class="project-detail">
     <section class="relative px-6 pt-12 pb-16 sm:px-8 md:px-6 md:pt-20 md:pb-24" data-testid="project-hero">
       <div class="max-w-section mx-auto">
-        <PillLink href="/projects" client:idle>
+        <ButtonLink
+          href="/projects"
+          variant="card"
+          shape="pill"
+          size="sm"
+          className="min-h-11 gap-1.5 px-4 py-2 sm:min-h-0 sm:px-3 sm:py-1.5"
+          client:idle
+        >
           <Icon
             name="lucide:chevron-left"
-            class="h-4 w-4 transition-transform duration-[var(--motion-duration-state)] ease-[var(--motion-ease-settle)] group-hover:-translate-x-0.5 motion-reduce:group-hover:translate-x-0"
+            class="h-4 w-4"
             aria-hidden="true"
           />
           All projects
-        </PillLink>
+        </ButtonLink>
 
         <div class="mt-8 grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-center md:gap-12">
           <div>

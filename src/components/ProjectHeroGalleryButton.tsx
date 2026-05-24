@@ -1,7 +1,6 @@
 import { Images } from 'lucide-react';
 import type { FC, ReactNode } from 'react';
-import { Button } from '~/components/Button';
-import { pillLinkStyles } from '~/components/PillLink';
+import { Button, buttonStyles } from '~/components/Button';
 import { PROJECT_GALLERY_OPEN_EVENT } from '~/components/ProjectGallery';
 
 type Props = {
@@ -31,7 +30,14 @@ export const ProjectHeroGalleryButton: FC<Props> = ({ label = 'Open project scre
         className="pointer-events-none absolute inset-0 bg-transparent transition duration-[var(--motion-duration-state)] ease-[var(--motion-ease-out)]"
       />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-end p-4">
-        <span className={pillLinkStyles({ className: 'pointer-events-none shadow-sm' })}>
+        <span
+          className={buttonStyles({
+            variant: 'card',
+            shape: 'pill',
+            size: 'sm',
+            className: 'pointer-events-none min-h-11 gap-1.5 px-4 py-2 shadow-sm sm:min-h-0 sm:px-3 sm:py-1.5'
+          })}
+        >
           <Images className="size-4" aria-hidden="true" />
           View screenshots
         </span>
