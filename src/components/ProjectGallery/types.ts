@@ -1,5 +1,5 @@
 import type { CSSProperties, TouchEvent as ReactTouchEvent, RefObject } from 'react';
-import type { BASE_ZOOM_LEVELS } from './constants';
+import type { MOBILE_ZOOM_LEVELS } from './constants';
 
 export type GalleryImage = {
   src: string;
@@ -10,7 +10,7 @@ export type GalleryImage = {
   thumbSizes: string;
   alt: string;
   device: 'desktop' | 'mobile';
-  initialZoom?: ZoomLevel;
+  initialZoom?: (typeof MOBILE_ZOOM_LEVELS)[number];
   orientation: 'portrait' | 'landscape';
   width: number;
   height: number;
@@ -26,10 +26,15 @@ export type ProjectGalleryProps = {
 
 export type SwipeState = { x: number; y: number };
 export type PinchState = { distance: number; zoomLevel: number };
-export type PinchAnchor = { localX: number; localY: number; ratioX: number; ratioY: number };
+export type PinchAnchor = {
+  localX: number;
+  localY: number;
+  contentX: number;
+  contentY: number;
+  scrollWidth: number;
+  scrollHeight: number;
+};
 export type TouchHandler = (event: ReactTouchEvent<HTMLButtonElement>) => void;
-export type ZoomLevel = (typeof BASE_ZOOM_LEVELS)[number];
-
 export type LightboxLayoutStyles = {
   frame?: CSSProperties;
   image: CSSProperties;
@@ -60,5 +65,6 @@ export type ProjectGalleryLightboxProps = {
   zoomDescriptionId: string;
   zoomLabel: string;
   zoomed: boolean;
+  isPinching: boolean;
   lightboxLayoutStyles: LightboxLayoutStyles;
 };

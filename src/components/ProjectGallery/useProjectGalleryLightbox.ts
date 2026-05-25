@@ -1,8 +1,10 @@
 import type { Touch } from 'react';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { startViewTransition } from '~/utils/startViewTransition';
 import type { GalleryImage, PinchAnchor, PinchState, SwipeState, TouchHandler } from './types';
 import {
-  clampScroll,
+  computePinchAnchor,
+  computePinchScrollPosition,
   endPinchTouchGesture,
   getClosestZoomIndex,
   getDefaultZoomIndex,
@@ -12,11 +14,15 @@ import {
   getZoomLevelsForImage,
   handleSwipeTouchEnd
 } from './utils';
+import { clearGalleryThumbTransition, primeGalleryThumbTransition } from './viewTransition';
 
 export const useProjectGalleryLightbox = (images: GalleryImage[]) => {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
   const [zoomIndex, setZoomIndex] = useState(0);
+  const [pinchZoomLevel, setPinchZoomLevel] = useState<number | null>(null);
+  const [isPinching, setIsPinching] = useState(false);
+  const pinchZoomLevelRef = useRef<number | null>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const imageButtonRef = useRef<HTMLButtonElement>(null);
   const swipeStartRef = useRef<SwipeState | null>(null);
@@ -29,9 +35,10 @@ export const useProjectGalleryLightbox = (images: GalleryImage[]) => {
   const zoomLevels = useMemo(() => getZoomLevelsForImage(activeImage), [activeImage]);
   const defaultZoomIndex = useMemo(() => getDefaultZoomIndex(activeImage, zoomLevels), [activeImage, zoomLevels]);
   const maxZoomIndex = zoomLevels.length - 1;
-  const zoomLevel = zoomLevels[zoomIndex] ?? 1;
-  const zoomed = zoomIndex > 0;
-  const zoomLabel = `${Math.round(zoomLevel * 100)}%`;
+  const steppedZoomLevel = zoomLevels[zoomIndex] ?? 1;
+  const effectiveZoomLevel = pinchZoomLevel ?? steppedZoomLevel;
+  const zoomed = zoomIndex > 0 || (pinchZoomLevel !== null && pinchZoomLevel > 1);
+  const zoomLabel = `${Math.round(effectiveZoomLevel * 100)}%`;
   const canZoomIn = zoomIndex < maxZoomIndex;
   const canZoomOut = zoomIndex > 0;
 
@@ -40,8 +47,22 @@ export const useProjectGalleryLightbox = (images: GalleryImage[]) => {
       return { image: { transform: 'scale(1)', transformOrigin: '0 0' } };
     }
 
-    return getLightboxLayoutStyles(activeImage, zoomLevel, zoomed);
-  }, [activeImage, zoomLevel, zoomed]);
+    return getLightboxLayoutStyles(activeImage, effectiveZoomLevel, zoomed, !isPinching);
+  }, [activeImage, effectiveZoomLevel, isPinching, zoomed]);
+
+  const setContinuousPinchZoom = useCallback((level: number | null) => {
+    pinchZoomLevelRef.current = level;
+    setPinchZoomLevel(level);
+  }, []);
+
+  const snapPinchZoom = useCallback(() => {
+    const level = pinchZoomLevelRef.current;
+    if (level !== null) {
+      setZoomIndex(getClosestZoomIndex(zoomLevels, level));
+    }
+    pinchAnchorRef.current = null;
+    setContinuousPinchZoom(null);
+  }, [setContinuousPinchZoom, zoomLevels]);
 
   const resetZoom = useCallback(
     (imageIndex = active) => {
@@ -49,23 +70,27 @@ export const useProjectGalleryLightbox = (images: GalleryImage[]) => {
       const levels = getZoomLevelsForImage(image);
 
       pinchAnchorRef.current = null;
+      setContinuousPinchZoom(null);
       setZoomIndex(getDefaultZoomIndex(image, levels));
     },
-    [active, images]
+    [active, images, setContinuousPinchZoom]
   );
 
   const zoomIn = useCallback(() => {
     pinchAnchorRef.current = null;
+    setContinuousPinchZoom(null);
     setZoomIndex((value) => Math.min(value + 1, maxZoomIndex));
-  }, [maxZoomIndex]);
+  }, [maxZoomIndex, setContinuousPinchZoom]);
 
   const zoomOut = useCallback(() => {
     pinchAnchorRef.current = null;
+    setContinuousPinchZoom(null);
     setZoomIndex((value) => Math.max(value - 1, 0));
-  }, []);
+  }, [setContinuousPinchZoom]);
 
   const toggleImageZoom = useCallback(() => {
     pinchAnchorRef.current = null;
+    setContinuousPinchZoom(null);
     setZoomIndex((value) => {
       if (value > 0) return 0;
 
@@ -73,13 +98,18 @@ export const useProjectGalleryLightbox = (images: GalleryImage[]) => {
 
       return Math.min(1, maxZoomIndex);
     });
-  }, [defaultZoomIndex, maxZoomIndex]);
+  }, [defaultZoomIndex, maxZoomIndex, setContinuousPinchZoom]);
 
   const openAt = useCallback(
     (index: number) => {
-      setActive(index);
-      resetZoom(index);
-      setOpen(true);
+      primeGalleryThumbTransition(index);
+
+      startViewTransition(() => {
+        setActive(index);
+        resetZoom(index);
+        setOpen(true);
+        clearGalleryThumbTransition(index);
+      });
     },
     [resetZoom]
   );
@@ -109,15 +139,37 @@ export const useProjectGalleryLightbox = (images: GalleryImage[]) => {
     const anchor = pinchAnchorRef.current;
     if (!viewport || !anchor) return;
 
-    viewport.scrollLeft = clampScroll(
-      anchor.ratioX * viewport.scrollWidth - anchor.localX,
-      viewport.scrollWidth - viewport.clientWidth
-    );
-    viewport.scrollTop = clampScroll(
-      anchor.ratioY * viewport.scrollHeight - anchor.localY,
-      viewport.scrollHeight - viewport.clientHeight
-    );
+    const nextScroll = computePinchScrollPosition(anchor, viewport);
+    viewport.scrollLeft = nextScroll.scrollLeft;
+    viewport.scrollTop = nextScroll.scrollTop;
   }, []);
+
+  const getPinchContentRect = useCallback(() => {
+    const image = imageButtonRef.current?.querySelector('img');
+    return image?.getBoundingClientRect() ?? imageButtonRef.current?.getBoundingClientRect();
+  }, []);
+
+  const updatePinchTouchPoint = useCallback((touchA: Touch, touchB: Touch) => {
+    const viewport = viewportRef.current;
+    const anchor = pinchAnchorRef.current;
+    if (!viewport || !anchor) return;
+
+    const viewportRect = viewport.getBoundingClientRect();
+    const midpoint = getTouchMidpoint(touchA, touchB);
+    anchor.localX = midpoint.x - viewportRect.left;
+    anchor.localY = midpoint.y - viewportRect.top;
+  }, []);
+
+  const rememberPinchAnchor = useCallback(
+    (touchA: Touch, touchB: Touch) => {
+      const viewport = viewportRef.current;
+      const contentRect = getPinchContentRect();
+      if (!viewport || !contentRect) return;
+
+      pinchAnchorRef.current = computePinchAnchor(viewport, contentRect, getTouchMidpoint(touchA, touchB));
+    },
+    [getPinchContentRect]
+  );
 
   const keepPinchAnchorStable = useCallback(() => {
     if (pinchAnchorFrameRef.current !== null) {
@@ -139,27 +191,12 @@ export const useProjectGalleryLightbox = (images: GalleryImage[]) => {
     pinchAnchorFrameRef.current = window.requestAnimationFrame(tick);
   }, [applyPinchAnchor]);
 
-  const rememberPinchAnchor = useCallback((touchA: Touch, touchB: Touch) => {
-    const viewport = viewportRef.current;
-    if (!viewport) return;
-
-    const midpoint = getTouchMidpoint(touchA, touchB);
-    const rect = viewport.getBoundingClientRect();
-    const localX = midpoint.x - rect.left;
-    const localY = midpoint.y - rect.top;
-
-    pinchAnchorRef.current = {
-      localX,
-      localY,
-      ratioX: (viewport.scrollLeft + localX) / Math.max(viewport.scrollWidth, 1),
-      ratioY: (viewport.scrollTop + localY) / Math.max(viewport.scrollHeight, 1)
-    };
-  }, []);
-
   const clearGestureState = useCallback(() => {
     swipeStartRef.current = null;
     pinchStateRef.current = null;
-  }, []);
+    snapPinchZoom();
+    setIsPinching(false);
+  }, [snapPinchZoom]);
 
   const isSwipeBlocked = useCallback(() => {
     const viewport = viewportRef.current;
@@ -172,9 +209,10 @@ export const useProjectGalleryLightbox = (images: GalleryImage[]) => {
   const handleImageTouchStart = useCallback<TouchHandler>(
     (event) => {
       if (event.touches.length >= 2) {
+        setIsPinching(true);
         pinchStateRef.current = {
           distance: getTouchDistance(event.touches[0], event.touches[1]),
-          zoomLevel
+          zoomLevel: effectiveZoomLevel
         };
         rememberPinchAnchor(event.touches[0], event.touches[1]);
         swipeStartRef.current = null;
@@ -192,7 +230,7 @@ export const useProjectGalleryLightbox = (images: GalleryImage[]) => {
       };
       suppressImageToggleRef.current = false;
     },
-    [images.length, rememberPinchAnchor, zoomLevel]
+    [effectiveZoomLevel, images.length, rememberPinchAnchor]
   );
 
   const handleImageTouchMove = useCallback<TouchHandler>(
@@ -201,29 +239,34 @@ export const useProjectGalleryLightbox = (images: GalleryImage[]) => {
 
       if (!pinchState || event.touches.length < 2) return;
 
-      rememberPinchAnchor(event.touches[0], event.touches[1]);
+      updatePinchTouchPoint(event.touches[0], event.touches[1]);
 
       const nextDistance = getTouchDistance(event.touches[0], event.touches[1]);
       const scaledZoom = pinchState.zoomLevel * (nextDistance / pinchState.distance);
       const minZoomLevel = zoomLevels[0] ?? 1;
       const maxZoomLevel = zoomLevels[maxZoomIndex] ?? minZoomLevel;
       const clampedZoom = Math.min(maxZoomLevel, Math.max(minZoomLevel, scaledZoom));
-      const nextZoomIndex = getClosestZoomIndex(zoomLevels, clampedZoom);
 
       suppressImageToggleRef.current = true;
       event.preventDefault();
-      setZoomIndex((value) => (value === nextZoomIndex ? value : nextZoomIndex));
+      setContinuousPinchZoom(clampedZoom);
     },
-    [maxZoomIndex, rememberPinchAnchor, zoomLevels]
+    [maxZoomIndex, setContinuousPinchZoom, updatePinchTouchPoint, zoomLevels]
   );
 
   const handleImageTouchEnd = useCallback<TouchHandler>(
     (event) => {
-      if (endPinchTouchGesture(event, pinchStateRef, swipeStartRef)) return;
+      if (endPinchTouchGesture(event, pinchStateRef, swipeStartRef)) {
+        if (event.touches.length < 2) {
+          snapPinchZoom();
+          setIsPinching(false);
+        }
+        return;
+      }
 
       handleSwipeTouchEnd(event, swipeStartRef, suppressImageToggleRef, isSwipeBlocked, next, prev);
     },
-    [isSwipeBlocked, next, prev]
+    [isSwipeBlocked, next, prev, snapPinchZoom]
   );
 
   const handleImageClick = useCallback(() => {
@@ -241,10 +284,24 @@ export const useProjectGalleryLightbox = (images: GalleryImage[]) => {
 
   const handleOpenChange = useCallback(
     (isOpen: boolean) => {
-      setOpen(isOpen);
-      if (!isOpen) resetZoom();
+      if (isOpen) {
+        setOpen(true);
+
+        return;
+      }
+
+      const closingIndex = active;
+
+      startViewTransition(
+        () => {
+          setOpen(false);
+          resetZoom();
+          primeGalleryThumbTransition(closingIndex);
+        },
+        () => clearGalleryThumbTransition(closingIndex)
+      );
     },
-    [resetZoom]
+    [active, resetZoom]
   );
 
   const handleOutsideImageClick = useCallback(() => {
@@ -273,12 +330,18 @@ export const useProjectGalleryLightbox = (images: GalleryImage[]) => {
     return () => document.removeEventListener('keydown', onKey);
   }, [open, next, prev, resetZoom, zoomIn, zoomOut]);
 
-  useEffect(() => {
-    const shouldKeepPinchAnchor = open && zoomIndex >= 0 && pinchAnchorRef.current;
-    if (!shouldKeepPinchAnchor) return;
+  useLayoutEffect(() => {
+    if (!open || pinchZoomLevel === null || !pinchAnchorRef.current) return;
+
+    applyPinchAnchor();
+  }, [applyPinchAnchor, open, pinchZoomLevel]);
+
+  useLayoutEffect(() => {
+    const shouldSettlePinchAnchor = open && zoomIndex >= 0 && pinchAnchorRef.current && pinchZoomLevel === null;
+    if (!shouldSettlePinchAnchor) return;
 
     keepPinchAnchorStable();
-  }, [keepPinchAnchorStable, open, zoomIndex]);
+  }, [keepPinchAnchorStable, open, pinchZoomLevel, zoomIndex]);
 
   useEffect(() => {
     if (!open || !zoomed || pinchAnchorRef.current) return;
@@ -337,6 +400,7 @@ export const useProjectGalleryLightbox = (images: GalleryImage[]) => {
     zoomLabel,
     zoomOut,
     zoomed,
+    isPinching,
     lightboxLayoutStyles
   };
 };

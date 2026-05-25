@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { ProjectGallery } from './ProjectGallery';
 import type { GalleryImage } from './types';
 
@@ -237,6 +237,37 @@ describe('ProjectGallery', () => {
     await user.click(screen.getByRole('button', { name: /open screenshot: mobile course flow/i }));
 
     const imageToggle = screen.getByRole('button', { name: /reset screenshot zoom/i });
+    const image = imageToggle.querySelector('img') as HTMLImageElement;
+    const viewport = imageToggle.parentElement as HTMLDivElement;
+
+    Object.defineProperty(viewport, 'scrollWidth', { configurable: true, value: 800 });
+    Object.defineProperty(viewport, 'clientWidth', { configurable: true, value: 390 });
+    Object.defineProperty(viewport, 'scrollHeight', { configurable: true, value: 1200 });
+    Object.defineProperty(viewport, 'clientHeight', { configurable: true, value: 700 });
+    viewport.scrollLeft = 205;
+
+    vi.spyOn(viewport, 'getBoundingClientRect').mockReturnValue({
+      x: 0,
+      y: 0,
+      width: 390,
+      height: 700,
+      top: 0,
+      left: 0,
+      right: 390,
+      bottom: 700,
+      toJSON: () => ({})
+    });
+    vi.spyOn(image, 'getBoundingClientRect').mockReturnValue({
+      x: 12,
+      y: 12,
+      width: 800,
+      height: 1200,
+      top: 12,
+      left: 12,
+      right: 812,
+      bottom: 1212,
+      toJSON: () => ({})
+    });
 
     fireEvent.touchStart(imageToggle, {
       touches: [
@@ -244,6 +275,7 @@ describe('ProjectGallery', () => {
         { clientX: 200, clientY: 100 }
       ]
     });
+    Object.defineProperty(viewport, 'scrollWidth', { configurable: true, value: 640 });
     fireEvent.touchMove(imageToggle, {
       touches: [
         { clientX: 135, clientY: 100 },
@@ -256,6 +288,7 @@ describe('ProjectGallery', () => {
     });
 
     expect(screen.getAllByText('300%')[0]).toBeInTheDocument();
+    expect(viewport.scrollLeft).toBeGreaterThan(0);
   });
 
   it('renders nothing when there are no images', () => {

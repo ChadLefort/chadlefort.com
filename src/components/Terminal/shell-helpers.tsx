@@ -35,10 +35,10 @@ export const buildAboutLines = (years: number): MdLine[] => {
   ];
 };
 
-export const createDemoLine = (line: MdLine, index: number, animated: boolean): LineBody => ({
+export const createDemoLine = (line: MdLine, index: number): LineBody => ({
   kind: 'node',
   node: (
-    <div className={[animated ? 'term-line' : '', index === 0 ? 'mt-3' : ''].filter(Boolean).join(' ')}>
+    <div className={index === 0 ? 'mt-3' : undefined}>
       <MdRow line={line} />
     </div>
   )

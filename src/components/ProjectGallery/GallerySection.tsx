@@ -35,11 +35,21 @@ export const GallerySection: FC<Props> = ({
       {images.map((image, index) =>
         wrapThumb ? (
           <div key={image.src} className="mx-auto w-full max-w-65">
-            <GalleryThumb image={image} onOpen={() => onOpen(image.index)} eager={index < eagerCount} />
+            <GalleryThumb
+              image={image}
+              index={image.index}
+              onOpen={() => onOpen(image.index)}
+              eager={index < eagerCount}
+            />
           </div>
         ) : (
           <div key={image.src}>
-            <GalleryThumb image={image} onOpen={() => onOpen(image.index)} eager={index < eagerCount} />
+            <GalleryThumb
+              image={image}
+              index={image.index}
+              onOpen={() => onOpen(image.index)}
+              eager={index < eagerCount}
+            />
           </div>
         )
       )}
