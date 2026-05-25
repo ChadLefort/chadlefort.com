@@ -6,6 +6,7 @@ import { tv } from 'tailwind-variants';
 import type { GalleryImage } from '~/components/ProjectGallery';
 import { PROJECT_GALLERY_OPEN_EVENT, ProjectGallery } from '~/components/ProjectGallery';
 import type { Skill } from '~/data/skills';
+import { focusRing } from '~/utils/focusRing';
 import { skillIcon } from '~/utils/skillIcon';
 
 type Props = {
@@ -22,16 +23,14 @@ const GALLERY_TAB = 'gallery';
 type TabKey = typeof DESCRIPTION_TAB | typeof SKILLS_TAB | typeof GALLERY_TAB;
 
 const tabStyles = tv({
+  extend: focusRing,
   base: [
     'inline-flex shrink-0 items-center gap-2 px-5 py-3 whitespace-nowrap',
     'text-sm font-semibold tracking-wide text-fg-muted',
     'border-b-2 border-transparent',
-    'cursor-pointer transition duration-[var(--motion-duration-state)] ease-[var(--motion-ease-settle)] outline-none'
+    'cursor-pointer transition duration-[var(--motion-duration-state)] ease-[var(--motion-ease-settle)]'
   ],
   variants: {
-    isFocusVisible: {
-      true: 'focus-visible:ring-accent focus-visible:ring-2 focus-visible:outline-none'
-    },
     isHovered: {
       true: 'text-fg'
     },

@@ -27,11 +27,11 @@ const endDateTime = toYearMonth(education.end);
 
     <ul class="text-fg-muted space-y-2 print:resume-edu-list">
       <li class="flex gap-3">
-        <span aria-hidden="true" class="bg-accent mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full"></span>
+        <span aria-hidden="true" class="bg-accent mt-2 inline-block size-1.5 shrink-0 rounded-full"></span>
         <span>Majored in {education.major}</span>
       </li>
       <li class="flex gap-3">
-        <span aria-hidden="true" class="bg-accent mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full"></span>
+        <span aria-hidden="true" class="bg-accent mt-2 inline-block size-1.5 shrink-0 rounded-full"></span>
         <span>GPA: {education.gpa}</span>
       </li>
     </ul>
@@ -42,7 +42,7 @@ const endDateTime = toYearMonth(education.end);
         {
           education.awards.map((award) => (
             <li class="flex gap-3">
-              <span aria-hidden="true" class="bg-accent mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full" />
+              <span aria-hidden="true" class="bg-accent mt-2 inline-block size-1.5 shrink-0 rounded-full" />
               <span>{award}</span>
             </li>
           ))
@@ -56,7 +56,7 @@ const endDateTime = toYearMonth(education.end);
         {
           education.organizations.map((org) => (
             <li class="flex gap-3">
-              <span aria-hidden="true" class="bg-accent mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full" />
+              <span aria-hidden="true" class="bg-accent mt-2 inline-block size-1.5 shrink-0 rounded-full" />
               <span>{org}</span>
             </li>
           ))

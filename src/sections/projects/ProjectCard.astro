@@ -5,6 +5,7 @@ import { Icon } from 'astro-icon/components';
 import { tv } from 'tailwind-variants';
 import { getProjectSkills } from '~/data/project-skills';
 import type { Skill } from '~/data/skills';
+import { focusRing } from '~/utils/focusRing';
 import { skillIcon } from '~/utils/skillIcon';
 
 type ProjectEntry = CollectionEntry<'projects'>;
@@ -41,10 +42,10 @@ const projectIcon = tv({
     }
   },
   compoundVariants: [
-    { compact: true, small: true, class: 'h-14 w-14 md:h-16 md:w-16' },
-    { compact: false, small: true, class: 'h-16 w-16 md:h-20 md:w-20' },
-    { compact: true, small: false, class: 'h-20 w-20 md:h-24 md:w-24' },
-    { compact: false, small: false, class: 'h-24 w-24 md:h-32 md:w-32' }
+    { compact: true, small: true, class: 'size-14 md:size-16' },
+    { compact: false, small: true, class: 'size-16 md:size-20' },
+    { compact: true, small: false, class: 'size-20 md:size-24' },
+    { compact: false, small: false, class: 'size-24 md:size-32' }
   ]
 });
 
@@ -62,10 +63,7 @@ const initials = project.data.title
   .toUpperCase();
 
 const cardLink = tv({
-  base: [
-    'project-card group card card-hover flex h-full flex-col p-4 md:p-5',
-    'focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent'
-  ]
+  base: ['project-card group card card-hover flex h-full flex-col rounded-2xl p-4 md:p-5', focusRing()]
 });
 ---
 
@@ -85,7 +83,7 @@ const cardLink = tv({
           decoding={index === 0 ? 'sync' : 'async'}
           fetchpriority={index === 0 ? 'high' : 'auto'}
           pictureAttributes={{ class: mediaFrame({ featured }) }}
-          class="h-full w-full object-cover object-top transition duration-[var(--motion-duration-reveal)] ease-[var(--motion-ease-settle)] group-hover:scale-[1.015]"
+          class="size-full object-cover object-top transition duration-[var(--motion-duration-reveal)] ease-[var(--motion-ease-settle)] group-hover:scale-[1.015]"
         />
       ) : (
         <div class={`${mediaFrame({ featured })} flex items-center justify-center bg-gradient-to-br ${project.data.accent}`}>
@@ -114,7 +112,7 @@ const cardLink = tv({
           {projectSkills.map((skill: Skill) => (
             <li>
               <div class="skill-badge">
-                <Icon name={skill.icon} class={skillIcon({ tone: skill.iconTone, class: 'h-5 w-5 md:h-6 md:w-6' })} aria-hidden="true" />
+                <Icon name={skill.icon} class={skillIcon({ tone: skill.iconTone, class: 'size-5 md:size-6' })} aria-hidden="true" />
                 <span class="text-fg/90 min-w-0 text-sm font-semibold tracking-wide break-words">{skill.name}</span>
               </div>
             </li>

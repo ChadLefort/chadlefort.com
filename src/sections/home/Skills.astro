@@ -12,7 +12,7 @@ import { skillIcon } from '~/utils/skillIcon';
       skills.map((skill, index) => (
         <Reveal as="li" delay={Math.min(index * 18, 360)} class="print:resume-skill-item">
           <div class="skill-badge print:!bg-[var(--print-paper)] print:!shadow-none print:!border-[0.5pt] print:!border-solid print:!border-[var(--print-subtle)]">
-            <Icon name={skill.icon} class={skillIcon({ tone: skill.iconTone, class: 'h-5 w-5 md:h-6 md:w-6' })} aria-hidden="true" />
+            <Icon name={skill.icon} class={skillIcon({ tone: skill.iconTone, class: 'size-5 md:size-6' })} aria-hidden="true" />
             <span class="text-fg/90 text-sm font-semibold tracking-wide">{skill.name}</span>
           </div>
         </Reveal>
