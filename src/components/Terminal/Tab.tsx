@@ -2,9 +2,16 @@ import { Icon, type IconifyIcon } from '@iconify/react';
 import type { FC } from 'react';
 import { Link } from 'react-aria-components';
 import { tv } from 'tailwind-variants';
+import { focusRingInset } from '~/utils/focusRing';
 
 const tabStyles = tv({
-  base: 'box-border inline-flex min-h-11 transform-gpu items-center gap-2 rounded-t-xl border border-transparent px-3 text-[12px] font-medium whitespace-nowrap transition duration-[var(--motion-duration-feedback)] ease-[var(--motion-ease-settle)] sm:h-9 sm:min-h-9 sm:px-4',
+  extend: focusRingInset,
+  base: [
+    'relative z-[1] -mb-px box-border inline-flex min-h-11 transform-gpu items-center gap-2',
+    'rounded-t-xl border-x border-t border-transparent',
+    'px-3 text-[12px] font-medium whitespace-nowrap sm:px-4',
+    'transition duration-[var(--motion-duration-feedback)] ease-[var(--motion-ease-settle)]'
+  ],
   variants: {
     tone: {
       default: '',
@@ -22,9 +29,6 @@ const tabStyles = tv({
     },
     isHovered: {
       true: 'brightness-110'
-    },
-    isFocusVisible: {
-      true: 'outline-accent outline-2 -outline-offset-2'
     }
   },
   compoundVariants: [{ tone: 'session', class: 'bg-term-tab-session text-term-tab-session-text' }],
@@ -49,7 +53,7 @@ export const Tab: FC<TabProps> = ({ idx, mobileIdx, icon, label, active, href, h
   const inner = (
     <>
       {idx != null && (
-        <span className="font-mono opacity-80">
+        <span className={active ? 'font-mono' : 'font-mono opacity-80'}>
           {mobileIdx != null ? (
             <>
               <span className="sm:hidden">{mobileIdx}</span>

@@ -11,7 +11,7 @@
     transition: transform var(--motion-duration-feedback) var(--motion-ease-out);
     z-index: 100;
 
-    &:focus {
+    &:focus-visible {
       transform: translateY(0);
     }
   }

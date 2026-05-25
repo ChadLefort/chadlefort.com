@@ -42,7 +42,11 @@ const container = tv({
   base: ['bg-term-bg ring-panel-border relative w-full overflow-hidden ring-1'],
   variants: {
     maximized: {
-      true: 'fixed z-50 flex h-[var(--terminal-viewport-height,100dvh)] w-[var(--terminal-viewport-width,100vw)] max-w-none flex-col rounded-none [left:var(--terminal-viewport-left,0px)] [top:var(--terminal-viewport-top,0px)]',
+      true: [
+        'fixed z-50 flex max-w-none flex-col rounded-none',
+        'h-[var(--terminal-viewport-height,100dvh)] w-[var(--terminal-viewport-width,100vw)]',
+        '[left:var(--terminal-viewport-left,0px)] [top:var(--terminal-viewport-top,0px)]'
+      ],
       false: 'mx-auto max-w-section rounded-2xl'
     },
     closing: {
@@ -54,7 +58,11 @@ const container = tv({
 });
 
 const collapse = tv({
-  base: 'grid overflow-hidden transition-[grid-template-rows] duration-[420ms] ease-[var(--motion-ease-settle)] motion-reduce:transition-none',
+  base: [
+    'grid overflow-hidden',
+    'transition-[grid-template-rows] duration-[420ms] ease-[var(--motion-ease-settle)]',
+    'motion-reduce:transition-none'
+  ],
   variants: {
     minimized: {
       true: 'grid-rows-[0fr]',
@@ -64,7 +72,11 @@ const collapse = tv({
 });
 
 const collapseInner = tv({
-  base: 'min-h-0 overflow-hidden origin-top transition-[opacity,transform,filter] duration-[420ms] ease-[var(--motion-ease-settle)] motion-reduce:transition-none',
+  base: [
+    'min-h-0 overflow-hidden origin-top',
+    'transition-[opacity,transform] duration-[420ms] ease-[var(--motion-ease-settle)]',
+    'motion-reduce:transition-none'
+  ],
   variants: {
     minimized: {
       true: '-translate-y-1 scale-y-[0.98] opacity-0',
@@ -75,7 +87,12 @@ const collapseInner = tv({
 
 const titlebar = tv({ base: 'bg-term-menu-bg flex items-center px-3 py-3 sm:px-4 sm:py-3.5' });
 
-const tabsBar = tv({ base: 'bg-term-menu-bg flex items-end gap-1 overflow-x-auto px-2 sm:px-3' });
+const tabsBar = tv({
+  base: [
+    'bg-term-menu-bg flex items-end gap-1 overflow-x-auto overflow-y-hidden px-2 pt-2 sm:px-3',
+    'leading-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden'
+  ]
+});
 
 const slot = tv({
   base: 'relative w-full',

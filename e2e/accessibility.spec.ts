@@ -96,13 +96,38 @@ const runContrastCheck = async (page: import('@playwright/test').Page) =>
       return (lighter + 0.05) / (darker + 0.05);
     };
 
+    const parseColor = (() => {
+      const canvas = document.createElement('canvas');
+      canvas.width = canvas.height = 1;
+      const ctx = canvas.getContext('2d', { willReadFrequently: true });
+
+      return (value: string): Rgba | null => {
+        if (!value || value === 'transparent') return null;
+        if (!ctx) return parseRgb(value);
+
+        try {
+          ctx.clearRect(0, 0, 1, 1);
+          ctx.fillStyle = '#000000';
+          ctx.fillStyle = value;
+          ctx.fillRect(0, 0, 1, 1);
+          const [r, g, b, a] = ctx.getImageData(0, 0, 1, 1).data;
+
+          if (a === 0) return null;
+
+          return { r, g, b, a: a / 255 };
+        } catch {
+          return parseRgb(value);
+        }
+      };
+    })();
+
     const effectiveBackground = (element: Element) => {
       let node: Element | null = element;
       let background: Rgba = { r: 255, g: 255, b: 255, a: 1 };
       const layers: Rgba[] = [];
 
       while (node) {
-        const color = parseRgb(getComputedStyle(node).backgroundColor);
+        const color = parseColor(getComputedStyle(node).backgroundColor);
 
         if (color && color.a > 0) layers.push(color);
         node = node.parentElement;
@@ -116,7 +141,7 @@ const runContrastCheck = async (page: import('@playwright/test').Page) =>
     return selectors.flatMap((selector) =>
       [...document.querySelectorAll(selector)].slice(0, 6).flatMap((element) => {
         const style = getComputedStyle(element);
-        const color = parseRgb(style.color);
+        const color = parseColor(style.color);
         const text = element.textContent?.trim();
 
         if (!color || !text || style.visibility === 'hidden' || style.display === 'none') return [];

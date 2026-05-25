@@ -5,6 +5,12 @@ import { axe } from 'vitest-axe';
 import { Button } from '~/components/Button';
 import { IconButton } from '~/components/IconButton';
 
+const focusRingClasses = [
+  'focus-visible:outline-focus-ring',
+  'focus-visible:outline-offset-[3px]',
+  'focus-visible:outline-solid'
+] as const;
+
 describe('Button', () => {
   it('triggers onPress when clicked', async () => {
     const user = userEvent.setup();
@@ -39,6 +45,30 @@ describe('Button', () => {
     );
 
     expect(await axe(container)).toHaveNoViolations();
+  });
+
+  it.each([
+    [
+      'solid brand',
+      <Button key="solid" variant="solid" color="brand">
+        Primary
+      </Button>,
+      /primary/i
+    ],
+    ['card', <Button key="card">Copy email</Button>, /copy email/i]
+  ])('applies shared focusRing styles on %s buttons', async (_label, ui, name) => {
+    const user = userEvent.setup();
+
+    render(ui);
+
+    const button = screen.getByRole('button', { name });
+
+    for (const className of focusRingClasses) {
+      expect(button).toHaveClass(className);
+    }
+
+    await user.tab();
+    expect(button).toHaveFocus();
   });
 });
 

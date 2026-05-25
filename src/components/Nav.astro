@@ -5,6 +5,7 @@ import Logo from '~/components/Logo.astro';
 import { MobileDrawer } from '~/components/MobileDrawer';
 import { ThemeToggle } from '~/components/ThemeToggle';
 import { homeNav, type NavLink } from '~/data/nav';
+import { focusRing } from '~/utils/focusRing';
 
 type Props = {
   links?: NavLink[];
@@ -16,9 +17,9 @@ const { links = homeNav, showLogoOnDesktop = true, compactLogo = false } = Astro
 
 const navLink = tv({
   base: [
-    'inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold tracking-wide transition',
+    'inline-flex min-h-11 items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold tracking-wide transition',
     'text-nav-fg/85 hover:text-nav-fg hover:bg-nav-link-hover-bg',
-    'focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent'
+    focusRing()
   ]
 });
 ---
@@ -53,7 +54,7 @@ const navLink = tv({
       {
         links.map((link) => (
           <a href={link.href} class={navLink()}>
-            <Icon name={link.icon} class="h-4 w-4 opacity-70" aria-hidden="true" />
+            <Icon name={link.icon} class="size-4 opacity-70" aria-hidden="true" />
             {link.label}
           </a>
         ))
@@ -61,7 +62,7 @@ const navLink = tv({
     </nav>
 
     <div class="flex items-center justify-end">
-      <ThemeToggle client:load />
+      <ThemeToggle client:idle />
     </div>
   </div>
 
@@ -75,7 +76,7 @@ const navLink = tv({
       <Logo as="span" size="sm" />
     </a>
     <div class="flex items-center gap-1">
-      <ThemeToggle client:load />
+      <ThemeToggle client:idle />
       <MobileDrawer client:idle links={links} />
     </div>
   </div>

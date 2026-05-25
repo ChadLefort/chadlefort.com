@@ -9,7 +9,10 @@ import { IconButton } from '~/components/IconButton';
 export const PROJECT_GALLERY_OPEN_EVENT = 'project-gallery:open';
 
 const thumbImg = tv({
-  base: 'block h-full w-full rounded-2xl object-cover object-top transition duration-[var(--motion-duration-state)] ease-[var(--motion-ease-settle)]',
+  base: [
+    'block size-full object-cover object-top',
+    'transition duration-[var(--motion-duration-state)] ease-[var(--motion-ease-settle)]'
+  ],
   variants: {
     loaded: {
       true: 'opacity-100',
@@ -30,7 +33,7 @@ const thumbFrame = tv({
 
 const lightboxOverlay = tv({
   base: [
-    'fixed inset-0 z-50 bg-overlay-bg backdrop-blur-md',
+    'fixed inset-0 z-50 bg-overlay-bg backdrop-blur-md motion-reduce:backdrop-blur-none',
     'transition-opacity duration-[var(--motion-duration-state)] ease-[var(--motion-ease-out)]',
     'data-[entering]:opacity-0 data-[exiting]:opacity-0'
   ]
@@ -38,8 +41,8 @@ const lightboxOverlay = tv({
 
 const lightboxImage = tv({
   base: [
-    'block h-auto rounded-lg object-contain',
-    'transition-[width,height,max-width,max-height] duration-[520ms] ease-[var(--motion-ease-out)] motion-reduce:transition-none'
+    'block h-auto origin-top-left rounded-lg object-contain',
+    'transition-transform duration-[520ms] ease-[var(--motion-ease-out)] motion-reduce:transition-none'
   ],
   variants: {
     zoomed: {
@@ -66,7 +69,7 @@ const lightboxImage = tv({
 });
 
 const lightboxViewport = tv({
-  base: 'relative h-full w-full',
+  base: 'relative size-full',
   variants: {
     zoomed: {
       true: 'overflow-auto overscroll-contain',
@@ -76,14 +79,11 @@ const lightboxViewport = tv({
 });
 
 const lightboxToggle = tv({
-  base: [
-    'border-0 bg-transparent text-inherit touch-pan-x touch-pan-y',
-    'transition-[padding] duration-[520ms] ease-[var(--motion-ease-out)] motion-reduce:transition-none'
-  ],
+  base: 'inline-flex border-0 bg-transparent text-inherit touch-pan-x touch-pan-y',
   variants: {
     zoomed: {
-      true: 'inline-flex cursor-zoom-out p-3 sm:p-6',
-      false: 'inline-flex cursor-zoom-in p-2 sm:p-0'
+      true: 'cursor-zoom-out p-3 sm:p-6',
+      false: 'cursor-zoom-in p-2 sm:p-0'
     }
   }
 });
@@ -100,7 +100,7 @@ const lightboxControls = tv({
   base: 'flex items-center justify-center gap-3',
   variants: {
     desktop: {
-      true: 'justify-end gap-2',
+      true: 'justify-end gap-5',
       false: 'pt-1'
     }
   }
@@ -117,7 +117,7 @@ const zoomValue = tv({
 });
 
 const zoomButton = tv({
-  base: 'min-w-0 px-2.5'
+  base: 'hidden min-w-0 px-3 py-1.5 sm:inline-flex'
 });
 
 export type GalleryImage = {
@@ -167,7 +167,12 @@ type ProjectGalleryLightboxProps = {
   zoomDescriptionId: string;
   zoomLabel: string;
   zoomed: boolean;
-  lightboxImageStyle?: CSSProperties;
+  lightboxLayoutStyles: LightboxLayoutStyles;
+};
+
+type LightboxLayoutStyles = {
+  frame?: CSSProperties;
+  image: CSSProperties;
 };
 
 const SWIPE_THRESHOLD = 48;
@@ -248,26 +253,51 @@ const getClosestZoomIndex = (zoomLevels: number[], targetZoom: number) => {
   );
 };
 
-const getLightboxImageStyle = (image: GalleryImage, zoomLevel: number, zoomed: boolean): CSSProperties | undefined => {
+const getLightboxBaseFitWidth = (image: GalleryImage) => {
+  const aspect = image.width / image.height;
+
   if (image.device === 'mobile') {
-    if (!zoomed) {
-      return {
-        width: `min(100%, 28rem, calc((100svh - 9rem) * ${image.width / image.height}), ${image.width}px)`,
-        height: 'auto'
-      };
-    }
+    return `min(100%, 28rem, calc((100svh - 9rem) * ${aspect}), ${image.width}px)`;
+  }
+
+  return `min(calc(100svw - clamp(3rem, 10vw, 10rem)), calc((100svh - 8rem) * ${aspect}), ${image.width}px)`;
+};
+
+const getLightboxFrameWidth = (image: GalleryImage, zoomLevel: number) => {
+  if (image.device === 'mobile') {
+    return `min(calc((100svw - 1.5rem) * ${zoomLevel}), ${image.width}px)`;
+  }
+
+  return `min(calc((100svw - clamp(3rem, 10vw, 10rem)) * ${zoomLevel}), ${image.width}px)`;
+};
+
+const getLightboxLayoutStyles = (image: GalleryImage, zoomLevel: number, zoomed: boolean): LightboxLayoutStyles => {
+  const transformOrigin = '0 0';
+
+  if (!zoomed) {
+    const fitWidth = getLightboxBaseFitWidth(image);
 
     return {
-      width: `min(calc((100svw - 1.5rem) * ${zoomLevel}), ${image.width}px)`,
-      height: 'auto'
+      frame: image.device === 'mobile' ? { width: fitWidth } : undefined,
+      image: {
+        width: image.device === 'mobile' ? fitWidth : undefined,
+        height: 'auto',
+        transform: 'scale(1)',
+        transformOrigin
+      }
     };
   }
 
-  if (!zoomed) return undefined;
+  const baseZoomWidth = getLightboxFrameWidth(image, 1);
 
   return {
-    width: `min(calc((100svw - clamp(3rem, 10vw, 10rem)) * ${zoomLevel}), ${image.width}px)`,
-    height: 'auto'
+    frame: { width: getLightboxFrameWidth(image, zoomLevel) },
+    image: {
+      width: baseZoomWidth,
+      height: 'auto',
+      transform: `scale(${zoomLevel})`,
+      transformOrigin
+    }
   };
 };
 
@@ -298,7 +328,7 @@ const Thumb: FC<{ image: GalleryImage; onOpen: () => void; eager?: boolean }> = 
     <Button
       variant="card"
       onPress={onOpen}
-      className="relative block w-full p-0 transition duration-[var(--motion-duration-state)] ease-[var(--motion-ease-settle)]"
+      className="relative block w-full overflow-hidden rounded-2xl p-0 transition duration-[var(--motion-duration-state)] ease-[var(--motion-ease-settle)]"
       aria-label={`Open screenshot: ${label}`}
     >
       <div className={thumbFrame({ device: image.device })}>
@@ -379,7 +409,7 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
   zoomDescriptionId,
   zoomLabel,
   zoomed,
-  lightboxImageStyle
+  lightboxLayoutStyles
 }) => (
   <ModalOverlay isOpen={open} onOpenChange={onOpenChange} isDismissable className={lightboxOverlay()}>
     <Modal className="flex h-svh w-full flex-col outline-none">
@@ -436,15 +466,6 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
         </div>
 
         <div className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden px-3 pb-3 sm:px-4 sm:pb-4">
-          {imagesLength > 1 && (
-            <IconButton
-              label="Previous image"
-              onPress={onPrev}
-              icon={<ChevronLeft className="size-6" />}
-              className="absolute top-1/2 left-4 z-10 -translate-y-1/2 hidden sm:flex"
-            />
-          )}
-
           <div ref={viewportRef} className={lightboxViewport({ zoomed })} aria-live="polite">
             <button
               type="button"
@@ -469,37 +490,25 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
                 Screenshot zoom is {zoomLabel}. Activate to {zoomed ? 'reset zoom' : 'zoom in'}. Use arrow keys to move
                 between screenshots.
               </span>
-              <picture>
-                <source type="image/avif" srcSet={activeImage.fullAvif} />
-                <img
-                  src={activeImage.src}
-                  alt={activeImage.alt.trim() || 'Project screenshot'}
-                  onLoad={onImageLoad}
-                  className={lightboxImage({ device: activeImage.device, zoomed })}
-                  style={lightboxImageStyle}
-                />
-              </picture>
+              <span className="inline-block" style={lightboxLayoutStyles.frame}>
+                <picture>
+                  <source type="image/avif" srcSet={activeImage.fullAvif} />
+                  <img
+                    src={activeImage.src}
+                    alt={activeImage.alt.trim() || 'Project screenshot'}
+                    onLoad={onImageLoad}
+                    className={lightboxImage({ device: activeImage.device, zoomed })}
+                    style={lightboxLayoutStyles.image}
+                  />
+                </picture>
+              </span>
             </button>
           </div>
-
-          {imagesLength > 1 && (
-            <IconButton
-              label="Next image"
-              onPress={onNext}
-              icon={<ChevronRight className="size-6" />}
-              className="absolute top-1/2 right-4 z-10 -translate-y-1/2 hidden sm:flex"
-            />
-          )}
         </div>
 
         <div className="flex items-center justify-center gap-4 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:pb-6">
           {imagesLength > 1 && (
-            <IconButton
-              label="Previous image"
-              onPress={onPrev}
-              icon={<ChevronLeft className="size-5" />}
-              className="sm:hidden"
-            />
+            <IconButton label="Previous image" onPress={onPrev} icon={<ChevronLeft className="size-5" />} />
           )}
           <div className="flex flex-col items-center gap-1">
             <span className="text-overlay-muted font-mono text-xs">
@@ -507,12 +516,7 @@ const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
             </span>
           </div>
           {imagesLength > 1 && (
-            <IconButton
-              label="Next image"
-              onPress={onNext}
-              icon={<ChevronRight className="size-5" />}
-              className="sm:hidden"
-            />
+            <IconButton label="Next image" onPress={onNext} icon={<ChevronRight className="size-5" />} />
           )}
         </div>
       </Dialog>
@@ -542,10 +546,12 @@ const useProjectGalleryLightbox = (images: GalleryImage[]) => {
   const canZoomIn = zoomIndex < maxZoomIndex;
   const canZoomOut = zoomIndex > 0;
 
-  const lightboxImageStyle = useMemo(() => {
-    if (!activeImage) return undefined;
+  const lightboxLayoutStyles = useMemo(() => {
+    if (!activeImage) {
+      return { image: { transform: 'scale(1)', transformOrigin: '0 0' } };
+    }
 
-    return getLightboxImageStyle(activeImage, zoomLevel, zoomed);
+    return getLightboxLayoutStyles(activeImage, zoomLevel, zoomed);
   }, [activeImage, zoomLevel, zoomed]);
 
   const resetZoom = useCallback(
@@ -842,7 +848,7 @@ const useProjectGalleryLightbox = (images: GalleryImage[]) => {
     zoomLabel,
     zoomOut,
     zoomed,
-    lightboxImageStyle
+    lightboxLayoutStyles
   };
 };
 
@@ -873,7 +879,7 @@ export const ProjectGallery: FC<Props> = ({ images, title, openRequest = 0 }) =>
     zoomLabel,
     zoomOut,
     zoomed,
-    lightboxImageStyle
+    lightboxLayoutStyles
   } = useProjectGalleryLightbox(images);
 
   useEffect(() => {
@@ -947,7 +953,7 @@ export const ProjectGallery: FC<Props> = ({ images, title, openRequest = 0 }) =>
         zoomDescriptionId={zoomDescriptionId}
         zoomLabel={zoomLabel}
         zoomed={zoomed}
-        lightboxImageStyle={lightboxImageStyle}
+        lightboxLayoutStyles={lightboxLayoutStyles}
       />
     </>
   );

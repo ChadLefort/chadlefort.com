@@ -12,7 +12,6 @@ export default defineConfig({
   site: 'https://chadlefort.com',
   output: 'static',
   prefetch: {
-    prefetchAll: true,
     defaultStrategy: 'viewport'
   },
   integrations: [
@@ -26,10 +25,7 @@ export default defineConfig({
     })
   ],
   vite: {
-    plugins: tailwindcss() as unknown as AstroVitePlugins,
-    optimizeDeps: {
-      include: ['swiper', 'swiper/react', 'swiper/modules']
-    }
+    plugins: tailwindcss() as unknown as AstroVitePlugins
   },
   image: {
     service: { entrypoint: 'astro/assets/services/sharp' }

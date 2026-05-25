@@ -39,7 +39,6 @@
   --background: oklch(23% 0.014 260);
   --accent: oklch(43% 0.11 251);
   --accent-strong: oklch(33% 0.095 251);
-  --section-rail-accent: oklch(94% 0.012 260);
   --section-heading-accent: oklch(76% 0.095 174);
   --section-content-bg: transparent;
 
@@ -48,6 +47,7 @@
   --terminal-selection: oklch(34% 0.016 260);
   --terminal-blue: oklch(67% 0.12 248);
   --terminal-green: oklch(76% 0.095 174);
+  --focus-ring: var(--terminal-green);
 
   --header-font-family: "JetBrains Mono Variable", "JetBrains Mono", monospace;
   --default-font-family: "Roboto Variable", "Roboto", system-ui, sans-serif;
@@ -91,8 +91,8 @@
   --term-fg: var(--color-1);
   --term-menu-bg: oklch(72% 0.018 260);
   --term-tab-inactive: oklch(76% 0.018 260);
-  --term-tab-active: oklch(57% 0.14 248);
-  --term-tab-text: oklch(96% 0.01 260);
+  --term-tab-active: oklch(56% 0.14 248);
+  --term-tab-text: oklch(100% 0 0);
   --term-tab-session: var(--terminal-green);
   --term-tab-session-text: oklch(21% 0.02 260);
   --term-status-bg: oklch(94% 0.012 260);
@@ -142,8 +142,8 @@
   --term-fg: var(--terminal-fg);
   --term-menu-bg: oklch(20% 0.014 260);
   --term-tab-inactive: var(--background);
-  --term-tab-active: oklch(57% 0.14 248);
-  --term-tab-text: oklch(96% 0.01 260);
+  --term-tab-active: oklch(56% 0.14 248);
+  --term-tab-text: oklch(100% 0 0);
   --term-tab-session: var(--terminal-green);
   --term-tab-session-text: oklch(21% 0.02 260);
   --term-status-bg: var(--color-5);
@@ -203,6 +203,7 @@
   --color-terminal-bg: var(--terminal-bg);
   --color-terminal-fg: var(--terminal-fg);
   --color-terminal-blue: var(--terminal-blue);
+  --color-focus-ring: var(--focus-ring);
 
   --color-term-bg: var(--term-bg);
   --color-term-fg: var(--term-fg);

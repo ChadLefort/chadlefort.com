@@ -32,7 +32,11 @@ const section = tv({
 });
 
 const tile$ = tv({
-  base: 'relative mx-auto w-full px-5 py-10 sm:px-10 sm:py-14 md:py-28 lg:px-16 print:p-0 print:bg-transparent print:border-0 print:rounded-none print:max-w-full',
+  base: [
+    'relative mx-auto w-full',
+    'px-5 py-10 sm:px-10 sm:py-14 md:py-28 lg:px-16',
+    'print:p-0 print:bg-transparent print:border-0 print:rounded-none print:max-w-full'
+  ],
   variants: {
     width: {
       narrow: 'max-w-4xl',

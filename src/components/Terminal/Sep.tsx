@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import { tv } from 'tailwind-variants';
 
 const sepStyles = tv({
-  base: 'text-term-sep h-3.5 w-3.5 shrink-0',
+  base: 'text-term-sep size-3.5 shrink-0',
   variants: {
     hideOnMobile: {
       true: 'hidden md:inline-block'

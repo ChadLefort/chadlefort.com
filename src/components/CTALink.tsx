@@ -1,12 +1,13 @@
 import type { FC, ReactNode } from 'react';
 import { composeRenderProps, Link as RACLink, type LinkProps as RACLinkProps } from 'react-aria-components';
 import { tv, type VariantProps } from 'tailwind-variants';
+import { focusRing } from '~/utils/focusRing';
 
 const ctaStyles = tv({
+  extend: focusRing,
   base: [
     'group inline-flex items-center font-semibold transition-[color,background-color,border-color,transform]',
-    'duration-[var(--motion-duration-state)] ease-[var(--motion-ease-settle)]',
-    'outline-accent'
+    'duration-[var(--motion-duration-state)] ease-[var(--motion-ease-settle)]'
   ],
   variants: {
     intent: {
@@ -16,9 +17,6 @@ const ctaStyles = tv({
     size: {
       md: 'gap-2 rounded-xl px-6 py-3',
       lg: 'gap-3 rounded-xl px-8 py-4 text-lg font-bold'
-    },
-    isFocusVisible: {
-      true: 'outline-2 -outline-offset-2'
     },
     isHovered: {
       true: '-translate-y-px motion-reduce:translate-y-0'
