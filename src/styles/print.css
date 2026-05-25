@@ -111,8 +111,12 @@
     & .home-split-section {
       display: block !important;
       padding: 0 !important;
-      margin-bottom: 0.28in !important;
+      margin-bottom: 0.08in !important;
       break-inside: auto !important;
+
+      &:first-of-type {
+        margin-top: 0.3in !important;
+      }
 
       &[data-no-print],
       &[data-no-print] * {
@@ -129,6 +133,14 @@
         margin: 0 !important;
         border: 0 !important;
         background: transparent !important;
+      }
+
+      & .section-rail + div {
+        padding: 0 !important;
+        margin: 0 !important;
+        border: 0 !important;
+        background: transparent !important;
+        min-height: 0 !important;
       }
 
       &:first-child .section-rail,
@@ -155,7 +167,7 @@
     display: block !important;
     position: static !important;
     padding: 0 !important;
-    margin: 0 0 0.1in 0 !important;
+    margin: 0 0 0.06in 0 !important;
     background: transparent !important;
     border: 0 !important;
 
@@ -168,7 +180,7 @@
     & .resume-section-title {
       display: block !important;
       text-align: left !important;
-      margin: 0 0 0.2in 0 !important;
+      margin: 0 0 0.17in 0 !important;
       padding-bottom: 0.05in !important;
       border-bottom: 0.5pt solid var(--print-border) !important;
     }

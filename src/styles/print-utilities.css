@@ -70,7 +70,7 @@
   font-family: var(--font-display);
   font-size: 17pt;
   color: var(--print-ink);
-  margin-bottom: 0.08in;
+  margin-bottom: 0.15in;
   padding-bottom: 0.05in;
   border-bottom: 0.5pt solid var(--print-border);
   text-align: left;
@@ -351,7 +351,7 @@
 @utility resume-edu-hr {
   border: 0;
   border-top: 0.5pt solid var(--print-border);
-  margin: 0.06in 0;
+  margin: 0.12in 0;
 }
 
 @utility resume-break-before {
