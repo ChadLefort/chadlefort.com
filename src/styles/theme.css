@@ -80,7 +80,7 @@
   --panel-bg: oklch(72% 0.018 260 / 34%);
   --panel-border: oklch(24% 0.012 260 / 9%);
   --panel-border-strong: oklch(24% 0.012 260 / 14%);
-  --overlay-bg: oklch(17% 0.018 260 / 92%);
+  --overlay-bg: oklch(17% 0.018 260 / 96%);
   --overlay-fg: oklch(96% 0.01 260);
   --overlay-muted: oklch(96% 0.01 260 / 70%);
   --overlay-border: oklch(96% 0.01 260 / 15%);
@@ -131,7 +131,7 @@
   --panel-bg: oklch(31% 0.014 260 / 38%);
   --panel-border: oklch(96% 0.01 260 / 6%);
   --panel-border-strong: oklch(96% 0.01 260 / 15%);
-  --overlay-bg: oklch(17% 0.018 260 / 92%);
+  --overlay-bg: oklch(17% 0.018 260 / 96%);
   --overlay-fg: oklch(96% 0.01 260);
   --overlay-muted: oklch(96% 0.01 260 / 70%);
   --overlay-border: oklch(96% 0.01 260 / 15%);

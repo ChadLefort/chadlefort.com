@@ -47,15 +47,13 @@ export const StatusLine: FC<Props> = ({
   time,
   compact = false
 }) => {
-  const mobileBranch = branch.includes('/') ? branch.split('/').at(-1) : branch;
-
   return (
     <div className={statusStyles({ compact })}>
       <Segment icon={apple} text="clefort" />
       <Sep />
       <Segment text={cwd} hideOnMobile />
       <Sep hideOnMobile />
-      <Segment icon={gitBranch} text={branch} mobileText={mobileBranch} tone="branch" />
+      <Segment icon={gitBranch} text={branch} tone="branch" />
       {(modified != null || added != null || removed != null) && (
         <>
           <Sep hideOnMobile />

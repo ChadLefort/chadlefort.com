@@ -1,6 +1,6 @@
 import type { TouchEvent as ReactTouchEvent, RefObject, Touch } from 'react';
 import { BASE_ZOOM_LEVELS, MOBILE_ZOOM_LEVELS, SWIPE_THRESHOLD, SWIPE_VERTICAL_TOLERANCE } from './constants';
-import type { GalleryImage, LightboxLayoutStyles, PinchState, SwipeState } from './types';
+import type { GalleryImage, LightboxLayoutStyles, PinchAnchor, PinchState, SwipeState } from './types';
 
 export const getTouchDistance = (touchA: Touch, touchB: Touch) =>
   Math.hypot(touchB.clientX - touchA.clientX, touchB.clientY - touchA.clientY);
@@ -10,7 +10,40 @@ export const getTouchMidpoint = (touchA: Touch, touchB: Touch) => ({
   y: (touchA.clientY + touchB.clientY) / 2
 });
 
-export const clampScroll = (value: number, max: number) => Math.min(Math.max(value, 0), Math.max(max, 0));
+const clampScroll = (value: number, max: number) => Math.min(Math.max(value, 0), Math.max(max, 0));
+
+export const computePinchAnchor = (
+  viewport: Pick<HTMLElement, 'scrollLeft' | 'scrollTop' | 'scrollWidth' | 'scrollHeight' | 'getBoundingClientRect'>,
+  contentRect: Pick<DOMRect, 'left' | 'top'>,
+  midpoint: { x: number; y: number }
+): PinchAnchor => {
+  const viewportRect = viewport.getBoundingClientRect();
+  const localX = midpoint.x - viewportRect.left;
+  const localY = midpoint.y - viewportRect.top;
+
+  return {
+    localX,
+    localY,
+    contentX: viewport.scrollLeft + midpoint.x - contentRect.left,
+    contentY: viewport.scrollTop + midpoint.y - contentRect.top,
+    scrollWidth: Math.max(viewport.scrollWidth, 1),
+    scrollHeight: Math.max(viewport.scrollHeight, 1)
+  };
+};
+
+export const computePinchScrollPosition = (
+  anchor: PinchAnchor,
+  viewport: Pick<HTMLElement, 'scrollWidth' | 'scrollHeight' | 'clientWidth' | 'clientHeight'>
+) => ({
+  scrollLeft: clampScroll(
+    anchor.contentX * (viewport.scrollWidth / anchor.scrollWidth) - anchor.localX,
+    viewport.scrollWidth - viewport.clientWidth
+  ),
+  scrollTop: clampScroll(
+    anchor.contentY * (viewport.scrollHeight / anchor.scrollHeight) - anchor.localY,
+    viewport.scrollHeight - viewport.clientHeight
+  )
+});
 
 const isHorizontalSwipeGesture = (deltaX: number, deltaY: number) =>
   Math.abs(deltaX) >= SWIPE_THRESHOLD &&
@@ -92,33 +125,37 @@ const getLightboxFrameWidth = (image: GalleryImage, zoomLevel: number) => {
 export const getLightboxLayoutStyles = (
   image: GalleryImage,
   zoomLevel: number,
-  zoomed: boolean
+  zoomed: boolean,
+  smoothLayout = false
 ): LightboxLayoutStyles => {
   const transformOrigin = '0 0';
+  const layoutTransition = smoothLayout ? 'width 520ms var(--motion-ease-out)' : undefined;
 
   if (!zoomed) {
     const fitWidth = getLightboxBaseFitWidth(image);
 
     return {
-      frame: image.device === 'mobile' ? { width: fitWidth } : undefined,
+      frame: image.device === 'mobile' ? { width: fitWidth, transition: layoutTransition } : undefined,
       image: {
         width: image.device === 'mobile' ? fitWidth : undefined,
         height: 'auto',
         transform: 'scale(1)',
-        transformOrigin
+        transformOrigin,
+        transition: layoutTransition
       }
     };
   }
 
-  const baseZoomWidth = getLightboxFrameWidth(image, 1);
+  const zoomWidth = getLightboxFrameWidth(image, zoomLevel);
 
   return {
-    frame: { width: getLightboxFrameWidth(image, zoomLevel) },
+    frame: { width: zoomWidth, transition: layoutTransition },
     image: {
-      width: baseZoomWidth,
+      width: zoomWidth,
       height: 'auto',
-      transform: `scale(${zoomLevel})`,
-      transformOrigin
+      transform: 'scale(1)',
+      transformOrigin,
+      transition: layoutTransition
     }
   };
 };

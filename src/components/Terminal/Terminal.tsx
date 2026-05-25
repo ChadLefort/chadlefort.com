@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { tv } from 'tailwind-variants';
 import { NavigationProvider } from '~/components/NavigationProvider';
 import { useSiteHost } from '~/hooks/useSiteHost';
+import { startViewTransition } from '~/utils/startViewTransition';
 import { Shell } from './Shell';
 import {
   $closed,
@@ -190,19 +191,9 @@ export const Terminal: FC = () => {
 
   if (closed) return null;
 
-  const startTransition = (fn: () => void) => {
-    if (typeof document !== 'undefined' && 'startViewTransition' in document) {
-      (document as Document & { startViewTransition: (cb: () => void) => unknown }).startViewTransition(fn);
-
-      return;
-    }
-
-    fn();
-  };
-
   const onClose = () => {
     if ($maximized.get()) {
-      startTransition(() => setMaximized(false));
+      startViewTransition(() => setMaximized(false));
       return;
     }
 
@@ -225,7 +216,7 @@ export const Terminal: FC = () => {
     const next = !$maximized.get();
     const wasMinimized = $minimized.get();
 
-    startTransition(() => {
+    startViewTransition(() => {
       setMaximized(next);
 
       if (!next) return;
@@ -241,7 +232,7 @@ export const Terminal: FC = () => {
     const wasMaximized = $maximized.get();
 
     if (next && wasMaximized) {
-      startTransition(() => {
+      startViewTransition(() => {
         setMinimized(next);
         setMaximized(false);
       });

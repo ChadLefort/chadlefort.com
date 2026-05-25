@@ -1,5 +1,5 @@
 {
   "ignore": {
-    "files": ["scripts/**"]
+    "files": ["scripts/**", "src/test/astro-transitions-client.ts", "src/test/bun-setup.ts"]
   }
 }

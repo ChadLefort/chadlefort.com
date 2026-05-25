@@ -1,16 +1,7 @@
-import { useEffect, useMemo, useReducer, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTypewriter } from '~/hooks/useTypewriter';
 import { buildAboutLines, createDemoLine, DEMO_COMMAND } from './shell-helpers';
 import { type LineBody, setInteractive } from './store';
-
-type DemoPhase = 'cmd' | 'lines' | 'done';
-
-type DemoState = {
-  phase: DemoPhase;
-  lineIndex: number;
-};
-
-type DemoAction = { type: 'start-lines' } | { type: 'advance' } | { type: 'finish'; total: number };
 
 type Props = {
   years: number;
@@ -20,27 +11,21 @@ type Props = {
   append: (lines: LineBody[]) => void;
 };
 
-const createInitialState = (interactive: boolean): DemoState => ({
-  phase: interactive ? 'done' : 'cmd',
-  lineIndex: 0
-});
-
-const reducer = (state: DemoState, action: DemoAction): DemoState => {
-  switch (action.type) {
-    case 'start-lines':
-      return { ...state, phase: 'lines' };
-    case 'advance':
-      return { ...state, lineIndex: state.lineIndex + 1 };
-    case 'finish':
-      return { phase: 'done', lineIndex: action.total };
-  }
-};
-
 export const useShellDemo = ({ years, interactive, reducedMotion, inView, append }: Props) => {
-  const [state, dispatch] = useReducer(reducer, interactive, createInitialState);
+  const [demoComplete, setDemoComplete] = useState(false);
+  const finished = interactive || demoComplete;
   const aboutItems = useMemo(() => buildAboutLines(years), [years]);
   const completionTimeoutRef = useRef<number | null>(null);
-  const phase = interactive ? 'done' : state.phase;
+  const hasOutputRef = useRef(false);
+
+  const showCommandOutput = useCallback(() => {
+    if (hasOutputRef.current) return;
+
+    hasOutputRef.current = true;
+    append([{ kind: 'cmd', text: DEMO_COMMAND }, ...aboutItems.map((line, index) => createDemoLine(line, index))]);
+    setDemoComplete(true);
+    setInteractive(true);
+  }, [aboutItems, append]);
 
   useEffect(
     () => () => {
@@ -51,53 +36,24 @@ export const useShellDemo = ({ years, interactive, reducedMotion, inView, append
     []
   );
 
-  useEffect(() => {
-    if (phase === 'cmd' || completionTimeoutRef.current === null) return;
-
-    window.clearTimeout(completionTimeoutRef.current);
-    completionTimeoutRef.current = null;
-  }, [phase]);
-
   const typedFromHook = useTypewriter(DEMO_COMMAND, {
     perChar: 80,
-    enabled: phase === 'cmd' && inView,
+    enabled: !finished && inView,
     onComplete: () => {
+      if (reducedMotion) {
+        showCommandOutput();
+        return;
+      }
+
       completionTimeoutRef.current = window.setTimeout(() => {
         completionTimeoutRef.current = null;
-        append([{ kind: 'cmd', text: DEMO_COMMAND }]);
-        dispatch({ type: 'start-lines' });
+        showCommandOutput();
       }, 200);
     }
   });
 
-  useEffect(() => {
-    if (phase !== 'lines') return;
-
-    if (reducedMotion) {
-      append(aboutItems.map((line, index) => createDemoLine(line, index, false)));
-      dispatch({ type: 'finish', total: aboutItems.length });
-      setInteractive(true);
-
-      return;
-    }
-
-    if (state.lineIndex >= aboutItems.length) {
-      dispatch({ type: 'finish', total: aboutItems.length });
-      setInteractive(true);
-
-      return;
-    }
-
-    const id = window.setTimeout(() => {
-      append([createDemoLine(aboutItems[state.lineIndex], state.lineIndex, true)]);
-      dispatch({ type: 'advance' });
-    }, 35);
-
-    return () => window.clearTimeout(id);
-  }, [aboutItems, append, phase, reducedMotion, state.lineIndex]);
-
   return {
-    phase,
-    typed: reducedMotion ? DEMO_COMMAND : typedFromHook
+    phase: finished ? 'done' : 'cmd',
+    typed: reducedMotion || finished ? DEMO_COMMAND : typedFromHook
   };
 };

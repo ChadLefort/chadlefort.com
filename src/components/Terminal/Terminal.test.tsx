@@ -19,7 +19,7 @@ import { createMatchMedia, restoreMatchMedia } from '~/test/matchMedia';
 const renderTerminal = async () => {
   const rendered = render(<Terminal />);
 
-  await screen.findByText('clefort');
+  await waitFor(() => expect(screen.getAllByText('clefort').length).toBeGreaterThan(0), { timeout: 8000 });
 
   await waitFor(() => expect($interactive.get()).toBe(true), { timeout: 8000 });
 

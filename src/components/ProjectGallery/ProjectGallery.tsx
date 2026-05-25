@@ -34,6 +34,7 @@ export const ProjectGallery: FC<ProjectGalleryProps> = ({ images, title, openReq
     zoomLabel,
     zoomOut,
     zoomed,
+    isPinching,
     lightboxLayoutStyles
   } = useProjectGalleryLightbox(images);
 
@@ -107,6 +108,7 @@ export const ProjectGallery: FC<ProjectGalleryProps> = ({ images, title, openReq
         zoomDescriptionId={zoomDescriptionId}
         zoomLabel={zoomLabel}
         zoomed={zoomed}
+        isPinching={isPinching}
         lightboxLayoutStyles={lightboxLayoutStyles}
       />
     </>
