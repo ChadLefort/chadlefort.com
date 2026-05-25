@@ -24,19 +24,19 @@ export const thumbFrame = tv({
 });
 
 export const lightboxOverlay = tv({
-  base: [
-    'fixed inset-0 z-50 bg-overlay-bg backdrop-blur-md motion-reduce:backdrop-blur-none',
-    'transition-opacity duration-[var(--motion-duration-state)] ease-[var(--motion-ease-out)]',
-    'data-[entering]:opacity-0 data-[exiting]:opacity-0'
-  ]
+  base: ['fixed inset-0 z-50 bg-terminal-bg']
 });
 
 export const lightboxImage = tv({
   base: [
     'block h-auto origin-top-left rounded-lg object-contain',
-    'transition-transform duration-[520ms] ease-[var(--motion-ease-out)] motion-reduce:transition-none'
+    'transition-[width] duration-[520ms] ease-[var(--motion-ease-out)] motion-reduce:transition-none'
   ],
   variants: {
+    pinching: {
+      true: 'transition-none',
+      false: ''
+    },
     zoomed: {
       true: 'max-h-none max-w-none',
       false: 'max-h-[calc(100svh-9rem)] sm:max-h-[calc(100svh-8rem)]'
@@ -63,7 +63,7 @@ export const lightboxImage = tv({
 export const lightboxViewport = tv({
   base: 'relative size-full',
   variants: {
-    zoomed: {
+    scrollable: {
       true: 'overflow-auto overscroll-contain',
       false: 'flex items-center justify-center'
     }

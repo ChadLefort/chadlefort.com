@@ -15,6 +15,7 @@ import {
   zoomValue
 } from './styles';
 import type { ProjectGalleryLightboxProps } from './types';
+import { GALLERY_VIEW_TRANSITION } from './viewTransition';
 
 export const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
   active,
@@ -41,6 +42,7 @@ export const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
   zoomDescriptionId,
   zoomLabel,
   zoomed,
+  isPinching,
   lightboxLayoutStyles
 }) => (
   <ModalOverlay isOpen={open} onOpenChange={onOpenChange} isDismissable className={lightboxOverlay()}>
@@ -98,7 +100,7 @@ export const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
         </div>
 
         <div className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden px-3 pb-3 sm:px-4 sm:pb-4">
-          <div ref={viewportRef} className={lightboxViewport({ zoomed })} aria-live="polite">
+          <div ref={viewportRef} className={lightboxViewport({ scrollable: zoomed || isPinching })} aria-live="polite">
             <button
               type="button"
               onClick={onOutsideImageClick}
@@ -122,15 +124,20 @@ export const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
                 Screenshot zoom is {zoomLabel}. Activate to {zoomed ? 'reset zoom' : 'zoom in'}. Use arrow keys to move
                 between screenshots.
               </span>
-              <span className="inline-block" style={lightboxLayoutStyles.frame}>
+              <span
+                className="inline-block"
+                data-gallery-morph
+                style={{ ...lightboxLayoutStyles.frame, viewTransitionName: GALLERY_VIEW_TRANSITION }}
+              >
                 <picture>
                   <source type="image/avif" srcSet={activeImage.fullAvif} />
                   <img
+                    data-gallery-shot
                     src={activeImage.src}
                     alt={activeImage.alt.trim() || 'Project screenshot'}
                     onLoad={onImageLoad}
-                    className={lightboxImage({ device: activeImage.device, zoomed })}
-                    style={lightboxLayoutStyles.image}
+                    className={lightboxImage({ device: activeImage.device, zoomed, pinching: isPinching })}
+                    style={{ ...lightboxLayoutStyles.image }}
                   />
                 </picture>
               </span>

@@ -24,30 +24,15 @@ const segmentStyles = tv({
 type SegmentProps = {
   icon?: IconifyIcon;
   text?: string;
-  mobileText?: string;
   tone?: 'fg' | 'branch' | 'add' | 'del' | 'info';
   hideOnMobile?: boolean;
   className?: string;
   'data-testid'?: string;
 };
 
-export const Segment: FC<SegmentProps> = ({
-  icon,
-  text,
-  mobileText,
-  tone,
-  hideOnMobile,
-  className,
-  'data-testid': dataTestId
-}) => (
+export const Segment: FC<SegmentProps> = ({ icon, text, tone, hideOnMobile, className, 'data-testid': dataTestId }) => (
   <span className={segmentStyles({ tone, hideOnMobile, className })} data-testid={dataTestId}>
     {icon && <Icon icon={icon} className="size-3 shrink-0 sm:size-3.5" aria-hidden="true" />}
-    {text && !mobileText && <span className="font-mono text-[inherit] leading-none">{text}</span>}
-    {text && mobileText && (
-      <>
-        <span className="font-mono text-[inherit] leading-none sm:hidden">{mobileText}</span>
-        <span className="hidden font-mono text-[inherit] leading-none sm:inline">{text}</span>
-      </>
-    )}
+    {text && <span className="font-mono text-[inherit] leading-none">{text}</span>}
   </span>
 );

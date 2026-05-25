@@ -1,3 +1,4 @@
+import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import react from '@vitejs/plugin-react';
 import type { ViteUserConfig } from 'vitest/config';
@@ -5,12 +6,14 @@ import { defineConfig } from 'vitest/config';
 
 type VitestPlugins = NonNullable<ViteUserConfig['plugins']>;
 
+const rootDir = dirname(fileURLToPath(import.meta.url));
+
 export default defineConfig({
   plugins: [react()] as unknown as VitestPlugins,
   resolve: {
     alias: {
-      '~': fileURLToPath(new URL('./src', import.meta.url)),
-      'astro:transitions/client': fileURLToPath(new URL('./src/test/astro-transitions-client.ts', import.meta.url))
+      '~': resolve(rootDir, 'src'),
+      'astro:transitions/client': resolve(rootDir, 'src/test/astro-transitions-client.ts')
     }
   },
   test: {

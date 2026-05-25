@@ -135,9 +135,20 @@
   }
 
   ::view-transition-old(terminal),
-  ::view-transition-new(terminal) {
+  ::view-transition-new(terminal),
+  ::view-transition-old(gallery-lightbox),
+  ::view-transition-new(gallery-lightbox) {
     animation-duration: 360ms;
     animation-timing-function: var(--motion-ease-settle);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(terminal),
+    ::view-transition-new(terminal),
+    ::view-transition-old(gallery-lightbox),
+    ::view-transition-new(gallery-lightbox) {
+      animation: none;
+    }
   }
 
   ::selection {

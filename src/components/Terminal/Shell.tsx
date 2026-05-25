@@ -79,8 +79,8 @@ export const Shell: FC = () => {
   const isMobile = useMediaQuery('(max-width: 640px)');
   const root = useMemo(() => buildFs(host), [host]);
   const [viewRef, inView] = useInView<HTMLDivElement>({
-    threshold: isMobile ? 0.4 : 0,
-    rootMargin: isMobile ? '0px 0px -20% 0px' : '0px',
+    threshold: isMobile ? 0.3 : 0,
+    rootMargin: isMobile ? '0px 0px -20% 0px' : '0px 0px 30% 0px',
     once: true
   });
   const [time, setTime] = useState<string | null>(null);
