@@ -44,7 +44,7 @@ html {
   }
 
   :focus-visible {
-    outline: 3px solid var(--accent);
+    outline: 2px solid var(--focus-ring);
     outline-offset: 3px;
     border-radius: 4px;
   }

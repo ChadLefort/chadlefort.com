@@ -25,7 +25,7 @@ const LsRow: FC<{ entry: FsNode }> = ({ entry }) => {
 
   return (
     <div className={lsRow()}>
-      <Icon icon={icon} className={`h-4 w-4 shrink-0 ${color}`} aria-hidden="true" />
+      <Icon icon={icon} className={`size-4 shrink-0 ${color}`} aria-hidden="true" />
       <span className={lsName()}>
         {entry.name}
         {dirSlash}

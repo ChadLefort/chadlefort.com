@@ -2,7 +2,6 @@
   position: relative;
   background: linear-gradient(160deg, var(--card-grad-from), var(--card-grad-to));
   border: 1px solid var(--card-border);
-  border-radius: 1rem;
   transition:
     transform var(--motion-duration-state) var(--motion-ease-settle),
     border-color var(--motion-duration-state) var(--motion-ease-settle),

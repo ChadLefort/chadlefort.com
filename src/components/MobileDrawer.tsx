@@ -6,6 +6,7 @@ import { tv } from 'tailwind-variants';
 import { IconButton } from '~/components/IconButton';
 import { NavigationProvider } from '~/components/NavigationProvider';
 import type { NavLink } from '~/data/nav';
+import { focusRing } from '~/utils/focusRing';
 
 const overlay = tv({
   base: [
@@ -26,14 +27,12 @@ const modal = tv({
 });
 
 const drawerLink = tv({
+  extend: focusRing,
   base: [
     'flex items-center gap-3 rounded-lg px-3 py-3 font-medium transition-colors',
     'duration-[var(--motion-duration-feedback)] ease-[var(--motion-ease-settle)]'
   ],
   variants: {
-    isFocusVisible: {
-      true: 'outline-accent outline-2 -outline-offset-2'
-    },
     isHovered: {
       true: 'bg-term-menu-bg'
     }

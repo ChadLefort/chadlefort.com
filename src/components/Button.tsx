@@ -1,16 +1,7 @@
 import type { FC, ReactNode } from 'react';
 import { composeRenderProps, Button as RACButton, type ButtonProps as RACButtonProps } from 'react-aria-components';
 import { tv, type VariantProps } from 'tailwind-variants';
-
-const focusRing = tv({
-  base: 'outline outline-accent outline-offset-[3px] forced-colors:outline-[Highlight]',
-  variants: {
-    isFocusVisible: {
-      false: 'outline-0',
-      true: 'outline-2'
-    }
-  }
-});
+import { focusRing } from '~/utils/focusRing';
 
 export const buttonStyles = tv({
   extend: focusRing,
@@ -168,9 +159,15 @@ export const buttonStyles = tv({
       isPressed: true,
       class: 'scale-[0.98] motion-reduce:scale-100'
     },
-    { shape: 'icon', size: 'sm', class: 'h-9 w-9 min-h-0' },
-    { shape: 'icon', size: 'md', class: 'h-11 w-11 min-h-0' },
-    { shape: 'icon', size: 'lg', class: 'h-14 w-14 min-h-0' }
+    { shape: 'icon', size: 'sm', class: 'size-9 min-h-0' },
+    { shape: 'icon', size: 'md', class: 'size-11 min-h-0' },
+    { shape: 'icon', size: 'lg', class: 'size-14 min-h-0' },
+    { shape: 'pill', class: 'rounded-full' },
+    { shape: 'pill', size: 'sm', class: 'rounded-full' },
+    { shape: 'pill', size: 'md', class: 'rounded-full' },
+    { shape: 'pill', size: 'lg', class: 'rounded-full' },
+    { variant: 'card', class: 'rounded-2xl' },
+    { variant: 'card', shape: 'pill', class: 'rounded-full' }
   ],
   defaultVariants: {
     variant: 'solid',

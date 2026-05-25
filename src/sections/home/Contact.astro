@@ -23,13 +23,13 @@ const contactLinks = [
         contactLinks.map((link) => {
           const content = (
             <>
-              <Icon name={link.icon} class="text-accent h-5 w-5 shrink-0" aria-hidden="true" />
+              <Icon name={link.icon} class="text-accent size-5 shrink-0" aria-hidden="true" />
               <span class="min-w-0 truncate" data-copy-email-label={link.copy ? true : undefined}>{link.label}</span>
               {
                 link.copy && (
                   <Icon
                     name="lucide:copy"
-                    class="text-fg-muted group-hover:text-accent ml-auto h-4 w-4 shrink-0 transition"
+                    class="text-fg-muted group-hover:text-accent ml-auto size-4 shrink-0 transition"
                     aria-hidden="true"
                     data-copy-email-icon
                   />

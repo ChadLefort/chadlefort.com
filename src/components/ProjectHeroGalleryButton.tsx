@@ -16,12 +16,12 @@ export const ProjectHeroGalleryButton: FC<Props> = ({ label = 'Open project scre
     onPress={() => {
       window.dispatchEvent(new CustomEvent(PROJECT_GALLERY_OPEN_EVENT));
     }}
-    className="relative block p-0 transition duration-[var(--motion-duration-state)] ease-[var(--motion-ease-settle)]"
+    className="relative block overflow-hidden rounded-2xl p-0 transition duration-[var(--motion-duration-state)] ease-[var(--motion-ease-settle)]"
   >
     <div className="relative aspect-video w-full overflow-hidden rounded-2xl">
       <div
         data-hero-cover-media
-        className="h-full w-full transition duration-[var(--motion-duration-state)] ease-[var(--motion-ease-out)]"
+        className="size-full transition duration-[var(--motion-duration-state)] ease-[var(--motion-ease-out)]"
       >
         {children}
       </div>
@@ -35,7 +35,7 @@ export const ProjectHeroGalleryButton: FC<Props> = ({ label = 'Open project scre
             variant: 'card',
             shape: 'pill',
             size: 'sm',
-            className: 'pointer-events-none min-h-11 gap-1.5 px-4 py-2 shadow-sm sm:min-h-0 sm:px-3 sm:py-1.5'
+            className: 'pointer-events-none min-h-11 gap-1.5 px-4 py-2 shadow-sm'
           })}
         >
           <Images className="size-4" aria-hidden="true" />
