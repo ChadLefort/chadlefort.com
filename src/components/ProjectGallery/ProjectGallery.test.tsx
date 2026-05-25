@@ -1,7 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
-import { type GalleryImage, ProjectGallery } from '~/components/ProjectGallery';
+import { ProjectGallery } from './ProjectGallery';
+import type { GalleryImage } from './types';
 
 const images: GalleryImage[] = [
   {

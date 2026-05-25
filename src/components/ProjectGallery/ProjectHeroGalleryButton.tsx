@@ -1,7 +1,7 @@
 import { Images } from 'lucide-react';
 import type { FC, ReactNode } from 'react';
 import { Button, buttonStyles } from '~/components/Button';
-import { PROJECT_GALLERY_OPEN_EVENT } from '~/components/ProjectGallery';
+import { PROJECT_GALLERY_OPEN_EVENT } from './constants';
 
 type Props = {
   label?: string;

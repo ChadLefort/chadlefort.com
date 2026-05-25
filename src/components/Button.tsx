@@ -8,14 +8,14 @@ export const buttonStyles = tv({
   base: [
     'inline-flex items-center justify-center gap-2 cursor-pointer',
     'font-semibold tracking-tight select-none',
-    'transition-[background-color,color,box-shadow,transform] duration-[var(--motion-duration-feedback)] ease-[var(--motion-ease-out)]'
+    'transition-[background-color,color,box-shadow,border-color,transform] duration-[var(--motion-duration-state)] ease-[var(--motion-ease-settle)]'
   ],
   variants: {
     variant: {
       solid: 'text-overlay-fg shadow-sm',
       outline: 'border-2 bg-transparent',
       ghost: 'border-2 border-transparent',
-      card: 'group card card-hover text-fg rounded-2xl'
+      card: 'group card text-fg rounded-2xl'
     },
     color: {
       brand: '',
@@ -139,25 +139,31 @@ export const buttonStyles = tv({
       isHovered: true,
       class: 'opacity-100'
     },
+    { press: 'subtle', variant: 'card', class: 'card-hover-subtle' },
+    { press: 'bouncy', variant: 'card', class: 'card-hover-bouncy' },
     {
       press: 'subtle',
+      variant: ['solid', 'outline', 'ghost'],
       isHovered: true,
-      class: 'scale-[1.01] motion-reduce:scale-100'
+      class: '-translate-y-px scale-[1.01] motion-reduce:translate-y-0 motion-reduce:scale-100'
     },
     {
       press: 'subtle',
+      variant: ['solid', 'outline', 'ghost'],
       isPressed: true,
-      class: 'scale-[0.98] motion-reduce:scale-100'
+      class: 'translate-y-0 scale-[0.99] motion-reduce:scale-100'
     },
     {
       press: 'bouncy',
+      variant: ['solid', 'outline', 'ghost'],
       isHovered: true,
-      class: 'scale-[1.02] motion-reduce:scale-100'
+      class: '-translate-y-0.5 scale-[1.02] motion-reduce:translate-y-0 motion-reduce:scale-100'
     },
     {
       press: 'bouncy',
+      variant: ['solid', 'outline', 'ghost'],
       isPressed: true,
-      class: 'scale-[0.98] motion-reduce:scale-100'
+      class: 'translate-y-0 scale-[0.98] motion-reduce:scale-100'
     },
     { shape: 'icon', size: 'sm', class: 'size-9 min-h-0' },
     { shape: 'icon', size: 'md', class: 'size-11 min-h-0' },

@@ -18,11 +18,16 @@ const ctaStyles = tv({
       md: 'gap-2 rounded-xl px-6 py-3',
       lg: 'gap-3 rounded-xl px-8 py-4 text-lg font-bold'
     },
+    press: {
+      none: '',
+      subtle: '',
+      bouncy: ''
+    },
     isHovered: {
-      true: '-translate-y-px motion-reduce:translate-y-0'
+      true: ''
     },
     isPressed: {
-      true: 'translate-y-0'
+      true: ''
     }
   },
   compoundVariants: [
@@ -35,9 +40,29 @@ const ctaStyles = tv({
       intent: 'secondary',
       isHovered: true,
       class: 'border-accent text-fg'
+    },
+    {
+      press: 'subtle',
+      isHovered: true,
+      class: '-translate-y-px scale-[1.01] motion-reduce:translate-y-0 motion-reduce:scale-100'
+    },
+    {
+      press: 'subtle',
+      isPressed: true,
+      class: 'translate-y-0 scale-[0.99] motion-reduce:scale-100'
+    },
+    {
+      press: 'bouncy',
+      isHovered: true,
+      class: '-translate-y-0.5 scale-[1.02] motion-reduce:translate-y-0 motion-reduce:scale-100'
+    },
+    {
+      press: 'bouncy',
+      isPressed: true,
+      class: 'translate-y-0 scale-[0.98] motion-reduce:scale-100'
     }
   ],
-  defaultVariants: { intent: 'primary', size: 'md' }
+  defaultVariants: { intent: 'primary', size: 'md', press: 'subtle' }
 });
 
 type CTAVariants = VariantProps<typeof ctaStyles>;
@@ -45,6 +70,7 @@ type CTAVariants = VariantProps<typeof ctaStyles>;
 type CTAStyleProps = {
   intent?: CTAVariants['intent'];
   size?: CTAVariants['size'];
+  press?: CTAVariants['press'];
 };
 
 type Props = Omit<RACLinkProps, 'className' | 'children'> &
@@ -54,12 +80,12 @@ type Props = Omit<RACLinkProps, 'className' | 'children'> &
     download?: boolean | string;
   };
 
-export const CTALink: FC<Props> = ({ intent, size, children, className, download, ...props }) => (
+export const CTALink: FC<Props> = ({ intent, size, press, children, className, download, ...props }) => (
   <RACLink
     {...props}
     download={download}
     className={composeRenderProps(className, (extra, renderProps) =>
-      ctaStyles({ ...renderProps, intent, size, className: extra })
+      ctaStyles({ ...renderProps, intent, size, press, className: extra })
     )}
   >
     {children}

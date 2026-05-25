@@ -8,16 +8,59 @@
     background-color var(--motion-duration-state) var(--motion-ease-settle);
 }
 
-@utility card-hover {
+@utility card-hover-subtle {
   @media (hover: hover) {
-    &:hover {
-      transform: translateY(-1px);
+    &:hover,
+    &[data-hovered] {
+      transform: translateY(-1px) scale(1.01);
       border-color: var(--card-border-hover);
     }
   }
 
   @media (hover: hover) and (prefers-reduced-motion: reduce) {
-    &:hover {
+    &:hover,
+    &[data-hovered] {
+      transform: none;
+    }
+  }
+
+  &:active,
+  &[data-pressed] {
+    transform: translateY(0) scale(0.99);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &:active,
+    &[data-pressed] {
+      transform: none;
+    }
+  }
+}
+
+@utility card-hover-bouncy {
+  @media (hover: hover) {
+    &:hover,
+    &[data-hovered] {
+      transform: translateY(-2px) scale(1.02);
+      border-color: var(--card-border-hover);
+    }
+  }
+
+  @media (hover: hover) and (prefers-reduced-motion: reduce) {
+    &:hover,
+    &[data-hovered] {
+      transform: none;
+    }
+  }
+
+  &:active,
+  &[data-pressed] {
+    transform: translateY(0) scale(0.98);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &:active,
+    &[data-pressed] {
       transform: none;
     }
   }

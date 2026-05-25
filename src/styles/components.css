@@ -60,10 +60,24 @@
       backdrop-filter: none !important;
     }
 
-    .home-section-frame :where(.card-hover:hover, .card-hover[data-hovered]) {
-      transform: translateY(-1px) !important;
+    .home-section-frame :where(.card-hover-subtle:hover, .card-hover-subtle[data-hovered]) {
+      transform: translateY(-1px) scale(1.01) !important;
       border-color: var(--accent) !important;
       box-shadow: none !important;
+    }
+
+    .home-section-frame :where(.card-hover-subtle:active, .card-hover-subtle[data-pressed]) {
+      transform: translateY(0) scale(0.99) !important;
+    }
+
+    .home-section-frame :where(.card-hover-bouncy:hover, .card-hover-bouncy[data-hovered]) {
+      transform: translateY(-2px) scale(1.02) !important;
+      border-color: var(--accent) !important;
+      box-shadow: none !important;
+    }
+
+    .home-section-frame :where(.card-hover-bouncy:active, .card-hover-bouncy[data-pressed]) {
+      transform: translateY(0) scale(0.98) !important;
     }
 
     .home-section-frame .skill-badge {
@@ -80,11 +94,32 @@
       backdrop-filter: none !important;
     }
 
-    .project-card.card-hover:hover,
-    .project-detail :where(.card-hover:hover, .card-hover[data-hovered]) {
-      transform: translateY(-1px) !important;
+    .project-card.card-hover-subtle:hover,
+    .project-card.card-hover-subtle[data-hovered],
+    .project-detail :where(.card-hover-subtle:hover, .card-hover-subtle[data-hovered]) {
+      transform: translateY(-1px) scale(1.01) !important;
       border-color: var(--accent) !important;
       box-shadow: none !important;
+    }
+
+    .project-card.card-hover-subtle:active,
+    .project-card.card-hover-subtle[data-pressed],
+    .project-detail :where(.card-hover-subtle:active, .card-hover-subtle[data-pressed]) {
+      transform: translateY(0) scale(0.99) !important;
+    }
+
+    .project-card.card-hover-bouncy:hover,
+    .project-card.card-hover-bouncy[data-hovered],
+    .project-detail :where(.card-hover-bouncy:hover, .card-hover-bouncy[data-hovered]) {
+      transform: translateY(-2px) scale(1.02) !important;
+      border-color: var(--accent) !important;
+      box-shadow: none !important;
+    }
+
+    .project-card.card-hover-bouncy:active,
+    .project-card.card-hover-bouncy[data-pressed],
+    .project-detail :where(.card-hover-bouncy:active, .card-hover-bouncy[data-pressed]) {
+      transform: translateY(0) scale(0.98) !important;
     }
 
     .project-card .skill-badge,
