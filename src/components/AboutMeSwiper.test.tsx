@@ -30,12 +30,13 @@ describe('AboutMeSwiper', () => {
     expect(avifSources[0]).toHaveAttribute('sizes', '(min-width: 768px) 300px, 260px');
   });
 
-  it('advances with ArrowRight keyboard navigation', () => {
+  it('advances with ArrowRight keyboard navigation', async () => {
     render(<AboutMeSwiper images={images} />);
 
     const carousel = screen.getByLabelText('Personal photo carousel');
-    carousel.focus();
-    act(() => {
+
+    await act(async () => {
+      carousel.focus();
       fireEvent.keyDown(carousel, { key: 'ArrowRight' });
     });
 
