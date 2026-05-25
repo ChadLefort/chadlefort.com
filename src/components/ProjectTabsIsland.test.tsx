@@ -1,8 +1,8 @@
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
-import type { GalleryImage } from '~/components/ProjectGallery';
-import { PROJECT_GALLERY_OPEN_EVENT } from '~/components/ProjectGallery';
+import { PROJECT_GALLERY_OPEN_EVENT } from '~/components/ProjectGallery/constants';
+import type { GalleryImage } from '~/components/ProjectGallery/types';
 import { ProjectTabsIsland } from '~/components/ProjectTabsIsland';
 
 const projectSkills = [

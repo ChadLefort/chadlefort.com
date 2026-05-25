@@ -17,7 +17,7 @@ export const ButtonLink: FC<Props> = ({
   color = 'brand',
   size = 'md',
   shape = 'default',
-  press = 'bouncy',
+  press = 'subtle',
   fullWidth,
   startIcon,
   endIcon,
