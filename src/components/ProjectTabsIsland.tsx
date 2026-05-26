@@ -21,6 +21,7 @@ type Props = {
 const DESCRIPTION_TAB = 'description';
 const SKILLS_TAB = 'skills';
 const GALLERY_TAB = 'gallery';
+
 type TabKey = typeof DESCRIPTION_TAB | typeof SKILLS_TAB | typeof GALLERY_TAB;
 
 const tabStyles = tv({
@@ -104,7 +105,7 @@ export const ProjectTabsIsland: FC<Props> = ({ hasGallery, galleryImages, projec
       </TabPanel>
 
       <TabPanel id={SKILLS_TAB} className={tabPanelStyles()}>
-        <ul className="flex min-w-0 flex-wrap justify-center gap-3 md:gap-4" aria-label={`${title} stack`}>
+        <ul className="flex min-w-0 flex-wrap gap-3 md:gap-4" aria-label={`${title} stack`}>
           {projectSkills.map((skill) => (
             <li key={skill.name}>
               <div className="skill-badge">
