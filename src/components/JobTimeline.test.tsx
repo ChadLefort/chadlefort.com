@@ -8,15 +8,15 @@ const jobs: Job[] = [
   {
     company: 'Riverside Insights',
     role: 'Senior Frontend Engineer',
-    start: 'April 2024',
-    end: 'Present',
+    start: '04-01-2024',
+    end: null,
     bullets: ['Built assessment dashboards', 'Improved design-system consistency']
   },
   {
     company: 'CDIT',
     role: 'Senior Frontend Engineer',
-    start: 'December 2020',
-    end: 'April 2024',
+    start: '12-01-2020',
+    end: '04-01-2024',
     bullets: ['Shipped a mobile-first cart', 'Improved release velocity']
   }
 ];

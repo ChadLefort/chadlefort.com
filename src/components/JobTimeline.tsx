@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import { tv } from 'tailwind-variants';
 import type { Job } from '~/data/jobs';
 import { useInView } from '~/hooks/useInView';
-import { toYearMonth } from '~/utils/date';
+import { formatMonthYear, toYearMonthDateTime } from '~/utils/date';
 
 type Props = { jobs: Job[] };
 
@@ -29,13 +29,17 @@ const card = tv({
 const TimelineItem: FC<ItemProps> = ({ job }) => {
   const [ref, inView] = useInView<HTMLLIElement>({ threshold: 0.2, rootMargin: '0px 0px -80px 0px' });
 
-  const startDateTime = toYearMonth(job.start);
-  const endDateTime = toYearMonth(job.end);
-  const dateRange = (
+  const dateRange = job.end ? (
     <>
-      {startDateTime ? <time dateTime={startDateTime}>{job.start}</time> : <span>{job.start}</span>}
+      <time dateTime={toYearMonthDateTime(job.start)}>{formatMonthYear(job.start)}</time>
       <span aria-hidden="true"> – </span>
-      {endDateTime ? <time dateTime={endDateTime}>{job.end}</time> : <span>{job.end}</span>}
+      <time dateTime={toYearMonthDateTime(job.end)}>{formatMonthYear(job.end)}</time>
+    </>
+  ) : (
+    <>
+      <time dateTime={toYearMonthDateTime(job.start)}>{formatMonthYear(job.start)}</time>
+      <span aria-hidden="true"> – </span>
+      <span>Present</span>
     </>
   );
 

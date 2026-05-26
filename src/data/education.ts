@@ -1,4 +1,4 @@
-type Education = {
+export type Education = {
   institution: string;
   degree: string;
   major: string;
@@ -13,8 +13,8 @@ export const education: Education = {
   institution: 'Nicholls State University',
   degree: 'Bachelor of Science (B.S.)',
   major: 'Computer Information Systems',
-  start: 'August 2009',
-  end: 'December 2013',
+  start: '08-01-2009',
+  end: '12-01-2013',
   gpa: '3.6',
   awards: [
     "Consistently awarded the President's List since the Fall 2010 semester (scholastic GPA of 3.5 or higher required)."

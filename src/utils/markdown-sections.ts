@@ -4,11 +4,10 @@ import { education } from '~/data/education';
 import { jobs } from '~/data/jobs';
 import { locationLong, site, yearsOfExperience } from '~/data/site';
 import { skills } from '~/data/skills';
+import { formatDateRange } from '~/utils/date';
+import { sortProjects } from '~/utils/projects';
 
-export const sortedProjects = async () =>
-  (await getCollection('projects')).sort((a: { data: { end: string } }, b: { data: { end: string } }) =>
-    b.data.end.localeCompare(a.data.end)
-  );
+export const sortedProjects = async () => sortProjects(await getCollection('projects'));
 
 export const introLines = (): string[] =>
   dedent`
@@ -29,7 +28,7 @@ export const experienceSection = (): string[] => {
 
   for (const job of jobs) {
     out.push(`### ${job.company}, ${job.role}`);
-    out.push(`_${job.start} – ${job.end}_`);
+    out.push(`_${formatDateRange(job.start, job.end)}_`);
     out.push('');
     for (const bullet of job.bullets) {
       out.push(`- ${bullet}`);
@@ -84,7 +83,7 @@ export const educationSection = (): string[] => [
   ...dedent`
     ## Education
     ### ${education.institution}, ${education.degree}
-    _${education.start} – ${education.end}_
+    _${formatDateRange(education.start, education.end)}_
 
     - Majored in ${education.major}
     - GPA: ${education.gpa}

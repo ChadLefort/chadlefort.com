@@ -3,11 +3,11 @@ import { type CollectionEntry, getCollection } from 'astro:content';
 import ProjectCards from '~/sections/projects/ProjectCards.astro';
 import { site } from '~/data/site';
 import Base from '~/layouts/Base.astro';
+import { sortProjects } from '~/utils/projects';
 
 type Project = CollectionEntry<'projects'>;
 
-const raw = await getCollection('projects');
-const projects = raw.sort((a: Project, b: Project) => b.data.end.localeCompare(a.data.end));
+const projects = sortProjects(await getCollection('projects'));
 
 const collectionLd = {
   '@context': 'https://schema.org',

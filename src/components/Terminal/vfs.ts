@@ -12,6 +12,7 @@ import { education } from '~/data/education';
 import { jobs } from '~/data/jobs';
 import { locationLong, site, yearsOfExperience } from '~/data/site';
 import { skills } from '~/data/skills';
+import { formatDateRange, formatMonthYear } from '~/utils/date';
 
 type GitStatus = '--' | 'N' | 'M' | 'I';
 
@@ -128,10 +129,10 @@ export const buildFs = (host = 'chadlefort.com'): FsDir => {
             `# Experience Log`,
             `# ${years}+ years · ${jobs.length} positions`,
             '',
-            ...jobs.map(
-              (j, i) =>
-                `[${String(i + 1).padStart(2, '0')}] ${j.start.padEnd(15)} ─ ${j.end.padEnd(15)}  ${j.company} · ${j.role}`
-            )
+            ...jobs.map((j, i) => {
+              const range = formatDateRange(j.start, j.end);
+              return `[${String(i + 1).padStart(2, '0')}] ${range.padEnd(32)}  ${j.company} · ${j.role}`;
+            })
           ].join('\n'),
         { route: '/#job-experience', git: '--' }
       ),
@@ -146,7 +147,7 @@ export const buildFs = (host = 'chadlefort.com'): FsDir => {
 
           ${education.institution}
           ${education.degree} · ${education.major}
-          ${education.start} – ${education.end} · GPA ${education.gpa}
+          ${formatMonthYear(education.start)} – ${formatMonthYear(education.end)} · GPA ${education.gpa}
         `,
         { route: '/#education', git: '--' }
       ),

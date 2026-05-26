@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 import dedent from 'dedent';
 import { jobs } from '~/data/jobs';
 import { site } from '~/data/site';
+import { formatDateRange } from '~/utils/date';
 import { introLines, skillsSection, sortedProjects } from '~/utils/markdown-sections';
 
 export const GET: APIRoute = async () => {
@@ -24,7 +25,7 @@ export const GET: APIRoute = async () => {
 
   out.push('## Experience');
   for (const job of jobs) {
-    out.push(`- **${job.company}**, ${job.role} (${job.start} to ${job.end})`);
+    out.push(`- **${job.company}**, ${job.role} (${formatDateRange(job.start, job.end)})`);
   }
   out.push('');
 

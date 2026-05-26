@@ -2,7 +2,7 @@ export type Job = {
   company: string;
   role: string;
   start: string;
-  end: string;
+  end: string | null;
   bullets: string[];
 };
 
@@ -10,8 +10,8 @@ export const jobs: Job[] = [
   {
     company: 'Riverside Insights',
     role: 'Senior Frontend Engineer',
-    start: 'April 2024',
-    end: 'Present',
+    start: '04-01-2024',
+    end: null,
     bullets: [
       'Develop a K-12 student assessment platform focused on social and emotional learning using React, TypeScript, Zustand, and TanStack Query.',
       'Architected a custom component library on Tailwind and React Aria Components, replacing 3 disparate libraries with one accessible system that raised the a11y bar across the team.',
@@ -26,8 +26,8 @@ export const jobs: Job[] = [
   {
     company: 'CDIT',
     role: 'Senior Frontend Engineer',
-    start: 'December 2020',
-    end: 'April 2024',
+    start: '12-01-2020',
+    end: '04-01-2024',
     bullets: [
       'Built and architected a new mobile first dashboard, membership cart, and a live instructor-guided online education SaaS platform for dentists and their practices using Vue 3, TypeScript, Nuxt, and GraphQL. Extensive testing was done with Vitest, Vue Testing Library, and Cypress with meaningful code coverage averaging around 80%.',
       'In less than 2 years, launched 3 major high-impact projects that set speed and quality standards for the development team and brought measurable success for a client.',
@@ -38,8 +38,8 @@ export const jobs: Job[] = [
   {
     company: 'Veriforce',
     role: 'Senior Frontend Engineer',
-    start: 'July 2017',
-    end: 'December 2020',
+    start: '07-01-2017',
+    end: '12-01-2020',
     bullets: [
       'Architected several projects in React, Redux, TypeScript, and Material-UI and wrote unit tests with Jest and React Testing Library for a contractor management SaaS platform.',
       'Saved hours of manual deployment time by creating a monorepo with Lerna for 17 React projects and 6 NPM packages leading to cost efficiency and improved productivity for a team of 7 frontend developers.',
@@ -52,8 +52,8 @@ export const jobs: Job[] = [
   {
     company: 'Netchex',
     role: 'Full Stack Software Developer',
-    start: 'November 2014',
-    end: 'July 2017',
+    start: '11-01-2014',
+    end: '07-01-2017',
     bullets: [
       'Developed applications using domain driven design with C# for REST APIs and created single page applications using AngularJS, TypeScript, and Bootstrap for a payroll, benefits, and human resources SaaS platform.',
       "In 3 months led a project to build a mobile first onboarding dashboard released and presented at the company's annual client facing conference.",

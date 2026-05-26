@@ -5,7 +5,7 @@ import { skills } from '~/data/skills';
 describe('jobs data', () => {
   it('has at least one current job', () => {
     expect(jobs.length).toBeGreaterThan(0);
-    expect(jobs[0].end.toLowerCase()).toBe('present');
+    expect(jobs[0].end).toBeNull();
   });
 
   it('every job has required fields', () => {
@@ -13,7 +13,6 @@ describe('jobs data', () => {
       expect(job.company).toBeTruthy();
       expect(job.role).toBeTruthy();
       expect(job.start).toBeTruthy();
-      expect(job.end).toBeTruthy();
       expect(job.bullets.length).toBeGreaterThan(0);
     }
   });

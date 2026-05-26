@@ -2,10 +2,7 @@
 import Nicholls from '~/assets/logos/nicholls.svg';
 import Section from '~/components/Section.astro';
 import { education } from '~/data/education';
-import { toYearMonth } from '~/utils/date';
-
-const startDateTime = toYearMonth(education.start);
-const endDateTime = toYearMonth(education.end);
+import { formatMonthYear, toYearMonthDateTime } from '~/utils/date';
 ---
 
 <Section id="education" title="Education" tone="plain" tile={false} titleAlign="left" class="home-split-section print:break-inside-avoid">
@@ -15,9 +12,8 @@ const endDateTime = toYearMonth(education.end);
         <h3 class="font-display text-[1.5rem] leading-[1.05] md:text-3xl print:resume-edu-title">{education.institution}</h3>
         <p class="text-accent mt-2 text-sm leading-snug font-semibold md:mt-1 md:text-base print:resume-edu-degree">{education.degree}</p>
         <p class="text-fg-muted mt-2 font-mono text-xs leading-snug md:mt-1 md:text-sm print:resume-edu-dates">
-          {startDateTime ? <time datetime={startDateTime}>{education.start}</time> : education.start} &ndash; {
-            endDateTime ? <time datetime={endDateTime}>{education.end}</time> : education.end
-          }
+          <time datetime={toYearMonthDateTime(education.start)}>{formatMonthYear(education.start)}</time> &ndash;{' '}
+          <time datetime={toYearMonthDateTime(education.end)}>{formatMonthYear(education.end)}</time>
         </p>
       </div>
       <Nicholls aria-hidden="true" focusable="false" class="mt-1 h-9 w-auto justify-self-end md:mt-0 md:h-20 print:h-10 print:resume-edu-logo" />

@@ -1,20 +1,18 @@
-const monthFormatter = new Intl.DateTimeFormat('en-US', {
-  month: 'long',
-  timeZone: 'UTC'
-});
+import { Temporal } from '@js-temporal/polyfill';
 
-export const toYearMonth = (value: string) => {
-  const [monthName, yearText] = value.trim().split(/\s+/);
-
-  if (!monthName || !yearText || !/^\d{4}$/.test(yearText)) return null;
-
-  const parsed = new Date(`${monthName} 1, ${yearText} UTC`);
-
-  if (Number.isNaN(parsed.getTime())) return null;
-
-  if (monthFormatter.format(parsed) !== monthName) return null;
-
-  const month = String(parsed.getUTCMonth() + 1).padStart(2, '0');
-
-  return `${yearText}-${month}`;
+export const parseUsDate = (value: string) => {
+  const [month, day, year] = value.split('-').map(Number);
+  return new Temporal.PlainDate(year, month, day);
 };
+
+export const formatMonthYear = (value: string) =>
+  parseUsDate(value).toLocaleString('en-US', { month: 'long', year: 'numeric' });
+
+export const toYearMonthDateTime = (value: string) => {
+  const { year, month } = parseUsDate(value);
+
+  return Temporal.PlainYearMonth.from({ year, month }).toString();
+};
+
+export const formatDateRange = (start: string, end: string | null) =>
+  end ? `${formatMonthYear(start)} – ${formatMonthYear(end)}` : `${formatMonthYear(start)} – Present`;
