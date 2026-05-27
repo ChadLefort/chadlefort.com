@@ -5,6 +5,7 @@ import { Button } from '~/components/Button';
 import { IconButton } from '~/components/IconButton';
 import {
   desktopLightboxHeader,
+  lightboxContent,
   lightboxControls,
   lightboxImage,
   lightboxOverlay,
@@ -46,7 +47,7 @@ export const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
   lightboxLayoutStyles
 }) => (
   <ModalOverlay isOpen={open} onOpenChange={onOpenChange} isDismissable className={lightboxOverlay()}>
-    <Modal className="flex h-svh w-full flex-col outline-none">
+    <Modal className="flex h-dvh w-full flex-col outline-none [--lightbox-chrome:5.5rem] sm:h-svh sm:[--lightbox-chrome:8rem]">
       <Dialog className="flex min-h-0 flex-1 flex-col outline-none">
         <div className={mobileLightboxHeader()}>
           <Heading slot="title" className="font-display min-w-0 truncate text-lg">
@@ -99,53 +100,55 @@ export const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
           </div>
         </div>
 
-        <div className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden px-3 pb-3 sm:px-4 sm:pb-4">
-          <div ref={viewportRef} className={lightboxViewport({ scrollable: zoomed || isPinching })} aria-live="polite">
-            <button
-              type="button"
-              onClick={onOutsideImageClick}
-              className="absolute inset-0 z-0 cursor-default border-0 bg-transparent p-0"
-              aria-label="Close screenshots"
-            />
-            <button
-              ref={imageButtonRef}
-              type="button"
-              onClick={onImageClick}
-              onTouchStart={onImageTouchStart}
-              onTouchMove={onImageTouchMove}
-              onTouchEnd={onImageTouchEnd}
-              onTouchCancel={onImageTouchCancel}
-              className={lightboxToggle({ zoomed, class: 'relative z-10' })}
-              aria-label={zoomed ? 'Reset screenshot zoom' : 'Zoom screenshot'}
-              aria-pressed={zoomed}
-              aria-describedby={zoomDescriptionId}
-            >
-              <span id={zoomDescriptionId} className="sr-only">
-                Screenshot zoom is {zoomLabel}. Activate to {zoomed ? 'reset zoom' : 'zoom in'}. Use arrow keys to move
-                between screenshots.
-              </span>
-              <span
-                className="inline-block"
-                data-gallery-morph
-                style={{ ...lightboxLayoutStyles.frame, viewTransitionName: GALLERY_VIEW_TRANSITION }}
+        <div className="relative flex min-h-0 min-w-0 flex-1 px-2 pb-1 sm:px-4 sm:pb-4">
+          <div ref={viewportRef} className={lightboxViewport()} aria-live="polite">
+            <div className={lightboxContent()}>
+              <button
+                type="button"
+                onClick={onOutsideImageClick}
+                className="absolute inset-0 z-0 cursor-default border-0 bg-transparent p-0"
+                aria-label="Close screenshots"
+              />
+              <button
+                ref={imageButtonRef}
+                type="button"
+                onClick={onImageClick}
+                onTouchStart={onImageTouchStart}
+                onTouchMove={onImageTouchMove}
+                onTouchEnd={onImageTouchEnd}
+                onTouchCancel={onImageTouchCancel}
+                className={lightboxToggle({ zoomed, class: 'relative z-10 shrink-0' })}
+                aria-label={zoomed ? 'Reset screenshot zoom' : 'Zoom screenshot'}
+                aria-pressed={zoomed}
+                aria-describedby={zoomDescriptionId}
               >
-                <picture>
-                  <source type="image/avif" srcSet={activeImage.fullAvif} />
-                  <img
-                    data-gallery-shot
-                    src={activeImage.src}
-                    alt={activeImage.alt.trim() || 'Project screenshot'}
-                    onLoad={onImageLoad}
-                    className={lightboxImage({ device: activeImage.device, zoomed, pinching: isPinching })}
-                    style={{ ...lightboxLayoutStyles.image }}
-                  />
-                </picture>
-              </span>
-            </button>
+                <span id={zoomDescriptionId} className="sr-only">
+                  Screenshot zoom is {zoomLabel}. Activate to {zoomed ? 'reset zoom' : 'zoom in'}. Use arrow keys to
+                  move between screenshots.
+                </span>
+                <span
+                  className="inline-block"
+                  data-gallery-morph
+                  style={{ ...lightboxLayoutStyles.frame, viewTransitionName: GALLERY_VIEW_TRANSITION }}
+                >
+                  <picture>
+                    <source type="image/avif" srcSet={activeImage.fullAvif} />
+                    <img
+                      data-gallery-shot
+                      src={activeImage.src}
+                      alt={activeImage.alt.trim() || 'Project screenshot'}
+                      onLoad={onImageLoad}
+                      className={lightboxImage({ device: activeImage.device, zoomed, pinching: isPinching })}
+                      style={{ ...lightboxLayoutStyles.image }}
+                    />
+                  </picture>
+                </span>
+              </button>
+            </div>
           </div>
         </div>
 
-        <div className="flex items-center justify-center gap-4 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:pb-6">
+        <div className="flex items-center justify-center gap-3 px-3 pb-[max(0.5rem,env(safe-area-inset-bottom))] sm:gap-4 sm:px-4 sm:pb-6">
           {imagesLength > 1 && (
             <IconButton label="Previous image" onPress={onPrev} icon={<ChevronLeft className="size-5" />} />
           )}

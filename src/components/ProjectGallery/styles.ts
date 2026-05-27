@@ -29,7 +29,7 @@ export const lightboxOverlay = tv({
 
 export const lightboxImage = tv({
   base: [
-    'block h-auto origin-top-left rounded-lg object-contain',
+    'block h-auto rounded-lg object-contain',
     'transition-[width] duration-[520ms] ease-[var(--motion-ease-out)] motion-reduce:transition-none'
   ],
   variants: {
@@ -38,11 +38,11 @@ export const lightboxImage = tv({
       false: ''
     },
     zoomed: {
-      true: 'max-h-none max-w-none',
-      false: 'max-h-[calc(100svh-9rem)] sm:max-h-[calc(100svh-8rem)]'
+      true: 'origin-center max-h-none max-w-none',
+      false: 'origin-top-left max-h-[calc(100dvh-var(--lightbox-chrome))]'
     },
     device: {
-      mobile: 'w-auto max-w-[min(100%,28rem)]',
+      mobile: 'w-auto max-w-full',
       desktop: 'max-w-full'
     }
   },
@@ -61,27 +61,25 @@ export const lightboxImage = tv({
 });
 
 export const lightboxViewport = tv({
-  base: 'relative size-full',
-  variants: {
-    scrollable: {
-      true: 'overflow-auto overscroll-contain',
-      false: 'flex items-center justify-center'
-    }
-  }
+  base: 'relative size-full overflow-auto overscroll-contain'
+});
+
+export const lightboxContent = tv({
+  base: 'mx-auto flex min-h-full min-w-full w-max max-w-none items-center justify-center'
 });
 
 export const lightboxToggle = tv({
-  base: 'inline-flex border-0 bg-transparent text-inherit touch-pan-x touch-pan-y',
+  base: 'inline-flex shrink-0 border-0 bg-transparent text-inherit touch-pan-x touch-pan-y',
   variants: {
     zoomed: {
-      true: 'cursor-zoom-out p-3 sm:p-6',
-      false: 'cursor-zoom-in p-2 sm:p-0'
+      true: 'cursor-zoom-out p-1 sm:p-6',
+      false: 'cursor-zoom-in p-0 sm:p-0'
     }
   }
 });
 
 export const mobileLightboxHeader = tv({
-  base: 'flex items-center justify-between gap-3 px-4 py-3 text-overlay-fg sm:hidden'
+  base: 'flex items-center justify-between gap-2 px-3 py-2 text-overlay-fg sm:hidden'
 });
 
 export const desktopLightboxHeader = tv({

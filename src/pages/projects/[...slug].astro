@@ -2,6 +2,7 @@
 import { getImage, Picture } from 'astro:assets';
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import { Icon } from 'astro-icon/components';
+import { GALLERY_FULL_IMAGE_MAX_WIDTH } from '~/components/ProjectGallery/constants';
 import { ProjectHeroGalleryButton } from '~/components/ProjectGallery/ProjectHeroGalleryButton';
 import { ProjectTabsIsland } from '~/components/ProjectTabsIsland';
 import { CTALink } from '~/components/CTALink';
@@ -76,7 +77,7 @@ const gallery = await Promise.all(
     const thumbWidths = getClampedWidths(requestedWidths, width);
     const sizes = device === 'mobile' ? portraitSizes : landscapeSizes;
     const thumbAspect = thumbAspectByDevice[device];
-    const fullWidth = Math.min(width, 1600);
+    const fullWidth = Math.min(width, GALLERY_FULL_IMAGE_MAX_WIDTH);
 
     const [thumbAvif, thumbWebp, thumbFallback, fullAvif, fullWebp] = await Promise.all([
       toThumbSrcSet(item.src, thumbWidths, thumbAspect, 'avif'),

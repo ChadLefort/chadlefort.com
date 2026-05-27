@@ -21,17 +21,18 @@ const projects = defineCollection({
             initialZoom: z
               .union([
                 z.literal(1),
-                z.literal(1.25),
-                z.literal(1.5),
-                z.literal(1.75),
+                z.literal(1.2),
+                z.literal(1.4),
+                z.literal(1.6),
+                z.literal(1.8),
                 z.literal(2),
-                z.literal(2.25),
                 z.literal(2.5),
                 z.literal(3),
+                z.literal(3.5),
                 z.literal(4),
                 z.literal(5),
-                z.literal(7.5),
-                z.literal(10)
+                z.literal(6.5),
+                z.literal(8)
               ])
               .optional()
           })

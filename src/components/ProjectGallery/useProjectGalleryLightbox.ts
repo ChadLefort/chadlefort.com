@@ -6,6 +6,7 @@ import {
   computePinchAnchor,
   computePinchScrollPosition,
   endPinchTouchGesture,
+  getClickZoomIndex,
   getClosestZoomIndex,
   getDefaultZoomIndex,
   getLightboxLayoutStyles,
@@ -33,7 +34,6 @@ export const useProjectGalleryLightbox = (images: GalleryImage[]) => {
 
   const activeImage = images[active];
   const zoomLevels = useMemo(() => getZoomLevelsForImage(activeImage), [activeImage]);
-  const defaultZoomIndex = useMemo(() => getDefaultZoomIndex(activeImage, zoomLevels), [activeImage, zoomLevels]);
   const maxZoomIndex = zoomLevels.length - 1;
   const steppedZoomLevel = zoomLevels[zoomIndex] ?? 1;
   const effectiveZoomLevel = pinchZoomLevel ?? steppedZoomLevel;
@@ -94,11 +94,11 @@ export const useProjectGalleryLightbox = (images: GalleryImage[]) => {
     setZoomIndex((value) => {
       if (value > 0) return 0;
 
-      if (defaultZoomIndex > 0) return defaultZoomIndex;
+      if (!activeImage) return 0;
 
-      return Math.min(1, maxZoomIndex);
+      return getClickZoomIndex(activeImage, zoomLevels);
     });
-  }, [defaultZoomIndex, maxZoomIndex, setContinuousPinchZoom]);
+  }, [activeImage, setContinuousPinchZoom, zoomLevels]);
 
   const openAt = useCallback(
     (index: number) => {
@@ -126,12 +126,34 @@ export const useProjectGalleryLightbox = (images: GalleryImage[]) => {
     resetZoom(prevIndex);
   }, [active, images.length, resetZoom]);
 
-  const centerViewport = useCallback(() => {
+  const preserveViewportAnchor = useCallback(() => {
     const viewport = viewportRef.current;
     if (!viewport) return;
 
-    viewport.scrollTop = 0;
-    viewport.scrollLeft = Math.max(0, (viewport.scrollWidth - viewport.clientWidth) / 2);
+    const anchorX =
+      viewport.scrollWidth > viewport.clientWidth
+        ? (viewport.scrollLeft + viewport.clientWidth / 2) / viewport.scrollWidth
+        : 0.5;
+    const anchorY =
+      viewport.scrollHeight > viewport.clientHeight
+        ? (viewport.scrollTop + viewport.clientHeight / 2) / viewport.scrollHeight
+        : 0.5;
+
+    const apply = () => {
+      const nextViewport = viewportRef.current;
+      if (!nextViewport) return;
+
+      const maxScrollLeft = nextViewport.scrollWidth - nextViewport.clientWidth;
+      const maxScrollTop = nextViewport.scrollHeight - nextViewport.clientHeight;
+
+      if (maxScrollLeft <= 0 && maxScrollTop <= 0) return;
+
+      nextViewport.scrollLeft = Math.max(0, anchorX * nextViewport.scrollWidth - nextViewport.clientWidth / 2);
+      nextViewport.scrollTop = Math.max(0, anchorY * nextViewport.scrollHeight - nextViewport.clientHeight / 2);
+    };
+
+    apply();
+    window.requestAnimationFrame(apply);
   }, []);
 
   const applyPinchAnchor = useCallback(() => {
@@ -199,12 +221,13 @@ export const useProjectGalleryLightbox = (images: GalleryImage[]) => {
   }, [snapPinchZoom]);
 
   const isSwipeBlocked = useCallback(() => {
-    const viewport = viewportRef.current;
+    if (!zoomed) return false;
 
+    const viewport = viewportRef.current;
     if (!viewport) return false;
 
     return viewport.scrollWidth > viewport.clientWidth + 4;
-  }, []);
+  }, [zoomed]);
 
   const handleImageTouchStart = useCallback<TouchHandler>(
     (event) => {
@@ -279,8 +302,8 @@ export const useProjectGalleryLightbox = (images: GalleryImage[]) => {
   }, [toggleImageZoom]);
 
   const handleImageLoad = useCallback(() => {
-    if (zoomed && !pinchAnchorRef.current) centerViewport();
-  }, [centerViewport, zoomed]);
+    if (zoomed && !pinchAnchorRef.current) preserveViewportAnchor();
+  }, [preserveViewportAnchor, zoomed]);
 
   const handleOpenChange = useCallback(
     (isOpen: boolean) => {
@@ -343,13 +366,28 @@ export const useProjectGalleryLightbox = (images: GalleryImage[]) => {
     keepPinchAnchorStable();
   }, [keepPinchAnchorStable, open, pinchZoomLevel, zoomIndex]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!open || !zoomed || pinchAnchorRef.current) return;
 
-    const frame = window.requestAnimationFrame(centerViewport);
+    preserveViewportAnchor();
+  }, [open, preserveViewportAnchor, zoomed]);
 
-    return () => window.cancelAnimationFrame(frame);
-  }, [centerViewport, open, zoomed]);
+  useEffect(() => {
+    if (!open || !zoomed) return;
+
+    const frame = imageButtonRef.current?.querySelector('[data-gallery-morph]');
+    if (!frame) return;
+
+    const onTransitionEnd = (event: Event) => {
+      if (!(event instanceof TransitionEvent) || event.propertyName !== 'width' || pinchAnchorRef.current) return;
+
+      preserveViewportAnchor();
+    };
+
+    frame.addEventListener('transitionend', onTransitionEnd);
+
+    return () => frame.removeEventListener('transitionend', onTransitionEnd);
+  }, [open, preserveViewportAnchor, zoomed]);
 
   useEffect(() => {
     return () => {

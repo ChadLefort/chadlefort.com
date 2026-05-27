@@ -1,5 +1,14 @@
 import type { TouchEvent as ReactTouchEvent, RefObject, Touch } from 'react';
-import { BASE_ZOOM_LEVELS, MOBILE_ZOOM_LEVELS, SWIPE_THRESHOLD, SWIPE_VERTICAL_TOLERANCE } from './constants';
+import {
+  BASE_ZOOM_LEVELS,
+  DESKTOP_CLICK_ZOOM,
+  MAX_DESKTOP_ZOOM,
+  MAX_MOBILE_ZOOM,
+  MOBILE_CLICK_ZOOM,
+  MOBILE_ZOOM_LEVELS,
+  SWIPE_THRESHOLD,
+  SWIPE_VERTICAL_TOLERANCE
+} from './constants';
 import type { GalleryImage, LightboxLayoutStyles, PinchAnchor, PinchState, SwipeState } from './types';
 
 export const getTouchDistance = (touchA: Touch, touchB: Touch) =>
@@ -106,20 +115,18 @@ export const getClosestZoomIndex = (zoomLevels: number[], targetZoom: number) =>
 
 const getLightboxBaseFitWidth = (image: GalleryImage) => {
   const aspect = image.width / image.height;
+  const viewportWidth = image.device === 'mobile' ? 'calc(100svw - 1rem)' : 'calc(100svw - clamp(3rem, 10vw, 10rem))';
+  const viewportHeight = 'calc(100dvh - var(--lightbox-chrome))';
 
-  if (image.device === 'mobile') {
-    return `min(100%, 28rem, calc((100svh - 9rem) * ${aspect}), ${image.width}px)`;
-  }
-
-  return `min(calc(100svw - clamp(3rem, 10vw, 10rem)), calc((100svh - 8rem) * ${aspect}), ${image.width}px)`;
+  return `min(${viewportWidth}, calc(${viewportHeight} * ${aspect}), ${image.width}px)`;
 };
 
 const getLightboxFrameWidth = (image: GalleryImage, zoomLevel: number) => {
-  if (image.device === 'mobile') {
-    return `min(calc((100svw - 1.5rem) * ${zoomLevel}), ${image.width}px)`;
-  }
+  const fitWidth = getLightboxBaseFitWidth(image);
 
-  return `min(calc((100svw - clamp(3rem, 10vw, 10rem)) * ${zoomLevel}), ${image.width}px)`;
+  if (zoomLevel === 1) return fitWidth;
+
+  return `calc(${fitWidth} * ${zoomLevel})`;
 };
 
 export const getLightboxLayoutStyles = (
@@ -128,16 +135,16 @@ export const getLightboxLayoutStyles = (
   zoomed: boolean,
   smoothLayout = false
 ): LightboxLayoutStyles => {
-  const transformOrigin = '0 0';
+  const transformOrigin = zoomed ? 'center center' : 'top left';
   const layoutTransition = smoothLayout ? 'width 520ms var(--motion-ease-out)' : undefined;
 
   if (!zoomed) {
     const fitWidth = getLightboxBaseFitWidth(image);
 
     return {
-      frame: image.device === 'mobile' ? { width: fitWidth, transition: layoutTransition } : undefined,
+      frame: { width: fitWidth, transition: layoutTransition },
       image: {
-        width: image.device === 'mobile' ? fitWidth : undefined,
+        width: fitWidth,
         height: 'auto',
         transform: 'scale(1)',
         transformOrigin,
@@ -160,14 +167,32 @@ export const getLightboxLayoutStyles = (
   };
 };
 
+const getMaxZoomLevel = (image: GalleryImage) => (image.device === 'mobile' ? MAX_MOBILE_ZOOM : MAX_DESKTOP_ZOOM);
+
 export const getZoomLevelsForImage = (image: GalleryImage | undefined) => {
   if (!image) return [1];
 
-  const baseLevels = image.device === 'mobile' ? MOBILE_ZOOM_LEVELS : BASE_ZOOM_LEVELS;
+  const maxZoom = getMaxZoomLevel(image);
+  const baseLevels = (image.device === 'mobile' ? MOBILE_ZOOM_LEVELS : BASE_ZOOM_LEVELS).filter(
+    (level) => level <= maxZoom
+  );
 
   return Array.from(
-    new Set([1, ...baseLevels, image.initialZoom].filter((level): level is number => Boolean(level)))
+    new Set(
+      [1, ...baseLevels, image.initialZoom]
+        .filter((level): level is number => Boolean(level))
+        .filter((level) => level <= maxZoom)
+    )
   ).toSorted((a, b) => a - b);
+};
+
+const getClickZoomLevel = (image: GalleryImage) => (image.device === 'mobile' ? MOBILE_CLICK_ZOOM : DESKTOP_CLICK_ZOOM);
+
+export const getClickZoomIndex = (image: GalleryImage, zoomLevels: number[]) => {
+  const target = getClickZoomLevel(image);
+  const matchedIndex = zoomLevels.indexOf(target);
+
+  return matchedIndex === -1 ? getClosestZoomIndex(zoomLevels, target) : matchedIndex;
 };
 
 export const getDefaultZoomIndex = (image: GalleryImage | undefined, zoomLevels: number[]) => {

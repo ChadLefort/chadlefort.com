@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import { ProjectGallery } from './ProjectGallery';
@@ -53,7 +53,6 @@ const images: GalleryImage[] = [
     thumbSizes: '33vw',
     alt: 'Mobile course flow',
     device: 'mobile',
-    initialZoom: 10,
     orientation: 'portrait',
     width: 800,
     height: 1200
@@ -196,7 +195,7 @@ describe('ProjectGallery', () => {
     expect(screen.getAllByText('100%')[0]).toBeInTheDocument();
   });
 
-  it('supports smooth zoom steps up to 1000% for every image', async () => {
+  it('supports smooth zoom steps up to the desktop max zoom', async () => {
     const user = userEvent.setup();
 
     render(<ProjectGallery images={images.slice(0, 1)} title="Spear Dashboard" />);
@@ -209,36 +208,66 @@ describe('ProjectGallery', () => {
       fireEvent.click(desktopZoomInButton);
     }
 
-    expect(screen.getAllByText('500%')[0]).toBeInTheDocument();
-
-    for (let step = 0; step < 2; step += 1) {
-      fireEvent.click(desktopZoomInButton);
-    }
-
-    expect(screen.getAllByText('1000%')[0]).toBeInTheDocument();
+    expect(screen.getAllByText('400%')[0]).toBeInTheDocument();
     expect(desktopZoomInButton).toBeDisabled();
   });
 
-  it('respects per-image initial zoom when opening a tall mobile screenshot', async () => {
+  it('zooms to 200% on desktop and 800% on mobile when clicking the image', async () => {
+    const user = userEvent.setup();
+
+    render(<ProjectGallery images={images.slice(0, 1)} title="Spear Dashboard" />);
+    await user.click(screen.getByRole('button', { name: /open screenshot: desktop dashboard overview/i }));
+    await user.click(screen.getByRole('button', { name: /zoom screenshot/i }));
+    expect(screen.getAllByText('200%')[0]).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: /reset screenshot zoom/i }));
+    await user.click(screen.getAllByRole('button', { name: /close screenshots/i })[0]);
+
+    cleanup();
+
+    render(<ProjectGallery images={images.slice(3)} title="Spear Dashboard" />);
+    await user.click(screen.getByRole('button', { name: /open screenshot: mobile course flow/i }));
+    await user.click(screen.getByRole('button', { name: /zoom screenshot/i }));
+    expect(screen.getAllByText('800%')[0]).toBeInTheDocument();
+  });
+
+  it('steps through the mobile zoom ramp', async () => {
     const user = userEvent.setup();
 
     render(<ProjectGallery images={images.slice(3)} title="Spear Dashboard" />);
 
     await user.click(screen.getByRole('button', { name: /open screenshot: mobile course flow/i }));
 
-    expect(screen.getAllByText('1000%')[0]).toBeInTheDocument();
+    const zoomInButton = screen.getAllByRole('button', { name: /^zoom in$/i })[0];
+
+    await user.click(zoomInButton);
+    expect(screen.getAllByText('120%')[0]).toBeInTheDocument();
+
+    await user.click(zoomInButton);
+    expect(screen.getAllByText('140%')[0]).toBeInTheDocument();
+  });
+
+  it('opens mobile screenshots fit to the viewport at 100%', async () => {
+    const user = userEvent.setup();
+
+    render(<ProjectGallery images={images.slice(3)} title="Spear Dashboard" />);
+
+    await user.click(screen.getByRole('button', { name: /open screenshot: mobile course flow/i }));
+
+    expect(screen.getAllByText('100%')[0]).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /zoom screenshot/i })).toBeInTheDocument();
   });
 
   it('supports pinch zooming on mobile screenshots', async () => {
     const user = userEvent.setup();
 
-    render(<ProjectGallery images={images.slice(3)} title="Spear Dashboard" />);
+    render(<ProjectGallery images={[{ ...images[3], initialZoom: 8 }]} title="Spear Dashboard" />);
 
     await user.click(screen.getByRole('button', { name: /open screenshot: mobile course flow/i }));
 
     const imageToggle = screen.getByRole('button', { name: /reset screenshot zoom/i });
     const image = imageToggle.querySelector('img') as HTMLImageElement;
-    const viewport = imageToggle.parentElement as HTMLDivElement;
+    const viewport = imageToggle.closest('[aria-live="polite"]') as HTMLDivElement;
 
     Object.defineProperty(viewport, 'scrollWidth', { configurable: true, value: 800 });
     Object.defineProperty(viewport, 'clientWidth', { configurable: true, value: 390 });
@@ -287,7 +316,7 @@ describe('ProjectGallery', () => {
       touches: []
     });
 
-    expect(screen.getAllByText('300%')[0]).toBeInTheDocument();
+    expect(screen.queryByText('800%')).not.toBeInTheDocument();
     expect(viewport.scrollLeft).toBeGreaterThan(0);
   });
 

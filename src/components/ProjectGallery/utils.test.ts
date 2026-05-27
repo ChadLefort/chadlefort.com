@@ -1,5 +1,77 @@
 import { describe, expect, it } from 'vitest';
-import { computePinchAnchor, computePinchScrollPosition } from './utils';
+import type { GalleryImage } from './types';
+import {
+  computePinchAnchor,
+  computePinchScrollPosition,
+  getClickZoomIndex,
+  getLightboxLayoutStyles,
+  getZoomLevelsForImage
+} from './utils';
+
+const desktopImage: GalleryImage = {
+  src: '/desktop.webp',
+  fullAvif: '/desktop.avif',
+  thumbSrc: '/desktop-thumb.webp',
+  thumbAvif: '/desktop-thumb.avif',
+  thumbWebp: '/desktop-thumb.webp',
+  thumbSizes: '50vw',
+  alt: 'Desktop',
+  device: 'desktop',
+  orientation: 'landscape',
+  width: 1600,
+  height: 900
+};
+
+describe('getLightboxLayoutStyles', () => {
+  it('sizes desktop screenshots to fit the viewport at 100%', () => {
+    const styles = getLightboxLayoutStyles(desktopImage, 1, false);
+
+    expect(styles.frame?.width).toContain('100svw');
+    expect(styles.frame?.width).toContain('100dvh');
+    expect(styles.frame?.width).toContain('var(--lightbox-chrome)');
+    expect(styles.image.width).toBe(styles.frame?.width);
+  });
+
+  it('scales zoomed width from the fitted base size so each step can grow', () => {
+    const fit = getLightboxLayoutStyles(desktopImage, 1, false);
+    const zoomed = getLightboxLayoutStyles(desktopImage, 2, true);
+
+    expect(zoomed.frame?.width).toBe(`calc(${fit.frame?.width} * 2)`);
+  });
+
+  it('caps zoom levels at the device max', () => {
+    expect(getZoomLevelsForImage(desktopImage).at(-1)).toBe(4);
+    expect(getZoomLevelsForImage({ ...desktopImage, device: 'mobile' }).at(-1)).toBe(8);
+  });
+
+  it('resolves click-zoom targets for each device', () => {
+    const desktopLevels = getZoomLevelsForImage(desktopImage);
+    const mobileLevels = getZoomLevelsForImage({ ...desktopImage, device: 'mobile' });
+
+    expect(desktopLevels[getClickZoomIndex(desktopImage, desktopLevels)]).toBe(2);
+    expect(mobileLevels[getClickZoomIndex({ ...desktopImage, device: 'mobile' }, mobileLevels)]).toBe(8);
+  });
+
+  it('uses a distinct mobile zoom ramp with wider high-end steps', () => {
+    const mobileLevels = getZoomLevelsForImage({ ...desktopImage, device: 'mobile' });
+
+    expect(mobileLevels).toEqual([1, 1.2, 1.4, 1.6, 1.8, 2, 2.5, 3, 3.5, 4, 5, 6.5, 8]);
+    expect(mobileLevels).not.toEqual(getZoomLevelsForImage(desktopImage));
+  });
+
+  it('keeps zooming narrow mobile screenshots past native asset width', () => {
+    const mobileImage: GalleryImage = {
+      ...desktopImage,
+      device: 'mobile',
+      orientation: 'portrait',
+      width: 497,
+      height: 8379
+    };
+    const zoomed = getLightboxLayoutStyles(mobileImage, 3, true);
+
+    expect(zoomed.frame?.width).toMatch(/^calc\(min\(.+ \* 3\)$/);
+  });
+});
 
 describe('pinch scroll helpers', () => {
   it('keeps the pinch point stable when scroll dimensions scale uniformly', () => {
