@@ -2,6 +2,7 @@ import { Temporal } from '@js-temporal/polyfill';
 
 export const parseUsDate = (value: string) => {
   const [month, day, year] = value.split('-').map(Number);
+  console.log('🛹: value', value);
   return new Temporal.PlainDate(year, month, day);
 };
 

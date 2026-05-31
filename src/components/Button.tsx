@@ -224,6 +224,5 @@ export const Button: FC<Props> = ({
   >
     {startIcon ? <span aria-hidden="true">{startIcon}</span> : null}
     {children}
-    {endIcon ? <span aria-hidden="true">{endIcon}</span> : null}
   </RACButton>
 );
