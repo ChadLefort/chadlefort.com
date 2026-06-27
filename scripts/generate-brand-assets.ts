@@ -79,10 +79,34 @@ const generateResumePdf = async (): Promise<void> => {
     const browser = await chromium.launch();
 
     try {
-      const page = await browser.newPage();
+      const page = await browser.newPage({ viewport: { width: 794, height: 1123 } });
 
-      await page.goto(previewUrl, { waitUntil: 'networkidle' });
       await page.emulateMedia({ media: 'print', colorScheme: 'light', reducedMotion: 'reduce' });
+      await page.goto(previewUrl, { waitUntil: 'networkidle' });
+      await page.waitForFunction(() => document.fonts.status === 'loaded');
+      await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => resolve())));
+      await page.addStyleTag({ content: '[aria-label="Scroll to top"] { display: none !important; }' });
+      await page.addStyleTag({
+        content: dedent`
+          /*
+           * Generated PDF only: Chromium can drop section padding when #skills or
+           * #education land near a page break. Use a real spacer block for these
+           * headings while leaving normal Ctrl+P print styles untouched.
+           */
+          #skills,
+          #education {
+            padding-top: 0 !important;
+          }
+
+          #skills::before,
+          #education::before {
+            content: "" !important;
+            display: block !important;
+            height: 0.3in !important;
+            break-after: avoid !important;
+          }
+        `
+      });
       await page
         .locator('.print\\:sheet-avatar')
         .evaluate(
@@ -179,8 +203,8 @@ try {
   const displayFontDataUrl = toDataUrl('font/woff2', displayFont);
   const sansFontDataUrl = toDataUrl('font/woff2', sansFont);
 
-  const resumeSlotWidth = 430;
-  const resumeSlotHeight = 504;
+  const resumeSlotWidth = 392;
+  const resumeSlotHeight = 468;
   const extractHeight = Math.min(resumeHeight, Math.round(resumeWidth / (resumeSlotWidth / resumeSlotHeight)));
 
   const [resumeHero, portraitCircle] = await Promise.all([
@@ -248,32 +272,21 @@ try {
         <stop offset="0.62" stop-color="#252a31" />
         <stop offset="1" stop-color="#1d2127" />
       </linearGradient>
-      <radialGradient id="blueGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(178 168) rotate(22) scale(240 184)">
-        <stop offset="0" stop-color="#569cd6" stop-opacity="0.22" />
-        <stop offset="1" stop-color="#569cd6" stop-opacity="0" />
-      </radialGradient>
-      <radialGradient id="greenGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1030 132) rotate(-16) scale(230 160)">
-        <stop offset="0" stop-color="#4ec9b0" stop-opacity="0.14" />
-        <stop offset="1" stop-color="#4ec9b0" stop-opacity="0" />
-      </radialGradient>
       <clipPath id="cardClip">
         <rect x="18" y="18" width="1164" height="594" rx="24" />
       </clipPath>
     </defs>
     <g clip-path="url(#cardClip)">
       <rect x="18" y="18" width="1164" height="594" rx="24" fill="url(#bg)" />
-      <circle cx="176" cy="176" r="220" fill="url(#blueGlow)" />
-      <circle cx="1030" cy="132" r="220" fill="url(#greenGlow)" />
-
       <circle cx="164" cy="176" r="120" fill="rgba(236,238,242,0.03)" />
       <circle cx="164" cy="176" r="116" fill="none" stroke="rgba(236,238,242,0.2)" stroke-width="2" />
 
-      <rect x="712" y="18" width="470" height="594" rx="30" fill="rgba(236,238,242,0.04)" stroke="rgba(236,238,242,0.1)" />
-      <rect x="732" y="40" width="430" height="36" rx="18" fill="rgba(10,13,18,0.32)" />
-      <circle cx="756" cy="58" r="5" fill="#ff5f57" />
-      <circle cx="772" cy="58" r="5" fill="#ffbd2e" />
-      <circle cx="788" cy="58" r="5" fill="#28c840" />
-      <rect x="732" y="90" width="430" height="504" rx="22" fill="rgba(8,10,14,0.22)" />
+      <rect x="720" y="42" width="428" height="546" rx="30" fill="rgba(236,238,242,0.04)" stroke="rgba(236,238,242,0.1)" />
+      <rect x="738" y="58" width="392" height="36" rx="18" fill="rgba(10,13,18,0.32)" />
+      <circle cx="762" cy="76" r="5" fill="#ff5f57" />
+      <circle cx="778" cy="76" r="5" fill="#ffbd2e" />
+      <circle cx="794" cy="76" r="5" fill="#28c840" />
+      <rect x="738" y="104" width="392" height="468" rx="22" fill="rgba(8,10,14,0.22)" />
 
       <text x="290" y="176" class="name">Chad Lefort</text>
       <text x="300" y="220" class="role">Senior Frontend Engineer</text>
@@ -295,7 +308,7 @@ try {
   await baseCard
     .composite([
       { input: portraitCircle, left: 52, top: 64 },
-      { input: resumeHero, left: 732, top: 90 }
+      { input: resumeHero, left: 738, top: 104 }
     ])
     .png()
     .toFile(path.join(publicDir, 'card.png'));
