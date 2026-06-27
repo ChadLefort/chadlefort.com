@@ -82,7 +82,7 @@ const generateResumePdf = async (): Promise<void> => {
       const page = await browser.newPage();
 
       await page.goto(previewUrl, { waitUntil: 'networkidle' });
-      await page.emulateMedia({ media: 'print' });
+      await page.emulateMedia({ media: 'print', colorScheme: 'light', reducedMotion: 'reduce' });
       await page
         .locator('.print\\:sheet-avatar')
         .evaluate(

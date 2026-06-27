@@ -25,7 +25,7 @@
 
   html,
   html.dark {
-    zoom: 0.95;
+    zoom: 0.9;
     background: var(--print-paper) !important;
     margin: 0 !important;
     padding: 0 !important;
@@ -90,7 +90,7 @@
 
   @page {
     margin: 0.5in;
-    size: A4;
+    size: Letter;
     background: oklch(100% 0 0);
   }
 
@@ -160,6 +160,10 @@
 
     & .skill-badge {
       border-radius: 9999px !important;
+    }
+
+    & .home-split-section:not(:first-child) {
+      padding-top: 0.3in !important;
     }
   }
 
