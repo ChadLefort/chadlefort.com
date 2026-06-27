@@ -89,6 +89,7 @@ const AboutMeSlide: FC<SlideProps> = ({
   });
 
   return (
+    // biome-ignore lint/a11y/useSemanticElements: Carousel slides use WAI-ARIA group semantics with roledescription.
     <div
       role="group"
       aria-roledescription="slide"
@@ -151,9 +152,8 @@ export const AboutMeSwiper: FC<Props> = ({ images }) => {
             Photo {index + 1} of {slideCount}
           </p>
         ) : null}
-        <div
+        <section
           ref={trackRef}
-          role="region"
           aria-label="Personal photo carousel"
           aria-roledescription="carousel"
           className={focusGutter()}
@@ -186,7 +186,7 @@ export const AboutMeSwiper: FC<Props> = ({ images }) => {
               ))}
             </div>
           </div>
-        </div>
+        </section>
       </div>
     </div>
   );

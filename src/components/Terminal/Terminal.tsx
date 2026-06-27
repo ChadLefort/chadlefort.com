@@ -246,7 +246,7 @@ export const Terminal: FC = () => {
   return (
     <NavigationProvider>
       <div className={wrapper({ maximized })} data-no-print>
-        <div
+        <section
           className={container({ maximized, closing })}
           style={{ viewTransitionName: 'terminal' }}
           aria-label="Terminal"
@@ -260,7 +260,7 @@ export const Terminal: FC = () => {
           ) : (
             <ShellViewport maximized={false} minimized={minimized} sessionLabel={sessionLabel} />
           )}
-        </div>
+        </section>
       </div>
     </NavigationProvider>
   );

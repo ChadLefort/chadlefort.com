@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.4.15/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.5.1/schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
@@ -29,14 +29,21 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": false,
+      "preset": "recommended",
       "correctness": {
-        "noUnusedVariables": "warn"
+        "noUnusedVariables": "warn",
+        "noUnknownTypeSelector": "off"
       },
       "suspicious": {
         "noConsole": "off",
         "noDebugger": "error",
         "noExplicitAny": "error"
+      },
+      "style": {
+        "noDescendingSpecificity": "off"
+      },
+      "complexity": {
+        "noImportantStyles": "off"
       }
     },
     "domains": {
@@ -90,9 +97,6 @@
     },
     {
       "includes": ["**/*.astro"],
-      "formatter": {
-        "enabled": false
-      },
       "assist": {
         "actions": {
           "source": {

@@ -12,7 +12,7 @@ export const DEMO_COMMAND = 'cat ABOUT.md';
 export const completeFromCwd = (root: FsDir, cwd: string[], prefix: string): { matches: string[]; common: string } => {
   const dirNode = nodeAt(root, cwd);
 
-  if (!dirNode || dirNode.type !== 'dir') return { matches: [], common: prefix };
+  if (dirNode?.type !== 'dir') return { matches: [], common: prefix };
 
   const matches = Object.keys(dirNode.children).filter((name) => name.toLowerCase().startsWith(prefix.toLowerCase()));
 

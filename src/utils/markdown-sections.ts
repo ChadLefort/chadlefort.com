@@ -39,7 +39,7 @@ export const experienceSection = (): string[] => {
   return out;
 };
 
-export const skillsSection = (): string[] => ['## Skills', skills.map((s) => s.name).join(', ') + '.', ''];
+export const skillsSection = (): string[] => ['## Skills', `${skills.map((s) => s.name).join(', ')}.`, ''];
 
 type ProjectEntry = Awaited<ReturnType<typeof sortedProjects>>[number];
 

@@ -67,7 +67,9 @@ const {
         const elements = document.querySelectorAll<HTMLElement>('[data-reveal]');
 
         if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          elements.forEach((el) => el.classList.add('in-view'));
+          elements.forEach((el) => {
+            el.classList.add('in-view');
+          });
           return;
         }
 
@@ -83,7 +85,9 @@ const {
           { threshold: 0.1, rootMargin: '0px 0px -10% 0px' }
         );
 
-        elements.forEach((el) => io.observe(el));
+        elements.forEach((el) => {
+          io.observe(el);
+        });
       };
 
       document.addEventListener('astro:page-load', reveal);

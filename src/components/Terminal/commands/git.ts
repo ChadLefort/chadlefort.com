@@ -3,7 +3,7 @@ import type { nodeAt } from '../vfs';
 import type { Command } from './types';
 
 const collectModified = (root: ReturnType<typeof nodeAt>, prefix = '~'): string[] => {
-  if (!root || root.type !== 'dir') return [];
+  if (root?.type !== 'dir') return [];
 
   const out: string[] = [];
 

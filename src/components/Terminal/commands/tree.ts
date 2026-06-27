@@ -13,7 +13,7 @@ export const tree: Command = (args, ctx) => {
 
   const node = nodeAt(ctx.root, path);
 
-  if (!node || node.type !== 'dir') {
+  if (node?.type !== 'dir') {
     ctx.append([{ kind: 'err', text: `tree: ${target}: not a directory` }]);
     return;
   }

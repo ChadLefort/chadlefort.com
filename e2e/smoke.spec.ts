@@ -92,7 +92,8 @@ test.describe('projects', () => {
     const ld = await page.locator('script[type="application/ld+json"]').first().textContent();
 
     expect(ld).toBeTruthy();
-    const graph = JSON.parse(ld!);
+    if (!ld) throw new Error('Expected breadcrumb structured data');
+    const graph = JSON.parse(ld);
     const breadcrumb = graph.find((n: { '@type': string }) => n['@type'] === 'BreadcrumbList');
     expect(breadcrumb).toBeDefined();
   });

@@ -43,12 +43,13 @@ const downsample = (targetSize: number, outPath: string) =>
 
 await Promise.all([downsample(180, appleTouchPath), downsample(192, icon192Path), downsample(512, srcIconPath)]);
 
-await ico.sharpsToIco(
-  [16, 32, 48, 64].map((targetSize) =>
-    sharp(icon512Path).resize(targetSize, targetSize, { fit: 'cover', kernel: 'lanczos3' })
-  ),
-  icoPath,
-  { sizes: [16, 32, 48, 64], resizeOptions: {} }
+const icoSources = [16, 32, 48, 64].map((targetSize) =>
+  sharp(icon512Path).resize(targetSize, targetSize, { fit: 'cover', kernel: 'lanczos3' })
 );
+
+await ico.sharpsToIco(icoSources as unknown as Parameters<typeof ico.sharpsToIco>[0], icoPath, {
+  sizes: [16, 32, 48, 64],
+  resizeOptions: {}
+});
 
 console.log('favicon.svg + icon-512.png + favicon.ico + PWA icons regenerated from lucide terminal source SVG');

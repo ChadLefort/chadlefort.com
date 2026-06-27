@@ -1,5 +1,6 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
 
 const projects = defineCollection({
   loader: glob({ pattern: '**/*.mdx', base: './src/content/projects' }),
@@ -38,8 +39,8 @@ const projects = defineCollection({
           })
         )
         .optional(),
-      externalUrl: z.string().url().optional(),
-      repoUrl: z.string().url().optional(),
+      externalUrl: z.url().optional(),
+      repoUrl: z.url().optional(),
       tech: z.array(z.string()),
       featured: z.boolean().default(false),
       span: z.enum(['sm', 'md', 'lg', 'xl']).default('md'),

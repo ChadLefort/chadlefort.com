@@ -18,7 +18,7 @@ const contactLinks = [
 
 <Section id="contact" title="Contact" tone="plain" tile={false} titleAlign="left" class="home-split-section" hideFromPrint>
   <address class="not-italic">
-    <div class="grid gap-3 md:grid-cols-2 xl:grid-cols-3" aria-label="Contact links">
+    <ul class="grid gap-3 md:grid-cols-2 xl:grid-cols-3" aria-label="Contact links">
       {
         contactLinks.map((link) => {
           const content = (
@@ -39,7 +39,7 @@ const contactLinks = [
           );
 
           return (
-            <div>
+            <li>
               {
                 link.href ? (
                   link.copy ? (
@@ -70,11 +70,11 @@ const contactLinks = [
                   </span>
                 )
               }
-            </div>
+            </li>
           );
         })
       }
-    </div>
+    </ul>
 
     <p class="sr-only" data-copy-email-status aria-live="polite"></p>
   </address>
