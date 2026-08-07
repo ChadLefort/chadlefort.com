@@ -207,7 +207,7 @@ try {
   const resumeSlotHeight = 468;
   const extractHeight = Math.min(resumeHeight, Math.round(resumeWidth / (resumeSlotWidth / resumeSlotHeight)));
 
-  const [resumeHero, portraitCircle] = await Promise.all([
+  const [resumeHero, socialPortrait, searchPortrait] = await Promise.all([
     roundedCrop(resumePreview, {
       width: resumeSlotWidth,
       height: resumeSlotHeight,
@@ -219,9 +219,13 @@ try {
         height: extractHeight
       }
     }),
-    circleCrop(portrait, 224)
+    circleCrop(portrait, 224),
+    circleCrop(portrait, 700)
   ]);
-  const backgroundSvg = dedent`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  // sRGB equivalents of the dark-mode hero tokens: --color-12 and --terminal-blue.
+  const heroHeadingColor = '#e7ebf3';
+  const heroAccentColor = '#549bdb';
+  const socialCardSvg = dedent`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
     <defs>
       <style>
         @font-face {
@@ -239,17 +243,16 @@ try {
         .name {
           font-family: "JetBrains Mono Variable", monospace;
           font-size: 64px;
-          font-weight: 700;
-          letter-spacing: -0.06em;
-          fill: #eceef2;
+          font-weight: 600;
           letter-spacing: -0.08em;
+          fill: ${heroHeadingColor};
         }
 
         .role {
           font-family: "Roboto Variable", sans-serif;
           font-size: 28px;
-          font-weight: 560;
-          fill: #afb6c5;
+          font-weight: 500;
+          fill: ${heroAccentColor};
         }
 
         .summary {
@@ -278,8 +281,8 @@ try {
     </defs>
     <g clip-path="url(#cardClip)">
       <rect x="18" y="18" width="1164" height="594" rx="24" fill="url(#bg)" />
-      <circle cx="164" cy="176" r="120" fill="rgba(236,238,242,0.03)" />
-      <circle cx="164" cy="176" r="116" fill="none" stroke="rgba(236,238,242,0.2)" stroke-width="2" />
+      <circle cx="164" cy="194" r="120" fill="rgba(236,238,242,0.03)" />
+      <circle cx="164" cy="194" r="116" fill="none" stroke="rgba(236,238,242,0.2)" stroke-width="2" />
 
       <rect x="720" y="42" width="428" height="546" rx="30" fill="rgba(236,238,242,0.04)" stroke="rgba(236,238,242,0.1)" />
       <rect x="738" y="58" width="392" height="36" rx="18" fill="rgba(10,13,18,0.32)" />
@@ -288,30 +291,90 @@ try {
       <circle cx="794" cy="76" r="5" fill="#28c840" />
       <rect x="738" y="104" width="392" height="468" rx="22" fill="rgba(8,10,14,0.22)" />
 
-      <text x="290" y="176" class="name">Chad Lefort</text>
-      <text x="300" y="220" class="role">Senior Frontend Engineer</text>
+      <text x="290" y="194" class="name">Chad Lefort</text>
+      <text x="300" y="238" class="role">Senior Frontend Engineer</text>
 
-      <text x="84" y="332" class="summary">
-        <tspan x="84" dy="0">Frontend engineer from Louisiana with</tspan>
-        <tspan x="84" dy="38">${years}+ years shipping maintainable,</tspan>
-        <tspan x="84" dy="38">accessible, production-ready systems.</tspan>
-        <tspan x="84" dy="38">Obsessive about design systems,</tspan>
-        <tspan x="84" dy="38">consistency, and interfaces that feel</tspan>
-        <tspan x="84" dy="38">polished for all users.</tspan>
+      <text x="52" y="350" class="summary">
+        <tspan x="52" dy="0">Frontend engineer from Louisiana with</tspan>
+        <tspan x="52" dy="38">${years}+ years shipping maintainable,</tspan>
+        <tspan x="52" dy="38">accessible, production-ready systems.</tspan>
+        <tspan x="52" dy="38">Obsessive about design systems,</tspan>
+        <tspan x="52" dy="38">consistency, and interfaces that feel</tspan>
+        <tspan x="52" dy="38">polished for all users.</tspan>
       </text>
     </g>
     <rect x="18" y="18" width="1164" height="594" rx="24" fill="none" stroke="#eceef2" stroke-opacity="0.06" />
   </svg>`;
 
-  const baseCard = sharp(Buffer.from(backgroundSvg));
+  const searchCardSvg = dedent`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
+    <defs>
+      <style>
+        @font-face {
+          font-family: "JetBrains Mono Variable";
+          src: url("${displayFontDataUrl}") format("woff2");
+          font-weight: 100 900;
+        }
 
-  await baseCard
-    .composite([
-      { input: portraitCircle, left: 52, top: 64 },
-      { input: resumeHero, left: 738, top: 104 }
-    ])
-    .png()
-    .toFile(path.join(publicDir, 'card.png'));
+        @font-face {
+          font-family: "Roboto Variable";
+          src: url("${sansFontDataUrl}") format("woff2");
+          font-weight: 100 900;
+        }
+
+        .name {
+          font-family: "JetBrains Mono Variable", monospace;
+          font-size: 108px;
+          font-weight: 600;
+          letter-spacing: -0.08em;
+          fill: ${heroHeadingColor};
+        }
+
+        .role {
+          font-family: "Roboto Variable", sans-serif;
+          font-size: 52px;
+          font-weight: 500;
+          fill: ${heroAccentColor};
+        }
+
+      </style>
+      <linearGradient id="bg" x1="100" y1="60" x2="1100" y2="1140" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#252a31" />
+        <stop offset="0.55" stop-color="#21252b" />
+        <stop offset="1" stop-color="#1d2127" />
+      </linearGradient>
+      <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="translate(600 460) rotate(90) scale(500)">
+        <stop offset="0" stop-color="#eceef2" stop-opacity="0.1" />
+        <stop offset="1" stop-color="#eceef2" stop-opacity="0" />
+      </radialGradient>
+      <clipPath id="cardClip">
+        <rect x="18" y="18" width="1164" height="1164" rx="48" />
+      </clipPath>
+    </defs>
+    <g clip-path="url(#cardClip)">
+      <rect x="18" y="18" width="1164" height="1164" rx="48" fill="url(#bg)" />
+      <circle cx="600" cy="460" r="500" fill="url(#glow)" />
+      <circle cx="600" cy="460" r="356" fill="rgba(236,238,242,0.03)" />
+      <circle cx="600" cy="460" r="354" fill="none" stroke="rgba(236,238,242,0.24)" stroke-width="3" />
+
+      <text x="600" y="980" text-anchor="middle" class="name">Chad Lefort</text>
+      <text x="600" y="1064" text-anchor="middle" class="role">Senior Frontend Engineer</text>
+    </g>
+    <rect x="18" y="18" width="1164" height="1164" rx="48" fill="none" stroke="#eceef2" stroke-opacity="0.08" />
+  </svg>`;
+
+  await Promise.all([
+    sharp(Buffer.from(socialCardSvg))
+      .composite([
+        { input: socialPortrait, left: 52, top: 82 },
+        { input: resumeHero, left: 738, top: 104 }
+      ])
+      .png()
+      .toFile(path.join(publicDir, 'card.png')),
+    sharp(Buffer.from(searchCardSvg))
+      .composite([{ input: searchPortrait, left: 250, top: 110 }])
+      .png()
+      .toFile(path.join(publicDir, 'search-card.png'))
+  ]);
 } finally {
   await rm(tempDir, { recursive: true, force: true });
 }

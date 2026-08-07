@@ -1,6 +1,7 @@
 html {
   background: var(--surface);
   color: var(--text);
+  overscroll-behavior-y: none;
   scroll-behavior: smooth;
 }
 

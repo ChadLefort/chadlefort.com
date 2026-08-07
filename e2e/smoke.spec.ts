@@ -7,6 +7,24 @@ test.describe('home page', () => {
     await expect(page.getByRole('heading', { name: 'Chad Lefort', level: 1 })).toBeVisible();
   });
 
+  test('publishes separate social and search images', async ({ page }) => {
+    await page.goto('/');
+
+    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+      'content',
+      'https://chadlefort.com/card.png'
+    );
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /max-image-preview:large/);
+
+    const ld = await page.locator('script[type="application/ld+json"]').first().textContent();
+
+    expect(ld).toBeTruthy();
+    if (!ld) throw new Error('Expected profile structured data');
+    const graph = JSON.parse(ld);
+    const profile = graph.find((node: { '@type': string }) => node['@type'] === 'ProfilePage');
+    expect(profile?.primaryImageOfPage?.contentUrl).toBe('https://chadlefort.com/search-card.png');
+  });
+
   test('download resume link points to pdf', async ({ page }) => {
     await page.goto('/');
 

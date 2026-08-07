@@ -26,4 +26,6 @@ if (!stagedFiles.some((file) => resumeSourceFiles.has(file))) {
 }
 
 await $`bun run assets:brand`.cwd(rootDir);
-await $`git add public/chad-lefort-resume.pdf public/chad-lefort-resume.md public/card.png`.cwd(rootDir);
+await $`git add public/chad-lefort-resume.pdf public/chad-lefort-resume.md public/card.png public/search-card.png`.cwd(
+  rootDir
+);

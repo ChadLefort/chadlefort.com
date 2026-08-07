@@ -9,11 +9,22 @@ import Skills from '~/sections/home/Skills.astro';
 import { site } from '~/data/site';
 import Base from '~/layouts/Base.astro';
 
+const searchImageUrl = new URL(site.searchImage, site.siteUrl).toString();
+
 const profileLd = {
   '@context': 'https://schema.org',
   '@type': 'ProfilePage',
   dateCreated: '2013-12-01',
   dateModified: new Date().toISOString().slice(0, 10),
+  primaryImageOfPage: {
+    '@type': 'ImageObject',
+    '@id': `${site.siteUrl}#primary-image`,
+    contentUrl: searchImageUrl,
+    url: searchImageUrl,
+    width: 1200,
+    height: 1200,
+    caption: `${site.name}, ${site.jobTitle}`
+  },
   mainEntity: { '@type': 'Person', '@id': `${site.siteUrl}#chad-lefort`, name: site.name }
 };
 ---

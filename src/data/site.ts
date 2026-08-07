@@ -19,6 +19,7 @@ export const site = {
   lang: 'en-US',
   email: 'chad@chadlefort.com',
   ogImage: '/card.png',
+  searchImage: '/search-card.png',
   avatar: '/me.png',
   location,
   social: {
