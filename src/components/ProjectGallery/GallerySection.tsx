@@ -24,10 +24,7 @@ export const GallerySection: FC<Props> = ({
   eagerCount = 0
 }) => (
   <section aria-labelledby={id}>
-    <h2
-      id={id}
-      className="text-fg-muted mb-4 flex items-center gap-2 font-mono text-xs tracking-[0.25em] uppercase md:mb-8"
-    >
+    <h2 id={id} className="text-fg mb-4 flex items-center gap-2 text-sm font-semibold tracking-wide md:mb-8">
       {icon}
       {label}
     </h2>
