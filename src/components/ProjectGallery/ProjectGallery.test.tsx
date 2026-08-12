@@ -136,7 +136,10 @@ describe('ProjectGallery', () => {
 
     await user.click(screen.getByRole('button', { name: /open screenshot: desktop dashboard overview/i }));
 
-    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    const dialog = screen.getByRole('dialog');
+
+    expect(dialog).toBeInTheDocument();
+    expect(dialog.closest('.fixed')).toHaveClass('bg-overlay-bg');
     expect(screen.getByText('1 / 2')).toBeInTheDocument();
 
     await user.click(screen.getAllByRole('button', { name: /next image/i })[0]);

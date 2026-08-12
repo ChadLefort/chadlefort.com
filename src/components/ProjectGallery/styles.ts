@@ -24,7 +24,7 @@ export const thumbFrame = tv({
 });
 
 export const lightboxOverlay = tv({
-  base: ['fixed inset-0 z-50 bg-terminal-bg']
+  base: ['fixed inset-0 z-50 bg-overlay-bg']
 });
 
 export const lightboxImage = tv({
