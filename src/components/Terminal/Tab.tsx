@@ -1,8 +1,8 @@
-import { Icon, type IconifyIcon } from '@iconify/react';
 import type { FC } from 'react';
 import { Link } from 'react-aria-components';
 import { tv } from 'tailwind-variants';
 import { focusRingInset } from '~/utils/focusRing';
+import type { TermIcon } from './icons';
 
 const tabStyles = tv({
   extend: focusRingInset,
@@ -41,7 +41,7 @@ const tabStyles = tv({
 type TabProps = {
   idx?: number;
   mobileIdx?: number;
-  icon: IconifyIcon;
+  icon: TermIcon;
   label: string;
   active?: boolean;
   href?: string;
@@ -49,7 +49,7 @@ type TabProps = {
   tone?: 'default' | 'session';
 };
 
-export const Tab: FC<TabProps> = ({ idx, mobileIdx, icon, label, active, href, hideOnMobile, tone }) => {
+export const Tab: FC<TabProps> = ({ idx, mobileIdx, icon: TabIcon, label, active, href, hideOnMobile, tone }) => {
   const inner = (
     <>
       {idx != null && (
@@ -64,7 +64,7 @@ export const Tab: FC<TabProps> = ({ idx, mobileIdx, icon, label, active, href, h
           )}
         </span>
       )}
-      <Icon icon={icon} className="shrink-0 size-4" aria-hidden="true" />
+      <TabIcon className="shrink-0 size-4" aria-hidden="true" />
       <span className="font-mono">{label}</span>
     </>
   );

@@ -173,15 +173,13 @@ export const getZoomLevelsForImage = (image: GalleryImage | undefined) => {
   if (!image) return [1];
 
   const maxZoom = getMaxZoomLevel(image);
-  const baseLevels = (image.device === 'mobile' ? MOBILE_ZOOM_LEVELS : BASE_ZOOM_LEVELS).filter(
-    (level) => level <= maxZoom
-  );
+  const baseLevels = image.device === 'mobile' ? MOBILE_ZOOM_LEVELS : BASE_ZOOM_LEVELS;
 
   return Array.from(
     new Set(
-      [1, ...baseLevels, image.initialZoom]
-        .filter((level): level is number => Boolean(level))
-        .filter((level) => level <= maxZoom)
+      [1, ...baseLevels, image.initialZoom].filter(
+        (level): level is number => typeof level === 'number' && level > 0 && level <= maxZoom
+      )
     )
   ).toSorted((a, b) => a - b);
 };

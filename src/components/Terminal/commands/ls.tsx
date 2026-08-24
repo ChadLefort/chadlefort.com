@@ -1,4 +1,3 @@
-import { Icon } from '@iconify/react';
 import type { FC } from 'react';
 import { tv } from 'tailwind-variants';
 import { type FsNode, iconForNode, nodeAt, resolvePath } from '../vfs';
@@ -20,12 +19,12 @@ const lsGit = tv({
 });
 
 const LsRow: FC<{ entry: FsNode }> = ({ entry }) => {
-  const { icon, color } = iconForNode(entry);
+  const { icon: EntryIcon, color } = iconForNode(entry);
   const dirSlash = entry.type === 'dir' ? '/' : '';
 
   return (
     <div className={lsRow()}>
-      <Icon icon={icon} className={`size-4 shrink-0 ${color}`} aria-hidden="true" />
+      <EntryIcon className={`size-4 shrink-0 ${color}`} aria-hidden="true" />
       <span className={lsName()}>
         {entry.name}
         {dirSlash}

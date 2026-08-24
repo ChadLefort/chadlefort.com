@@ -16,4 +16,4 @@ export const compareProjects = (a: ProjectEntry, b: ProjectEntry) => {
   return a.id.localeCompare(b.id);
 };
 
-export const sortProjects = (projects: ProjectEntry[]) => [...projects].sort(compareProjects);
+export const sortProjects = (projects: ProjectEntry[]) => projects.toSorted(compareProjects);

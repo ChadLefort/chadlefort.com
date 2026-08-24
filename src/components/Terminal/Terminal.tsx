@@ -1,15 +1,12 @@
-import folder from '@iconify-icons/lucide/folder';
-import folderGit2 from '@iconify-icons/lucide/folder-git-2';
-import gnubash from '@iconify-icons/simple-icons/gnubash';
-import neovim from '@iconify-icons/simple-icons/neovim';
-import tmux from '@iconify-icons/simple-icons/tmux';
 import { useStore } from '@nanostores/react';
+import { Folder, FolderGit2 } from 'lucide-react';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { tv } from 'tailwind-variants';
 import { NavigationProvider } from '~/components/NavigationProvider';
 import { useSiteHost } from '~/hooks/useSiteHost';
 import { startViewTransition } from '~/utils/startViewTransition';
+import { GnubashIcon, NeovimIcon, TmuxIcon } from './icons';
 import { Shell } from './Shell';
 import {
   $closed,
@@ -105,13 +102,52 @@ const slot = tv({
   }
 });
 
+const resetWithWelcome = () => {
+  if ($welcomeShown.get()) return;
+
+  setLines([]);
+  appendLines(WELCOME_LINES);
+  setWelcomeShown(true);
+};
+
+const onMaximize = () => {
+  const next = !$maximized.get();
+  const wasMinimized = $minimized.get();
+
+  startViewTransition(() => {
+    setMaximized(next);
+
+    if (!next) return;
+
+    setInteractive(true);
+    if (wasMinimized) setMinimized(false);
+    resetWithWelcome();
+  });
+};
+
+const onMinimize = () => {
+  const next = !$minimized.get();
+  const wasMaximized = $maximized.get();
+
+  if (next && wasMaximized) {
+    startViewTransition(() => {
+      setMinimized(next);
+      setMaximized(false);
+    });
+
+    return;
+  }
+
+  setMinimized(next);
+};
+
 const SessionTabs: FC<{ sessionLabel: string }> = ({ sessionLabel }) => (
   <div className={tabsBar()}>
-    <Tab tone="session" icon={tmux} label={sessionLabel} />
-    <Tab idx={1} icon={gnubash} label="zsh" active />
-    <Tab idx={2} icon={neovim} label="nvim" href="/#skills" hideOnMobile />
-    <Tab idx={3} icon={folderGit2} label="~/dotfiles" href="https://github.com/ChadLefort" hideOnMobile />
-    <Tab idx={4} mobileIdx={2} icon={folder} label="~/projects" href="/projects" />
+    <Tab tone="session" icon={TmuxIcon} label={sessionLabel} />
+    <Tab idx={1} icon={GnubashIcon} label="zsh" active />
+    <Tab idx={2} icon={NeovimIcon} label="nvim" href="/#skills" hideOnMobile />
+    <Tab idx={3} icon={FolderGit2} label="~/dotfiles" href="https://github.com/ChadLefort" hideOnMobile />
+    <Tab idx={4} mobileIdx={2} icon={Folder} label="~/projects" href="/projects" />
   </div>
 );
 
@@ -202,45 +238,6 @@ export const Terminal: FC = () => {
       setClosed(true);
       setClosing(false);
     }, 240);
-  };
-
-  const resetWithWelcome = () => {
-    if ($welcomeShown.get()) return;
-
-    setLines([]);
-    appendLines(WELCOME_LINES);
-    setWelcomeShown(true);
-  };
-
-  const onMaximize = () => {
-    const next = !$maximized.get();
-    const wasMinimized = $minimized.get();
-
-    startViewTransition(() => {
-      setMaximized(next);
-
-      if (!next) return;
-
-      setInteractive(true);
-      if (wasMinimized) setMinimized(false);
-      resetWithWelcome();
-    });
-  };
-
-  const onMinimize = () => {
-    const next = !$minimized.get();
-    const wasMaximized = $maximized.get();
-
-    if (next && wasMaximized) {
-      startViewTransition(() => {
-        setMinimized(next);
-        setMaximized(false);
-      });
-
-      return;
-    }
-
-    setMinimized(next);
   };
 
   return (

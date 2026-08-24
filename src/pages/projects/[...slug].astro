@@ -1,6 +1,7 @@
 ---
 import { getImage, Picture } from 'astro:assets';
 import { type CollectionEntry, getCollection, render } from 'astro:content';
+import type { ComponentProps } from 'astro/types';
 import { Icon } from 'astro-icon/components';
 import { GALLERY_FULL_IMAGE_MAX_WIDTH } from '~/components/ProjectGallery/constants';
 import { ProjectHeroGalleryButton } from '~/components/ProjectGallery/ProjectHeroGalleryButton';
@@ -112,6 +113,17 @@ const gallery = await Promise.all(
   })
 );
 
+const coverImage: Partial<ComponentProps<typeof Picture>> = {
+  widths: [640, 960, 1280, 1600],
+  sizes: '(min-width: 768px) 640px, 100vw',
+  formats: ['avif', 'webp'],
+  fallbackFormat: 'webp',
+  quality: 72,
+  loading: 'eager',
+  fetchpriority: 'high',
+  class: 'size-full object-cover object-top'
+};
+
 const coverUrl = project.data.cover
   ? new URL((await getImage({ src: project.data.cover, width: 1200, format: 'webp' })).src, site.siteUrl).toString()
   : undefined;
@@ -204,40 +216,24 @@ const breadcrumbLd = {
           </div>
 
           {
-            project.data.cover && gallery.length > 0 && (
-              <ProjectHeroGalleryButton client:idle>
+            project.data.cover &&
+              (gallery.length > 0 ? (
+                <ProjectHeroGalleryButton client:idle>
+                  <Picture
+                    src={project.data.cover}
+                    alt={project.data.coverAlt ?? project.data.title}
+                    {...coverImage}
+                    pictureAttributes={{ class: 'block size-full' }}
+                  />
+                </ProjectHeroGalleryButton>
+              ) : (
                 <Picture
                   src={project.data.cover}
                   alt={project.data.coverAlt ?? project.data.title}
-                  widths={[640, 960, 1280, 1600]}
-                  sizes="(min-width: 768px) 640px, 100vw"
-                  formats={['avif', 'webp']}
-                  fallbackFormat="webp"
-                  quality={72}
-                  loading="eager"
-                  fetchpriority="high"
-                  pictureAttributes={{ class: 'block size-full' }}
-                  class="size-full object-cover object-top"
+                  {...coverImage}
+                  pictureAttributes={{ class: 'block aspect-video w-full overflow-hidden rounded-2xl' }}
                 />
-              </ProjectHeroGalleryButton>
-            )
-          }
-          {
-            project.data.cover && gallery.length === 0 && (
-              <Picture
-                src={project.data.cover}
-                alt={project.data.coverAlt ?? project.data.title}
-                widths={[640, 960, 1280, 1600]}
-                sizes="(min-width: 768px) 640px, 100vw"
-                formats={['avif', 'webp']}
-                fallbackFormat="webp"
-                quality={72}
-                loading="eager"
-                fetchpriority="high"
-                pictureAttributes={{ class: 'block aspect-video w-full overflow-hidden rounded-2xl' }}
-                class="size-full object-cover object-top"
-              />
-            )
+              ))
           }
         </div>
       </div>

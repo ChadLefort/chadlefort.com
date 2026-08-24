@@ -51,13 +51,22 @@ export const buildUnknownCommandText = (name: string) => {
   return `${name}: command not found.${suggestion}`;
 };
 
+// querySelector throws a DOMException on selectors it can't parse
+const findHashTarget = (hash: string) => {
+  try {
+    return document.querySelector(hash);
+  } catch {
+    return null;
+  }
+};
+
 export const goTo = (route: string) => {
   window.setTimeout(() => {
     const url = new URL(route, window.location.origin);
     const samePath = url.pathname === window.location.pathname;
 
     if (samePath && url.hash) {
-      const element = document.querySelector(url.hash);
+      const element = findHashTarget(url.hash);
 
       if (element) {
         setMaximized(false);

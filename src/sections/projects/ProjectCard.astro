@@ -65,6 +65,13 @@ const initials = project.data.title
 const cardLink = tv({
   base: ['project-card group card card-hover-subtle flex h-full flex-col rounded-2xl p-4 md:p-5', focusRing()]
 });
+
+const coverSizes = featured ? '(min-width: 768px) 640px, 100vw' : '(min-width: 768px) 360px, 100vw';
+const coverLoading = index < 2 ? 'eager' : 'lazy';
+const coverDecoding = index === 0 ? 'sync' : 'async';
+const coverFetchPriority = index === 0 ? 'high' : 'auto';
+const bodyPadding = compact ? 'md:pt-4 md:pb-1' : 'md:pt-5 md:pb-2';
+const headingSize = compact ? 'text-2xl' : 'text-2xl md:text-3xl';
 ---
 
 <a href={`/projects/${project.id}`} class={cardLink()}>
@@ -75,18 +82,18 @@ const cardLink = tv({
           src={project.data.cover}
           alt={project.data.coverAlt ?? project.data.title}
           widths={[640, 960, 1280]}
-          sizes={featured ? '(min-width: 768px) 640px, 100vw' : '(min-width: 768px) 360px, 100vw'}
+          sizes={coverSizes}
           formats={['avif', 'webp']}
           fallbackFormat="webp"
           quality={68}
-          loading={index < 2 ? 'eager' : 'lazy'}
-          decoding={index === 0 ? 'sync' : 'async'}
-          fetchpriority={index === 0 ? 'high' : 'auto'}
+          loading={coverLoading}
+          decoding={coverDecoding}
+          fetchpriority={coverFetchPriority}
           pictureAttributes={{ class: mediaFrame({ featured }) }}
           class="size-full object-cover object-top transition duration-[var(--motion-duration-reveal)] ease-[var(--motion-ease-settle)] group-hover:scale-[1.015]"
         />
       ) : (
-        <div class={`${mediaFrame({ featured })} flex items-center justify-center bg-gradient-to-br ${project.data.accent}`}>
+        <div class={`${mediaFrame({ featured })} flex items-center justify-center bg-linear-to-br ${project.data.accent}`}>
           {project.data.icon ? (
             <Icon
               name={project.data.icon}
@@ -102,8 +109,8 @@ const cardLink = tv({
     }
   </div>
 
-  <div class={`flex min-w-0 flex-1 flex-col gap-3 px-1 pt-4 pb-1 md:px-2 ${compact ? 'md:pt-4 md:pb-1' : 'md:pt-5 md:pb-2'}`}>
-    <HeadingTag class={`font-display break-words ${compact ? 'text-2xl' : 'text-2xl md:text-3xl'}`}>{project.data.title}</HeadingTag>
+  <div class={`flex min-w-0 flex-1 flex-col gap-3 px-1 pt-4 pb-1 md:px-2 ${bodyPadding}`}>
+    <HeadingTag class={`font-display break-words ${headingSize}`}>{project.data.title}</HeadingTag>
     <p class="text-accent font-mono text-sm break-words">{project.data.subtitle}</p>
     <p class="text-fg-muted leading-relaxed break-words">{project.data.summary}</p>
     {

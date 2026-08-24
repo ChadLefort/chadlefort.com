@@ -77,7 +77,7 @@ export const JobTimeline: FC<Props> = ({ jobs }) => (
   <div className="relative w-full">
     <span
       aria-hidden="true"
-      className="pointer-events-none absolute top-2 bottom-2 left-0 w-px bg-gradient-to-b from-transparent via-accent/55 to-transparent print:hidden"
+      className="pointer-events-none absolute top-2 bottom-2 left-0 w-px bg-linear-to-b from-transparent via-accent/55 to-transparent print:hidden"
     />
 
     <ol className="print:resume-timeline flex flex-col gap-5 md:gap-6" aria-label="Employment history">

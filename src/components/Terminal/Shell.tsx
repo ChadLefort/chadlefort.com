@@ -67,6 +67,44 @@ const outputRow = tv({
 const promptRow = tv({ base: 'flex items-center gap-1.5' });
 const promptArrow = tv({ base: 'text-term-prompt shrink-0' });
 
+type ShellLineProps = {
+  line: Line;
+  cwd: string[];
+  years: number;
+  time: string | null;
+};
+
+const ShellLine: FC<ShellLineProps> = ({ line, cwd, years, time }) => {
+  if (line.kind === 'status') {
+    return (
+      <div className="mt-4 mb-2 first:mt-0">
+        <StatusLine
+          cwd={formatPath(line.cwd ?? cwd)}
+          branch="feat/redesign"
+          modified={2}
+          added={years}
+          removed={0}
+          time={line.time ?? time}
+        />
+      </div>
+    );
+  }
+
+  if (line.kind === 'cmd') {
+    return (
+      <p className="m-0">
+        <span className={promptArrow()}>→</span> <span>{line.text}</span>
+      </p>
+    );
+  }
+
+  if (line.kind === 'node') {
+    return <div className="text-term-fg">{line.node}</div>;
+  }
+
+  return <div className={outputRow({ kind: line.kind })}>{line.text || ' '}</div>;
+};
+
 export const Shell: FC = () => {
   const host = useSiteHost();
   const lines = useStore($lines, { ssr: 'initial' });
@@ -172,45 +210,6 @@ export const Shell: FC = () => {
 
   const shellIsEngaged = maximized || engaged;
 
-  const renderLine = (line: Line) => {
-    if (line.kind === 'status') {
-      return (
-        <div key={line.id} className="mt-4 mb-2 first:mt-0">
-          <StatusLine
-            cwd={formatPath(line.cwd ?? cwd)}
-            branch="feat/redesign"
-            modified={2}
-            added={years}
-            removed={0}
-            time={line.time ?? time}
-          />
-        </div>
-      );
-    }
-
-    if (line.kind === 'cmd') {
-      return (
-        <p key={line.id} className="m-0">
-          <span className={promptArrow()}>→</span> <span>{line.text}</span>
-        </p>
-      );
-    }
-
-    if (line.kind === 'node') {
-      return (
-        <div key={line.id} className="text-term-fg">
-          {line.node}
-        </div>
-      );
-    }
-
-    return (
-      <div key={line.id} className={outputRow({ kind: line.kind })}>
-        {line.text || ' '}
-      </div>
-    );
-  };
-
   return (
     <FocusScope contain={maximized} restoreFocus>
       <div
@@ -222,7 +221,9 @@ export const Shell: FC = () => {
         tabIndex={-1}
         {...focusWithinProps}
       >
-        {lines.map(renderLine)}
+        {lines.map((line) => (
+          <ShellLine key={line.id} line={line} cwd={cwd} years={years} time={time} />
+        ))}
 
         {phase === 'cmd' && (
           <p className="m-0">

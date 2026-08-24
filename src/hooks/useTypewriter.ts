@@ -11,7 +11,9 @@ export const useTypewriter = (text: string, { perChar = 60, enabled = true, onCo
   const [typed, setTyped] = useState('');
   const completeRef = useRef(onComplete);
 
-  completeRef.current = onComplete;
+  useEffect(() => {
+    completeRef.current = onComplete;
+  }, [onComplete]);
 
   useEffect(() => {
     if (!enabled) return;

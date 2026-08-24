@@ -1,18 +1,20 @@
-import type { IconifyIcon } from '@iconify/react';
-import bracesIcon from '@iconify-icons/lucide/braces';
-import fileIcon from '@iconify-icons/lucide/file';
-import fileCodeIcon from '@iconify-icons/lucide/file-code';
-import fileTextIcon from '@iconify-icons/lucide/file-text';
-import folderIcon from '@iconify-icons/lucide/folder';
-import scrollTextIcon from '@iconify-icons/lucide/scroll-text';
-import terminalIcon from '@iconify-icons/lucide/terminal';
 import dedent from 'dedent';
+import {
+  Braces as BracesIcon,
+  FileCode as FileCodeIcon,
+  File as FileIcon,
+  FileText as FileTextIcon,
+  Folder as FolderIcon,
+  ScrollText as ScrollTextIcon,
+  Terminal as TerminalIcon
+} from 'lucide-react';
 import { aboutQuotes } from '~/data/about';
 import { education } from '~/data/education';
 import { jobs } from '~/data/jobs';
 import { locationLong, site, yearsOfExperience } from '~/data/site';
 import { skills } from '~/data/skills';
 import { formatDateRange, formatMonthYear } from '~/utils/date';
+import type { TermIcon } from './icons';
 
 type GitStatus = '--' | 'N' | 'M' | 'I';
 
@@ -180,21 +182,21 @@ export const INITIAL_CWD = ['development', 'chadlefort.com'];
 
 export const cwdForHost = (host: string): string[] => ['development', host];
 
-type IconSpec = { icon: IconifyIcon; color: string };
+type IconSpec = { icon: TermIcon; color: string };
 
 export const iconForNode = (node: FsNode): IconSpec => {
-  if (node.type === 'dir') return { icon: folderIcon, color: 'text-term-info' };
+  if (node.type === 'dir') return { icon: FolderIcon, color: 'text-term-info' };
 
   const lower = node.name.toLowerCase();
 
-  if (isMdFile(node.name)) return { icon: fileTextIcon, color: 'text-term-info' };
-  if (lower.endsWith('.json')) return { icon: bracesIcon, color: 'text-term-branch' };
-  if (lower.endsWith('.log')) return { icon: scrollTextIcon, color: 'text-term-comment' };
+  if (isMdFile(node.name)) return { icon: FileTextIcon, color: 'text-term-info' };
+  if (lower.endsWith('.json')) return { icon: BracesIcon, color: 'text-term-branch' };
+  if (lower.endsWith('.log')) return { icon: ScrollTextIcon, color: 'text-term-comment' };
   if (lower.endsWith('.tsx') || lower.endsWith('.ts') || lower.endsWith('.js'))
-    return { icon: fileCodeIcon, color: 'text-term-info' };
-  if (!lower.includes('.')) return { icon: terminalIcon, color: 'text-term-add' };
+    return { icon: FileCodeIcon, color: 'text-term-info' };
+  if (!lower.includes('.')) return { icon: TerminalIcon, color: 'text-term-add' };
 
-  return { icon: fileIcon, color: 'text-term-fg' };
+  return { icon: FileIcon, color: 'text-term-fg' };
 };
 
 export const resolvePath = (cwd: string[], target: string): string[] | null => {

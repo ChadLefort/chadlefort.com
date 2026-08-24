@@ -1,6 +1,6 @@
-import { Icon, type IconifyIcon } from '@iconify/react';
 import type { FC } from 'react';
 import { tv } from 'tailwind-variants';
+import type { TermIcon } from './icons';
 
 const segmentStyles = tv({
   base: 'inline-flex min-w-0 items-center gap-1 whitespace-nowrap sm:gap-1.5',
@@ -22,7 +22,7 @@ const segmentStyles = tv({
 });
 
 type SegmentProps = {
-  icon?: IconifyIcon;
+  icon?: TermIcon;
   text?: string;
   tone?: 'fg' | 'branch' | 'add' | 'del' | 'info';
   hideOnMobile?: boolean;
@@ -30,9 +30,16 @@ type SegmentProps = {
   'data-testid'?: string;
 };
 
-export const Segment: FC<SegmentProps> = ({ icon, text, tone, hideOnMobile, className, 'data-testid': dataTestId }) => (
+export const Segment: FC<SegmentProps> = ({
+  icon: SegmentIcon,
+  text,
+  tone,
+  hideOnMobile,
+  className,
+  'data-testid': dataTestId
+}) => (
   <span className={segmentStyles({ tone, hideOnMobile, className })} data-testid={dataTestId}>
-    {icon && <Icon icon={icon} className="size-3 shrink-0 sm:size-3.5" aria-hidden="true" />}
+    {SegmentIcon && <SegmentIcon className="size-3 shrink-0 sm:size-3.5" aria-hidden="true" />}
     {text && <span className="font-mono text-[inherit] leading-none">{text}</span>}
   </span>
 );

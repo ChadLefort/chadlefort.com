@@ -1,12 +1,7 @@
-import clock from '@iconify-icons/lucide/clock';
-import gitBranch from '@iconify-icons/lucide/git-branch';
-import minus from '@iconify-icons/lucide/minus';
-import pencilLine from '@iconify-icons/lucide/pencil-line';
-import plus from '@iconify-icons/lucide/plus';
-import apple from '@iconify-icons/simple-icons/apple';
-import nodedotjs from '@iconify-icons/simple-icons/nodedotjs';
+import { Clock, GitBranch, Minus, PencilLine, Plus } from 'lucide-react';
 import type { FC } from 'react';
 import { tv } from 'tailwind-variants';
+import { AppleIcon, NodeIcon } from './icons';
 import { Segment } from './Segment';
 import { Sep } from './Sep';
 
@@ -49,23 +44,23 @@ export const StatusLine: FC<Props> = ({
 }) => {
   return (
     <div className={statusStyles({ compact })}>
-      <Segment icon={apple} text="clefort" />
+      <Segment icon={AppleIcon} text="clefort" />
       <Sep />
       <Segment text={cwd} hideOnMobile />
       <Sep hideOnMobile />
-      <Segment icon={gitBranch} text={branch} tone="branch" />
+      <Segment icon={GitBranch} text={branch} tone="branch" />
       {(modified != null || added != null || removed != null) && (
         <>
           <Sep hideOnMobile />
-          {modified != null && <Segment icon={pencilLine} text={String(modified)} hideOnMobile />}
-          {added != null && <Segment icon={plus} text={String(added)} tone="add" hideOnMobile />}
-          {removed != null && <Segment icon={minus} text={String(removed)} tone="del" hideOnMobile />}
+          {modified != null && <Segment icon={PencilLine} text={String(modified)} hideOnMobile />}
+          {added != null && <Segment icon={Plus} text={String(added)} tone="add" hideOnMobile />}
+          {removed != null && <Segment icon={Minus} text={String(removed)} tone="del" hideOnMobile />}
         </>
       )}
       <Sep hideOnMobile />
-      <Segment icon={nodedotjs} text={nodeVersion} tone="add" hideOnMobile />
+      <Segment icon={NodeIcon} text={nodeVersion} tone="add" hideOnMobile />
       <Sep />
-      <Segment icon={clock} text={time ?? '··:··'} data-testid="status-time" />
+      <Segment icon={Clock} text={time ?? '··:··'} data-testid="status-time" />
     </div>
   );
 };

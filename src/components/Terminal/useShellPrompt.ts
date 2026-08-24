@@ -71,6 +71,10 @@ const completePathToken = (root: FsDir, cwd: string[], tokens: string[], last: s
   return { kind: 'output', value: matches.join('  ') };
 };
 
+const clearOutput = () => {
+  storeSetLines([]);
+};
+
 const applyCompletionResult = (
   result: CompletionResult,
   setInput: (value: string) => void,
@@ -165,10 +169,6 @@ export const useShellPrompt = ({ root, cwd, history, years, time, append, goTo }
 
     setHistIdx(next);
     setInput(history[next]);
-  };
-
-  const clearOutput = () => {
-    storeSetLines([]);
   };
 
   const onKey = (event: KeyboardEvent<HTMLInputElement>) => {

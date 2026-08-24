@@ -18,6 +18,65 @@ import {
 import type { ProjectGalleryLightboxProps } from './types';
 import { GALLERY_VIEW_TRANSITION } from './viewTransition';
 
+const CloseButton: FC = () => (
+  <IconButton
+    slot="close"
+    label="Close screenshots"
+    icon={<X className="size-5" />}
+    color="overlay"
+    className="shrink-0"
+  />
+);
+
+type ZoomControlsProps = Pick<
+  ProjectGalleryLightboxProps,
+  'canZoomIn' | 'canZoomOut' | 'onZoomIn' | 'onZoomOut' | 'zoomLabel'
+>;
+
+const ZoomControls: FC<ZoomControlsProps> = ({ canZoomIn, canZoomOut, onZoomIn, onZoomOut, zoomLabel }) => (
+  <>
+    <Button
+      variant="ghost"
+      color="overlay"
+      size="sm"
+      onPress={onZoomOut}
+      isDisabled={!canZoomOut}
+      className={zoomButton()}
+    >
+      <ZoomOut className="size-4" />
+      Zoom out
+    </Button>
+    <div className={zoomValue({ desktop: true })}>{zoomLabel}</div>
+    <Button
+      variant="ghost"
+      color="overlay"
+      size="sm"
+      onPress={onZoomIn}
+      isDisabled={!canZoomIn}
+      className={zoomButton()}
+    >
+      <ZoomIn className="size-4" />
+      Zoom in
+    </Button>
+  </>
+);
+
+type FooterNavProps = Pick<ProjectGalleryLightboxProps, 'active' | 'imagesLength' | 'onNext' | 'onPrev'>;
+
+const FooterNav: FC<FooterNavProps> = ({ active, imagesLength, onNext, onPrev }) => (
+  <div className="flex items-center justify-center gap-3 px-3 pb-[max(0.5rem,env(safe-area-inset-bottom))] sm:gap-4 sm:px-4 sm:pb-6">
+    {imagesLength > 1 && (
+      <IconButton label="Previous image" onPress={onPrev} icon={<ChevronLeft className="size-5" />} />
+    )}
+    <div className="flex flex-col items-center gap-1">
+      <span className="text-overlay-muted font-mono text-xs">
+        {active + 1} / {imagesLength}
+      </span>
+    </div>
+    {imagesLength > 1 && <IconButton label="Next image" onPress={onNext} icon={<ChevronRight className="size-5" />} />}
+  </div>
+);
+
 export const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
   active,
   activeImage,
@@ -53,13 +112,7 @@ export const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
           <Heading slot="title" className="font-display min-w-0 truncate text-lg">
             {title}
           </Heading>
-          <IconButton
-            slot="close"
-            label="Close screenshots"
-            icon={<X className="size-5" />}
-            color="overlay"
-            className="shrink-0"
-          />
+          <CloseButton />
         </div>
 
         <div className={desktopLightboxHeader()}>
@@ -67,36 +120,14 @@ export const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
             {title}
           </Heading>
           <div className={lightboxControls({ desktop: true })}>
-            <Button
-              variant="ghost"
-              color="overlay"
-              size="sm"
-              onPress={onZoomOut}
-              isDisabled={!canZoomOut}
-              className={zoomButton()}
-            >
-              <ZoomOut className="size-4" />
-              Zoom out
-            </Button>
-            <div className={zoomValue({ desktop: true })}>{zoomLabel}</div>
-            <Button
-              variant="ghost"
-              color="overlay"
-              size="sm"
-              onPress={onZoomIn}
-              isDisabled={!canZoomIn}
-              className={zoomButton()}
-            >
-              <ZoomIn className="size-4" />
-              Zoom in
-            </Button>
-            <IconButton
-              slot="close"
-              label="Close screenshots"
-              icon={<X className="size-5" />}
-              color="overlay"
-              className="shrink-0"
+            <ZoomControls
+              canZoomIn={canZoomIn}
+              canZoomOut={canZoomOut}
+              onZoomIn={onZoomIn}
+              onZoomOut={onZoomOut}
+              zoomLabel={zoomLabel}
             />
+            <CloseButton />
           </div>
         </div>
 
@@ -148,19 +179,7 @@ export const ProjectGalleryLightbox: FC<ProjectGalleryLightboxProps> = ({
           </div>
         </div>
 
-        <div className="flex items-center justify-center gap-3 px-3 pb-[max(0.5rem,env(safe-area-inset-bottom))] sm:gap-4 sm:px-4 sm:pb-6">
-          {imagesLength > 1 && (
-            <IconButton label="Previous image" onPress={onPrev} icon={<ChevronLeft className="size-5" />} />
-          )}
-          <div className="flex flex-col items-center gap-1">
-            <span className="text-overlay-muted font-mono text-xs">
-              {active + 1} / {imagesLength}
-            </span>
-          </div>
-          {imagesLength > 1 && (
-            <IconButton label="Next image" onPress={onNext} icon={<ChevronRight className="size-5" />} />
-          )}
-        </div>
+        <FooterNav active={active} imagesLength={imagesLength} onNext={onNext} onPrev={onPrev} />
       </Dialog>
     </Modal>
   </ModalOverlay>

@@ -119,12 +119,10 @@ export const useAboutMeCarousel = (slideCount: number, canAutoplay: boolean) => 
       if (slideCount <= 1) return;
 
       const clamped = Math.min(Math.max(nextIndex, 0), slideCount - 1);
-      setIndex((current) => {
-        if (clamped !== current) setAnimating(true);
-        return clamped;
-      });
+      if (clamped !== index) setAnimating(true);
+      setIndex(clamped);
     },
-    [slideCount]
+    [index, slideCount]
   );
 
   const goNext = useCallback(() => {

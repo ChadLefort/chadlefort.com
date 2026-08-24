@@ -1,104 +1,48 @@
-import type { Touch } from 'react';
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { startViewTransition } from '~/utils/startViewTransition';
-import type { GalleryImage, PinchAnchor, PinchState, SwipeState, TouchHandler } from './types';
-import {
-  computePinchAnchor,
-  computePinchScrollPosition,
-  endPinchTouchGesture,
-  getClickZoomIndex,
-  getClosestZoomIndex,
-  getDefaultZoomIndex,
-  getLightboxLayoutStyles,
-  getTouchDistance,
-  getTouchMidpoint,
-  getZoomLevelsForImage,
-  handleSwipeTouchEnd
-} from './utils';
+import type { GalleryImage, PinchAnchor } from './types';
+import { useLightboxGestures } from './useLightboxGestures';
+import { useLightboxZoom } from './useLightboxZoom';
+import { usePinchViewportAnchor } from './usePinchViewportAnchor';
+import { getLightboxLayoutStyles } from './utils';
 import { clearGalleryThumbTransition, primeGalleryThumbTransition } from './viewTransition';
 
 export const useProjectGalleryLightbox = (images: GalleryImage[]) => {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
-  const [zoomIndex, setZoomIndex] = useState(0);
-  const [pinchZoomLevel, setPinchZoomLevel] = useState<number | null>(null);
-  const [isPinching, setIsPinching] = useState(false);
-  const pinchZoomLevelRef = useRef<number | null>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const imageButtonRef = useRef<HTMLButtonElement>(null);
-  const swipeStartRef = useRef<SwipeState | null>(null);
-  const pinchStateRef = useRef<PinchState | null>(null);
   const pinchAnchorRef = useRef<PinchAnchor | null>(null);
-  const pinchAnchorFrameRef = useRef<number | null>(null);
-  const suppressImageToggleRef = useRef(false);
 
   const activeImage = images[active];
-  const zoomLevels = useMemo(() => getZoomLevelsForImage(activeImage), [activeImage]);
-  const maxZoomIndex = zoomLevels.length - 1;
-  const steppedZoomLevel = zoomLevels[zoomIndex] ?? 1;
-  const effectiveZoomLevel = pinchZoomLevel ?? steppedZoomLevel;
-  const zoomed = zoomIndex > 0 || (pinchZoomLevel !== null && pinchZoomLevel > 1);
-  const zoomLabel = `${Math.round(effectiveZoomLevel * 100)}%`;
-  const canZoomIn = zoomIndex < maxZoomIndex;
-  const canZoomOut = zoomIndex > 0;
 
-  const lightboxLayoutStyles = useMemo(() => {
-    if (!activeImage) {
-      return { image: { transform: 'scale(1)', transformOrigin: '0 0' } };
-    }
+  const {
+    zoomIndex,
+    pinchZoomLevel,
+    zoomLevels,
+    maxZoomIndex,
+    effectiveZoomLevel,
+    zoomed,
+    zoomLabel,
+    canZoomIn,
+    canZoomOut,
+    setContinuousPinchZoom,
+    snapPinchZoom,
+    resetZoom,
+    zoomIn,
+    zoomOut,
+    toggleImageZoom
+  } = useLightboxZoom({ images, active, pinchAnchorRef });
 
-    return getLightboxLayoutStyles(activeImage, effectiveZoomLevel, zoomed, !isPinching);
-  }, [activeImage, effectiveZoomLevel, isPinching, zoomed]);
-
-  const setContinuousPinchZoom = useCallback((level: number | null) => {
-    pinchZoomLevelRef.current = level;
-    setPinchZoomLevel(level);
-  }, []);
-
-  const snapPinchZoom = useCallback(() => {
-    const level = pinchZoomLevelRef.current;
-    if (level !== null) {
-      setZoomIndex(getClosestZoomIndex(zoomLevels, level));
-    }
-    pinchAnchorRef.current = null;
-    setContinuousPinchZoom(null);
-  }, [setContinuousPinchZoom, zoomLevels]);
-
-  const resetZoom = useCallback(
-    (imageIndex = active) => {
-      const image = images[imageIndex];
-      const levels = getZoomLevelsForImage(image);
-
-      pinchAnchorRef.current = null;
-      setContinuousPinchZoom(null);
-      setZoomIndex(getDefaultZoomIndex(image, levels));
-    },
-    [active, images, setContinuousPinchZoom]
-  );
-
-  const zoomIn = useCallback(() => {
-    pinchAnchorRef.current = null;
-    setContinuousPinchZoom(null);
-    setZoomIndex((value) => Math.min(value + 1, maxZoomIndex));
-  }, [maxZoomIndex, setContinuousPinchZoom]);
-
-  const zoomOut = useCallback(() => {
-    pinchAnchorRef.current = null;
-    setContinuousPinchZoom(null);
-    setZoomIndex((value) => Math.max(value - 1, 0));
-  }, [setContinuousPinchZoom]);
-
-  const toggleImageZoom = useCallback(() => {
-    pinchAnchorRef.current = null;
-    setContinuousPinchZoom(null);
-    setZoomIndex((value) => {
-      if (value > 0) return 0;
-
-      if (!activeImage) return 0;
-
-      return getClickZoomIndex(activeImage, zoomLevels);
-    });
-  }, [activeImage, setContinuousPinchZoom, zoomLevels]);
+  const { preserveViewportAnchor, rememberPinchAnchor, updatePinchTouchPoint } = usePinchViewportAnchor({
+    open,
+    zoomed,
+    zoomIndex,
+    pinchZoomLevel,
+    viewportRef,
+    imageButtonRef,
+    pinchAnchorRef
+  });
 
   const openAt = useCallback(
     (index: number) => {
@@ -126,180 +70,38 @@ export const useProjectGalleryLightbox = (images: GalleryImage[]) => {
     resetZoom(prevIndex);
   }, [active, images.length, resetZoom]);
 
-  const preserveViewportAnchor = useCallback(() => {
-    const viewport = viewportRef.current;
-    if (!viewport) return;
+  const {
+    isPinching,
+    clearGestureState,
+    handleImageTouchStart,
+    handleImageTouchMove,
+    handleImageTouchEnd,
+    handleImageClick
+  } = useLightboxGestures({
+    imageCount: images.length,
+    open,
+    zoomed,
+    zoomLevels,
+    maxZoomIndex,
+    effectiveZoomLevel,
+    viewportRef,
+    imageButtonRef,
+    setContinuousPinchZoom,
+    snapPinchZoom,
+    rememberPinchAnchor,
+    updatePinchTouchPoint,
+    toggleImageZoom,
+    next,
+    prev
+  });
 
-    const anchorX =
-      viewport.scrollWidth > viewport.clientWidth
-        ? (viewport.scrollLeft + viewport.clientWidth / 2) / viewport.scrollWidth
-        : 0.5;
-    const anchorY =
-      viewport.scrollHeight > viewport.clientHeight
-        ? (viewport.scrollTop + viewport.clientHeight / 2) / viewport.scrollHeight
-        : 0.5;
-
-    const apply = () => {
-      const nextViewport = viewportRef.current;
-      if (!nextViewport) return;
-
-      const maxScrollLeft = nextViewport.scrollWidth - nextViewport.clientWidth;
-      const maxScrollTop = nextViewport.scrollHeight - nextViewport.clientHeight;
-
-      if (maxScrollLeft <= 0 && maxScrollTop <= 0) return;
-
-      nextViewport.scrollLeft = Math.max(0, anchorX * nextViewport.scrollWidth - nextViewport.clientWidth / 2);
-      nextViewport.scrollTop = Math.max(0, anchorY * nextViewport.scrollHeight - nextViewport.clientHeight / 2);
-    };
-
-    apply();
-    window.requestAnimationFrame(apply);
-  }, []);
-
-  const applyPinchAnchor = useCallback(() => {
-    const viewport = viewportRef.current;
-    const anchor = pinchAnchorRef.current;
-    if (!viewport || !anchor) return;
-
-    const nextScroll = computePinchScrollPosition(anchor, viewport);
-    viewport.scrollLeft = nextScroll.scrollLeft;
-    viewport.scrollTop = nextScroll.scrollTop;
-  }, []);
-
-  const getPinchContentRect = useCallback(() => {
-    const image = imageButtonRef.current?.querySelector('img');
-    return image?.getBoundingClientRect() ?? imageButtonRef.current?.getBoundingClientRect();
-  }, []);
-
-  const updatePinchTouchPoint = useCallback((touchA: Touch, touchB: Touch) => {
-    const viewport = viewportRef.current;
-    const anchor = pinchAnchorRef.current;
-    if (!viewport || !anchor) return;
-
-    const viewportRect = viewport.getBoundingClientRect();
-    const midpoint = getTouchMidpoint(touchA, touchB);
-    anchor.localX = midpoint.x - viewportRect.left;
-    anchor.localY = midpoint.y - viewportRect.top;
-  }, []);
-
-  const rememberPinchAnchor = useCallback(
-    (touchA: Touch, touchB: Touch) => {
-      const viewport = viewportRef.current;
-      const contentRect = getPinchContentRect();
-      if (!viewport || !contentRect) return;
-
-      pinchAnchorRef.current = computePinchAnchor(viewport, contentRect, getTouchMidpoint(touchA, touchB));
-    },
-    [getPinchContentRect]
-  );
-
-  const keepPinchAnchorStable = useCallback(() => {
-    if (pinchAnchorFrameRef.current !== null) {
-      window.cancelAnimationFrame(pinchAnchorFrameRef.current);
+  const lightboxLayoutStyles = useMemo(() => {
+    if (!activeImage) {
+      return { image: { transform: 'scale(1)', transformOrigin: '0 0' } };
     }
 
-    const startedAt = performance.now();
-    const tick = (now: number) => {
-      applyPinchAnchor();
-
-      if (now - startedAt < 560 && pinchAnchorRef.current) {
-        pinchAnchorFrameRef.current = window.requestAnimationFrame(tick);
-        return;
-      }
-
-      pinchAnchorFrameRef.current = null;
-    };
-
-    pinchAnchorFrameRef.current = window.requestAnimationFrame(tick);
-  }, [applyPinchAnchor]);
-
-  const clearGestureState = useCallback(() => {
-    swipeStartRef.current = null;
-    pinchStateRef.current = null;
-    snapPinchZoom();
-    setIsPinching(false);
-  }, [snapPinchZoom]);
-
-  const isSwipeBlocked = useCallback(() => {
-    if (!zoomed) return false;
-
-    const viewport = viewportRef.current;
-    if (!viewport) return false;
-
-    return viewport.scrollWidth > viewport.clientWidth + 4;
-  }, [zoomed]);
-
-  const handleImageTouchStart = useCallback<TouchHandler>(
-    (event) => {
-      if (event.touches.length >= 2) {
-        setIsPinching(true);
-        pinchStateRef.current = {
-          distance: getTouchDistance(event.touches[0], event.touches[1]),
-          zoomLevel: effectiveZoomLevel
-        };
-        rememberPinchAnchor(event.touches[0], event.touches[1]);
-        swipeStartRef.current = null;
-        suppressImageToggleRef.current = true;
-        return;
-      }
-
-      pinchStateRef.current = null;
-
-      if (event.touches.length !== 1 || images.length <= 1) return;
-
-      swipeStartRef.current = {
-        x: event.touches[0].clientX,
-        y: event.touches[0].clientY
-      };
-      suppressImageToggleRef.current = false;
-    },
-    [effectiveZoomLevel, images.length, rememberPinchAnchor]
-  );
-
-  const handleImageTouchMove = useCallback<TouchHandler>(
-    (event) => {
-      const pinchState = pinchStateRef.current;
-
-      if (!pinchState || event.touches.length < 2) return;
-
-      updatePinchTouchPoint(event.touches[0], event.touches[1]);
-
-      const nextDistance = getTouchDistance(event.touches[0], event.touches[1]);
-      const scaledZoom = pinchState.zoomLevel * (nextDistance / pinchState.distance);
-      const minZoomLevel = zoomLevels[0] ?? 1;
-      const maxZoomLevel = zoomLevels[maxZoomIndex] ?? minZoomLevel;
-      const clampedZoom = Math.min(maxZoomLevel, Math.max(minZoomLevel, scaledZoom));
-
-      suppressImageToggleRef.current = true;
-      event.preventDefault();
-      setContinuousPinchZoom(clampedZoom);
-    },
-    [maxZoomIndex, setContinuousPinchZoom, updatePinchTouchPoint, zoomLevels]
-  );
-
-  const handleImageTouchEnd = useCallback<TouchHandler>(
-    (event) => {
-      if (endPinchTouchGesture(event, pinchStateRef, swipeStartRef)) {
-        if (event.touches.length < 2) {
-          snapPinchZoom();
-          setIsPinching(false);
-        }
-        return;
-      }
-
-      handleSwipeTouchEnd(event, swipeStartRef, suppressImageToggleRef, isSwipeBlocked, next, prev);
-    },
-    [isSwipeBlocked, next, prev, snapPinchZoom]
-  );
-
-  const handleImageClick = useCallback(() => {
-    if (suppressImageToggleRef.current) {
-      suppressImageToggleRef.current = false;
-      return;
-    }
-
-    toggleImageZoom();
-  }, [toggleImageZoom]);
+    return getLightboxLayoutStyles(activeImage, effectiveZoomLevel, zoomed, !isPinching);
+  }, [activeImage, effectiveZoomLevel, isPinching, zoomed]);
 
   const handleImageLoad = useCallback(() => {
     if (zoomed && !pinchAnchorRef.current) preserveViewportAnchor();
@@ -352,68 +154,6 @@ export const useProjectGalleryLightbox = (images: GalleryImage[]) => {
 
     return () => document.removeEventListener('keydown', onKey);
   }, [open, next, prev, resetZoom, zoomIn, zoomOut]);
-
-  useLayoutEffect(() => {
-    if (!open || pinchZoomLevel === null || !pinchAnchorRef.current) return;
-
-    applyPinchAnchor();
-  }, [applyPinchAnchor, open, pinchZoomLevel]);
-
-  useLayoutEffect(() => {
-    const shouldSettlePinchAnchor = open && zoomIndex >= 0 && pinchAnchorRef.current && pinchZoomLevel === null;
-    if (!shouldSettlePinchAnchor) return;
-
-    keepPinchAnchorStable();
-  }, [keepPinchAnchorStable, open, pinchZoomLevel, zoomIndex]);
-
-  useLayoutEffect(() => {
-    if (!open || !zoomed || pinchAnchorRef.current) return;
-
-    preserveViewportAnchor();
-  }, [open, preserveViewportAnchor, zoomed]);
-
-  useEffect(() => {
-    if (!open || !zoomed) return;
-
-    const frame = imageButtonRef.current?.querySelector('[data-gallery-morph]');
-    if (!frame) return;
-
-    const onTransitionEnd = (event: Event) => {
-      if (!(event instanceof TransitionEvent) || event.propertyName !== 'width' || pinchAnchorRef.current) return;
-
-      preserveViewportAnchor();
-    };
-
-    frame.addEventListener('transitionend', onTransitionEnd);
-
-    return () => frame.removeEventListener('transitionend', onTransitionEnd);
-  }, [open, preserveViewportAnchor, zoomed]);
-
-  useEffect(() => {
-    return () => {
-      if (pinchAnchorFrameRef.current !== null) {
-        window.cancelAnimationFrame(pinchAnchorFrameRef.current);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    const imageButton = imageButtonRef.current;
-    if (!open || !imageButton) return;
-
-    const preventNativeGesture = (event: Event) => event.preventDefault();
-    const listenerOptions = { passive: false };
-
-    imageButton.addEventListener('gesturestart', preventNativeGesture, listenerOptions);
-    imageButton.addEventListener('gesturechange', preventNativeGesture, listenerOptions);
-    imageButton.addEventListener('gestureend', preventNativeGesture, listenerOptions);
-
-    return () => {
-      imageButton.removeEventListener('gesturestart', preventNativeGesture);
-      imageButton.removeEventListener('gesturechange', preventNativeGesture);
-      imageButton.removeEventListener('gestureend', preventNativeGesture);
-    };
-  }, [open]);
 
   return {
     active,
