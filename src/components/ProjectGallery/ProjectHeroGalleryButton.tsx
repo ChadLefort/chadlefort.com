@@ -8,7 +8,7 @@ type Props = {
   children: ReactNode;
 };
 
-export const ProjectHeroGalleryButton: FC<Props> = ({ label = 'Open project screenshots', children }) => (
+export const ProjectHeroGalleryButton: FC<Props> = ({ label = 'View screenshots', children }) => (
   <Button
     aria-label={label}
     variant="card"
