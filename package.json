@@ -14,7 +14,7 @@
     "dev": "astro dev --host",
     "start": "astro dev --host",
     "prebuild": "bun scripts/generate-build-info.ts",
-    "build": "astro build",
+    "build": "bun --bun astro build",
     "assets:brand": "bun scripts/generate-brand-assets.ts",
     "assets:favicon": "bun scripts/generate-favicon.ts",
     "hooks:install": "bun scripts/install-git-hooks.ts",
