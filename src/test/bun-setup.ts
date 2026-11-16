@@ -1,5 +1,3 @@
-/// <reference types="bun-types" />
-
 import { afterEach, expect, mock } from 'bun:test';
 import { Window } from 'happy-dom';
 

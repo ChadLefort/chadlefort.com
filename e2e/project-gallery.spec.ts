@@ -73,4 +73,45 @@ test.describe('project gallery', () => {
     await dialog.locator('button[slot="close"]:visible').click();
     await expect(page.getByRole('dialog')).toHaveCount(0);
   });
+
+  for (const theme of ['dark', 'light'] as const) {
+    test(`opens and zooms the Visor gallery in ${theme} theme`, async ({ page }) => {
+      await page.addInitScript((value) => localStorage.setItem('theme', value), theme);
+      await page.goto('/projects/visor');
+
+      await expect(page.getByRole('heading', { level: 1, name: 'Visor' })).toBeVisible();
+      await expect(page.getByRole('link', { name: /view code/i })).toHaveAttribute(
+        'href',
+        'https://github.com/ChadLefort/visor'
+      );
+
+      const imagesTab = page.getByRole('tab', { name: /screenshots/i });
+
+      await expect
+        .poll(async () => {
+          await imagesTab.click();
+          return imagesTab.getAttribute('aria-selected');
+        })
+        .toBe('true');
+
+      const openButtons = page.getByRole('button', { name: /open screenshot:/i });
+      await expect(openButtons).toHaveCount(4);
+
+      await openButtons.first().click();
+
+      const dialog = page.getByRole('dialog');
+      await expect(dialog).toBeVisible();
+      await expect(dialog.getByText('1 / 4')).toBeVisible();
+
+      const imageToggle = dialog.getByRole('button', { name: /zoom screenshot|reset screenshot zoom/i });
+      await imageToggle.click();
+      await expect(imageToggle).toHaveAttribute('aria-pressed', 'true');
+
+      await dialog.getByRole('button', { name: /next image/i }).click();
+      await expect(dialog.getByText('2 / 4')).toBeVisible();
+
+      await dialog.locator('button[slot="close"]:visible').click();
+      await expect(dialog).toHaveCount(0);
+    });
+  }
 });

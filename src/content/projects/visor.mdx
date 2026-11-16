@@ -1,0 +1,84 @@
+---
+title: Visor
+subtitle: October 2025 – Present
+summary: >
+  Built a local development dashboard that walks Jira tickets through research,
+  implementation, review and pull request with one AI agent conversation per
+  ticket, alongside chats, GitHub, workspaces and terminals in one desktop app.
+cover: ../../assets/projects/visor/visor_conversation.webp
+coverAlt: A Visor ticket conversation waiting at the Branch stage, with the stage bar, the agent's research and the ticket details panel
+gallery:
+  - src: ../../assets/projects/visor/visor_conversation.webp
+    alt: A ticket conversation waiting at the Branch stage, with the stage bar, the agent's research and a Start Branch button
+    device: desktop
+  - src: ../../assets/projects/visor/visor_jira.webp
+    alt: The Jira page showing a sprint board with To Do, In Progress, Code Review and QA columns
+    device: desktop
+  - src: ../../assets/projects/visor/visor_review.webp
+    alt: A GitHub pull request with its conversation, reviewers, labels and stacked pull requests
+    device: desktop
+  - src: ../../assets/projects/visor/visor_needs-you.webp
+    alt: The home page with the Needs You sidebar, today's calendar and to-dos
+    device: desktop
+externalUrl: https://visor.chadlefort.com
+repoUrl: https://github.com/ChadLefort/visor
+tech:
+  - TypeScript
+  - React
+  - React Aria
+  - TanStack Router
+  - TanStack Query
+  - Zustand
+  - Tailwind
+  - Bun
+  - Hono
+  - SQLite
+  - Drizzle
+  - Zod
+  - Vitest
+  - Playwright
+featured: true
+span: lg
+start: '10-01-2025'
+end: '11-15-2026'
+---
+
+## Problem
+
+My day was spread across too many places: agent sessions in terminal tabs, Jira in one browser tab, GitHub pull requests in another, and a pile of worktrees and dev servers I had to keep track of by hand. AI agents could do real work on a ticket, but a long session in a terminal gave me no clear picture of where it stood, what it was waiting on, or when it was safe to step away. Nothing tied the ticket, the agent, the branch and the pull request together.
+
+## Solution
+
+I built Visor, a local daemon with a desktop app on top, that puts all of that in one place. Each Jira ticket or Board task gets one agent conversation that moves through Research, Branch, Reproduce, Implement, Validate, Review, Publish and Babysit.
+
+### **Staged agent workflow**
+
+- One durable agent conversation per item, with a stage bar, checklists and subagents
+- Manual mode pauses for approval after each stage, Auto mode continues until blocked
+- Guardrails the agent can't get around: read-only research, no merging, no pushing the default branch, and Jira changes limited to moving the ticket
+
+### **Workspaces**
+
+- Each item gets its own Git worktree, installed dependencies and dev servers on their own ports
+- Built-in terminals and a code editor for each workspace
+- Several items run at once without touching each other
+
+### **Jira and GitHub**
+
+- A Jira board with search, backlog and filters
+- A GitHub page for pull requests, stacked pull requests, reviews, checks and deploys
+- A Needs You list that gathers every approval, blocker and finished run in one place
+
+### **Architecture**
+
+- A Bun and Hono backend with SQLite and Drizzle, which keeps conversations in a private local profile
+- A React front end on TanStack Router, TanStack Query, Zustand and React Aria Components, styled with Tailwind
+- A desktop app for macOS and Linux, and access from phones over the local network
+- Vitest and Playwright tests, with a demo mode on fixture data for screenshots and end-to-end runs
+
+## Impact
+
+- One window for agent work, tickets, pull requests and dev servers.
+- I can hand a ticket to an agent and come back when it needs me, instead of watching a terminal.
+- Clear limits on what an agent can do make it safe to run several at once.
+- I use it every day for my own work.

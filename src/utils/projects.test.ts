@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { compareProjects, type ProjectEntry, sortProjects } from '~/utils/projects';
 
 const aprilEnd = '04-30-2026';

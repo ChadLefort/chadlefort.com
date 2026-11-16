@@ -43,6 +43,7 @@ export const projects = [
   { id: 'router-migration', summary: 'TanStack Router migration across 3 apps with zero downtime.' },
   { id: 'spear-cart', summary: 'Mobile first multi-cart for education SaaS, +25% memberships.' },
   { id: 'spear-dashboard', summary: 'Live instructor-guided learning dashboard, +9000% engagement.' },
+  { id: 'visor', summary: 'Local dev dashboard running one AI agent per Jira ticket.' },
   { id: 'webpack-5-module-federation', summary: 'Webpack 5 module federation rollout, reduced PR count 5→1.' }
 ];
 

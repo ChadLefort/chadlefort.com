@@ -16,7 +16,9 @@ export const skillIcon = tv({
       nx: 'text-[#143055] dark:text-[#FFFFFF]',
       lerna: 'text-[#9333EA]',
       zod: 'text-[#3068B7]',
-      primereact: 'text-[#06C4E8]'
+      primereact: 'text-[#06C4E8]',
+      hono: 'text-[#E36002]',
+      drizzle: 'text-[#5A8A0E] dark:text-[#C5F74F] print:!text-[#5A8A0E]'
     }
   },
   defaultVariants: {

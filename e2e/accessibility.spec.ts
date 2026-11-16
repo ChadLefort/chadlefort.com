@@ -14,6 +14,7 @@ const routes = [
   '/projects/router-migration',
   '/projects/webpack-5-module-federation',
   '/projects/lerna-monorepo',
+  '/projects/visor',
   '/404'
 ];
 

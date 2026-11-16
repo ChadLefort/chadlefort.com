@@ -1,5 +1,5 @@
+import { describe, expect, it, vi } from 'bun:test';
 import { act, fireEvent, render, screen } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
 import { AboutMeSwiper } from '~/components/AboutMeSwiper';
 
 vi.mock('~/hooks/useReducedMotion', () => ({

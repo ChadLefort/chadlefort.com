@@ -39,6 +39,7 @@
   --background: oklch(23% 0.014 260);
   --accent: oklch(43% 0.11 251);
   --accent-strong: oklch(33% 0.095 251);
+  --accent-fg: oklch(96% 0.01 260);
   --section-heading-accent: oklch(76% 0.095 174);
   --section-content-bg: transparent;
 
@@ -173,6 +174,7 @@
 
   --color-accent: var(--accent);
   --color-accent-strong: var(--accent-strong);
+  --color-accent-fg: var(--accent-fg);
 
   --color-surface: var(--surface);
   --color-surface-alt: var(--surface-alt);
