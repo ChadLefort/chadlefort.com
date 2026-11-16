@@ -11,7 +11,7 @@ const ctaStyles = tv({
   ],
   variants: {
     intent: {
-      primary: 'border border-accent-strong bg-accent-strong text-overlay-fg',
+      primary: 'border border-accent-strong bg-accent-strong text-accent-fg',
       secondary: 'border border-panel-border bg-term-bg text-term-fg'
     },
     size: {
