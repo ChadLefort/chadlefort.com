@@ -1,6 +1,6 @@
+import { beforeEach, describe, expect, it } from 'bun:test';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { beforeEach, describe, expect, it } from 'vitest';
 import { Shell } from '~/components/Terminal/Shell';
 import { appendLines, resetShellStore, setInteractive, setMaximized, WELCOME_LINES } from '~/components/Terminal/store';
 

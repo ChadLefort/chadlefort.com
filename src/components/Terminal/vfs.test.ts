@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { buildFs, formatPath, isMdFile, nodeAt, resolvePath } from '~/components/Terminal/vfs';
 
 describe('formatPath', () => {

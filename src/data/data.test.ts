@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { jobs } from '~/data/jobs';
 import { skills } from '~/data/skills';
 

@@ -9,7 +9,7 @@ My personal website.
 - **Tailwind CSS v4** — `@tailwindcss/vite`, `@theme inline` tokens, `@utility` blocks
 - **tailwind-variants** — colocated `tv()` per component
 - **React Aria Components** — accessible primitives (Button, Dialog, Modal)
-- **Vitest + Playwright** — unit + E2E tests
+- **Bun test + Playwright** — unit + E2E tests
 - **Biome** — linting and formatting
 - **Fallow** — dead-code / duplication / complexity auditing
 - **Bun** — package manager + runtime
@@ -29,10 +29,9 @@ My personal website.
 | `bun run lint:fix`           | biome check + auto-fix |
 | `bun run format`             | biome format (write)          |
 | `bun run format:check`       | biome format (check-only)     |
-| `bun run test`               | vitest (single run)                              |
-| `bun run test:watch`         | vitest (watch mode)                              |
-| `bun run test:ui`            | vitest (browser UI)                              |
-| `bun run test:coverage`      | vitest with coverage report                      |
+| `bun run test`               | bun test (single run)                            |
+| `bun run test:watch`         | bun test (watch mode)                            |
+| `bun run test:coverage`      | bun test with coverage report                    |
 | `bun run test:e2e`           | playwright                                       |
 | `bun run test:e2e:update`    | playwright (update snapshots)                    |
 | `bun run test:e2e:ui`        | playwright (UI mode)                             |

@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { formatDateRange, formatMonthYear, parseUsDate, toYearMonthDateTime } from '~/utils/date';
 
 describe('parseUsDate', () => {
